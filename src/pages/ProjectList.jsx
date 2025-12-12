@@ -13,7 +13,7 @@ const ProjectList = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('/projects.csv');
+        const response = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
         const reader = response.body.getReader();
         const result = await reader.read();
         const decoder = new TextDecoder('utf-8');

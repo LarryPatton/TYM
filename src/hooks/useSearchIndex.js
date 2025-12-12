@@ -10,8 +10,8 @@ export const useSearchIndex = () => {
       try {
         // 并行加载 CSV
         const [projectsRes, themesRes] = await Promise.all([
-          fetch('/projects.csv'),
-          fetch('/themes.csv')
+          fetch(`${import.meta.env.BASE_URL}projects.csv`),
+          fetch(`${import.meta.env.BASE_URL}themes.csv`)
         ]);
 
         const projectsCsv = await projectsRes.text();

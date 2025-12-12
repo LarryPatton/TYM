@@ -19,7 +19,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         // 1. 获取精选项目
-        const projectsResponse = await fetch('/projects.csv');
+        const projectsResponse = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
         const projectsCsv = await projectsResponse.text();
         const projectsData = Papa.parse(projectsCsv, { header: true, skipEmptyLines: true }).data;
         
@@ -33,7 +33,7 @@ const Home = () => {
           });
 
         // 2. 获取精选主题
-        const themesResponse = await fetch('/themes.csv');
+        const themesResponse = await fetch(`${import.meta.env.BASE_URL}themes.csv`);
         const themesCsv = await themesResponse.text();
         const themesData = Papa.parse(themesCsv, { header: true, skipEmptyLines: true }).data;
 

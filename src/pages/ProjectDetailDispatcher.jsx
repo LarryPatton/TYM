@@ -14,19 +14,19 @@ const ProjectDetailDispatcher = () => {
     const fetchData = async () => {
       try {
         // 1. 获取项目基本信息
-        const projectsResponse = await fetch('/projects.csv');
+        const projectsResponse = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
         const projectsCsv = await projectsResponse.text();
         const projectsData = Papa.parse(projectsCsv, { header: true, skipEmptyLines: true }).data;
+        
         const project = projectsData.find(p => p.id === id);
-
         if (!project) {
-          console.warn(`Project ${id} not found.`);
+          setError('Project not found');
           setLoading(false);
           return;
         }
 
-        // 2. 获取项目章节结构
-        const sectionsResponse = await fetch('/project_sections.csv');
+        // 2. 加载项目分段数据 (project_sections.csv)
+        const sectionsResponse = await fetch(`${import.meta.env.BASE_URL}project_sections.csv`);
         const sectionsCsv = await sectionsResponse.text();
         const sectionsData = Papa.parse(sectionsCsv, { header: true, skipEmptyLines: true }).data;
         

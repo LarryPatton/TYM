@@ -11,7 +11,7 @@ const SmartBreadcrumbs = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('/projects.csv');
+        const response = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
         const csvText = await response.text();
         const data = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
         
