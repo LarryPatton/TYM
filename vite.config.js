@@ -5,8 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // GitLab Pages 部署路径配置
-  // 如果是在 CI 环境，使用项目名作为 base，否则使用根路径
-  base: './',
+  base: '/ai_prompt/',
   server: {
     port: 6123,
   },
