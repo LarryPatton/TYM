@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Papa from 'papaparse';
 import { useTitle } from '../hooks/useTitle';
+import { getAssetPath } from '../utils/path';
 
 const ProjectList = () => {
   useTitle('项目列表');
@@ -123,7 +124,7 @@ const ProjectList = () => {
                 }}>
                   {project.cover ? (
                     <img 
-                      src={project.cover} 
+                      src={getAssetPath(project.cover)}
                       alt={project.name} 
                       style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
                       onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = project.name; }}
@@ -196,7 +197,7 @@ const ProjectList = () => {
               }}>
                 {project.cover ? (
                   <img 
-                    src={project.cover} 
+                    src={getAssetPath(project.cover)}
                     alt={project.name} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = '[Image]'; }}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
 import { useTitle } from '../hooks/useTitle';
+import { getAssetPath } from '../utils/path';
 
 // 模拟复制功能的 Hook
 const useClipboard = () => {
@@ -196,7 +197,7 @@ const ThemeList = () => {
                   }}>
                     {item.image_path ? (
                       <img 
-                        src={item.image_path} 
+                        src={getAssetPath(item.image_path)}
                         alt={item.name}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         onError={(e) => {

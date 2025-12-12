@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useClipboard } from '../hooks/useClipboard';
+import { getAssetPath } from '../utils/path';
 
 // 模拟数据
 const demoItem = {
@@ -7,7 +9,7 @@ const demoItem = {
   name: '古典建筑',
   en: 'Classical Architecture',
   prompt: 'Classical architecture, greek temple, marble columns, intricate details, epic scale, cinematic lighting, 8k resolution...',
-  image_path: '/images/themes/architecture/古典建筑_Classical Architecture.jpg' 
+  image_path: '/images/themes/architecture/古典建筑_Classical Architecture.png'
 };
 
 // --- 通用卡片容器 ---
@@ -36,7 +38,7 @@ const FlipCard = ({ title, BackComponent }) => {
           border: '1px solid #eee'
         }}>
           <div style={{ flex: 1, background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <img src={demoItem.image_path} alt={demoItem.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            <img src={getAssetPath(demoItem.image_path)} alt={demoItem.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                  onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerText='[Image]'; }} />
           </div>
           <div style={{ padding: '15px', textAlign: 'center' }}>
@@ -69,7 +71,7 @@ const Back1 = ({ item }) => {
       {/* 底层：模糊的背景图 */}
       <div style={{
         position: 'absolute', inset: '-20px', 
-        backgroundImage: `url("${item.image_path}")`,
+        backgroundImage: `url("${getAssetPath(item.image_path)}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         filter: 'blur(15px) brightness(0.8)', 
@@ -176,7 +178,7 @@ const Back5 = ({ item }) => {
       padding: '20px', color: '#fff'
     }}>
       {/* 背景图 */}
-      <img src={item.image_path} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(2px)' }} 
+      <img src={getAssetPath(item.image_path)} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(2px)' }} 
            onError={(e) => e.target.style.display='none'} />
       {/* 遮罩 */}
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.7)' }}></div>

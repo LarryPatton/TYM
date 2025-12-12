@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getAssetPath } from '../../utils/path';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
@@ -31,7 +32,7 @@ const Template2 = ({ project }) => {
         </div>
         <div style={{ background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc', fontSize: '2em', overflow: 'hidden' }}>
           {templateData.cover ? (
-             <img src={templateData.cover} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+             <img src={getAssetPath(templateData.cover)} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
              '[ Hero Image ]'
           )}

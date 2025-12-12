@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getAssetPath } from '../../utils/path';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
@@ -33,7 +34,7 @@ const Template4 = ({ project }) => {
       {/* Hero Section (从 Template1 移植的全屏沉浸式) */}
       <div style={{ position: 'relative', height: '90vh', background: '#111', color: '#fff', overflow: 'hidden', marginBottom: '80px' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: 0.4, background: 'linear-gradient(45deg, #222, #444)' }}>
-           {templateData.cover && <img src={templateData.cover} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+           {templateData.cover && <img src={getAssetPath(templateData.cover)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
         </div>
         <div style={{ position: 'absolute', bottom: '100px', left: '60px', maxWidth: '900px' }}>
           <motion.h1 initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} style={{ fontSize: '6em', margin: 0, lineHeight: 1, letterSpacing: '-2px' }}>

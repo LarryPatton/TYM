@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getAssetPath } from '../../utils/path';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
@@ -30,7 +31,7 @@ const Template3 = ({ project }) => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '10px', padding: '20px' }}>
           {/* 这里可以使用 project.cover 或其他图片 */}
           <div style={{ background: '#eee', borderRadius: '12px', overflow: 'hidden' }}>
-             {templateData.cover && <img src={templateData.cover} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+             {templateData.cover && <img src={getAssetPath(templateData.cover)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
           </div>
           <div style={{ background: '#e5e5e5', borderRadius: '12px', gridRow: 'span 2' }}></div>
           <div style={{ background: '#ddd', borderRadius: '12px' }}></div>

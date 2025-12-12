@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Papa from 'papaparse';
 import { useClipboard } from '../hooks/useClipboard'; // 引入 Hook
 import { useTitle } from '../hooks/useTitle';
+import { getAssetPath } from '../utils/path';
 
 const Home = () => {
   useTitle('首页');
@@ -237,8 +238,8 @@ const Home = () => {
                   }}>
                     {item.cover ? (
                       <img 
-                        src={item.cover} 
-                        alt={item.name} 
+                        src={getAssetPath(item.cover)} 
+                        alt={item.name}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = item.name; }}
                       />
@@ -375,8 +376,8 @@ const Home = () => {
                   >
                     {hoveredThemeItem.image_path ? (
                       <img 
-                        src={hoveredThemeItem.image_path} 
-                        alt={hoveredThemeItem.name} 
+                        src={getAssetPath(hoveredThemeItem.image_path)} 
+                        alt={hoveredThemeItem.name}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         onError={(e) => { 
                           // 防止死循环
