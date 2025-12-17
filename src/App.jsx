@@ -19,7 +19,7 @@ import GalleryWorkDetail from './pages/GalleryWorkDetail';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/TYM">
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
