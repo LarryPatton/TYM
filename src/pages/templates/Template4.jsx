@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
-import { getAssetPath } from '../../utils/path';
-import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
 import { useTitle } from '../../hooks/useTitle';
-import TableOfContents from '../../components/TableOfContents';
 
 const Template4 = ({ project }) => {
-  const { id } = useParams();
-  useTitle(`项目详情 ${id}`);
+  useTitle('项目详情');
 
   const { copiedId, copy } = useClipboard();
   const [hoveredCardId, setHoveredCardId] = useState(null);
 
-  // 使用传入的 project 数据，如果未传入则使用默认值（防止报错）
+  // 使用传入的 project 数据，如果未传入则使用默认值
   const templateData = project || {
-    title: `Project Title ${id}`,
-    subtitle: 'Project Subtitle / Brief Description Placeholder',
-    description: 'Detailed project description goes here. This is a generic template layout.',
+    name: 'Immersive Project',
+    description: 'Full-screen immersive hero with card grid layout',
     categories: []
   };
 
@@ -31,10 +26,10 @@ const Template4 = ({ project }) => {
 
   return (
     <div>
-      {/* Hero Section (从 Template1 移植的全屏沉浸式) */}
+      {/* Hero Section - 全屏沉浸式 */}
       <div style={{ position: 'relative', height: '90vh', background: '#111', color: '#fff', overflow: 'hidden', marginBottom: '80px' }}>
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.4, background: 'linear-gradient(45deg, #222, #444)' }}>
-           {templateData.cover && <img src={getAssetPath(templateData.cover)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.4, background: 'linear-gradient(45deg, #222, #444)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555', fontSize: '3em' }}>
+          [ Hero Background Image ]
         </div>
         <div style={{ position: 'absolute', bottom: '100px', left: '60px', maxWidth: '900px' }}>
           <motion.h1 initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} style={{ fontSize: '6em', margin: 0, lineHeight: 1, letterSpacing: '-2px' }}>
@@ -119,20 +114,9 @@ const Template4 = ({ project }) => {
                       display: 'flex', flexDirection: 'column',
                       overflow: 'hidden'
                     }}>
-                      {/* 图片占位符 */}
-                      <div style={{ 
-                        flex: 1,
-                        background: '#f0f0f0', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        color: '#ccc',
-                        fontSize: '1.2em',
-                        flexDirection: 'column',
-                        gap: '10px'
-                      }}>
-                        <div style={{ width: '40px', height: '40px', background: '#ddd', borderRadius: '50%' }}></div>
-                        [Image Placeholder]
+                      {/* 图片占位 */}
+                      <div style={{ flex: 1, overflow: 'hidden', background: '#e5e5e5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999' }}>
+                        [ Image ]
                       </div>
                       {/* 文字 */}
                       <div style={{ padding: '20px', textAlign: 'center' }}>

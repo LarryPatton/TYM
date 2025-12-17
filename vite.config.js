@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // GitLab Pages 部署路径配置
-  base: '/ai_prompt/',
+  // GitHub Pages 部署使用仓库名作为基础路径
+  base: '/TYM/',
   server: {
-    port: 6123,
+    port: 7845,
   },
 })

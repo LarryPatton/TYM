@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import { getAssetPath } from '../../utils/path';
-import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
 import TableOfContents from '../../components/TableOfContents';
 
 const Template2 = ({ project }) => {
-  const { id } = useParams();
   const { copiedId, copy } = useClipboard();
   const [hoveredCardId, setHoveredCardId] = useState(null);
 
-  // 使用传入的 project 数据，如果未传入则使用默认值（防止报错）
+  // 使用传入的 project 数据，如果未传入则使用默认值
   const templateData = project || {
-    title: `Split Project ${id}`,
-    subtitle: 'Split Screen Hero + Masonry Layout',
+    name: 'Demo Project',
+    description: 'Split Screen Hero + Masonry Layout',
     categories: []
   };
 
@@ -31,11 +28,7 @@ const Template2 = ({ project }) => {
           </p>
         </div>
         <div style={{ background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc', fontSize: '2em', overflow: 'hidden' }}>
-          {templateData.cover ? (
-             <img src={getAssetPath(templateData.cover)} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          ) : (
-             '[ Hero Image ]'
-          )}
+          [ Hero Image ]
         </div>
       </div>
 
@@ -85,13 +78,8 @@ const Template2 = ({ project }) => {
                       overflow: 'hidden',
                       border: '1px solid #eee'
                     }}>
-                      <div style={{ 
-                        flex: 1,
-                        background: '#f5f5f5', 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#ccc'
-                      }}>
-                        [Image]
+                      <div style={{ flex: 1, overflow: 'hidden', background: '#e5e5e5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999' }}>
+                        [ Image ]
                       </div>
                       <div style={{ padding: '15px', fontWeight: '500' }}>{item.name}</div>
                     </div>

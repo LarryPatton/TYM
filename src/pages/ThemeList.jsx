@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import Papa from 'papaparse';
+import React, { useState, useRef } from 'react';
 import { useTitle } from '../hooks/useTitle';
-import { getAssetPath } from '../utils/path';
 
 // 模拟复制功能的 Hook
 const useClipboard = () => {
@@ -15,24 +12,46 @@ const useClipboard = () => {
   return { copiedId, copy };
 };
 
-const ThemeList = () => {
-  useTitle('主题库'); // 设置标题
+// 示例数据 - 主题分类
+const mockThemesData = {
+  '建筑': [
+    { id: 'arch_1', name: '现代主义', en: 'Modernism', prompt: 'Modern architecture style with clean lines' },
+    { id: 'arch_2', name: '未来城市', en: 'Futuristic City', prompt: 'Futuristic city concept with advanced technology' },
+    { id: 'arch_3', name: '解构主义', en: 'Deconstructivism', prompt: 'Deconstructivism architectural style' },
+    { id: 'arch_4', name: '极简主义', en: 'Minimalism', prompt: 'Minimalist architecture with simple forms' },
+  ],
+  '数字艺术': [
+    { id: 'digital_1', name: '赛博朋克', en: 'Cyberpunk', prompt: 'Cyberpunk aesthetic with neon lights' },
+    { id: 'digital_2', name: '蒸汽波', en: 'Vaporwave', prompt: 'Vaporwave style with retro aesthetics' },
+    { id: 'digital_3', name: '像素艺术', en: 'Pixel Art', prompt: 'Pixel art style with 8-bit graphics' },
+    { id: 'digital_4', name: '故障艺术', en: 'Glitch Art', prompt: 'Glitch art with digital distortion effects' },
+  ],
+  '插画': [
+    { id: 'illust_1', name: '扁平风格', en: 'Flat Design', prompt: 'Flat illustration style with bold colors' },
+    { id: 'illust_2', name: '手绘素描', en: 'Hand Sketch', prompt: 'Hand-drawn sketch style illustration' },
+    { id: 'illust_3', name: '矢量插画', en: 'Vector Art', prompt: 'Clean vector illustration style' },
+    { id: 'illust_4', name: '水彩风格', en: 'Watercolor', prompt: 'Watercolor painting style illustration' },
+  ],
+  '摄影': [
+    { id: 'photo_1', name: '人像摄影', en: 'Portrait', prompt: 'Professional portrait photography style' },
+    { id: 'photo_2', name: '风景摄影', en: 'Landscape', prompt: 'Stunning landscape photography' },
+    { id: 'photo_3', name: '街头摄影', en: 'Street', prompt: 'Urban street photography style' },
+  ],
+};
 
-  const [themesData, setThemesData] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [activeTab, setActiveTab] = useState('');
-  const [loading, setLoading] = useState(true);
+const ThemeList = () => {
+  useTitle('主题库');
+
+  const categories = Object.keys(mockThemesData);
+  const [activeTab, setActiveTab] = useState(categories[0]);
   const { copiedId, copy } = useClipboard();
   const [hoveredCardId, setHoveredCardId] = useState(null);
   
   // 网格列数控制状态
-  const [gridColumns, setGridColumns] = useState(5); // 默认 5 列
-  const [isControlOpen, setIsControlOpen] = useState(false); // 控制条展开状态
-  const closeTimeoutRef = React.useRef(null); // 用于存储定时器 ID
-  
-  const location = useLocation();
+  const [gridColumns, setGridColumns] = useState(4);
+  const [isControlOpen, setIsControlOpen] = useState(false);
+  const closeTimeoutRef = useRef(null);
 
-  // 处理鼠标移入：清除定时器，保持展开（如果是点击展开的）
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -40,7 +59,6 @@ const ThemeList = () => {
     }
   };
 
-  // 处理鼠标移出：设置 1.5s 后收起
   const handleMouseLeave = () => {
     if (isControlOpen) {
       closeTimeoutRef.current = setTimeout(() => {
@@ -49,67 +67,10 @@ const ThemeList = () => {
     }
   };
 
-  // 处理点击：切换展开/收起
   const handleClick = () => {
-    if (isControlOpen) {
-      // 如果已经展开，点击则立即收起
-      setIsControlOpen(false);
-      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-    } else {
-      // 如果未展开，点击则展开
-      setIsControlOpen(true);
-    }
+    setIsControlOpen(!isControlOpen);
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.BASE_URL}themes.csv`);
-        const reader = response.body.getReader();
-        const result = await reader.read();
-        const decoder = new TextDecoder('utf-8');
-        const csv = decoder.decode(result.value);
-        
-        Papa.parse(csv, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            const data = results.data;
-            const groupedData = {};
-            
-            data.forEach(item => {
-              if (!groupedData[item.category]) {
-                groupedData[item.category] = [];
-              }
-              groupedData[item.category].push(item);
-            });
-
-            const cats = Object.keys(groupedData);
-            setThemesData(groupedData);
-            setCategories(cats);
-            
-            // 优先使用 location.state 中的 category，否则默认第一个
-            if (location.state && location.state.category && cats.includes(location.state.category)) {
-              setActiveTab(location.state.category);
-            } else if (cats.length > 0) {
-              setActiveTab(cats[0]);
-            }
-            
-            setLoading(false);
-          }
-        });
-      } catch (error) {
-        console.error('Error fetching themes:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [location.state]); // 依赖 location.state，以便跳转时重新触发（虽然通常是重新挂载）
-
-  if (loading) {
-    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading themes...</div>;
-  }
 
   return (
     <div>
@@ -119,7 +80,7 @@ const ThemeList = () => {
         <p style={{ color: '#666' }}>Explore our curated collection of styles and concepts.</p>
       </div>
 
-      {/* 顶部 Tabs 导航 - 多行居中布局 */}
+      {/* 顶部 Tabs 导航 */}
       <div style={{ 
         display: 'flex', 
         justifyContent: 'center',
@@ -154,12 +115,11 @@ const ThemeList = () => {
       <div>
         <div style={{ 
           display: 'grid', 
-          // 动态设置列数
           gridTemplateColumns: `repeat(${gridColumns}, 1fr)`, 
           gap: '30px',
-          transition: 'grid-template-columns 0.3s ease' // 添加平滑过渡
+          transition: 'grid-template-columns 0.3s ease'
         }}>
-          {themesData[activeTab]?.map((item) => (
+          {mockThemesData[activeTab]?.map((item, index) => (
             <div 
               key={item.id}
               onMouseEnter={() => setHoveredCardId(item.id)}
@@ -177,56 +137,24 @@ const ThemeList = () => {
                 transform: hoveredCardId === item.id ? 'rotateY(180deg)' : 'rotateY(0deg)'
               }}>
                 
-                {/* === 正面 (Front) === */}
+                {/* 正面 (Front) */}
                 <div style={{
                   position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
                   background: '#fff', 
                   display: 'flex', flexDirection: 'column'
                 }}>
-                  {/* 图片 */}
+                  {/* 图片占位 */}
                   <div style={{ 
                     flex: 1,
-                    background: '#f5f5f5', 
+                    background: index % 2 === 0 ? '#e5e5e5' : '#d5d5d5', 
                     borderRadius: '12px',
                     marginBottom: '15px',
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
-                    color: '#ccc',
-                    overflow: 'hidden'
+                    color: '#999'
                   }}>
-                    {item.image_path ? (
-                      <img 
-                        src={getAssetPath(item.image_path)}
-                        alt={item.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        onError={(e) => {
-                          // 防止死循环：如果已经重试过一次，则不再重试
-                          if (e.target.dataset.retried) {
-                            e.target.style.display = 'none'; 
-                            e.target.parentNode.innerText = '[Image]';
-                            return;
-                          }
-                          
-                          // 标记已重试
-                          e.target.dataset.retried = "true";
-                          
-                          // 尝试切换扩展名
-                          const currentSrc = e.target.src;
-                          if (currentSrc.endsWith('.png')) {
-                            e.target.src = currentSrc.replace('.png', '.jpg');
-                          } else if (currentSrc.endsWith('.jpg')) {
-                            e.target.src = currentSrc.replace('.jpg', '.png');
-                          } else {
-                            // 如果不是 png/jpg 结尾，直接失败
-                            e.target.style.display = 'none'; 
-                            e.target.parentNode.innerText = '[Image]';
-                          }
-                        }}
-                      />
-                    ) : (
-                      '[Image]'
-                    )}
+                    [ Preview Image ]
                   </div>
                   {/* 文字 */}
                   <div style={{ textAlign: 'center', height: '50px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -235,7 +163,7 @@ const ThemeList = () => {
                   </div>
                 </div>
 
-                {/* === 背面 (Back) === */}
+                {/* 背面 (Back) */}
                 <div style={{
                   position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
                   background: '#111', color: '#fff', borderRadius: '12px',
@@ -293,7 +221,6 @@ const ThemeList = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* 减号按钮 */}
         {isControlOpen && (
           <button
             onClick={(e) => {
@@ -304,15 +231,14 @@ const ThemeList = () => {
               background: 'none', border: 'none', fontSize: '1.5em', cursor: 'pointer',
               padding: '0 15px', color: '#333', display: 'flex', alignItems: 'center'
             }}
-            title="减少列数 (变大)"
+            title="减少列数"
           >
             −
           </button>
         )}
 
-        {/* 网格图标 */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="3" y="3" width="7" height="7"></rect>
             <rect x="14" y="3" width="7" height="7"></rect>
             <rect x="14" y="14" width="7" height="7"></rect>
@@ -320,7 +246,6 @@ const ThemeList = () => {
           </svg>
         </div>
 
-        {/* 加号按钮 */}
         {isControlOpen && (
           <button
             onClick={(e) => {
@@ -331,7 +256,7 @@ const ThemeList = () => {
               background: 'none', border: 'none', fontSize: '1.5em', cursor: 'pointer',
               padding: '0 15px', color: '#333', display: 'flex', alignItems: 'center'
             }}
-            title="增加列数 (变小)"
+            title="增加列数"
           >
             +
           </button>

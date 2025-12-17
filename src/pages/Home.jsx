@@ -1,90 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import Papa from 'papaparse';
-import { useClipboard } from '../hooks/useClipboard'; // 引入 Hook
+import React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTitle } from '../hooks/useTitle';
-import { getAssetPath } from '../utils/path';
+import { Link } from 'react-router-dom';
+import ScrollParallaxShowcase from '../components/ScrollParallaxShowcase';
+import ServiceSection from '../components/ServiceSection';
+import BlindsTransition from '../components/BlindsTransition';
 
 const Home = () => {
   useTitle('首页');
-  const [featuredProjects, setFeaturedProjects] = useState([]);
-  const [featuredThemes, setFeaturedThemes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  // 方案 4 所需的状态
-  const [hoveredThemeItem, setHoveredThemeItem] = useState(null);
-  const { copiedId, copy } = useClipboard();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // 1. 获取精选项目
-        const projectsResponse = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
-        const projectsCsv = await projectsResponse.text();
-        const projectsData = Papa.parse(projectsCsv, { header: true, skipEmptyLines: true }).data;
-        
-        const featuredProjs = projectsData
-          .filter(p => p.is_featured === 'true')
-          .map((item, index) => {
-            let size = 'normal';
-            if (index === 0) size = 'large';
-            else if (index === 3) size = 'wide';
-            return { ...item, size };
-          });
+  const { scrollY } = useScroll();
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
 
-        // 2. 获取精选主题
-        const themesResponse = await fetch(`${import.meta.env.BASE_URL}themes.csv`);
-        const themesCsv = await themesResponse.text();
-        const themesData = Papa.parse(themesCsv, { header: true, skipEmptyLines: true }).data;
-
-        const themesMap = {};
-        themesData.forEach(item => {
-          if (item.is_featured === 'true') {
-            if (!themesMap[item.category]) {
-              themesMap[item.category] = [];
-            }
-            // 增加展示数量：每个大类最多 12 个
-            if (themesMap[item.category].length < 12) { 
-              themesMap[item.category].push(item); 
-            }
-          }
-        });
-
-        // 增加展示大类数量：展示前 4 个大类
-        const featuredThemesList = Object.keys(themesMap)
-          .slice(0, 4) 
-          .map(category => ({
-            title: category,
-            items: themesMap[category]
-          }));
-
-        setFeaturedProjects(featuredProjs);
-        setFeaturedThemes(featuredThemesList);
-        
-        // 默认选中第一个主题的第一个子项
-        if (featuredThemesList.length > 0 && featuredThemesList[0].items.length > 0) {
-          setHoveredThemeItem(featuredThemesList[0].items[0]);
-        }
-
-        setLoading(false);
-
-      } catch (error) {
-        console.error('Error loading home data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // 动画配置
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -93,13 +26,76 @@ const Home = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.1,
         delayChildren: 0.2
       }
     }
   };
 
-  // 滚动到指定区域
+  // 全屏容器样式
+  const fullscreenSection = {
+    width: '100%',
+    padding: '0 clamp(40px, 8vw, 120px)',
+  };
+
+  // Mock Data
+  const featuredCases = [
+    { 
+      id: '02-ui-guidelines', 
+      title: 'UI 视觉规范', 
+      subtitle: 'Chapter 02 · 视觉系统的建立',
+      desc: '建立跨平台的数字视觉语言与组件库。', 
+      cover: '#f0f0f0' 
+    },
+    { 
+      id: '03-cmf', 
+      title: '产品 CMF 定义', 
+      subtitle: 'Chapter 03 · 物理质感的转译',
+      desc: '将数字美学转化为实体产品的材质与工艺。', 
+      cover: '#e5e5e5' 
+    },
+    { 
+      id: '06-marketing-plan', 
+      title: '品牌营销视觉', 
+      subtitle: 'Chapter 06 · 跨渠道的视觉延展',
+      desc: '跨渠道的视觉系统延展与传播策略。', 
+      cover: '#dedede' 
+    },
+  ];
+
+  const skills = [
+    { title: '产品设计', desc: 'UI/UX, 原型设计, 设计系统' },
+    { title: '开发', desc: 'React, 前端架构, 交大顺' },
+    { title: '策略', desc: '用户研究, 产品策略, 数据分析' },
+  ];
+
+  // 专业服务数据
+  const services = [
+    { 
+      id: 'design-system',
+      title: 'Design System', 
+      desc: '构建跨平台的设计语言与组件库，确保品牌一致性与开发效率的完美平衡。' 
+    },
+    { 
+      id: 'product-design',
+      title: 'Product Design', 
+      desc: '从用户研究到交互设计、视觉设计的全链路产品设计服务，打造卓越用户体验。' 
+    },
+    { 
+      id: 'development',
+      title: 'Development', 
+      desc: '基于 React/Vue 的现代前端开发，动效实现，响应式设计与性能优化。' 
+    },
+    { 
+      id: 'strategy',
+      title: 'Strategy', 
+      desc: '用户研究、竞品分析、产品策略规划，数据驱动的设计决策支持。' 
+    },
+  ];
+
+  // 合作品牌数据
+  const partners = ['Google', 'Spotify', 'Airbnb', 'Stripe', 'Nike'];
+
   const scrollToFeatured = () => {
     const element = document.getElementById('featured-projects');
     if (element) {
@@ -107,318 +103,419 @@ const Home = () => {
     }
   };
 
-  if (loading) return null;
-
   return (
-    <div>
-      {/* 1. Hero Section - 页面加载即触发 */}
+    <div style={{ overflow: 'hidden' }}>
+      {/* 1. Hero Section - 全屏沉浸式 */}
       <motion.section 
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
         style={{ 
-          padding: '100px 0 120px 0', 
-          borderBottom: '1px solid #eee',
-          marginBottom: '80px'
+          minHeight: 'calc(100vh - 80px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
+          background: 'linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%)',
+          position: 'relative',
+          boxSizing: 'border-box',
         }}
       >
-        <div style={{ maxWidth: '900px' }}>
+        {/* 背景装饰元素 */}
+        <div style={{
+          position: 'absolute',
+          top: '15%',
+          right: '8%',
+          width: 'clamp(250px, 35vw, 600px)',
+          height: 'clamp(250px, 35vw, 600px)',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(196, 224, 42, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ maxWidth: '1400px', width: '100%', position: 'relative', zIndex: 1 }}>
           <motion.h1 
-            variants={fadeInUp}
+            variants={fadeInUp} 
             style={{ 
-              fontSize: '5em', 
-              fontWeight: '900', 
-              lineHeight: '1.1', 
-              letterSpacing: '-2px', 
-              marginBottom: '30px',
-              color: '#000'
+              fontFamily: 'var(--font-serif)', 
+              fontSize: 'clamp(3.5rem, 12vw, 9rem)', 
+              fontWeight: '400', 
+              lineHeight: '1', 
+              marginBottom: '30px', 
+              letterSpacing: '-0.03em' 
             }}
           >
-            Create.<br/>
-            Innovate.<br/>
-            Inspire.
+            你的名字
           </motion.h1>
-          <motion.p 
-            variants={fadeInUp}
+          <motion.h2 
+            variants={fadeInUp} 
             style={{ 
-              fontSize: '1.5em', 
+              fontSize: 'clamp(1.3rem, 3vw, 2.5rem)', 
+              fontWeight: '400', 
               color: '#666', 
-              maxWidth: '600px', 
-              lineHeight: '1.6',
-              marginBottom: '50px'
+              marginBottom: '40px', 
+              fontFamily: 'var(--font-sans)' 
             }}
           >
-            汇聚内部创新力量与外部商业智慧。<br/>
-            探索每一个像素背后的无限可能。
+            产品设计师 & 开发者
+          </motion.h2>
+          <motion.p 
+            variants={fadeInUp} 
+            style={{ 
+              fontSize: 'clamp(1.1rem, 2vw, 1.6rem)', 
+              color: '#444', 
+              maxWidth: '800px', 
+              lineHeight: '1.6', 
+              marginBottom: '60px' 
+            }}
+          >
+            打造融合美学与功能的数字体验。<br/>
+            通过设计与代码，帮助品牌讲述他们的故事。
           </motion.p>
-          <motion.div variants={fadeInUp}>
+          
+          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '15px', marginBottom: '60px', flexWrap: 'wrap' }}>
+            {['UI/UX', 'React', 'Motion', 'Strategy'].map(tag => (
+              <span 
+                key={tag} 
+                style={{ 
+                  padding: '10px 24px', 
+                  background: 'rgba(255,255,255,0.8)', 
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(0,0,0,0.08)', 
+                  borderRadius: '100px', 
+                  fontSize: 'clamp(0.85rem, 1vw, 1rem)', 
+                  fontWeight: '500', 
+                  color: '#555' 
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             <button 
               onClick={scrollToFeatured}
               style={{ 
-                display: 'inline-block',
-                padding: '15px 40px', 
-                background: '#000', 
+                padding: '18px 48px', 
+                background: '#111', 
                 color: '#fff', 
-                border: 'none',
-                borderRadius: '30px',
+                border: 'none', 
+                borderRadius: '100px', 
+                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                cursor: 'pointer', 
+                transition: 'all 0.3s ease',
                 fontWeight: '500',
-                fontSize: '1.1em',
-                cursor: 'pointer'
               }}
             >
-              Start Exploring
+              查看精选案例
             </button>
+            <Link to="/contact">
+              <button 
+                style={{ 
+                  padding: '18px 48px', 
+                  background: 'transparent', 
+                  color: '#111', 
+                  border: '1px solid rgba(0,0,0,0.2)', 
+                  borderRadius: '100px', 
+                  fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                  cursor: 'pointer', 
+                  transition: 'all 0.3s ease' 
+                }}
+              >
+                联系我
+              </button>
+            </Link>
           </motion.div>
         </div>
+
+        {/* 滚动提示 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          style={{
+            opacity: scrollIndicatorOpacity,
+            position: 'absolute',
+            bottom: '50px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px',
+            color: '#999',
+            fontSize: '0.75rem',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+          }}
+        >
+          <span>Scroll</span>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            style={{
+              width: '1px',
+              height: '50px',
+              background: 'linear-gradient(to bottom, #999, transparent)',
+            }}
+          />
+        </motion.div>
+
       </motion.section>
 
-      {/* 2. 精选项目 - 滚动触发 */}
-      <section id="featured-projects" style={{ marginBottom: '120px' }}>
+      {/* Hero 到作品展示的百叶窗过渡 - Junni 风格 */}
+      <BlindsTransition 
+        fromColor="#f5f5f5"
+        toColor="#0a0a0a"
+        blindsCount={6}
+        height="70vh"
+      >
+        {/* 底层内容预览 */}
+        <div style={{
+          fontSize: 'clamp(4rem, 15vw, 12rem)',
+          fontWeight: '800',
+          color: 'transparent',
+          WebkitTextStroke: '1px rgba(255,255,255,0.15)',
+          letterSpacing: '-0.02em',
+          textTransform: 'uppercase',
+        }}>
+          WORKS
+        </div>
+      </BlindsTransition>
+
+      {/* 2. Featured Cases - 滚动视差展示 */}
+      <div id="featured-projects">
+        <ScrollParallaxShowcase 
+          projects={featuredCases} 
+          sectionTitle="作品集导读 · 精选作品"
+        />
+      </div>
+
+      {/* Work 到 Service 的百叶窗过渡 */}
+      <BlindsTransition 
+        fromColor="#0a0a0a"
+        toColor="#f5f5f5"
+        blindsCount={6}
+        height="140vh"
+      >
+        {/* 底层内容预览 - 浅色背景上的深色文字 */}
+        <div style={{
+          fontSize: 'clamp(4rem, 15vw, 12rem)',
+          fontWeight: '800',
+          color: 'transparent',
+          WebkitTextStroke: '1px rgba(0,0,0,0.15)',
+          letterSpacing: '-0.02em',
+          textTransform: 'uppercase',
+        }}>
+          SERVICES
+        </div>
+      </BlindsTransition>
+
+      {/* 3. Services Section - 专业能力 */}
+      <ServiceSection 
+        services={services}
+        title="SERVICE"
+        sectionLabel="专业能力"
+      />
+
+      {/* 4. Trust Area - 合作品牌（与 ServiceSection 深色区域无缝连接） */}
+      <section style={{ 
+        padding: 'clamp(80px, 12vh, 140px) clamp(40px, 8vw, 120px)', 
+        textAlign: 'center',
+        background: '#111',
+        position: 'relative',
+      }}>
+        {/* 顶部装饰线 */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '1px',
+          height: '60px',
+          background: 'linear-gradient(to bottom, #333, transparent)',
+        }} />
+
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          style={{ 
+            color: '#555', 
+            marginBottom: '60px', 
+            fontSize: '0.85rem', 
+            textTransform: 'uppercase', 
+            letterSpacing: '4px' 
+          }}
+        >
+          合作品牌
+        </motion.p>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: 'clamp(40px, 8vw, 100px)', 
+            flexWrap: 'wrap',
+            maxWidth: '1200px',
+            margin: '0 auto',
+          }}
+        >
+          {partners.map((brand, index) => (
+            <motion.span 
+              key={brand} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 0.4, y: 0 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              style={{ 
+                fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', 
+                fontWeight: '700', 
+                color: '#fff',
+                letterSpacing: '0.05em',
+                cursor: 'default',
+                transition: 'opacity 0.3s ease',
+              }}
+            >
+              {brand}
+            </motion.span>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* 5. Contact CTA - 全屏沉浸式 */}
+      <section style={{ 
+        minHeight: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
+        textAlign: 'center', 
+        background: '#111', 
+        color: '#fff',
+        position: 'relative',
+      }}>
+        {/* 背景装饰圆 */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(350px, 55vw, 900px)',
+          height: 'clamp(350px, 55vw, 900px)',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(196, 224, 42, 0.06) 0%, transparent 60%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* 顶部装饰线 */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '1px',
+          height: '80px',
+          background: 'linear-gradient(to bottom, #333, transparent)',
+        }} />
+
+        <motion.h2 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ 
+            fontFamily: 'var(--font-serif)', 
+            fontSize: 'clamp(2.5rem, 8vw, 5.5rem)', 
+            fontWeight: '400', 
+            marginBottom: '30px',
+            position: 'relative',
+            zIndex: 1,
+            lineHeight: 1.1,
+          }}
+        >
+          想一起做点什么？
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={{ once: true }}
+          style={{ 
+            fontSize: 'clamp(1rem, 2vw, 1.5rem)', 
+            color: '#777', 
+            marginBottom: '60px',
+            maxWidth: '600px',
+            lineHeight: 1.6,
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          让我们共同创造令人惊叹的作品。
+        </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginBottom: '40px' }}
-        >
-          <h2 style={{ fontSize: '2.5em', fontWeight: '800', margin: 0, letterSpacing: '-1px' }}>Featured.</h2>
-          <Link to="/projects" style={{ color: '#000', textDecoration: 'underline', fontWeight: '500' }}>View All Projects</Link>
-        </motion.div>
-
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
           style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(3, 1fr)', 
-            gridAutoRows: '300px',
-            gap: '20px' 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '20px', 
+            flexWrap: 'wrap',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
-          {featuredProjects.map((item, index) => {
-            let gridStyle = {};
-            if (item.size === 'large') gridStyle = { gridColumn: 'span 2', gridRow: 'span 2' };
-            else if (item.size === 'wide') gridStyle = { gridColumn: 'span 3', gridRow: 'span 1' };
-            else gridStyle = { gridColumn: 'span 1', gridRow: 'span 1' };
-
-            return (
-              <Link 
-                to={`/projects/${item.id}`} 
-                key={item.id} 
-                style={{ 
-                  ...gridStyle, 
-                  display: 'block', 
-                  textDecoration: 'none' 
-                }}
-              >
-                <motion.div
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                  style={{ 
-                    background: '#f0f0f0', 
-                    borderRadius: '16px', 
-                    position: 'relative',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    height: '100%'
-                  }}
-                >
-                  <div style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    color: '#999',
-                    fontSize: '1.5em',
-                    background: index % 2 === 0 ? '#e5e5e5' : '#dedede',
-                    overflow: 'hidden'
-                  }}>
-                    {item.cover ? (
-                      <img 
-                        src={getAssetPath(item.cover)} 
-                        alt={item.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = item.name; }}
-                      />
-                    ) : (
-                      `[Image: ${item.name}]`
-                    )}
-                  </div>
-                  
-                  <div style={{ 
-                    position: 'absolute', 
-                    bottom: '20px', 
-                    left: '20px',
-                    background: 'rgba(255,255,255,0.9)',
-                    padding: '10px 20px',
-                    borderRadius: '20px',
-                    backdropFilter: 'blur(5px)'
-                  }}>
-                    <span style={{ fontWeight: 'bold', marginRight: '10px' }}>{item.name}</span>
-                    <span style={{ fontSize: '0.8em', color: '#666' }}>{item.type}</span>
-                  </div>
-                </motion.div>
-              </Link>
-            );
-          })}
+          <a href="mailto:hello@example.com">
+            <motion.button 
+              whileHover={{ scale: 1.05, boxShadow: '0 10px 40px -10px rgba(255,255,255,0.3)' }}
+              whileTap={{ scale: 0.98 }}
+              style={{ 
+                padding: '20px 60px', 
+                background: '#fff', 
+                color: '#000', 
+                border: 'none', 
+                borderRadius: '100px', 
+                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                cursor: 'pointer', 
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              发邮件给我
+            </motion.button>
+          </a>
+          <motion.button 
+            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.5)' }}
+            whileTap={{ scale: 0.98 }}
+            style={{ 
+              padding: '20px 60px', 
+              background: 'transparent', 
+              color: '#fff', 
+              border: '1px solid rgba(255,255,255,0.25)', 
+              borderRadius: '100px', 
+              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            微信联系
+          </motion.button>
         </motion.div>
       </section>
 
-      {/* 3. 热门主题 - 方案 4 (列表 + 悬停预览) */}
-      <section>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginBottom: '40px' }}>
-            <h2 style={{ fontSize: '2.5em', fontWeight: '800', margin: 0, letterSpacing: '-1px' }}>Themes.</h2>
-            <Link to="/themes" style={{ color: '#000', textDecoration: 'underline', fontWeight: '500' }}>Explore Library</Link>
-          </div>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }}>
-            {/* 左侧：分类列表 */}
-            <div>
-              {featuredThemes.map((theme, idx) => (
-                <div key={idx} style={{ marginBottom: '40px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                    <h3 style={{ fontSize: '1.2em', margin: 0, borderLeft: '3px solid #000', paddingLeft: '10px' }}>
-                      {theme.title}
-                    </h3>
-                    {/* 引导至主题页面的链接，传递 category 状态 */}
-                    <Link 
-                      to="/themes" 
-                      state={{ category: theme.title }}
-                      style={{ fontSize: '0.9em', color: '#999', textDecoration: 'none' }}
-                    >
-                      View All &gt;
-                    </Link>
-                  </div>
-                  
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                    {theme.items.map((item, i) => {
-                      const isHovered = hoveredThemeItem?.id === item.id;
-                      return (
-                        <span 
-                          key={i}
-                          onMouseEnter={() => setHoveredThemeItem(item)}
-                          onClick={() => copy(item.prompt, item.id)}
-                          style={{ 
-                            padding: '8px 16px', 
-                            border: '1px solid #eee', 
-                            borderRadius: '20px', 
-                            cursor: 'pointer', 
-                            fontSize: '0.9em', 
-                            transition: 'all 0.2s',
-                            background: isHovered ? '#000' : '#fff',
-                            color: isHovered ? '#fff' : '#000',
-                            position: 'relative',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            boxShadow: isHovered ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
-                          }}
-                        >
-                          {item.name}
-                          
-                          {/* 悬停时显示复制图标 */}
-                          <motion.span 
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={{ 
-                              width: isHovered ? 'auto' : 0, 
-                              opacity: isHovered ? 1 : 0 
-                            }}
-                            style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}
-                          >
-                            <span style={{ fontSize: '0.8em', marginLeft: '4px' }}>❐</span>
-                          </motion.span>
-                          
-                          {/* 复制反馈 */}
-                          {copiedId === item.id && (
-                            <span style={{ 
-                              position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)',
-                              background: '#000', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8em',
-                              whiteSpace: 'nowrap', zIndex: 10
-                            }}>
-                              Copied!
-                            </span>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* 右侧：大图预览 */}
-            <div style={{ position: 'relative' }}>
-              <div style={{ 
-                position: 'sticky', top: '100px', 
-                aspectRatio: '4/3', 
-                background: '#f5f5f5', 
-                borderRadius: '16px', 
-                overflow: 'hidden',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
-              }}>
-                {hoveredThemeItem ? (
-                  <motion.div
-                    key={hoveredThemeItem.id} // Key 变化触发动画
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ width: '100%', height: '100%', position: 'relative' }}
-                  >
-                    {hoveredThemeItem.image_path ? (
-                      <img 
-                        src={getAssetPath(hoveredThemeItem.image_path)} 
-                        alt={hoveredThemeItem.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        onError={(e) => { 
-                          // 防止死循环
-                          if (e.target.dataset.retried) {
-                            e.target.style.display = 'none'; 
-                            e.target.parentNode.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#ccc;flex-direction:column"><div style="font-size:2em;margin-bottom:10px">[Image]</div><div>${hoveredThemeItem.name}</div></div>`;
-                            return;
-                          }
-                          
-                          // 标记已重试
-                          e.target.dataset.retried = "true";
-                          
-                          // 尝试切换扩展名
-                          const currentSrc = e.target.src;
-                          if (currentSrc.endsWith('.png')) {
-                            e.target.src = currentSrc.replace('.png', '.jpg');
-                          } else if (currentSrc.endsWith('.jpg')) {
-                            e.target.src = currentSrc.replace('.jpg', '.png');
-                          } else {
-                            e.target.style.display = 'none'; 
-                            e.target.parentNode.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#ccc;flex-direction:column"><div style="font-size:2em;margin-bottom:10px">[Image]</div><div>${hoveredThemeItem.name}</div></div>`;
-                          }
-                        }}
-                      />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc', flexDirection: 'column' }}>
-                        <div style={{ fontSize: '2em', marginBottom: '10px' }}>[Image]</div>
-                        <div>{hoveredThemeItem.name}</div>
-                      </div>
-                    )}
-                    
-                    {/* 预览图上的信息浮层 (已移除) */}
-                  </motion.div>
-                ) : (
-                  <span style={{ color: '#ccc' }}>Hover over a tag to preview</span>
-                )}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </section>
+      {/* Footer 过渡区域 */}
+      <div style={{
+        height: '80px',
+        background: 'linear-gradient(to bottom, #111, #0a0a0a)',
+      }} />
     </div>
   );
 };

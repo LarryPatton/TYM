@@ -1,7 +1,8 @@
 {
-  "name": "-",
+  "name": "react-template-showcase",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "React 模板展示项目 - 包含多种页面布局和交互模式的模板集合",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,16 +12,14 @@
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
-    "papaparse": "^5.5.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.10.1",
-    "xlsx": "^0.18.5"
+    "react-router-dom": "^7.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",

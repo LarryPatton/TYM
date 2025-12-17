@@ -1,70 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Papa from 'papaparse';
+import React from 'react';
 import { useTitle } from '../hooks/useTitle';
-import { getAssetPath } from '../utils/path';
+
+// 示例数据 - 内部项目
+const mockInternalProjects = [
+  { id: 'int_1', name: 'Project Alpha', description: '一款创新的AI驱动产品', size: 'large' },
+  { id: 'int_2', name: 'Project Beta', description: '下一代用户体验设计', size: 'normal' },
+  { id: 'int_3', name: 'Project Gamma', description: '高性能数据可视化平台', size: 'normal' },
+  { id: 'int_4', name: 'Project Delta', description: '跨平台开发框架', size: 'wide' },
+  { id: 'int_5', name: 'Project Epsilon', description: '智能推荐引擎', size: 'normal' },
+  { id: 'int_6', name: 'Project Zeta', description: '实时协作工具', size: 'normal' },
+];
+
+// 示例数据 - 外部项目
+const mockExternalProjects = [
+  { id: 'ext_1', name: 'Client Project A', description: '电商平台重构' },
+  { id: 'ext_2', name: 'Client Project B', description: '品牌官网设计' },
+  { id: 'ext_3', name: 'Client Project C', description: '移动端App开发' },
+  { id: 'ext_4', name: 'Client Project D', description: '数据大屏可视化' },
+];
 
 const ProjectList = () => {
   useTitle('项目列表');
-
-  const [internalProjects, setInternalProjects] = useState([]);
-  const [externalProjects, setExternalProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.BASE_URL}projects.csv`);
-        const reader = response.body.getReader();
-        const result = await reader.read();
-        const decoder = new TextDecoder('utf-8');
-        const csv = decoder.decode(result.value);
-        
-        Papa.parse(csv, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            const data = results.data;
-            const internal = [];
-            const external = [];
-
-            data.forEach((item, index) => {
-              // 为 Bento Grid 分配大小
-              // 逻辑：每 8 个项目中，第 1 个是 large (2x2)，第 4 和 7 个是 wide (2x1)
-              const patternIndex = index % 8;
-              let size = 'normal';
-              if (patternIndex === 0) size = 'large';
-              else if (patternIndex === 3 || patternIndex === 6) size = 'wide';
-
-              const project = {
-                ...item,
-                size: size
-              };
-
-              if (item.type === '内部') {
-                internal.push(project);
-              } else {
-                external.push(project);
-              }
-            });
-
-            setInternalProjects(internal);
-            setExternalProjects(external);
-            setLoading(false);
-          }
-        });
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (loading) {
-    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading projects...</div>;
-  }
 
   return (
     <div>
@@ -76,7 +32,7 @@ const ProjectList = () => {
         </p>
       </div>
 
-      {/* 内部项目 - 震撼布局 (Bento Grid) */}
+      {/* 内部项目 - Bento Grid */}
       <section style={{ marginBottom: '100px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '1.5em', margin: 0 }}>Internal Projects</h2>
@@ -86,55 +42,44 @@ const ProjectList = () => {
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(4, 1fr)', 
-          gridAutoRows: '280px', // 基础行高
+          gridAutoRows: '280px',
           gap: '20px' 
         }}>
-          {internalProjects.map((project, index) => {
-            // 计算跨度样式
+          {mockInternalProjects.map((project, index) => {
             let gridStyle = {};
             if (project.size === 'large') {
-              gridStyle = { gridColumn: 'span 2', gridRow: 'span 2' }; // 2x2 大方块
+              gridStyle = { gridColumn: 'span 2', gridRow: 'span 2' };
             } else if (project.size === 'wide') {
-              gridStyle = { gridColumn: 'span 2', gridRow: 'span 1' }; // 2x1 宽方块
+              gridStyle = { gridColumn: 'span 2', gridRow: 'span 1' };
             } else {
-              gridStyle = { gridColumn: 'span 1', gridRow: 'span 1' }; // 1x1 普通方块
+              gridStyle = { gridColumn: 'span 1', gridRow: 'span 1' };
             }
 
             return (
-              <Link to={`/projects/${project.id}`} key={project.id} style={{ 
+              <div key={project.id} style={{ 
                 ...gridStyle, 
                 display: 'block',
                 position: 'relative', 
                 borderRadius: '12px', 
                 overflow: 'hidden', 
                 background: '#f0f0f0',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                group: 'card'
+                cursor: 'pointer'
               }}>
-                {/* 图片占位 - 铺满 */}
+                {/* 图片占位 */}
                 <div style={{ 
                   width: '100%', 
                   height: '100%', 
-                  background: '#333',
+                  background: index % 2 === 0 ? '#333' : '#444',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  overflow: 'hidden'
+                  color: '#666',
+                  fontSize: '1.2em'
                 }}>
-                  {project.cover ? (
-                    <img 
-                      src={getAssetPath(project.cover)}
-                      alt={project.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                      onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = project.name; }}
-                    />
-                  ) : (
-                    <span style={{ color: '#fff', fontSize: '1.5em', fontWeight: 'bold' }}>{project.name}</span>
-                  )}
+                  [ {project.name} ]
                 </div>
 
-                {/* 悬浮文字信息 - 位于底部 */}
+                {/* 悬浮文字信息 */}
                 <div style={{ 
                   position: 'absolute', 
                   bottom: 0, 
@@ -145,17 +90,16 @@ const ProjectList = () => {
                   color: '#fff'
                 }}>
                   <h3 style={{ margin: '0 0 5px 0', fontSize: project.size === 'large' ? '1.5em' : '1.1em' }}>{project.name}</h3>
-                  <p style={{ margin: 0, fontSize: '0.8em', opacity: 0.8, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  <p style={{ margin: 0, fontSize: '0.8em', opacity: 0.8 }}>
                     {project.description}
                   </p>
                 </div>
-              </Link>
+              </div>
             );
           })}
-
         </div>
 
-        {/* 方案 A: 底部通栏 Banner (内部项目) */}
+        {/* 底部通栏 Banner */}
         <div style={{ 
           marginTop: '40px', 
           padding: '30px', 
@@ -171,7 +115,7 @@ const ProjectList = () => {
         </div>
       </section>
 
-      {/* 外部项目 - 横向展示或紧凑网格 */}
+      {/* 外部项目 - 响应式网格 */}
       <section>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '1.5em', margin: 0 }}>External Collaborations</h2>
@@ -183,37 +127,27 @@ const ProjectList = () => {
           gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
           gap: '20px' 
         }}>
-          {externalProjects.map((project) => (
-            <Link to={`/projects/${project.id}`} key={project.id} style={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}>
+          {mockExternalProjects.map((project, index) => (
+            <div key={project.id} style={{ cursor: 'pointer' }}>
               <div style={{ 
                 aspectRatio: '16/9', 
-                background: '#f5f5f5', 
+                background: index % 2 === 0 ? '#e5e5e5' : '#d5d5d5', 
                 borderRadius: '8px', 
                 marginBottom: '12px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflow: 'hidden'
+                color: '#999'
               }}>
-                {project.cover ? (
-                  <img 
-                    src={getAssetPath(project.cover)}
-                    alt={project.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = '[Image]'; }}
-                  />
-                ) : (
-                  <span style={{ color: '#ccc' }}>[封面]</span>
-                )}
+                [ {project.name} ]
               </div>
               <h3 style={{ fontSize: '1em', margin: '0 0 5px 0' }}>{project.name}</h3>
               <div style={{ fontSize: '0.8em', color: '#888' }}>商业合作</div>
-            </Link>
+            </div>
           ))}
-
         </div>
 
-        {/* 方案 A: 底部通栏 Banner (外部项目) */}
+        {/* 底部通栏 Banner */}
         <div style={{ 
           marginTop: '40px', 
           padding: '30px', 

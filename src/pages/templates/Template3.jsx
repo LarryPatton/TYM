@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { getAssetPath } from '../../utils/path';
-import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useClipboard } from '../../hooks/useClipboard';
-import TableOfContents from '../../components/TableOfContents';
 
 const Template3 = ({ project }) => {
-  const { id } = useParams();
   const { copiedId, copy } = useClipboard();
   const [hoveredCardId, setHoveredCardId] = useState(null);
 
   const templateData = project || {
-    title: `Magazine Project ${id}`,
-    subtitle: 'Collage Hero + Bento Grid Layout',
+    name: 'Magazine Project',
+    description: 'Collage Hero + Bento Grid Layout',
     categories: []
   };
 
@@ -29,12 +25,9 @@ const Template3 = ({ project }) => {
           </p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '10px', padding: '20px' }}>
-          {/* 这里可以使用 project.cover 或其他图片 */}
-          <div style={{ background: '#eee', borderRadius: '12px', overflow: 'hidden' }}>
-             {templateData.cover && <img src={getAssetPath(templateData.cover)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-          </div>
-          <div style={{ background: '#e5e5e5', borderRadius: '12px', gridRow: 'span 2' }}></div>
-          <div style={{ background: '#ddd', borderRadius: '12px' }}></div>
+          <div style={{ background: '#eee', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999' }}>[ Image 1 ]</div>
+          <div style={{ background: '#e5e5e5', borderRadius: '12px', gridRow: 'span 2', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999' }}>[ Image 2 ]</div>
+          <div style={{ background: '#ddd', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999' }}>[ Image 3 ]</div>
         </div>
       </div>
 
@@ -81,17 +74,16 @@ const Template3 = ({ project }) => {
                       {/* === 正面 (Front) === */}
                       <div style={{
                         position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
-                        background: '#f0f0f0', 
                         borderRadius: '16px',
                         overflow: 'hidden',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#ccc', fontSize: '1.5em'
+                        background: index % 2 === 0 ? '#e5e5e5' : '#d5d5d5',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999'
                       }}>
-                        [Image]
+                        [ Image ]
                         <div style={{ 
                           position: 'absolute', bottom: '20px', left: '20px',
                           background: 'rgba(255,255,255,0.9)', padding: '10px 20px', borderRadius: '20px',
-                          fontSize: '0.6em', color: '#000'
+                          fontSize: '0.9em', color: '#000'
                         }}>
                           <span style={{ fontWeight: 'bold' }}>{item.name}</span>
                         </div>
