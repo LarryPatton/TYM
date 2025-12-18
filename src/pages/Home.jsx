@@ -38,28 +38,49 @@ const Home = () => {
     padding: '0 clamp(40px, 8vw, 120px)',
   };
 
-  // Mock Data
+  // Mock Data - 精选作品案例
   const featuredCases = [
+    { 
+      id: '01-brand-identity', 
+      title: '品牌视觉识别', 
+      subtitle: 'Chapter 01 · 品牌基因的提炼',
+      desc: '从品牌战略到视觉表达的完整识别系统。', 
+      cover: '#2a2a3e' 
+    },
     { 
       id: '02-ui-guidelines', 
       title: 'UI 视觉规范', 
       subtitle: 'Chapter 02 · 视觉系统的建立',
       desc: '建立跨平台的数字视觉语言与组件库。', 
-      cover: '#f0f0f0' 
+      cover: '#1e3a5f' 
     },
     { 
       id: '03-cmf', 
       title: '产品 CMF 定义', 
       subtitle: 'Chapter 03 · 物理质感的转译',
       desc: '将数字美学转化为实体产品的材质与工艺。', 
-      cover: '#e5e5e5' 
+      cover: '#3d2e1e' 
+    },
+    { 
+      id: '04-motion-design', 
+      title: '动效设计系统', 
+      subtitle: 'Chapter 04 · 动态交互的编排',
+      desc: '为界面注入生命力的动效设计规范。', 
+      cover: '#2e3d2e' 
+    },
+    { 
+      id: '05-data-viz', 
+      title: '数据可视化', 
+      subtitle: 'Chapter 05 · 复杂信息的简化',
+      desc: '将复杂数据转化为直观可理解的视觉叙事。', 
+      cover: '#3e2e3d' 
     },
     { 
       id: '06-marketing-plan', 
       title: '品牌营销视觉', 
       subtitle: 'Chapter 06 · 跨渠道的视觉延展',
       desc: '跨渠道的视觉系统延展与传播策略。', 
-      cover: '#dedede' 
+      cover: '#1e2e3e' 
     },
   ];
 

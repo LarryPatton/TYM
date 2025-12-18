@@ -6,7 +6,10 @@ const Layout = () => {
   const location = useLocation();
   
   // 判断是否是需要全屏显示的页面
-  const isFullWidthPage = location.pathname === '/';
+  const isFullWidthPage = location.pathname === '/' || location.pathname === '/about';
+  
+  // 判断是否需要隐藏 Footer（单屏/全屏滚动页面）
+  const hideFooter = location.pathname === '/work' || location.pathname === '/about';
   
   const isActive = (path) => {
     return location.pathname === path ? '#000' : '#666';
@@ -74,8 +77,8 @@ const Layout = () => {
       {/* 回到顶部按钮 */}
       <BackToTop />
 
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid #eee', marginTop: 'auto', padding: '60px 0', textAlign: 'center', color: '#666', fontSize: '0.9em', background: '#fafafa' }}>
+      {/* Footer - 在单屏页面隐藏 */}
+      {!hideFooter && <footer style={{ borderTop: '1px solid #eee', marginTop: 'auto', padding: '60px 0', textAlign: 'center', color: '#666', fontSize: '0.9em', background: '#fafafa' }}>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '30px', flexWrap: 'wrap' }}>
           <a href="mailto:hello@example.com" style={{ color: '#333', textDecoration: 'none', fontWeight: '500' }}>邮箱</a>
           <span style={{ color: '#333', cursor: 'pointer', fontWeight: '500' }}>微信</span>
@@ -85,7 +88,7 @@ const Layout = () => {
         </div>
         <div style={{ marginBottom: '10px', fontWeight: 'bold', color: '#333' }}>PORTFOLIO.</div>
         <div>© {new Date().getFullYear()} Your Name. All Rights Reserved.</div>
-      </footer>
+      </footer>}
     </div>
   );
 };

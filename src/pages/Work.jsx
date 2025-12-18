@@ -9,11 +9,13 @@ const Work = () => {
   return (
     <div className="noise-bg" style={{ 
       height: 'calc(100vh - 80px)', 
-      padding: '24px 40px 32px',
+      padding: '20px 40px 24px',
       display: 'flex',
       flexDirection: 'column',
       boxSizing: 'border-box',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      margin: '-40px',
+      width: 'calc(100% + 80px)'
     }}>
       {/* 紧凑的标题区域 */}
       <div style={{ textAlign: 'center', marginBottom: '24px', flexShrink: 0 }}>

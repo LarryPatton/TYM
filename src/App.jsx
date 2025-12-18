@@ -9,6 +9,8 @@ import CaseStudiesList from './pages/CaseStudiesList';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import CaseIndex from './pages/CaseIndex';
 import CaseChapter from './pages/CaseChapter';
+import ShowcaseDemos from './pages/ShowcaseDemos';
+import Scheme10Refined from './pages/Scheme10Refined';
 import ScrollToTop from './components/ScrollToTop';
 
 // Gallery Pages
@@ -31,6 +33,10 @@ function App() {
           {/* Sequential Case Study Routes */}
           <Route path="work/the-case" element={<CaseIndex />} />
           <Route path="work/the-case/:chapterId" element={<CaseChapter />} />
+
+          {/* Showcase Demos */}
+          <Route path="showcase-demos" element={<ShowcaseDemos />} />
+          <Route path="scheme-10-refined" element={<Scheme10Refined />} />
 
           {/* New Gallery Routes */}
           <Route path="gallery" element={<GalleryHome />} />

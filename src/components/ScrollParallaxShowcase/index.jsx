@@ -74,7 +74,7 @@ const ProjectItem = ({ project, index, totalProjects }) => {
     <div 
       ref={containerRef}
       style={{
-        height: '150vh',
+        height: '100vh',  // 缩短切换间隔，更快速的轮播
         position: 'relative',
       }}
     >
