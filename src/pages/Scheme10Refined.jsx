@@ -7,6 +7,13 @@ const projects = [
   { id: '03', title: 'Product CMF', subtitle: 'Chapter 03', desc: 'Physical materiality.', cover: '#3d2e1e', accent: '#2d1e10' },
   { id: '04', title: 'Motion System', subtitle: 'Chapter 04', desc: 'Choreographing interaction.', cover: '#2e3d2e', accent: '#1e2d1e' },
   { id: '05', title: 'Data Viz', subtitle: 'Chapter 05', desc: 'Simplifying complexity.', cover: '#3e2e3d', accent: '#2e1e2d' },
+  { id: '06', title: 'Marketing Assets', subtitle: 'Chapter 06', desc: 'Campaign visual language.', cover: '#1e2e3e', accent: '#0f1a2a' },
+  { id: '07', title: 'Packaging', subtitle: 'Chapter 07', desc: 'Unboxing experience.', cover: '#3e1e1e', accent: '#2a0f0f' },
+  { id: '08', title: 'Retail Space', subtitle: 'Chapter 08', desc: 'Spatial brand expression.', cover: '#2e3e3e', accent: '#1a2a2a' },
+  { id: '09', title: 'Sound Design', subtitle: 'Chapter 09', desc: 'Sonic branding identity.', cover: '#3e2e1e', accent: '#2a1a0f' },
+  { id: '10', title: 'Photography', subtitle: 'Chapter 10', desc: 'Art direction & style.', cover: '#1e1e3e', accent: '#0f0f2a' },
+  { id: '11', title: 'Typography', subtitle: 'Chapter 11', desc: 'Custom type design.', cover: '#3e3e3e', accent: '#2a2a2a' },
+  { id: '12', title: 'Iconography', subtitle: 'Chapter 12', desc: 'Symbolic communication.', cover: '#2e2e2e', accent: '#1a1a1a' },
 ];
 
 const Card = ({ project, index, total, scrollYProgress }) => {
