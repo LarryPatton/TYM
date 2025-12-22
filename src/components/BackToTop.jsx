@@ -22,7 +22,7 @@ const BackToTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: 'auto', // Changed from 'smooth' to 'auto' to prevent scroll interception by layout shifts
     });
   };
 
@@ -38,7 +38,7 @@ const BackToTop = () => {
             position: 'fixed',
             bottom: '40px',
             right: '40px',
-            zIndex: 90, // 略低于悬浮控制按钮(100)，避免遮挡
+            zIndex: 9999, // 提高层级，确保不被其他元素遮挡
           }}
         >
           <button
@@ -47,18 +47,18 @@ const BackToTop = () => {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: '#000',
-              color: '#fff',
+              background: 'var(--color-primary)',
+              color: 'var(--color-text-inverse)',
               border: 'none',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              transition: 'background 0.2s',
+              boxShadow: 'var(--shadow-lg)',
+              transition: 'all var(--transition-fast)',
             }}
-            onMouseEnter={(e) => e.target.style.background = '#333'}
-            onMouseLeave={(e) => e.target.style.background = '#000'}
+            onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+            onMouseLeave={(e) => e.target.style.opacity = '1'}
             title="Back to Top"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

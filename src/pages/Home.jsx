@@ -1,13 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { Link } from 'react-router-dom';
 import ScrollParallaxShowcase from '../components/ScrollParallaxShowcase';
 import ServiceSection from '../components/ServiceSection';
 import BlindsTransition from '../components/BlindsTransition';
 
+// 首页专用导航圆点组件
+const HomeDotNavigation = ({ sections }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sectionRefs = useRef([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      
+      // 找到当前所在的 section
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i].id);
+        if (element && element.offsetTop <= scrollPosition) {
+          setCurrentIndex(i);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // 初始检测
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections]);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // 根据当前 section 的背景色决定导航点颜色
+  const isDark = sections[currentIndex]?.dark;
+  const dotColor = isDark ? 'var(--color-dark-text)' : 'var(--color-text-main)';
+  const dotInactiveColor = isDark ? 'var(--color-dark-text-muted)' : 'var(--color-text-light)';
+
+  return (
+    <div style={{
+      position: 'fixed',
+      right: '30px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px',
+      zIndex: 1000
+    }}>
+      {sections.map((section, index) => (
+        <motion.button
+          key={section.id}
+          onClick={() => scrollToSection(section.id)}
+          whileHover={{ scale: 1.3 }}
+          whileTap={{ scale: 0.9 }}
+          style={{
+            width: currentIndex === index ? '12px' : '10px',
+            height: currentIndex === index ? '12px' : '10px',
+            borderRadius: '50%',
+            border: 'none',
+            backgroundColor: currentIndex === index ? dotColor : dotInactiveColor,
+            cursor: 'pointer',
+            padding: 0,
+            transition: 'all 0.3s ease',
+            position: 'relative'
+          }}
+          title={section.name}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Home = () => {
-  useTitle('首页');
+  const { t } = useTranslation();
+  useTitle(t('home.pageTitle'));
 
   const { scrollY } = useScroll();
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
@@ -42,75 +115,89 @@ const Home = () => {
   const featuredCases = [
     { 
       id: '01-brand-identity', 
-      title: '品牌视觉识别', 
-      subtitle: 'Chapter 01 · 品牌基因的提炼',
-      desc: '从品牌战略到视觉表达的完整识别系统。', 
-      cover: '#2a2a3e' 
+      title: t('home.cases.01-brand-identity.title'), 
+      subtitle: t('home.cases.01-brand-identity.subtitle'),
+      desc: t('home.cases.01-brand-identity.desc'), 
+      tags: ['Strategy', 'Visual Identity', 'System'],
+      cover: '#333333' 
     },
     { 
       id: '02-ui-guidelines', 
-      title: 'UI 视觉规范', 
-      subtitle: 'Chapter 02 · 视觉系统的建立',
-      desc: '建立跨平台的数字视觉语言与组件库。', 
-      cover: '#1e3a5f' 
+      title: t('home.cases.02-ui-guidelines.title'), 
+      subtitle: t('home.cases.02-ui-guidelines.subtitle'),
+      desc: t('home.cases.02-ui-guidelines.desc'), 
+      tags: ['UI/UX', 'Design System', 'Components'],
+      cover: '#444444' 
     },
     { 
       id: '03-cmf', 
-      title: '产品 CMF 定义', 
-      subtitle: 'Chapter 03 · 物理质感的转译',
-      desc: '将数字美学转化为实体产品的材质与工艺。', 
-      cover: '#3d2e1e' 
+      title: t('home.cases.03-cmf.title'), 
+      subtitle: t('home.cases.03-cmf.subtitle'),
+      desc: t('home.cases.03-cmf.desc'), 
+      tags: ['Industrial', 'Material', 'Texture'],
+      cover: '#555555' 
     },
     { 
       id: '04-motion-design', 
-      title: '动效设计系统', 
-      subtitle: 'Chapter 04 · 动态交互的编排',
-      desc: '为界面注入生命力的动效设计规范。', 
-      cover: '#2e3d2e' 
+      title: t('home.cases.04-motion-design.title'), 
+      subtitle: t('home.cases.04-motion-design.subtitle'),
+      desc: t('home.cases.04-motion-design.desc'), 
+      tags: ['Motion', 'Interaction', 'Lottie'],
+      cover: '#666666' 
     },
     { 
       id: '05-data-viz', 
-      title: '数据可视化', 
-      subtitle: 'Chapter 05 · 复杂信息的简化',
-      desc: '将复杂数据转化为直观可理解的视觉叙事。', 
-      cover: '#3e2e3d' 
+      title: t('home.cases.05-data-viz.title'), 
+      subtitle: t('home.cases.05-data-viz.subtitle'),
+      desc: t('home.cases.05-data-viz.desc'), 
+      tags: ['Data Viz', 'Dashboard', 'Analytics'],
+      cover: '#777777' 
     },
     { 
       id: '06-marketing-plan', 
-      title: '品牌营销视觉', 
-      subtitle: 'Chapter 06 · 跨渠道的视觉延展',
-      desc: '跨渠道的视觉系统延展与传播策略。', 
-      cover: '#1e2e3e' 
+      title: t('home.cases.06-marketing-plan.title'), 
+      subtitle: t('home.cases.06-marketing-plan.subtitle'),
+      desc: t('home.cases.06-marketing-plan.desc'), 
+      tags: ['Marketing', 'Campaign', 'Social'],
+      cover: '#888888' 
     },
   ];
 
   const skills = [
-    { title: '产品设计', desc: 'UI/UX, 原型设计, 设计系统' },
-    { title: '开发', desc: 'React, 前端架构, 交大顺' },
-    { title: '策略', desc: '用户研究, 产品策略, 数据分析' },
+    { title: t('home.skills.productDesign.title'), desc: t('home.skills.productDesign.desc') },
+    { title: t('home.skills.development.title'), desc: t('home.skills.development.desc') },
+    { title: t('home.skills.strategy.title'), desc: t('home.skills.strategy.desc') },
   ];
 
   // 专业服务数据
   const services = [
     { 
       id: 'design-system',
-      title: 'Design System', 
-      desc: '构建跨平台的设计语言与组件库，确保品牌一致性与开发效率的完美平衡。' 
+      title: t('home.services.designSystem.title'), 
+      desc: t('home.services.designSystem.desc'),
+      tags: ['Figma', 'Tokens', 'Accessibility', 'Documentation'],
+      color: '#ffffff'
     },
     { 
       id: 'product-design',
-      title: 'Product Design', 
-      desc: '从用户研究到交互设计、视觉设计的全链路产品设计服务，打造卓越用户体验。' 
+      title: t('home.services.productDesign.title'), 
+      desc: t('home.services.productDesign.desc'),
+      tags: ['UI/UX', 'Prototyping', 'User Research', 'Wireframing'],
+      color: '#e0e0e0'
     },
     { 
       id: 'development',
-      title: 'Development', 
-      desc: '基于 React/Vue 的现代前端开发，动效实现，响应式设计与性能优化。' 
+      title: t('home.services.development.title'), 
+      desc: t('home.services.development.desc'),
+      tags: ['React', 'Next.js', 'WebGL', 'Creative Coding'],
+      color: '#cccccc'
     },
     { 
       id: 'strategy',
-      title: 'Strategy', 
-      desc: '用户研究、竞品分析、产品策略规划，数据驱动的设计决策支持。' 
+      title: t('home.services.strategy.title'), 
+      desc: t('home.services.strategy.desc'),
+      tags: ['Market Analysis', 'Positioning', 'Data Viz', 'Growth'],
+      color: '#b0b0b0'
     },
   ];
 
@@ -124,10 +211,22 @@ const Home = () => {
     }
   };
 
+  // 首页 Section 配置
+  const homeSections = [
+    { id: 'hero', name: t('home.sectionHero'), dark: false },
+    { id: 'featured-projects', name: t('home.sectionWorks'), dark: false },
+    { id: 'services', name: t('home.sectionServices'), dark: true },
+    { id: 'contact-cta', name: t('home.sectionContact'), dark: true },
+  ];
+
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div>
+      {/* 导航圆点 */}
+      <HomeDotNavigation sections={homeSections} />
+
       {/* 1. Hero Section - 全屏沉浸式 */}
       <motion.section 
+        id="hero"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
@@ -137,9 +236,10 @@ const Home = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
-          background: 'linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%)',
+          background: 'var(--color-bg-subtle)',
           position: 'relative',
           boxSizing: 'border-box',
+          overflow: 'hidden', // 防止背景装饰溢出
         }}
       >
         {/* 背景装饰元素 */}
@@ -150,7 +250,7 @@ const Home = () => {
           width: 'clamp(250px, 35vw, 600px)',
           height: 'clamp(250px, 35vw, 600px)',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(196, 224, 42, 0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
@@ -161,37 +261,38 @@ const Home = () => {
               fontFamily: 'var(--font-serif)', 
               fontSize: 'clamp(3.5rem, 12vw, 9rem)', 
               fontWeight: '400', 
-              lineHeight: '1', 
+              lineHeight: 'var(--line-height-tight)', 
               marginBottom: '30px', 
-              letterSpacing: '-0.03em' 
+              letterSpacing: '-0.03em',
+              color: 'var(--color-text-main)'
             }}
           >
-            你的名字
+            {t('home.heroName')}
           </motion.h1>
           <motion.h2 
             variants={fadeInUp} 
             style={{ 
               fontSize: 'clamp(1.3rem, 3vw, 2.5rem)', 
               fontWeight: '400', 
-              color: '#666', 
+              color: 'var(--color-text-muted)', 
               marginBottom: '40px', 
               fontFamily: 'var(--font-sans)' 
             }}
           >
-            产品设计师 & 开发者
+            {t('home.heroRole')}
           </motion.h2>
           <motion.p 
             variants={fadeInUp} 
             style={{ 
               fontSize: 'clamp(1.1rem, 2vw, 1.6rem)', 
-              color: '#444', 
+              color: 'var(--color-text-secondary)', 
               maxWidth: '800px', 
-              lineHeight: '1.6', 
+              lineHeight: 'var(--line-height-base)', 
               marginBottom: '60px' 
             }}
           >
-            打造融合美学与功能的数字体验。<br/>
-            通过设计与代码，帮助品牌讲述他们的故事。
+            {t('home.heroDesc')}<br/>
+            {t('home.heroDesc2')}
           </motion.p>
           
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '15px', marginBottom: '60px', flexWrap: 'wrap' }}>
@@ -202,11 +303,11 @@ const Home = () => {
                   padding: '10px 24px', 
                   background: 'rgba(255,255,255,0.8)', 
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(0,0,0,0.08)', 
-                  borderRadius: '100px', 
+                  border: '1px solid var(--color-border)', 
+                  borderRadius: 'var(--radius-full)', 
                   fontSize: 'clamp(0.85rem, 1vw, 1rem)', 
                   fontWeight: '500', 
-                  color: '#555' 
+                  color: 'var(--color-text-muted)' 
                 }}
               >
                 {tag}
@@ -219,32 +320,33 @@ const Home = () => {
               onClick={scrollToFeatured}
               style={{ 
                 padding: '18px 48px', 
-                background: '#111', 
-                color: '#fff', 
+                background: 'var(--color-text-main)', 
+                color: 'var(--color-bg)', 
                 border: 'none', 
-                borderRadius: '100px', 
+                borderRadius: 'var(--radius-full)', 
                 fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
                 cursor: 'pointer', 
                 transition: 'all 0.3s ease',
                 fontWeight: '500',
+                boxShadow: 'var(--shadow-md)'
               }}
             >
-              查看精选案例
+              {t('home.viewFeaturedCases')}
             </button>
             <Link to="/contact">
               <button 
                 style={{ 
                   padding: '18px 48px', 
                   background: 'transparent', 
-                  color: '#111', 
+                  color: 'var(--color-text-main)', 
                   border: '1px solid rgba(0,0,0,0.2)', 
-                  borderRadius: '100px', 
+                  borderRadius: 'var(--radius-full)', 
                   fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
                   cursor: 'pointer', 
                   transition: 'all 0.3s ease' 
                 }}
               >
-                联系我
+                {t('home.contactMe')}
               </button>
             </Link>
           </motion.div>
@@ -264,7 +366,7 @@ const Home = () => {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '10px',
-            color: '#999',
+            color: 'var(--color-text-light)',
             fontSize: '0.75rem',
             letterSpacing: '2px',
             textTransform: 'uppercase',
@@ -277,7 +379,7 @@ const Home = () => {
             style={{
               width: '1px',
               height: '50px',
-              background: 'linear-gradient(to bottom, #999, transparent)',
+              background: 'linear-gradient(to bottom, var(--color-text-light), transparent)',
             }}
           />
         </motion.div>
@@ -288,8 +390,8 @@ const Home = () => {
       <BlindsTransition 
         fromColor="#f5f5f5"
         toColor="#0a0a0a"
-        blindsCount={6}
-        height="70vh"
+        blindsCount={13}
+        height="80vh"
       >
         {/* 底层内容预览 */}
         <div style={{
@@ -308,23 +410,23 @@ const Home = () => {
       <div id="featured-projects">
         <ScrollParallaxShowcase 
           projects={featuredCases} 
-          sectionTitle="作品集导读 · 精选作品"
+          sectionTitle={t('home.featuredTitle')}
         />
       </div>
 
       {/* Work 到 Service 的百叶窗过渡 */}
       <BlindsTransition 
-        fromColor="#0a0a0a"
-        toColor="#f5f5f5"
-        blindsCount={6}
-        height="140vh"
+        fromColor="#fff"
+        toColor="#111"
+        blindsCount={13}
+        height="80vh"
       >
-        {/* 底层内容预览 - 浅色背景上的深色文字 */}
+        {/* 底层内容预览 - 深色背景上的浅色文字 */}
         <div style={{
           fontSize: 'clamp(4rem, 15vw, 12rem)',
           fontWeight: '800',
           color: 'transparent',
-          WebkitTextStroke: '1px rgba(0,0,0,0.15)',
+          WebkitTextStroke: '1px rgba(255,255,255,0.2)', // 修正：在黑底上使用白色描边
           letterSpacing: '-0.02em',
           textTransform: 'uppercase',
         }}>
@@ -333,11 +435,12 @@ const Home = () => {
       </BlindsTransition>
 
       {/* 3. Services Section - 专业能力 */}
-      <ServiceSection 
-        services={services}
-        title="SERVICE"
-        sectionLabel="专业能力"
-      />
+      <div id="services">
+        <ServiceSection 
+          services={services}
+          title="SERVICE"
+        />
+      </div>
 
       {/* 4. Trust Area - 合作品牌（与 ServiceSection 深色区域无缝连接） */}
       <section style={{ 
@@ -370,7 +473,7 @@ const Home = () => {
             letterSpacing: '4px' 
           }}
         >
-          合作品牌
+          {t('home.partnersTitle')}
         </motion.p>
         <motion.div 
           initial={{ opacity: 0 }}
@@ -410,18 +513,22 @@ const Home = () => {
       </section>
 
       {/* 5. Contact CTA - 全屏沉浸式 */}
-      <section style={{ 
-        minHeight: '80vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
-        textAlign: 'center', 
-        background: '#111', 
-        color: '#fff',
-        position: 'relative',
-      }}>
+      <section 
+        id="contact-cta"
+        style={{ 
+          minHeight: '80vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
+          textAlign: 'center', 
+          background: '#111', 
+          color: '#fff',
+          position: 'relative',
+          overflow: 'hidden', // 防止背景装饰溢出
+        }}
+      >
         {/* 背景装饰圆 */}
         <div style={{
           position: 'absolute',
@@ -431,7 +538,7 @@ const Home = () => {
           width: 'clamp(350px, 55vw, 900px)',
           height: 'clamp(350px, 55vw, 900px)',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(196, 224, 42, 0.06) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%)',
           pointerEvents: 'none',
         }} />
 
@@ -461,7 +568,7 @@ const Home = () => {
             lineHeight: 1.1,
           }}
         >
-          想一起做点什么？
+          {t('home.ctaTitle')}
         </motion.h2>
         <motion.p 
           initial={{ opacity: 0, y: 30 }}
@@ -478,7 +585,7 @@ const Home = () => {
             zIndex: 1,
           }}
         >
-          让我们共同创造令人惊叹的作品。
+          {t('home.ctaDesc')}
         </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -510,7 +617,7 @@ const Home = () => {
                 transition: 'all 0.3s ease',
               }}
             >
-              发邮件给我
+              {t('home.emailMe')}
             </motion.button>
           </a>
           <motion.button 
@@ -527,7 +634,7 @@ const Home = () => {
               transition: 'all 0.3s ease',
             }}
           >
-            微信联系
+            {t('home.wechatContact')}
           </motion.button>
         </motion.div>
       </section>

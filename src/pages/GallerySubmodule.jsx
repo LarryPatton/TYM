@@ -1,41 +1,34 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { Link, useParams } from 'react-router-dom';
 
 const GallerySubmodule = () => {
+  const { t } = useTranslation();
   const { module, submodule } = useParams();
   const isForm = module === 'form';
+  const moduleKey = isForm ? 'form' : 'photo';
   
-  // Mock Submodule Data
+  // Submodule Data from translations
+  const submoduleKey = submodule || 'unknown';
   const submoduleData = {
-    'new-china-painter': { title: '新国画人', desc: '传统笔墨与现代构成的碰撞。' },
-    'mixed-media': { title: '综合材料', desc: '探索不同材质的肌理与情感。' },
-    'illustration-story': { title: '插画故事', desc: '用画面讲述连贯的叙事。' },
-    'stylized-board': { title: '风格化板绘', desc: '数字绘画的风格探索。' },
-    'product': { title: '产品摄影', desc: '光影下的物体质感。' },
-    'landscape': { title: '风景摄影', desc: '记录自然与城市的瞬间。' }
-  }[submodule] || { title: '未知模块', desc: '' };
+    title: t(`gallery.submodules.${submoduleKey}.title`),
+    desc: t(`gallery.submodules.${submoduleKey}.desc`)
+  };
 
-  useTitle(`${submoduleData.title} - ${isForm ? '造型' : '摄影'}`);
+  useTitle(`${submoduleData.title} - ${t(`gallery.modules.${moduleKey}.titleShort`)}`);
 
   const siblings = isForm 
     ? ['new-china-painter', 'mixed-media', 'illustration-story', 'stylized-board']
     : ['product', 'landscape'];
 
-  const siblingTitles = {
-    'new-china-painter': '新国画人',
-    'mixed-media': '综合材料',
-    'illustration-story': '插画故事',
-    'stylized-board': '风格化板绘',
-    'product': '产品摄影',
-    'landscape': '风景摄影'
-  };
+  const getSiblingTitle = (id) => t(`gallery.submodules.${id}.title`);
 
   // Mock Works
   const works = Array.from({ length: 6 }).map((_, i) => ({
     id: i + 1,
-    title: `${submoduleData.title} 作品 ${i + 1}`,
+    title: `${submoduleData.title} ${t('gallery.work')} ${i + 1}`,
     year: '2023',
     cover: isForm ? '#f0f0f0' : '#e5e5e5'
   }));
@@ -45,9 +38,9 @@ const GallerySubmodule = () => {
       
       {/* Breadcrumb */}
       <div style={{ marginBottom: '60px', fontSize: '0.9em', color: '#999' }}>
-        <Link to="/gallery" style={{ textDecoration: 'none', color: '#999' }}>画廊</Link>
+        <Link to="/gallery" style={{ textDecoration: 'none', color: '#999' }}>{t('gallery.title')}</Link>
         <span style={{ margin: '0 10px' }}>/</span>
-        <Link to={`/gallery/${module}`} style={{ textDecoration: 'none', color: '#999' }}>{isForm ? '造型' : '摄影'}</Link>
+        <Link to={`/gallery/${module}`} style={{ textDecoration: 'none', color: '#999' }}>{t(`gallery.modules.${moduleKey}.titleShort`)}</Link>
         <span style={{ margin: '0 10px' }}>/</span>
         <span style={{ color: '#111', fontWeight: '500' }}>{submoduleData.title}</span>
       </div>
@@ -70,7 +63,7 @@ const GallerySubmodule = () => {
                 whiteSpace: 'nowrap',
                 position: 'relative'
               }}>
-                {siblingTitles[sib]}
+                {getSiblingTitle(sib)}
                 {sib === submodule && (
                   <motion.div 
                     layoutId="underline"
@@ -103,7 +96,7 @@ const GallerySubmodule = () => {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 color: '#ccc'
               }}>
-                [ 作品图 ]
+                {t('gallery.workImage')}
               </div>
               <h3 style={{ fontSize: '1.1em', fontWeight: '500', margin: '0 0 5px 0' }}>{work.title}</h3>
               <div style={{ fontSize: '0.9em', color: '#999' }}>{work.year}</div>

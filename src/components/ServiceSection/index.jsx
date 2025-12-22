@@ -1,275 +1,167 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 
 /**
- * 单个服务项组件
- */
-const ServiceItem = ({ service, index, isLight }) => {
-  const itemRef = useRef(null);
-  const isInView = useInView(itemRef, { 
-    margin: "-40% 0px -40% 0px",
-    once: false 
-  });
-
-  const numberStr = String(index + 1).padStart(2, '0');
-
-  return (
-    <motion.div
-      ref={itemRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      style={{
-        padding: '60px 0',
-        borderBottom: isLight ? '1px solid #e5e5e5' : '1px solid #333',
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: '40px',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        background: isLight ? '#f5f5f5' : '#111',
-      }}
-    >
-      {/* 编号 */}
-      <motion.span
-        animate={{
-          color: isInView ? '#c4e02a' : (isLight ? '#ddd' : '#444'),
-        }}
-        transition={{ duration: 0.4 }}
-        style={{
-          fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-          fontWeight: '300',
-          lineHeight: 1,
-          minWidth: '120px',
-          fontFamily: 'var(--font-sans)',
-          letterSpacing: '-0.02em',
-        }}
-      >
-        {numberStr}
-      </motion.span>
-
-      {/* 内容 */}
-      <div style={{ flex: 1 }}>
-        <motion.h3
-          animate={{
-            color: isInView 
-              ? (isLight ? '#000' : '#fff') 
-              : (isLight ? '#666' : '#888'),
-          }}
-          transition={{ duration: 0.4 }}
-          style={{
-            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-            fontWeight: '600',
-            margin: '0 0 12px 0',
-            lineHeight: 1.2,
-          }}
-        >
-          {service.title}
-        </motion.h3>
-        <motion.p
-          animate={{
-            color: isInView 
-              ? (isLight ? '#444' : '#aaa') 
-              : (isLight ? '#999' : '#666'),
-          }}
-          transition={{ duration: 0.4 }}
-          style={{
-            fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)',
-            margin: 0,
-            lineHeight: 1.6,
-            maxWidth: '600px',
-          }}
-        >
-          {service.desc}
-        </motion.p>
-      </div>
-    </motion.div>
-  );
-};
-
-/**
- * 背景大字组件 - 从描边到填充的动画
- */
-const BigBackgroundText = ({ text }) => {
-  const containerRef = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  // 描边到填充的渐变
-  const fillProgress = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
-  const strokeOpacity = useTransform(scrollYProgress, [0.1, 0.4], [1, 0.3]);
-  const yOffset = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
-  return (
-    <div 
-      ref={containerRef}
-      style={{
-        position: 'sticky',
-        top: '10vh',
-        height: '40vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }}
-    >
-      {/* 描边文字层 */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          fontSize: 'clamp(4rem, 18vw, 16rem)',
-          fontWeight: '900',
-          letterSpacing: '-0.02em',
-          whiteSpace: 'nowrap',
-          color: 'transparent',
-          WebkitTextStroke: '2px #c4e02a',
-          opacity: strokeOpacity,
-          y: yOffset,
-          fontFamily: 'var(--font-sans)',
-        }}
-      >
-        {text}
-      </motion.div>
-
-      {/* 填充文字层 */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          fontSize: 'clamp(4rem, 18vw, 16rem)',
-          fontWeight: '900',
-          letterSpacing: '-0.02em',
-          whiteSpace: 'nowrap',
-          color: '#111',
-          opacity: fillProgress,
-          y: yOffset,
-          fontFamily: 'var(--font-sans)',
-        }}
-      >
-        {text}
-      </motion.div>
-    </div>
-  );
-};
-
-/**
- * 服务区域主组件
+ * 服务区域主组件 - Scroll Triggered Interactive List Design
  */
 const ServiceSection = ({ 
   services, 
   title = "SERVICE",
   sectionLabel = "专业能力",
 }) => {
-  const sectionRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef(null);
 
   return (
     <section
-      ref={sectionRef}
+      ref={containerRef}
       style={{
         position: 'relative',
-        background: '#f5f5f5',
+        background: '#111', // Dark background
+        color: '#fff',
+        padding: '50px 0',
+        overflow: 'hidden',
       }}
     >
-      {/* 顶部无需过渡 - ScrollParallaxShowcase 已处理 */}
+      {/* Main Content */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1, padding: '0 clamp(20px, 5vw, 40px)', scrollSnapType: 'y mandatory' }}>
+        
+        {/* Interactive List */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {services.map((service, index) => {
+            const isActive = activeIndex === index;
+            // Default colors if not provided
+            const accentColor = service.color || ['#FF5733', '#33FF57', '#3357FF', '#F333FF'][index % 4];
+            
+            return (
+              <motion.div
+                key={service.id || index}
+                onViewportEnter={() => setActiveIndex(index)}
+                viewport={{ margin: "-45% 0px -45% 0px" }} // 调整视口触发区域，使其更窄，需要滚动到更中间才触发
+                initial={{ opacity: 0.3 }}
+                animate={{ opacity: isActive ? 1 : 0.3 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  borderTop: '1px solid #333',
+                  borderBottom: index === services.length - 1 ? '1px solid #333' : 'none',
+                  padding: '100px 0', // 增加高度，减缓切换频率
+                  cursor: 'default',
+                  position: 'relative',
+                  background: 'transparent',
+                  transition: 'background 0.3s ease',
+                  scrollSnapAlign: 'center'
+                }}
+              >
+                {/* Active Indicator Line */}
+                <motion.div 
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: isActive ? 1 : 0 }}
+                  transition={{ duration: 0.4, ease: "circOut" }}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '-30px',
+                    width: '2px',
+                    height: '100%',
+                    background: '#fff', // Monochrome: White indicator
+                    transformOrigin: 'top'
+                  }}
+                />
 
-      {/* 区域标签 */}
-      <div style={{ 
-        textAlign: 'center', 
-        padding: 'clamp(60px, 10vh, 100px) clamp(40px, 8vw, 120px) 40px',
-        position: 'relative',
-      }}>
-        {/* 装饰线 */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          height: '50px',
-          background: 'linear-gradient(to bottom, #ccc, transparent)',
-        }} />
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+                  {/* Left: ID & Title */}
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '30px' }}>
+                    <span style={{ fontFamily: 'var(--font-mono, monospace)', color: isActive ? '#fff' : '#666', fontSize: '1.2rem', transition: 'color 0.3s' }}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h3 style={{ 
+                      fontSize: 'clamp(1.8rem, 4vw, 3.5rem)', 
+                      margin: 0, 
+                      fontWeight: '400',
+                      color: isActive ? '#fff' : '#aaa',
+                      transition: 'color 0.3s',
+                      fontFamily: 'var(--font-sans)',
+                      lineHeight: 'var(--line-height-tight)',
+                    }}
+                    >
+                      {service.title}
+                    </h3>
+                  </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          style={{
-            fontSize: '0.85rem',
-            color: '#888',
-            textTransform: 'uppercase',
-            letterSpacing: '4px',
-            margin: 0,
-            marginTop: '30px',
-          }}
-        >
-          {sectionLabel}
-        </motion.p>
-      </div>
+                  {/* Right: Arrow Icon */}
+                  <motion.div
+                    animate={{ rotate: isActive ? 45 : 0, color: isActive ? '#fff' : '#666' }}
+                    style={{ fontSize: '2rem' }}
+                  >
+                    ↗
+                  </motion.div>
+                </div>
 
-      {/* 背景大字 */}
-      <BigBackgroundText text={title} />
+                {/* Expanded Content */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div style={{ paddingTop: '30px', paddingLeft: 'clamp(0px, 5vw, 60px)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '30px' }}>
+                        
+                        {/* Description & Tags */}
+                        <div style={{ maxWidth: '600px' }}>
+                          <p style={{ fontSize: '1.1rem', color: '#999', lineHeight: 'var(--line-height-base)', marginBottom: '20px' }}>
+                            {service.desc}
+                          </p>
+                          {service.tags && (
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                              {service.tags.map(tag => (
+                                <span 
+                                  key={tag} 
+                                  style={{ 
+                                    padding: '6px 14px', 
+                                    border: '1px solid #444', 
+                                    borderRadius: 'var(--radius-full)', 
+                                    fontSize: '0.85rem', 
+                                    color: '#ccc' 
+                                  }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
 
-      {/* 服务列表 - 浅色区域 */}
-      <div style={{ 
-        position: 'relative', 
-        zIndex: 1,
-        background: '#f5f5f5',
-        padding: '0 clamp(40px, 8vw, 120px)',
-      }}>
-        {services.slice(0, 2).map((service, index) => (
-          <ServiceItem
-            key={service.id || index}
-            service={service}
-            index={index}
-            isLight={true}
-          />
-        ))}
-      </div>
+                        {/* CTA Button */}
+                        <button style={{
+                          padding: '12px 30px',
+                          background: '#fff',
+                          color: '#000',
+                          border: 'none',
+                          borderRadius: 'var(--radius-full)',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          fontSize: '0.9rem',
+                          transition: 'transform 0.2s',
+                        }}
+                        onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                        onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                        >
+                          View Projects
+                        </button>
 
-      {/* 浅色到深色过渡 */}
-      {services.length > 2 && (
-        <div style={{
-          height: '15vh',
-          background: 'linear-gradient(to bottom, #f5f5f5 0%, #111 100%)',
-          position: 'relative',
-        }}>
-          {/* 过渡装饰线 */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '1px',
-            height: '60px',
-            background: 'linear-gradient(to bottom, #ddd, #333)',
-          }} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+              </motion.div>
+            );
+          })}
         </div>
-      )}
-
-      {/* 深色区域 */}
-      {services.length > 2 && (
-        <div style={{ 
-          background: '#111',
-          padding: '0 clamp(40px, 8vw, 120px)',
-        }}>
-          {services.slice(2).map((service, index) => (
-            <ServiceItem
-              key={service.id || index + 2}
-              service={service}
-              index={index + 2}
-              isLight={false}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* 底部无需额外过渡 - 与合作品牌区域同为深色 */}
+      </div>
     </section>
   );
 };

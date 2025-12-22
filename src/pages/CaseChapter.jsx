@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 
 const CaseChapter = () => {
+  const { t } = useTranslation();
   const { chapterId } = useParams();
   const navigate = useNavigate();
   
@@ -196,7 +198,7 @@ const CaseChapter = () => {
       },
       content: [
         { title: '场景概览', text: '应用于活动展位的视觉系统。', type: 'hero', visual: '[ 活动展位 / 场景渲染 ]' },
-        { title: '物料细节', text: '海报、 jokedan�词义和 అయ newspaper包。', type: 'grid', visual: '[ 海报 | 笑点宝 | letin ]' }
+        { title: '物料细节', text: '海报、 jokedan�词义和愣是 newspaper包。', type: 'grid', visual: '[ 海报 | 笑点宝 | letin ]' }
       ], 
       deliverables: ['印刷就绪文件'] 
     },
@@ -233,41 +235,41 @@ const CaseChapter = () => {
     switch (section.type) {
       case 'hero':
         return (
-          <section key={index} style={{ marginBottom: '120px' }}>
+          <section key={index} style={{ marginBottom: 'var(--space-section)' }}>
             <div style={{ 
               width: '100%', 
               aspectRatio: '16/9', 
-              background: '#f0f0f0', 
-              borderRadius: '4px', 
+              background: 'var(--color-bg-alt)', 
+              borderRadius: 'var(--radius-sm)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
-              color: '#999',
-              marginBottom: '30px',
+              color: 'var(--color-text-light)',
+              marginBottom: 'var(--space-xl)',
               overflow: 'hidden',
               position: 'relative'
             }}>
               {/* Placeholder for Hero Image */}
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(45deg, #f5f5f5 25%, #eeeeee 25%, #eeeeee 50%, #f5f5f5 50%, #f5f5f5 75%, #eeeeee 75%, #eeeeee 100%)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
-              <span style={{ position: 'relative', zIndex: 1, fontSize: '1.5em', fontWeight: '500' }}>{section.visual}</span>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(45deg, var(--color-bg-subtle) 25%, var(--color-bg-alt) 25%, var(--color-bg-alt) 50%, var(--color-bg-subtle) 50%, var(--color-bg-subtle) 75%, var(--color-bg-alt) 75%, var(--color-bg-alt) 100%)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
+              <span style={{ position: 'relative', zIndex: 1, fontSize: 'var(--text-h3)', fontWeight: '500' }}>{section.visual}</span>
             </div>
             <div style={{ maxWidth: '65ch', margin: '0 auto', textAlign: 'center' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', marginBottom: '15px' }}>{section.title}</h2>
-              <p style={{ color: '#666', fontSize: '1.1em' }}>{section.text}</p>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', marginBottom: 'var(--space-md)' }}>{section.title}</h2>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-body-lg)', lineHeight: 'var(--line-height-base)' }}>{section.text}</p>
             </div>
           </section>
         );
       
       case 'comparison':
         return (
-          <section key={index} style={{ marginBottom: '120px' }}>
-            <div style={{ maxWidth: '65ch', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', marginBottom: '15px' }}>{section.title}</h2>
-              <p style={{ color: '#666', fontSize: '1.1em' }}>{section.text}</p>
+          <section key={index} style={{ marginBottom: 'var(--space-section)' }}>
+            <div style={{ maxWidth: '65ch', marginBottom: 'var(--space-2xl)' }}>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', marginBottom: 'var(--space-md)' }}>{section.title}</h2>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-body-lg)', lineHeight: 'var(--line-height-base)' }}>{section.text}</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-              <div style={{ aspectRatio: '4/3', background: '#f9f9f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999', border: '1px solid #eee' }}>Before / Option A</div>
-              <div style={{ aspectRatio: '4/3', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999', border: '1px solid #eee' }}>After / Option B</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-lg)' }}>
+              <div style={{ aspectRatio: '4/3', background: 'var(--color-bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-light)', border: '1px solid var(--color-border)' }}>Before / Option A</div>
+              <div style={{ aspectRatio: '4/3', background: 'var(--color-bg-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-light)', border: '1px solid var(--color-border)' }}>After / Option B</div>
             </div>
           </section>
         );
@@ -275,14 +277,14 @@ const CaseChapter = () => {
       case 'grid':
       case 'mood':
         return (
-          <section key={index} style={{ marginBottom: '120px' }}>
-            <div style={{ maxWidth: '65ch', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', marginBottom: '15px' }}>{section.title}</h2>
-              <p style={{ color: '#666', fontSize: '1.1em' }}>{section.text}</p>
+          <section key={index} style={{ marginBottom: 'var(--space-section)' }}>
+            <div style={{ maxWidth: '65ch', marginBottom: 'var(--space-2xl)' }}>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', marginBottom: 'var(--space-md)' }}>{section.title}</h2>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-body-lg)', lineHeight: 'var(--line-height-base)' }}>{section.text}</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--space-lg)' }}>
               {[1, 2, 3, 4].map(i => (
-                <div key={i} style={{ aspectRatio: '1/1', background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc' }}>
+                <div key={i} style={{ aspectRatio: '1/1', background: 'var(--color-bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-light)' }}>
                   Item {i}
                 </div>
               ))}
@@ -293,9 +295,9 @@ const CaseChapter = () => {
       case 'text':
       default:
         return (
-          <section key={index} style={{ marginBottom: '120px', maxWidth: '65ch' }}>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', marginBottom: '15px' }}>{section.title}</h2>
-            <p style={{ color: '#444', fontSize: '1.1em', lineHeight: '1.8' }}>{section.text}</p>
+          <section key={index} style={{ marginBottom: 'var(--space-section)', maxWidth: '65ch' }}>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', marginBottom: 'var(--space-md)' }}>{section.title}</h2>
+            <p style={{ color: 'var(--color-text-main)', fontSize: 'var(--text-body-lg)', lineHeight: 'var(--line-height-relaxed)' }}>{section.text}</p>
           </section>
         );
     }
@@ -309,36 +311,36 @@ const CaseChapter = () => {
         top: '20px', 
         zIndex: 900,
         margin: '0 20px',
-        borderRadius: '12px',
-        padding: '15px 30px',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-md) var(--space-xl)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <Link to="/work/the-case" style={{ textDecoration: 'none', color: '#666', fontSize: '0.9em', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span>←</span> 目录
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-lg)' }}>
+          <Link to="/work/the-case" style={{ textDecoration: 'none', color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span>←</span> {t('case.backToToc')}
           </Link>
-          <div style={{ width: '1px', height: '16px', background: '#eee' }}></div>
-          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.95em', fontWeight: '500' }}>
-            <span style={{ color: '#999', marginRight: '10px', fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}>Chapter {chapter.number}</span>
+          <div style={{ width: '1px', height: '16px', background: 'var(--color-border)' }}></div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-sm)', fontWeight: '500' }}>
+            <span style={{ color: 'var(--color-text-light)', marginRight: '10px', fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}>Chapter {chapter.number}</span>
             {chapter.title}
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-lg)' }}>
+          <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
             <button 
               disabled={!chapter.prev}
               onClick={() => navigate(`/work/the-case/${chapter.prev}`)}
-              style={{ padding: '8px 12px', border: '1px solid #eee', background: 'transparent', borderRadius: '8px', cursor: chapter.prev ? 'pointer' : 'default', opacity: chapter.prev ? 1 : 0.3, transition: 'all 0.2s' }}
+              style={{ padding: '8px 12px', border: '1px solid var(--color-border)', background: 'transparent', borderRadius: 'var(--radius-md)', cursor: chapter.prev ? 'pointer' : 'default', opacity: chapter.prev ? 1 : 0.3, transition: 'all 0.2s' }}
             >
               ←
             </button>
             <button 
               disabled={!chapter.next}
               onClick={() => navigate(`/work/the-case/${chapter.next}`)}
-              style={{ padding: '8px 12px', border: '1px solid #eee', background: 'transparent', borderRadius: '8px', cursor: chapter.next ? 'pointer' : 'default', opacity: chapter.next ? 1 : 0.3, transition: 'all 0.2s' }}
+              style={{ padding: '8px 12px', border: '1px solid var(--color-border)', background: 'transparent', borderRadius: 'var(--radius-md)', cursor: chapter.next ? 'pointer' : 'default', opacity: chapter.next ? 1 : 0.3, transition: 'all 0.2s' }}
             >
               →
             </button>
@@ -346,27 +348,27 @@ const CaseChapter = () => {
         </div>
       </nav>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--space-4xl) var(--space-2xl)' }}>
         
         {/* Bridge: From Previous (Enhanced UI) */}
         <div style={{ 
           textAlign: 'center', 
-          marginBottom: '80px', 
-          padding: '40px', 
-          background: '#fafafa', 
-          borderRadius: '12px',
-          border: '1px solid #eee'
+          marginBottom: 'var(--space-4xl)', 
+          padding: 'var(--space-2xl)', 
+          background: 'var(--color-bg-subtle)', 
+          borderRadius: 'var(--radius-lg)', 
+          border: '1px solid var(--color-border)'
         }}>
-          <div style={{ fontSize: '0.8em', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '15px', color: '#999' }}>
-            Chapter Intro
+          <div style={{ fontSize: 'var(--text-xs)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 'var(--space-md)', color: 'var(--color-text-light)' }}>
+            {t('case.chapterIntro')}
           </div>
-          <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4em', fontStyle: 'italic', color: '#444', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
+          <div style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h3)', fontStyle: 'italic', color: 'var(--color-text-main)', maxWidth: '800px', margin: '0 auto', lineHeight: 'var(--line-height-base)' }}>
             "{chapter.bridge.intro}"
           </div>
         </div>
 
         {/* 2. Chapter Hero */}
-        <section style={{ marginBottom: '160px', textAlign: 'center', position: 'relative' }}>
+        <section style={{ marginBottom: 'var(--space-section)', textAlign: 'center', position: 'relative' }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -386,37 +388,37 @@ const CaseChapter = () => {
             }}>
               {chapter.number}
             </div>
-            <h1 style={{ fontSize: '4.5em', fontWeight: '400', marginBottom: '30px', letterSpacing: '-0.02em' }}>{chapter.title}</h1>
-            <p style={{ fontSize: '1.4em', color: '#666', maxWidth: '600px', margin: '0 auto 60px auto', lineHeight: '1.6' }}>
+            <h1 style={{ fontSize: 'var(--text-display)', fontWeight: '400', marginBottom: 'var(--space-xl)', letterSpacing: '-0.02em', lineHeight: 'var(--line-height-tight)' }}>{chapter.title}</h1>
+            <p style={{ fontSize: 'var(--text-h3)', color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto var(--space-3xl) auto', lineHeight: 'var(--line-height-base)' }}>
               {chapter.subtitle}
             </p>
             
-            <div style={{ display: 'inline-flex', gap: '60px', borderTop: '1px solid #eee', paddingTop: '30px' }}>
+            <div style={{ display: 'inline-flex', gap: 'var(--space-3xl)', borderTop: '1px solid var(--color-border)', paddingTop: 'var(--space-xl)' }}>
               <div>
-                <div style={{ fontSize: '0.75em', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px' }}>Goal</div>
-                <div style={{ fontWeight: '500' }}>定义策略</div>
+                <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'var(--space-xs)' }}>{t('case.goal')}</div>
+                <div style={{ fontWeight: '500' }}>{t('case.defineStrategy')}</div>
               </div>
               <div>
-                <div style={{ fontSize: '0.75em', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px' }}>Role</div>
-                <div style={{ fontWeight: '500' }}>主设计师</div>
+                <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'var(--space-xs)' }}>Role</div>
+                <div style={{ fontWeight: '500' }}>{t('case.leadDesigner')}</div>
               </div>
               <div>
-                <div style={{ fontSize: '0.75em', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px' }}>Output</div>
-                <div style={{ fontWeight: '500' }}>{chapter.deliverables[0] || '资产'}</div>
+                <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'var(--space-xs)' }}>{t('case.output')}</div>
+                <div style={{ fontWeight: '500' }}>{chapter.deliverables[0] || t('case.asset')}</div>
               </div>
             </div>
           </motion.div>
         </section>
 
         {/* 3. Content Area */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 'var(--space-4xl)' }}>
           
           {/* Local TOC - Refined */}
           <aside style={{ position: 'sticky', top: '120px', height: 'fit-content' }}>
-            <div style={{ fontSize: '0.75em', fontWeight: '600', color: '#999', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '1px' }}>Contents</div>
+            <div style={{ fontSize: 'var(--text-xs)', fontWeight: '600', color: 'var(--color-text-light)', marginBottom: 'var(--space-md)', textTransform: 'uppercase', letterSpacing: '1px' }}>Contents</div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {chapter.content.map((section, i) => (
-                <li key={i} style={{ marginBottom: '12px', fontSize: '0.9em', color: '#444', cursor: 'pointer', transition: 'color 0.2s' }} className="hover:text-black">
+                <li key={i} style={{ marginBottom: 'var(--space-sm)', fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', cursor: 'pointer', transition: 'color 0.2s' }} className="hover:text-black">
                   {section.title}
                 </li>
               ))}
@@ -429,25 +431,25 @@ const CaseChapter = () => {
 
             {/* Visual Language Source (New Component) */}
             {chapter.galleryRef && (
-              <section style={{ marginBottom: '120px', padding: '40px', background: '#f9f9f9', borderLeft: '4px solid #111', borderRadius: '0 12px 12px 0' }}>
-                <div style={{ fontSize: '0.8em', fontWeight: '600', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '15px' }}>
-                  视觉语言来源
+              <section style={{ marginBottom: 'var(--space-section)', padding: 'var(--space-2xl)', background: 'var(--color-bg-subtle)', borderLeft: '4px solid var(--color-text-main)', borderRadius: '0 var(--radius-lg) var(--radius-lg) 0' }}>
+                <div style={{ fontSize: 'var(--text-xs)', fontWeight: '600', color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'var(--space-md)' }}>
+                  {t('case.visualLanguageSource')}
                 </div>
-                <p style={{ fontSize: '1.1em', color: '#444', marginBottom: '20px', lineHeight: '1.6' }}>
+                <p style={{ fontSize: 'var(--text-body-lg)', color: 'var(--color-text-main)', marginBottom: 'var(--space-lg)', lineHeight: 'var(--line-height-base)' }}>
                   {chapter.galleryRef.desc}
                 </p>
-                <Link to={chapter.galleryRef.link} style={{ textDecoration: 'none', color: '#111', fontWeight: '500', borderBottom: '1px solid #111', paddingBottom: '2px' }}>
-                  → 查看相关作品 ({chapter.galleryRef.title})
+                <Link to={chapter.galleryRef.link} style={{ textDecoration: 'none', color: 'var(--color-text-main)', fontWeight: '500', borderBottom: '1px solid var(--color-text-main)', paddingBottom: '2px' }}>
+                  → {t('case.viewRelatedWorks')} ({chapter.galleryRef.title})
                 </Link>
               </section>
             )}
 
             {/* Deliverables */}
-            <section style={{ marginTop: '120px', padding: '60px', background: '#111', color: '#fff', borderRadius: '2px' }}>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', marginBottom: '40px' }}>本章产出</h2>
-              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <section style={{ marginTop: 'var(--space-section)', padding: 'var(--space-3xl)', background: 'var(--color-text-main)', color: 'var(--color-bg)', borderRadius: 'var(--radius-sm)' }}>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', marginBottom: 'var(--space-xl)' }}>{t('case.chapterDeliverables')}</h2>
+              <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                 {chapter.deliverables.map((item, i) => (
-                  <div key={i} style={{ padding: '12px 24px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '100px', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div key={i} style={{ padding: '12px 24px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 'var(--radius-full)', fontSize: 'var(--text-sm)', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ opacity: 0.5 }}>↓</span> {item}
                   </div>
                 ))}
@@ -458,17 +460,17 @@ const CaseChapter = () => {
 
         {/* 4. Next Chapter Navigation & Bridge (Enhanced UI) */}
         {chapter.next ? (
-          <section style={{ marginTop: '160px' }}>
+          <section style={{ marginTop: 'var(--space-section)' }}>
             <div style={{ 
-              background: '#111', 
-              color: '#fff', 
-              padding: '80px 40px', 
-              borderRadius: '16px',
+              background: 'var(--color-text-main)', 
+              color: 'var(--color-bg)', 
+              padding: 'var(--space-4xl) var(--space-2xl)', 
+              borderRadius: 'var(--radius-lg)', 
               textAlign: 'center'
             }}>
-              <div style={{ marginBottom: '40px', opacity: 0.8 }}>
-                <div style={{ fontSize: '0.8em', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '15px' }}>Narrative Handoff</div>
-                <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4em', fontStyle: 'italic', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
+              <div style={{ marginBottom: 'var(--space-2xl)', opacity: 0.8 }}>
+                <div style={{ fontSize: 'var(--text-xs)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 'var(--space-md)' }}>Narrative Handoff</div>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h3)', fontStyle: 'italic', maxWidth: '800px', margin: '0 auto', lineHeight: 'var(--line-height-base)' }}>
                   "{chapter.bridge.outro}"
                 </div>
               </div>
@@ -479,40 +481,40 @@ const CaseChapter = () => {
                   display: 'inline-block',
                   border: '1px solid rgba(255,255,255,0.3)', 
                   padding: '20px 60px', 
-                  borderRadius: '100px',
+                  borderRadius: 'var(--radius-full)', 
                   cursor: 'pointer',
                   transition: 'all 0.3s',
                   background: 'rgba(255,255,255,0.1)'
                 }}
                 className="hover:bg-white hover:text-black"
               >
-                <p style={{ marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.8em', opacity: 0.7 }}>Next Chapter</p>
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2em', margin: 0 }}>
+                <p style={{ marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: 'var(--text-xs)', opacity: 0.7 }}>Next Chapter</p>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', margin: 0 }}>
                   {chaptersData[chapter.next].title} <span style={{ fontSize: '0.6em', verticalAlign: 'middle', marginLeft: '10px' }}>→</span>
                 </h3>
               </div>
             </div>
           </section>
         ) : (
-          <section style={{ marginTop: '160px', textAlign: 'center', padding: '80px 0', background: '#fafafa', borderRadius: '16px' }}>
-             <div style={{ marginBottom: '40px', opacity: 0.8, maxWidth: '800px', margin: '0 auto 40px auto' }}>
-              <div style={{ fontSize: '0.8em', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '15px', color: '#999' }}>Conclusion</div>
-              <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4em', fontStyle: 'italic', color: '#444', lineHeight: '1.6' }}>
+          <section style={{ marginTop: 'var(--space-section)', textAlign: 'center', padding: 'var(--space-4xl) 0', background: 'var(--color-bg-subtle)', borderRadius: 'var(--radius-lg)' }}>
+             <div style={{ marginBottom: 'var(--space-2xl)', opacity: 0.8, maxWidth: '800px', margin: '0 auto 40px auto' }}>
+              <div style={{ fontSize: 'var(--text-xs)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 'var(--space-md)', color: 'var(--color-text-light)' }}>Conclusion</div>
+              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h3)', fontStyle: 'italic', color: 'var(--color-text-main)', lineHeight: 'var(--line-height-base)' }}>
                 "{chapter.bridge.outro}"
               </div>
             </div>
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '3em', marginBottom: '40px' }}>
-              案例研究结束
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-display)', marginBottom: 'var(--space-2xl)', fontSize: '3em' }}>
+              {t('case.caseStudyEnd')}
             </h3>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 'var(--space-md)' }}>
               <Link to="/contact">
-                <button style={{ padding: '15px 40px', background: '#111', color: '#fff', border: 'none', borderRadius: '30px', fontSize: '1.1em', cursor: 'pointer', fontWeight: '500' }}>
-                  联系我
+                <button style={{ padding: '15px 40px', background: 'var(--color-text-main)', color: 'var(--color-bg)', border: 'none', borderRadius: 'var(--radius-full)', fontSize: 'var(--text-body-lg)', cursor: 'pointer', fontWeight: '500' }}>
+                  {t('case.contactMe')}
                 </button>
               </Link>
               <Link to="/work/the-case">
-                <button style={{ padding: '15px 40px', background: 'transparent', color: '#111', border: '1px solid #ddd', borderRadius: '30px', fontSize: '1.1em', cursor: 'pointer' }}>
-                  返回目录
+                <button style={{ padding: '15px 40px', background: 'transparent', color: 'var(--color-text-main)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-full)', fontSize: 'var(--text-body-lg)', cursor: 'pointer' }}>
+                  {t('case.backToTableOfContents')}
                 </button>
               </Link>
             </div>

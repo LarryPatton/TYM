@@ -55,7 +55,7 @@ export const FullPageScroll = ({ children, onSectionChange, navHeight = 80 }) =>
           height: sectionHeight,
           overflowY: 'auto',
           overflowX: 'hidden',
-          // 使用 proximity 实现柔和吸附，而非强制吸附
+          // 使用 proximity 实现柔和吸附，滚动更自然
           scrollSnapType: 'y proximity',
           // Hide scrollbar
           scrollbarWidth: 'none', // Firefox
@@ -84,8 +84,8 @@ export const FullPageScroll = ({ children, onSectionChange, navHeight = 80 }) =>
  */
 export const FullPageSection = ({ 
   children, 
-  bgColor = '#ffffff',
-  textColor = '#111111',
+  bgColor = 'var(--color-bg)',
+  textColor = 'var(--color-text-main)',
   className = '',
   style = {},
   id,
@@ -101,7 +101,7 @@ export const FullPageSection = ({
         minHeight: sectionHeight || `calc(100vh - ${navHeight}px)`,
         width: '100%',
         scrollSnapAlign: 'start',
-        scrollSnapStop: 'normal', // 允许快速滚动跳过
+        scrollSnapStop: 'always', // 确保每个 section 都会吸附
         backgroundColor: bgColor,
         color: textColor,
         display: 'flex',
@@ -127,7 +127,6 @@ export const FullPageSection = ({
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '40px',
           boxSizing: 'border-box'
         }}
       >
@@ -146,8 +145,8 @@ export const DotNavigation = ({ sections = [], darkMode = false }) => {
 
   // 根据当前 section 的背景色决定导航点颜色
   const isDark = darkMode || (sections[currentIndex]?.dark);
-  const dotColor = isDark ? '#ffffff' : '#333333';
-  const dotInactiveColor = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)';
+  const dotColor = isDark ? 'var(--color-dark-text)' : 'var(--color-text-main)';
+  const dotInactiveColor = isDark ? 'var(--color-dark-text-muted)' : 'var(--color-text-light)';
 
   return (
     <div style={{

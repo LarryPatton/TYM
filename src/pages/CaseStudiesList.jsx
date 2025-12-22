@@ -67,20 +67,21 @@ const CaseStudiesList = () => {
   });
 
   return (
-    <div style={{ padding: '40px 0' }}>
+    <div style={{ padding: 'var(--space-3xl) 0' }}>
       {/* Header */}
-      <div style={{ marginBottom: '60px' }}>
-        <h1 style={{ fontSize: '3em', fontWeight: '900', marginBottom: '30px' }}>案例研究.</h1>
+      <div style={{ marginBottom: 'var(--space-3xl)' }}>
+        <h1 style={{ fontSize: 'var(--text-display)', fontWeight: '900', marginBottom: 'var(--space-xl)', fontFamily: 'var(--font-serif)', lineHeight: 'var(--line-height-tight)' }}>案例研究.</h1>
         
         {/* Search & Filter Bar */}
         <div style={{ 
           display: 'flex', 
-          gap: '15px', 
+          gap: 'var(--space-md)', 
           flexWrap: 'wrap', 
           alignItems: 'center',
-          background: '#f9f9f9',
-          padding: '20px',
-          borderRadius: '12px'
+          background: 'var(--color-bg-subtle)',
+          padding: 'var(--space-lg)',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--color-border)'
         }}>
           <input 
             type="text" 
@@ -89,20 +90,22 @@ const CaseStudiesList = () => {
             onChange={(e) => setSearch(e.target.value)}
             style={{ 
               padding: '10px 15px', 
-              borderRadius: '8px', 
-              border: '1px solid #ddd',
+              borderRadius: 'var(--radius-md)', 
+              border: '1px solid var(--color-border)',
               minWidth: '200px',
-              flex: 1
+              flex: 1,
+              fontSize: 'var(--text-body)',
+              background: 'var(--color-bg)'
             }}
           />
           
-          <select style={{ padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}>
+          <select style={{ padding: '10px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg)', fontSize: 'var(--text-body)' }}>
             <option value="">所有角色</option>
             <option value="产品设计师">产品设计师</option>
             <option value="主设计师">主设计师</option>
           </select>
 
-          <select style={{ padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}>
+          <select style={{ padding: '10px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg)', fontSize: 'var(--text-body)' }}>
             <option value="">所有行业</option>
             <option value="金融">金融</option>
             <option value="零售">零售</option>
@@ -110,7 +113,7 @@ const CaseStudiesList = () => {
 
           <button 
             onClick={() => { setSearch(''); setFilter({ role: '', industry: '', deliverable: '', year: '' }); }}
-            style={{ padding: '10px 20px', background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', textDecoration: 'underline' }}
+            style={{ padding: '10px 20px', background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', textDecoration: 'underline', fontSize: 'var(--text-sm)' }}
           >
             清除筛选
           </button>
@@ -118,7 +121,7 @@ const CaseStudiesList = () => {
       </div>
 
       {/* Case List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2xl)' }}>
         {filteredCases.map(item => (
           <motion.div 
             key={item.id}
@@ -129,24 +132,24 @@ const CaseStudiesList = () => {
             style={{ 
               display: 'grid', 
               gridTemplateColumns: '300px 1fr', 
-              gap: '40px',
-              background: '#fff',
-              border: '1px solid #eee',
-              borderRadius: '20px',
+              gap: 'var(--space-2xl)',
+              background: 'var(--color-bg)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 'var(--radius-xl)',
               overflow: 'hidden',
-              padding: '30px'
+              padding: 'var(--space-xl)'
             }}
           >
             {/* Cover Image */}
             <div style={{ 
-              background: item.cover, 
-              borderRadius: '12px', 
+              background: 'var(--color-bg-alt)', 
+              borderRadius: 'var(--radius-lg)', 
               height: '100%', 
               minHeight: '200px',
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
-              color: '#999'
+              color: 'var(--color-text-light)'
             }}>
               [ 封面图 ]
             </div>
@@ -154,12 +157,12 @@ const CaseStudiesList = () => {
             {/* Content */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '10px' }}>
-                  <h2 style={{ fontSize: '1.8em', fontWeight: 'bold', margin: 0 }}>{item.title}</h2>
-                  <span style={{ background: '#f0f0f0', padding: '5px 10px', borderRadius: '6px', fontSize: '0.8em', color: '#666' }}>{item.year}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 'var(--space-sm)' }}>
+                  <h2 style={{ fontSize: 'var(--text-h3)', fontWeight: 'bold', margin: 0, fontFamily: 'var(--font-serif)' }}>{item.title}</h2>
+                  <span style={{ background: 'var(--color-bg-subtle)', padding: '5px 10px', borderRadius: 'var(--radius-sm)', fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', border: '1px solid var(--color-border)' }}>{item.year}</span>
                 </div>
                 
-                <div style={{ display: 'flex', gap: '20px', color: '#666', fontSize: '0.95em', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', gap: 'var(--space-lg)', color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-lg)' }}>
                   <span>{item.role}</span>
                   <span>•</span>
                   <span>{item.duration}</span>
@@ -167,29 +170,30 @@ const CaseStudiesList = () => {
                   <span>{item.team}</span>
                 </div>
 
-                <div style={{ fontSize: '1.1em', fontWeight: '500', marginBottom: '20px', color: '#333' }}>
+                <div style={{ fontSize: 'var(--text-body-lg)', fontWeight: '500', marginBottom: 'var(--space-lg)', color: 'var(--color-text-main)' }}>
                   结果: {item.result}
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
                   {item.tags.map(tag => (
-                    <span key={tag} style={{ border: '1px solid #eee', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85em', color: '#888' }}>
+                    <span key={tag} style={{ border: '1px solid var(--color-border)', padding: '4px 12px', borderRadius: 'var(--radius-full)', fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div style={{ marginTop: '30px' }}>
+              <div style={{ marginTop: 'var(--space-xl)' }}>
                 <Link to={`/work/case-studies/${item.id}`}>
                   <button style={{ 
                     padding: '10px 24px', 
-                    background: '#000', 
-                    color: '#fff', 
+                    background: 'var(--color-text-main)', 
+                    color: 'var(--color-bg)', 
                     border: 'none', 
-                    borderRadius: '30px', 
+                    borderRadius: 'var(--radius-full)', 
                     cursor: 'pointer',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    fontSize: 'var(--text-sm)'
                   }}>
                     查看案例 →
                   </button>

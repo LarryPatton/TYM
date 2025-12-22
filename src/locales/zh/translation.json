@@ -1,0 +1,413 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "close": "关闭",
+    "search": "搜索",
+    "noResults": "暂无结果",
+    "viewMore": "查看更多",
+    "viewAll": "查看全部",
+    "learnMore": "了解更多",
+    "scroll": "滚动"
+  },
+  "nav": {
+    "home": "首页",
+    "work": "作品",
+    "about": "关于",
+    "gallery": "画廊",
+    "caseStudies": "案例研究",
+    "designSystem": "设计系统",
+    "showcase": "展示",
+    "contact": "联系我们",
+    "services": "服务"
+  },
+  "home": {
+    "pageTitle": "首页",
+    "heroName": "你的名字",
+    "heroRole": "产品设计师 & 开发者",
+    "heroDesc": "打造融合美学与功能的数字体验。",
+    "heroDesc2": "通过设计与代码，帮助品牌讲述他们的故事。",
+    "viewFeaturedCases": "查看精选案例",
+    "contactMe": "联系我",
+    "sectionHero": "首页",
+    "sectionWorks": "作品",
+    "sectionServices": "服务",
+    "sectionContact": "联系",
+    "featuredTitle": "作品集导读 · 精选作品",
+    "partnersTitle": "合作品牌",
+    "ctaTitle": "想一起做点什么？",
+    "ctaDesc": "让我们共同创造令人惊叹的作品。",
+    "emailMe": "发邮件给我",
+    "wechatContact": "微信联系",
+    "cases": {
+      "01-brand-identity": {
+        "title": "品牌视觉识别",
+        "subtitle": "Chapter 01 · 品牌基因的提炼",
+        "desc": "从品牌战略到视觉表达的完整识别系统。"
+      },
+      "02-ui-guidelines": {
+        "title": "UI 视觉规范",
+        "subtitle": "Chapter 02 · 视觉系统的建立",
+        "desc": "建立跨平台的数字视觉语言与组件库。"
+      },
+      "03-cmf": {
+        "title": "产品 CMF 定义",
+        "subtitle": "Chapter 03 · 物理质感的转译",
+        "desc": "将数字美学转化为实体产品的材质与工艺。"
+      },
+      "04-motion-design": {
+        "title": "动效设计系统",
+        "subtitle": "Chapter 04 · 动态交互的编排",
+        "desc": "为界面注入生命力的动效设计规范。"
+      },
+      "05-data-viz": {
+        "title": "数据可视化",
+        "subtitle": "Chapter 05 · 复杂信息的简化",
+        "desc": "将复杂数据转化为直观可理解的视觉叙事。"
+      },
+      "06-marketing-plan": {
+        "title": "品牌营销视觉",
+        "subtitle": "Chapter 06 · 跨渠道的视觉延展",
+        "desc": "跨渠道的视觉系统延展与传播策略。"
+      }
+    },
+    "skills": {
+      "productDesign": {
+        "title": "产品设计",
+        "desc": "UI/UX, 原型设计, 设计系统"
+      },
+      "development": {
+        "title": "开发",
+        "desc": "React, 前端架构, 交互开发"
+      },
+      "strategy": {
+        "title": "策略",
+        "desc": "用户研究, 产品策略, 数据分析"
+      }
+    },
+    "services": {
+      "designSystem": {
+        "title": "Design System",
+        "desc": "构建跨平台的设计语言与组件库，确保品牌一致性与开发效率的完美平衡。"
+      },
+      "productDesign": {
+        "title": "Product Design",
+        "desc": "从用户研究到交互设计、视觉设计的全链路产品设计服务，打造卓越用户体验。"
+      },
+      "development": {
+        "title": "Development",
+        "desc": "基于 React/Vue 的现代前端开发，动效实现，响应式设计与性能优化。"
+      },
+      "strategy": {
+        "title": "Strategy",
+        "desc": "用户研究、竞品分析、产品策略规划，数据驱动的设计决策支持。"
+      }
+    }
+  },
+  "about": {
+    "pageTitle": "关于",
+    "title": "About Me.",
+    "sectionIntro": "简介",
+    "sectionExpertise": "专业能力",
+    "sectionJourney": "旅程",
+    "sectionContact": "联系",
+    "expertiseTitle": "专业能力",
+    "journeyTitle": "职业历程",
+    "contactTitle": "联系方式",
+    "emailLabel": "邮箱",
+    "wechatLabel": "微信",
+    "greeting": "你好，我是 [名字]。",
+    "introLine1": "一名致力于弥合设计与工程鸿沟的产品设计师。",
+    "introLine2": "我的职业生涯始于代码，但我很快意识到我真正的热情在于设计与技术的交汇点。在过去的 6 年里，我帮助初创公司和企业推出了成功的数字产品，始终追求美学与功能的完美平衡。",
+    "downloadResume": "下载简历",
+    "contactMe": "联系我",
+    "letsTalk": "Let's Talk.",
+    "contactIntro": "准备好开始下一个项目了吗？",
+    "contactIntro2": "无论是全新的构想还是正在进行的项目，我都乐意倾听。",
+    "copy": "复制",
+    "copied": "已复制",
+    "projectConsultation": "项目咨询",
+    "messageSent": "消息已发送!",
+    "thankYou": "感谢您的联系。我会在 24 小时内回复您。",
+    "sendAnother": "发送另一条",
+    "formName": "姓名",
+    "formNamePlaceholder": "您的姓名",
+    "formEmail": "邮箱",
+    "formEmailPlaceholder": "your@email.com",
+    "formProjectType": "项目类型",
+    "formProjectTypeOptions": {
+      "webDesign": "网页设计与开发",
+      "mobileApp": "移动应用设计",
+      "branding": "品牌设计",
+      "consulting": "咨询",
+      "other": "其他"
+    },
+    "formDetails": "项目详情",
+    "formDetailsPlaceholder": "请告诉我您的目标、时间表以及任何具体要求...",
+    "submitting": "发送中...",
+    "submit": "发送消息",
+    "expertise": {
+      "strategy": {
+        "title": "Strategy",
+        "items": ["Product Strategy", "User Research", "Data Analysis", "Market Positioning"]
+      },
+      "design": {
+        "title": "Design",
+        "items": ["UI/UX Design", "Design Systems", "Prototyping", "Interaction Design"]
+      },
+      "development": {
+        "title": "Development",
+        "items": ["React / Next.js", "Creative Coding", "WebGL / Three.js", "Frontend Architecture"]
+      }
+    },
+    "journey": {
+      "item1": {
+        "year": "2021 - Present",
+        "role": "Senior Product Designer",
+        "company": "Tech Innovators Inc."
+      },
+      "item2": {
+        "year": "2019 - 2021",
+        "role": "UI/UX Designer",
+        "company": "Creative Studio"
+      },
+      "item3": {
+        "year": "2017 - 2019",
+        "role": "Frontend Developer",
+        "company": "StartUp Alpha"
+      },
+      "item4": {
+        "year": "2013 - 2017",
+        "role": "Bachelor of Design",
+        "company": "Academy of Arts"
+      }
+    }
+  },
+  "work": {
+    "pageTitle": "作品",
+    "title": "精选作品.",
+    "subtitle": "探索设计与技术的边界，",
+    "subtitle2": "每一个项目都是一次新的尝试。",
+    "filter": "筛选",
+    "all": "全部",
+    "caseStudy": "案例研究",
+    "projectDetails": "项目详情",
+    "viewProject": "查看项目",
+    "featuredCaseStudy": "Featured Case Study",
+    "artGallery": "Art Gallery",
+    "viewFullCase": "查看完整案例",
+    "featured": {
+      "title": "Project GENESIS",
+      "desc": "一个涵盖品牌策略、UI 设计、CMF、包装和营销的完整 0-1 旅程。我们重新定义了产品的核心价值。"
+    },
+    "modules": {
+      "form": {
+        "label": "Module A",
+        "title": "造型 Form",
+        "quote": "\"纸笔摩擦中的灵光乍现\"",
+        "enter": "进入造型"
+      },
+      "photo": {
+        "label": "Module B",
+        "title": "摄影 Photo",
+        "quote": "\"定格记忆的时光标本\"",
+        "enter": "进入摄影"
+      }
+    }
+  },
+  "gallery": {
+    "pageTitle": "画廊",
+    "title": "艺术画廊",
+    "subtitle": "以视觉作品为主的个人创作集合，探索造型与光影的无限可能。",
+    "categories": "分类",
+    "allWorks": "全部作品",
+    "backToGallery": "← 返回画廊首页",
+    "latestRelease": "最新发布",
+    "featuredRecommend": "精选推荐",
+    "workImage": "[ 作品图 ]",
+    "mainVisual": "[ 主视觉大图 ]",
+    "detail": "[ 细节 {{num}} ]",
+    "related": "[ 相关 {{num}} ]",
+    "work": "作品",
+    "workDetail": "作品详情",
+    "workTitle": "作品标题 {{num}}",
+    "previous": "← 上一件",
+    "next": "下一件 →",
+    "year": "年份",
+    "medium": "媒介",
+    "size": "尺寸",
+    "digitalPainting": "数字绘画",
+    "digitalPhotography": "数码摄影",
+    "workDesc": "这里是关于作品的简短描述。阐述创作动机、使用的技术或背后的故事。保持在 3-5 行以内。",
+    "capabilityTags": "能力标签",
+    "relatedWorks": "同系列作品",
+    "modules": {
+      "form": {
+        "label": "Module A",
+        "title": "造型 Form",
+        "titleShort": "造型",
+        "quote": "\"纸笔摩擦中的灵光乍现\"",
+        "enter": "进入造型",
+        "tags": ["新国画人", "综合材料", "插画故事", "风格化板绘"]
+      },
+      "photo": {
+        "label": "Module B",
+        "title": "摄影 Photo",
+        "titleShort": "摄影",
+        "quote": "\"定格记忆的时光标本\"",
+        "enter": "进入摄影",
+        "tags": ["产品摄影", "风景摄影"]
+      }
+    },
+    "submodules": {
+      "new-china-painter": {
+        "title": "新国画人",
+        "desc": "传统笔墨与现代构成的碰撞。"
+      },
+      "mixed-media": {
+        "title": "综合材料",
+        "desc": "探索不同材质的肌理与情感。"
+      },
+      "illustration-story": {
+        "title": "插画故事",
+        "desc": "用画面讲述连贯的叙事。"
+      },
+      "stylized-board": {
+        "title": "风格化板绘",
+        "desc": "数字绘画的风格探索。"
+      },
+      "product": {
+        "title": "产品摄影",
+        "desc": "光影下的物体质感。"
+      },
+      "landscape": {
+        "title": "风景摄影",
+        "desc": "记录自然与城市的瞬间。"
+      },
+      "unknown": {
+        "title": "未知模块",
+        "desc": ""
+      }
+    }
+  },
+  "case": {
+    "pageTitle": "案例研究",
+    "featuredCaseStudy": "Featured Case Study",
+    "projectTitle": "Project GENESIS",
+    "projectDesc": "从品牌战略到实体产品发布的完整 0-1 旅程。",
+    "role": "角色",
+    "roleValue": "主设计师",
+    "duration": "周期",
+    "durationValue": "12 个月",
+    "team": "团队",
+    "teamValue": "8 人",
+    "scope": "范围",
+    "scopeValue": "全栈设计",
+    "startReading": "开始阅读 (第 01 章)",
+    "tableOfContents": "目录",
+    "chaptersInfo": "{{count}} 个章节 • 预计阅读 {{time}} 分钟",
+    "read": "阅读",
+    "minutes": "分钟",
+    "quickAccess": "快速访问",
+    "viewResults": "直接查看结果与复盘",
+    "backToIndex": "← 返回目录",
+    "backToToc": "目录",
+    "previousChapter": "上一章",
+    "nextChapter": "下一章",
+    "chapterIntro": "Chapter Intro",
+    "narrativeHandoff": "Narrative Handoff",
+    "conclusion": "Conclusion",
+    "goal": "Goal",
+    "defineStrategy": "定义策略",
+    "leadDesigner": "主设计师",
+    "output": "Output",
+    "asset": "资产",
+    "contents": "Contents",
+    "visualLanguageSource": "视觉语言来源",
+    "viewRelatedWorks": "查看相关作品",
+    "chapterDeliverables": "本章产出",
+    "caseStudyEnd": "案例研究结束",
+    "contactMe": "联系我",
+    "backToTableOfContents": "返回目录",
+    "beforeOptionA": "Before / Option A",
+    "afterOptionB": "After / Option B",
+    "item": "Item",
+    "continueReading": "继续阅读",
+    "shareThisCase": "分享本案例",
+    "relatedCases": "相关案例",
+    "chapters": {
+      "01-background": {
+        "title": "背景与环境",
+        "desc": "项目概览、挑战与战略方向。",
+        "output": "战略方案",
+        "time": "5"
+      },
+      "02-ui-guidelines": {
+        "title": "UI 视觉规范",
+        "desc": "建立视觉语言与组件库。",
+        "output": "设计系统",
+        "time": "8"
+      },
+      "03-cmf": {
+        "title": "产品 CMF",
+        "desc": "定义硬件的色彩、材质与工艺。",
+        "output": "CMF 规格书",
+        "time": "6"
+      },
+      "04-packaging": {
+        "title": "包装设计",
+        "desc": "开箱体验与结构包装设计。",
+        "output": "刀模图, 样机",
+        "time": "5"
+      },
+      "05-poster-kv": {
+        "title": "海报 & 主视觉",
+        "desc": "数字与平面媒体的关键视觉。",
+        "output": "高清资源",
+        "time": "4"
+      },
+      "06-marketing-plan": {
+        "title": "营销计划",
+        "desc": "上市策略与活动规划。",
+        "output": "活动路线图",
+        "time": "7"
+      },
+      "07-offline-materials": {
+        "title": "线下物料",
+        "desc": "展位设计与印刷品。",
+        "output": "印刷文件",
+        "time": "5"
+      },
+      "08-results-review": {
+        "title": "结果与复盘",
+        "desc": "数据分析、用户反馈与项目回顾。",
+        "output": "绩效报告",
+        "time": "4"
+      }
+    }
+  },
+  "footer": {
+    "email": "邮箱",
+    "wechat": "微信",
+    "resume": "简历",
+    "copyright": "© {{year}} Your Name. All Rights Reserved."
+  },
+  "language": {
+    "switchTo": "切换语言",
+    "zh": "中文",
+    "en": "English"
+  },
+  "theme": {
+    "switchToDark": "切换到暗色模式",
+    "switchToLight": "切换到亮色模式"
+  }
+}

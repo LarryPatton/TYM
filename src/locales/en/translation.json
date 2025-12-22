@@ -1,0 +1,413 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "search": "Search",
+    "noResults": "No results found",
+    "viewMore": "View More",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "scroll": "Scroll"
+  },
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "about": "About",
+    "gallery": "Gallery",
+    "caseStudies": "Case Studies",
+    "designSystem": "Design System",
+    "showcase": "Showcase",
+    "contact": "Contact",
+    "services": "Services"
+  },
+  "home": {
+    "pageTitle": "Home",
+    "heroName": "Your Name",
+    "heroRole": "Product Designer & Developer",
+    "heroDesc": "Crafting digital experiences that blend aesthetics and functionality.",
+    "heroDesc2": "Helping brands tell their stories through design and code.",
+    "viewFeaturedCases": "View Featured Cases",
+    "contactMe": "Contact Me",
+    "sectionHero": "Home",
+    "sectionWorks": "Works",
+    "sectionServices": "Services",
+    "sectionContact": "Contact",
+    "featuredTitle": "Portfolio Guide · Featured Works",
+    "partnersTitle": "Partners",
+    "ctaTitle": "Want to create something together?",
+    "ctaDesc": "Let's create amazing work together.",
+    "emailMe": "Email Me",
+    "wechatContact": "WeChat Contact",
+    "cases": {
+      "01-brand-identity": {
+        "title": "Brand Visual Identity",
+        "subtitle": "Chapter 01 · Extracting Brand DNA",
+        "desc": "Complete identity system from brand strategy to visual expression."
+      },
+      "02-ui-guidelines": {
+        "title": "UI Visual Guidelines",
+        "subtitle": "Chapter 02 · Building Visual Systems",
+        "desc": "Establishing cross-platform digital visual language and component library."
+      },
+      "03-cmf": {
+        "title": "Product CMF Definition",
+        "subtitle": "Chapter 03 · Translating Physical Textures",
+        "desc": "Transforming digital aesthetics into physical product materials and craftsmanship."
+      },
+      "04-motion-design": {
+        "title": "Motion Design System",
+        "subtitle": "Chapter 04 · Orchestrating Dynamic Interactions",
+        "desc": "Motion design guidelines that bring interfaces to life."
+      },
+      "05-data-viz": {
+        "title": "Data Visualization",
+        "subtitle": "Chapter 05 · Simplifying Complex Information",
+        "desc": "Transforming complex data into intuitive visual narratives."
+      },
+      "06-marketing-plan": {
+        "title": "Brand Marketing Visuals",
+        "subtitle": "Chapter 06 · Cross-channel Visual Extension",
+        "desc": "Cross-channel visual system extension and communication strategy."
+      }
+    },
+    "skills": {
+      "productDesign": {
+        "title": "Product Design",
+        "desc": "UI/UX, Prototyping, Design Systems"
+      },
+      "development": {
+        "title": "Development",
+        "desc": "React, Frontend Architecture, Interactive Dev"
+      },
+      "strategy": {
+        "title": "Strategy",
+        "desc": "User Research, Product Strategy, Data Analysis"
+      }
+    },
+    "services": {
+      "designSystem": {
+        "title": "Design System",
+        "desc": "Building cross-platform design languages and component libraries, ensuring perfect balance between brand consistency and development efficiency."
+      },
+      "productDesign": {
+        "title": "Product Design",
+        "desc": "Full-chain product design services from user research to interaction and visual design, creating exceptional user experiences."
+      },
+      "development": {
+        "title": "Development",
+        "desc": "Modern frontend development based on React/Vue, motion implementation, responsive design and performance optimization."
+      },
+      "strategy": {
+        "title": "Strategy",
+        "desc": "User research, competitive analysis, product strategy planning, data-driven design decision support."
+      }
+    }
+  },
+  "about": {
+    "pageTitle": "About",
+    "title": "About Me.",
+    "sectionIntro": "Intro",
+    "sectionExpertise": "Expertise",
+    "sectionJourney": "Journey",
+    "sectionContact": "Contact",
+    "expertiseTitle": "Expertise",
+    "journeyTitle": "Journey",
+    "contactTitle": "Contact",
+    "emailLabel": "Email",
+    "wechatLabel": "WeChat",
+    "greeting": "Hi, I'm [Name].",
+    "introLine1": "A product designer dedicated to bridging the gap between design and engineering.",
+    "introLine2": "My career started with code, but I quickly realized my true passion lies at the intersection of design and technology. Over the past 6 years, I've helped startups and enterprises launch successful digital products, always pursuing the perfect balance of aesthetics and functionality.",
+    "downloadResume": "Download Resume",
+    "contactMe": "Contact Me",
+    "letsTalk": "Let's Talk.",
+    "contactIntro": "Ready to start your next project?",
+    "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "projectConsultation": "Project Consultation",
+    "messageSent": "Message Sent!",
+    "thankYou": "Thank you for reaching out. I'll get back to you within 24 hours.",
+    "sendAnother": "Send Another",
+    "formName": "Name",
+    "formNamePlaceholder": "Your name",
+    "formEmail": "Email",
+    "formEmailPlaceholder": "your@email.com",
+    "formProjectType": "Project Type",
+    "formProjectTypeOptions": {
+      "webDesign": "Web Design & Development",
+      "mobileApp": "Mobile App Design",
+      "branding": "Branding",
+      "consulting": "Consulting",
+      "other": "Other"
+    },
+    "formDetails": "Project Details",
+    "formDetailsPlaceholder": "Please tell me about your goals, timeline, and any specific requirements...",
+    "submitting": "Sending...",
+    "submit": "Send Message",
+    "expertise": {
+      "strategy": {
+        "title": "Strategy",
+        "items": ["Product Strategy", "User Research", "Data Analysis", "Market Positioning"]
+      },
+      "design": {
+        "title": "Design",
+        "items": ["UI/UX Design", "Design Systems", "Prototyping", "Interaction Design"]
+      },
+      "development": {
+        "title": "Development",
+        "items": ["React / Next.js", "Creative Coding", "WebGL / Three.js", "Frontend Architecture"]
+      }
+    },
+    "journey": {
+      "item1": {
+        "year": "2021 - Present",
+        "role": "Senior Product Designer",
+        "company": "Tech Innovators Inc."
+      },
+      "item2": {
+        "year": "2019 - 2021",
+        "role": "UI/UX Designer",
+        "company": "Creative Studio"
+      },
+      "item3": {
+        "year": "2017 - 2019",
+        "role": "Frontend Developer",
+        "company": "StartUp Alpha"
+      },
+      "item4": {
+        "year": "2013 - 2017",
+        "role": "Bachelor of Design",
+        "company": "Academy of Arts"
+      }
+    }
+  },
+  "work": {
+    "pageTitle": "Work",
+    "title": "Selected Works.",
+    "subtitle": "Exploring the boundaries of design and technology,",
+    "subtitle2": "each project is a new experiment.",
+    "filter": "Filter",
+    "all": "All",
+    "caseStudy": "Case Study",
+    "projectDetails": "Project Details",
+    "viewProject": "View Project",
+    "featuredCaseStudy": "Featured Case Study",
+    "artGallery": "Art Gallery",
+    "viewFullCase": "View Full Case",
+    "featured": {
+      "title": "Project GENESIS",
+      "desc": "A complete 0-1 journey covering brand strategy, UI design, CMF, packaging, and marketing. We redefined the core value of the product."
+    },
+    "modules": {
+      "form": {
+        "label": "Module A",
+        "title": "Form",
+        "quote": "\"Sparks of inspiration in the friction of pen and paper\"",
+        "enter": "Enter Form"
+      },
+      "photo": {
+        "label": "Module B",
+        "title": "Photo",
+        "quote": "\"Time specimens that freeze memories\"",
+        "enter": "Enter Photo"
+      }
+    }
+  },
+  "gallery": {
+    "pageTitle": "Gallery",
+    "title": "Art Gallery",
+    "subtitle": "A personal collection of visual works, exploring the infinite possibilities of form and light.",
+    "categories": "Categories",
+    "allWorks": "All Works",
+    "backToGallery": "← Back to Gallery",
+    "latestRelease": "Latest",
+    "featuredRecommend": "Featured",
+    "workImage": "[ Artwork ]",
+    "mainVisual": "[ Main Visual ]",
+    "detail": "[ Detail {{num}} ]",
+    "related": "[ Related {{num}} ]",
+    "work": "Work",
+    "workDetail": "Work Detail",
+    "workTitle": "Artwork Title {{num}}",
+    "previous": "← Previous",
+    "next": "Next →",
+    "year": "Year",
+    "medium": "Medium",
+    "size": "Size",
+    "digitalPainting": "Digital Painting",
+    "digitalPhotography": "Digital Photography",
+    "workDesc": "A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines.",
+    "capabilityTags": "Capability Tags",
+    "relatedWorks": "Related Works",
+    "modules": {
+      "form": {
+        "label": "Module A",
+        "title": "Form",
+        "titleShort": "Form",
+        "quote": "\"Sparks of inspiration in the friction of pen and paper\"",
+        "enter": "Enter Form",
+        "tags": ["New China Painter", "Mixed Media", "Illustration Story", "Stylized Board"]
+      },
+      "photo": {
+        "label": "Module B",
+        "title": "Photo",
+        "titleShort": "Photo",
+        "quote": "\"Time specimens that freeze memories\"",
+        "enter": "Enter Photo",
+        "tags": ["Product Photography", "Landscape Photography"]
+      }
+    },
+    "submodules": {
+      "new-china-painter": {
+        "title": "New China Painter",
+        "desc": "The collision of traditional ink and modern composition."
+      },
+      "mixed-media": {
+        "title": "Mixed Media",
+        "desc": "Exploring the texture and emotion of different materials."
+      },
+      "illustration-story": {
+        "title": "Illustration Story",
+        "desc": "Telling coherent narratives through images."
+      },
+      "stylized-board": {
+        "title": "Stylized Board",
+        "desc": "Style exploration in digital painting."
+      },
+      "product": {
+        "title": "Product Photography",
+        "desc": "The texture of objects under light and shadow."
+      },
+      "landscape": {
+        "title": "Landscape Photography",
+        "desc": "Capturing moments of nature and the city."
+      },
+      "unknown": {
+        "title": "Unknown Module",
+        "desc": ""
+      }
+    }
+  },
+  "case": {
+    "pageTitle": "Case Studies",
+    "featuredCaseStudy": "Featured Case Study",
+    "projectTitle": "Project GENESIS",
+    "projectDesc": "A complete 0-1 journey from brand strategy to physical product launch.",
+    "role": "Role",
+    "roleValue": "Lead Designer",
+    "duration": "Duration",
+    "durationValue": "12 Months",
+    "team": "Team",
+    "teamValue": "8 People",
+    "scope": "Scope",
+    "scopeValue": "Full-stack Design",
+    "startReading": "Start Reading (Chapter 01)",
+    "tableOfContents": "Table of Contents",
+    "chaptersInfo": "{{count}} Chapters • Est. {{time}} min read",
+    "read": "Read",
+    "minutes": "min",
+    "quickAccess": "Quick Access",
+    "viewResults": "Jump to Results & Review",
+    "backToIndex": "← Back to Index",
+    "backToToc": "TOC",
+    "previousChapter": "Previous Chapter",
+    "nextChapter": "Next Chapter",
+    "chapterIntro": "Chapter Intro",
+    "narrativeHandoff": "Narrative Handoff",
+    "conclusion": "Conclusion",
+    "goal": "Goal",
+    "defineStrategy": "Define Strategy",
+    "leadDesigner": "Lead Designer",
+    "output": "Output",
+    "asset": "Asset",
+    "contents": "Contents",
+    "visualLanguageSource": "Visual Language Source",
+    "viewRelatedWorks": "View Related Works",
+    "chapterDeliverables": "Chapter Deliverables",
+    "caseStudyEnd": "Case Study Complete",
+    "contactMe": "Contact Me",
+    "backToTableOfContents": "Back to Table of Contents",
+    "beforeOptionA": "Before / Option A",
+    "afterOptionB": "After / Option B",
+    "item": "Item",
+    "continueReading": "Continue Reading",
+    "shareThisCase": "Share This Case",
+    "relatedCases": "Related Cases",
+    "chapters": {
+      "01-background": {
+        "title": "Background & Context",
+        "desc": "Project overview, challenges, and strategic direction.",
+        "output": "Strategy Plan",
+        "time": "5"
+      },
+      "02-ui-guidelines": {
+        "title": "UI Visual Guidelines",
+        "desc": "Establishing visual language and component library.",
+        "output": "Design System",
+        "time": "8"
+      },
+      "03-cmf": {
+        "title": "Product CMF",
+        "desc": "Defining color, material, and finish for hardware.",
+        "output": "CMF Spec Sheet",
+        "time": "6"
+      },
+      "04-packaging": {
+        "title": "Packaging Design",
+        "desc": "Unboxing experience and structural packaging design.",
+        "output": "Die-cut, Mockup",
+        "time": "5"
+      },
+      "05-poster-kv": {
+        "title": "Poster & Key Visual",
+        "desc": "Key visuals for digital and print media.",
+        "output": "HD Assets",
+        "time": "4"
+      },
+      "06-marketing-plan": {
+        "title": "Marketing Plan",
+        "desc": "Go-to-market strategy and campaign planning.",
+        "output": "Campaign Roadmap",
+        "time": "7"
+      },
+      "07-offline-materials": {
+        "title": "Offline Materials",
+        "desc": "Booth design and print collaterals.",
+        "output": "Print Files",
+        "time": "5"
+      },
+      "08-results-review": {
+        "title": "Results & Review",
+        "desc": "Data analysis, user feedback, and project retrospective.",
+        "output": "Performance Report",
+        "time": "4"
+      }
+    }
+  },
+  "footer": {
+    "email": "Email",
+    "wechat": "WeChat",
+    "resume": "Resume",
+    "copyright": "© {{year}} Your Name. All Rights Reserved."
+  },
+  "language": {
+    "switchTo": "Switch Language",
+    "zh": "中文",
+    "en": "English"
+  },
+  "theme": {
+    "switchToDark": "Switch to Dark Mode",
+    "switchToLight": "Switch to Light Mode"
+  }
+}

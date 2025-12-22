@@ -1,16 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
+import { ThemeProvider } from './hooks/useTheme';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Work from './pages/Work';
 import About from './pages/About';
-import Contact from './pages/Contact';
 import CaseStudiesList from './pages/CaseStudiesList';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import CaseIndex from './pages/CaseIndex';
 import CaseChapter from './pages/CaseChapter';
 import ShowcaseDemos from './pages/ShowcaseDemos';
-import Scheme10Refined from './pages/Scheme10Refined';
+import ShowcaseSidebarDemos from './pages/ShowcaseSidebarDemos';
+import ServiceDemo from './pages/ServiceDemo';
+import DesignSystem from './pages/DesignSystem';
 import ScrollToTop from './components/ScrollToTop';
 
 // Gallery Pages
@@ -21,9 +23,10 @@ import GalleryWorkDetail from './pages/GalleryWorkDetail';
 
 function App() {
   return (
-    <BrowserRouter basename="/TYM">
-      <ScrollToTop />
-      <Routes>
+    <ThemeProvider>
+      <BrowserRouter basename="/TYM">
+        <ScrollToTop />
+        <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="work" element={<Work />} />
@@ -36,7 +39,9 @@ function App() {
 
           {/* Showcase Demos */}
           <Route path="showcase-demos" element={<ShowcaseDemos />} />
-          <Route path="scheme-10-refined" element={<Scheme10Refined />} />
+          <Route path="showcase-sidebar-demos" element={<ShowcaseSidebarDemos />} />
+          <Route path="service-demo" element={<ServiceDemo />} />
+          <Route path="design-system" element={<DesignSystem />} />
 
           {/* New Gallery Routes */}
           <Route path="gallery" element={<GalleryHome />} />
@@ -45,10 +50,10 @@ function App() {
           <Route path="gallery/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
 
           <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
