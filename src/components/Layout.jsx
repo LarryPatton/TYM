@@ -11,9 +11,35 @@ const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
   
+  // 简洁的 SVG 图标
+  const SunIcon = () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  );
+  
+  const MoonIcon = () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  );
+
+  // 处理点击，传递事件给 toggleTheme 以获取点击位置
+  const handleClick = (event) => {
+    toggleTheme(event);
+  };
+  
   return (
     <motion.button
-      onClick={toggleTheme}
+      onClick={handleClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       style={{
@@ -26,14 +52,13 @@ const ThemeToggle = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: '1.1em',
         color: 'var(--color-text-main)',
         transition: 'all 0.3s ease',
       }}
       title={theme === 'dark' ? t('theme.switchToLight') : t('theme.switchToDark')}
     >
       {/* 暗色模式显示太阳（切换到亮色），亮色模式显示月亮（切换到暗色） */}
-      {theme === 'dark' ? '☀️' : '🌙'}
+      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </motion.button>
   );
 };

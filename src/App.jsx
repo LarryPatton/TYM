@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import { ThemeProvider } from './hooks/useTheme';
+import { ScrollLockProvider } from './contexts/ScrollLockContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Work from './pages/Work';
@@ -14,6 +15,7 @@ import ShowcaseSidebarDemos from './pages/ShowcaseSidebarDemos';
 import ServiceDemo from './pages/ServiceDemo';
 import DesignSystem from './pages/DesignSystem';
 import ScrollToTop from './components/ScrollToTop';
+import WorkPreview from './pages/WorkPreview';
 
 // Gallery Pages
 import GalleryHome from './pages/GalleryHome';
@@ -24,12 +26,14 @@ import GalleryWorkDetail from './pages/GalleryWorkDetail';
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter basename="/TYM">
+      <ScrollLockProvider>
+        <BrowserRouter basename="/TYM">
         <ScrollToTop />
         <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="work" element={<Work />} />
+          <Route path="work-preview" element={<WorkPreview />} />
           <Route path="work/case-studies" element={<CaseStudiesList />} />
           <Route path="work/case-studies/:slug" element={<CaseStudyDetail />} />
           
@@ -52,7 +56,8 @@ function App() {
           <Route path="about" element={<About />} />
         </Route>
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+      </ScrollLockProvider>
     </ThemeProvider>
   );
 }

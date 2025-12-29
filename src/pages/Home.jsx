@@ -6,14 +6,19 @@ import { Link } from 'react-router-dom';
 import ScrollParallaxShowcase from '../components/ScrollParallaxShowcase';
 import ServiceSection from '../components/ServiceSection';
 import BlindsTransition from '../components/BlindsTransition';
+import { useScrollLock } from '../contexts/ScrollLockContext';
 
 // 首页专用导航圆点组件
 const HomeDotNavigation = ({ sections }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const sectionRefs = useRef([]);
+  const isScrollingRef = useRef(false);
+  const { lockScroll } = useScrollLock();
 
   useEffect(() => {
     const handleScroll = () => {
+      // 如果正在程序化滚动，跳过检测
+      if (isScrollingRef.current) return;
+      
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       
       // 找到当前所在的 section
@@ -31,10 +36,36 @@ const HomeDotNavigation = ({ sections }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sections]);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id, index) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // 标记正在滚动，防止 handleScroll 干扰
+      isScrollingRef.current = true;
+      setCurrentIndex(index);
+      
+      // 触发全局滚动锁定，禁用其他组件的 onViewportEnter
+      // 同时传递目标 section ID，让相关组件可以做特殊处理
+      lockScroll(1200, id);
+      
+      // 计算目标位置，稍微向上偏移确保 section 第一项在视口中心
+      // 对于 services section，需要额外偏移以确保第一个服务项在视口中心
+      let targetPosition = element.offsetTop;
+      if (id === 'services') {
+        // 偏移量：确保第一个服务项的中心在视口中心
+        // ServiceSection 有 50px padding-top，第一项有 100px padding
+        targetPosition = element.offsetTop + 50;
+      }
+      
+      // 使用 scrollTo 进行精确滚动
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+      
+      // 滚动完成后恢复检测
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1200);
     }
   };
 
@@ -57,7 +88,7 @@ const HomeDotNavigation = ({ sections }) => {
       {sections.map((section, index) => (
         <motion.button
           key={section.id}
-          onClick={() => scrollToSection(section.id)}
+          onClick={() => scrollToSection(section.id, index)}
           whileHover={{ scale: 1.3 }}
           whileTap={{ scale: 0.9 }}
           style={{
@@ -117,48 +148,42 @@ const Home = () => {
       id: '01-brand-identity', 
       title: t('home.cases.01-brand-identity.title'), 
       subtitle: t('home.cases.01-brand-identity.subtitle'),
-      desc: t('home.cases.01-brand-identity.desc'), 
-      tags: ['Strategy', 'Visual Identity', 'System'],
+      subtitle2: t('home.cases.01-brand-identity.subtitle2'),
       cover: '#333333' 
     },
     { 
-      id: '02-ui-guidelines', 
-      title: t('home.cases.02-ui-guidelines.title'), 
-      subtitle: t('home.cases.02-ui-guidelines.subtitle'),
-      desc: t('home.cases.02-ui-guidelines.desc'), 
-      tags: ['UI/UX', 'Design System', 'Components'],
+      id: '02-cmf-packaging', 
+      title: t('home.cases.02-cmf-packaging.title'), 
+      subtitle: t('home.cases.02-cmf-packaging.subtitle'),
+      subtitle2: t('home.cases.02-cmf-packaging.subtitle2'),
       cover: '#444444' 
     },
     { 
-      id: '03-cmf', 
-      title: t('home.cases.03-cmf.title'), 
-      subtitle: t('home.cases.03-cmf.subtitle'),
-      desc: t('home.cases.03-cmf.desc'), 
-      tags: ['Industrial', 'Material', 'Texture'],
+      id: '03-key-visual', 
+      title: t('home.cases.03-key-visual.title'), 
+      subtitle: t('home.cases.03-key-visual.subtitle'),
+      subtitle2: t('home.cases.03-key-visual.subtitle2'),
       cover: '#555555' 
     },
     { 
-      id: '04-motion-design', 
-      title: t('home.cases.04-motion-design.title'), 
-      subtitle: t('home.cases.04-motion-design.subtitle'),
-      desc: t('home.cases.04-motion-design.desc'), 
-      tags: ['Motion', 'Interaction', 'Lottie'],
+      id: '04-regional-marketing', 
+      title: t('home.cases.04-regional-marketing.title'), 
+      subtitle: t('home.cases.04-regional-marketing.subtitle'),
+      subtitle2: t('home.cases.04-regional-marketing.subtitle2'),
       cover: '#666666' 
     },
     { 
-      id: '05-data-viz', 
-      title: t('home.cases.05-data-viz.title'), 
-      subtitle: t('home.cases.05-data-viz.subtitle'),
-      desc: t('home.cases.05-data-viz.desc'), 
-      tags: ['Data Viz', 'Dashboard', 'Analytics'],
+      id: '05-offline-space', 
+      title: t('home.cases.05-offline-space.title'), 
+      subtitle: t('home.cases.05-offline-space.subtitle'),
+      subtitle2: t('home.cases.05-offline-space.subtitle2'),
       cover: '#777777' 
     },
     { 
-      id: '06-marketing-plan', 
-      title: t('home.cases.06-marketing-plan.title'), 
-      subtitle: t('home.cases.06-marketing-plan.subtitle'),
-      desc: t('home.cases.06-marketing-plan.desc'), 
-      tags: ['Marketing', 'Campaign', 'Social'],
+      id: '06-art-gallery', 
+      title: t('home.cases.06-art-gallery.title'), 
+      subtitle: t('home.cases.06-art-gallery.subtitle'),
+      subtitle2: t('home.cases.06-art-gallery.subtitle2'),
       cover: '#888888' 
     },
   ];
@@ -172,32 +197,52 @@ const Home = () => {
   // 专业服务数据
   const services = [
     { 
-      id: 'design-system',
-      title: t('home.services.designSystem.title'), 
-      desc: t('home.services.designSystem.desc'),
-      tags: ['Figma', 'Tokens', 'Accessibility', 'Documentation'],
-      color: '#ffffff'
+      id: 'brand-foundation',
+      title: t('home.services.brandFoundation.title'), 
+      subtitle: t('home.services.brandFoundation.subtitle'),
+      problem: t('home.services.brandFoundation.problem'),
+      desc: t('home.services.brandFoundation.desc'),
+      tags: t('home.services.brandFoundation.chips', { returnObjects: true }),
     },
     { 
-      id: 'product-design',
-      title: t('home.services.productDesign.title'), 
-      desc: t('home.services.productDesign.desc'),
-      tags: ['UI/UX', 'Prototyping', 'User Research', 'Wireframing'],
-      color: '#e0e0e0'
+      id: 'product-physical',
+      title: t('home.services.productPhysical.title'), 
+      subtitle: t('home.services.productPhysical.subtitle'),
+      problem: t('home.services.productPhysical.problem'),
+      desc: t('home.services.productPhysical.desc'),
+      tags: t('home.services.productPhysical.chips', { returnObjects: true }),
     },
     { 
-      id: 'development',
-      title: t('home.services.development.title'), 
-      desc: t('home.services.development.desc'),
-      tags: ['React', 'Next.js', 'WebGL', 'Creative Coding'],
-      color: '#cccccc'
+      id: 'visual-communication',
+      title: t('home.services.visualCommunication.title'), 
+      subtitle: t('home.services.visualCommunication.subtitle'),
+      problem: t('home.services.visualCommunication.problem'),
+      desc: t('home.services.visualCommunication.desc'),
+      tags: t('home.services.visualCommunication.chips', { returnObjects: true }),
     },
     { 
-      id: 'strategy',
-      title: t('home.services.strategy.title'), 
-      desc: t('home.services.strategy.desc'),
-      tags: ['Market Analysis', 'Positioning', 'Data Viz', 'Growth'],
-      color: '#b0b0b0'
+      id: 'campaign-marketing',
+      title: t('home.services.campaignMarketing.title'), 
+      subtitle: t('home.services.campaignMarketing.subtitle'),
+      problem: t('home.services.campaignMarketing.problem'),
+      desc: t('home.services.campaignMarketing.desc'),
+      tags: t('home.services.campaignMarketing.chips', { returnObjects: true }),
+    },
+    { 
+      id: 'offline-applications',
+      title: t('home.services.offlineApplications.title'), 
+      subtitle: t('home.services.offlineApplications.subtitle'),
+      problem: t('home.services.offlineApplications.problem'),
+      desc: t('home.services.offlineApplications.desc'),
+      tags: t('home.services.offlineApplications.chips', { returnObjects: true }),
+    },
+    { 
+      id: 'creative-exploration',
+      title: t('home.services.creativeExploration.title'), 
+      subtitle: t('home.services.creativeExploration.subtitle'),
+      problem: t('home.services.creativeExploration.problem'),
+      desc: t('home.services.creativeExploration.desc'),
+      tags: t('home.services.creativeExploration.chips', { returnObjects: true }),
     },
   ];
 
@@ -296,12 +341,12 @@ const Home = () => {
           </motion.p>
           
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '15px', marginBottom: '60px', flexWrap: 'wrap' }}>
-            {['UI/UX', 'React', 'Motion', 'Strategy'].map(tag => (
+            {t('home.heroTags', { returnObjects: true }).map(tag => (
               <span 
                 key={tag} 
                 style={{ 
                   padding: '10px 24px', 
-                  background: 'rgba(255,255,255,0.8)', 
+                  background: 'var(--color-surface)', 
                   backdropFilter: 'blur(10px)',
                   border: '1px solid var(--color-border)', 
                   borderRadius: 'var(--radius-full)', 
@@ -372,7 +417,7 @@ const Home = () => {
             textTransform: 'uppercase',
           }}
         >
-          <span>Scroll</span>
+          <span>{t('common.scroll')}</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}

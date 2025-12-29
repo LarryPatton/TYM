@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useScrollLock } from '../contexts/ScrollLockContext';
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { lockScroll } = useScrollLock();
 
   // 监听滚动
   useEffect(() => {
@@ -20,9 +22,12 @@ const BackToTop = () => {
 
   // 平滑滚动到顶部
   const scrollToTop = () => {
+    // 触发全局滚动锁定，防止其他组件的 onViewportEnter 干扰
+    lockScroll(1500);
+    
     window.scrollTo({
       top: 0,
-      behavior: 'auto', // Changed from 'smooth' to 'auto' to prevent scroll interception by layout shifts
+      behavior: 'smooth',
     });
   };
 

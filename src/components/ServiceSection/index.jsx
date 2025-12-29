@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useScrollLock } from '../../contexts/ScrollLockContext';
 
 /**
  * 服务区域主组件 - Scroll Triggered Interactive List Design
@@ -11,6 +12,20 @@ const ServiceSection = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
+  const { isScrollLocked, targetSection } = useScrollLock();
+
+  // 当导航到 services section 时，重置 activeIndex 为 0
+  useEffect(() => {
+    if (isScrollLocked && targetSection === 'services') {
+      setActiveIndex(0);
+    }
+  }, [isScrollLocked, targetSection]);
+
+  const handleViewportEnter = (index) => {
+    // 如果滚动被锁定，不更新 activeIndex
+    if (isScrollLocked) return;
+    setActiveIndex(index);
+  };
 
   return (
     <section
@@ -36,7 +51,7 @@ const ServiceSection = ({
             return (
               <motion.div
                 key={service.id || index}
-                onViewportEnter={() => setActiveIndex(index)}
+                onViewportEnter={() => handleViewportEnter(index)}
                 viewport={{ margin: "-45% 0px -45% 0px" }} // 调整视口触发区域，使其更窄，需要滚动到更中间才触发
                 initial={{ opacity: 0.3 }}
                 animate={{ opacity: isActive ? 1 : 0.3 }}
@@ -111,7 +126,14 @@ const ServiceSection = ({
                         
                         {/* Description & Tags */}
                         <div style={{ maxWidth: '600px' }}>
-                          <p style={{ fontSize: '1.1rem', color: '#999', lineHeight: 'var(--line-height-base)', marginBottom: '20px' }}>
+                          {/* 问题描述 */}
+                          {service.problem && (
+                            <p style={{ fontSize: '1rem', color: '#999', lineHeight: 'var(--line-height-base)', marginBottom: '8px' }}>
+                              {service.problem}
+                            </p>
+                          )}
+                          {/* 服务描述 */}
+                          <p style={{ fontSize: '1rem', color: '#999', lineHeight: 'var(--line-height-base)', marginBottom: '20px' }}>
                             {service.desc}
                           </p>
                           {service.tags && (

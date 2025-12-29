@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useScrollLock } from '../../contexts/ScrollLockContext';
 
 /**
  * 滚动视差展示主组件 - Type C: Expandable Accordion (动态展开详情)
@@ -11,6 +13,14 @@ import { Link } from 'react-router-dom';
  */
 const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => {
   const [activeId, setActiveId] = useState(projects[0]?.id);
+  const { isScrollLocked } = useScrollLock();
+  const { t } = useTranslation();
+
+  const handleViewportEnter = (projectId) => {
+    // 如果滚动被锁定，不更新 activeId
+    if (isScrollLocked) return;
+    setActiveId(projectId);
+  };
 
   return (
     <section
@@ -111,45 +121,25 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                       style={{ overflow: 'hidden' }}
                     >
                       <div style={{ paddingTop: '15px', paddingLeft: '35px' }}>
-                        <div style={{ 
-                          fontSize: '0.85rem', 
-                          color: 'var(--color-text-muted)', 
-                          textTransform: 'uppercase', 
-                          letterSpacing: '1px',
-                          marginBottom: '10px' 
-                        }}>
-                          {p.subtitle}
-                        </div>
+                        {/* 两行 Subtitle */}
                         <p style={{ 
                           fontSize: 'clamp(0.9rem, 1.1vw, 1rem)', 
                           color: 'var(--color-text-secondary)', 
                           lineHeight: 'var(--line-height-base)', 
-                          margin: '0 0 20px 0',
+                          margin: '0 0 2px 0',
                           maxWidth: '90%'
                         }}>
-                          {p.desc}
+                          {p.subtitle}
                         </p>
-                        
-                        {/* Tags */}
-                        {p.tags && (
-                          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '25px' }}>
-                            {p.tags.map(tag => (
-                              <span 
-                                key={tag} 
-                                style={{ 
-                                  fontSize: '0.75rem', 
-                                  padding: '6px 12px', 
-                                  background: 'var(--color-bg-subtle)', 
-                                  borderRadius: 'var(--radius-full)', 
-                                  color: 'var(--color-text-muted)',
-                                  fontWeight: '500'
-                                }}
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                        <p style={{ 
+                          fontSize: 'clamp(0.9rem, 1.1vw, 1rem)', 
+                          color: 'var(--color-text-secondary)', 
+                          lineHeight: 'var(--line-height-base)', 
+                          margin: '0 0 25px 0',
+                          maxWidth: '90%'
+                        }}>
+                          {p.subtitle2}
+                        </p>
 
                         {/* View Case Button */}
                         <Link 
@@ -169,7 +159,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                               paddingBottom: '2px'
                             }}
                           >
-                            查看详情 <span style={{ fontSize: '1.1rem' }}>→</span>
+                            {t('common.viewMore')} <span style={{ fontSize: '1.1rem' }}>→</span>
                           </motion.div>
                         </Link>
                       </div>
@@ -188,7 +178,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
           <motion.div
             key={project.id}
             id={`project-${project.id}`}
-            onViewportEnter={() => setActiveId(project.id)}
+            onViewportEnter={() => handleViewportEnter(project.id)}
             viewport={{ margin: "-45% 0px -45% 0px" }} // 视口中间 10% 区域触发
             style={{
               height: '100vh',
@@ -270,7 +260,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                     fontWeight: '600',
                     fontSize: '1rem',
                   }}>
-                    View Project
+                    {t('work.viewProject')}
                   </div>
                 </motion.div>
               </motion.div>

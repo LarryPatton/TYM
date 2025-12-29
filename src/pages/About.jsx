@@ -205,12 +205,18 @@ const About = () => {
               </h1>
             </motion.div>
             <motion.div variants={fadeInUp} style={{ paddingTop: '20px' }}>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--color-text-main)', marginBottom: '30px', fontWeight: '500' }}>
+              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--color-text-main)', marginBottom: '24px', fontWeight: '500' }}>
                 {t('about.greeting')}<br/>
                 {t('about.introLine1')}
               </p>
-              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '40px' }}>
+              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '20px' }}>
                 {t('about.introLine2')}
+              </p>
+              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '20px' }}>
+                {t('about.introLine3')}
+              </p>
+              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '40px' }}>
+                {t('about.introLine4')}
               </p>
               <div style={{ display: 'flex', gap: '20px' }}>
                 <button style={{ 

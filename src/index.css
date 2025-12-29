@@ -283,3 +283,42 @@
                 box-shadow var(--transition-fast),
                 transform var(--transition-fast);
   }
+
+  /* ========================================
+     VIEW TRANSITIONS - 视图过渡动画（主题切换圆点扩散效果）
+     ======================================== */
+  
+  /* 启用 View Transitions - 性能优化 */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    /* GPU 加速 */
+    will-change: clip-path;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* 旧视图（切换前的内容）保持可见 */
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  /* 新视图（切换后的内容）在上层，使用 clip-path 扩散 */
+  ::view-transition-new(root) {
+    z-index: 9999;
+  }
+
+  /* 视图过渡容器优化 */
+  ::view-transition-group(root) {
+    animation-duration: 0s;
+  }
+
+  /* 在过渡期间禁用所有 CSS transition，大幅提升性能 */
+  html:has(::view-transition) *,
+  html:has(::view-transition) *::before,
+  html:has(::view-transition) *::after {
+    transition: none !important;
+    animation-play-state: paused !important;
+  }

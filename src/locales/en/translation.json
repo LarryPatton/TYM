@@ -32,10 +32,11 @@
   },
   "home": {
     "pageTitle": "Home",
-    "heroName": "Your Name",
-    "heroRole": "Product Designer & Developer",
-    "heroDesc": "Crafting digital experiences that blend aesthetics and functionality.",
-    "heroDesc2": "Helping brands tell their stories through design and code.",
+    "heroName": "Lumi Tian",
+    "heroRole": "Brand Designer",
+    "heroDesc": "Focused on brand design, graphic design, and CMF,",
+    "heroDesc2": "I build cohesive and recognizable visual systems through systematic design.",
+    "heroTags": ["Brand Design", "Graphic Design", "CMF"],
     "viewFeaturedCases": "View Featured Cases",
     "contactMe": "Contact Me",
     "sectionHero": "Home",
@@ -44,40 +45,40 @@
     "sectionContact": "Contact",
     "featuredTitle": "Portfolio Guide · Featured Works",
     "partnersTitle": "Partners",
-    "ctaTitle": "Want to create something together?",
-    "ctaDesc": "Let's create amazing work together.",
+    "ctaTitle": "Interested in working on something meaningful together?",
+    "ctaDesc": "Let's turn ideas into clear and lasting work.",
     "emailMe": "Email Me",
     "wechatContact": "WeChat Contact",
     "cases": {
       "01-brand-identity": {
-        "title": "Brand Visual Identity",
-        "subtitle": "Chapter 01 · Extracting Brand DNA",
-        "desc": "Complete identity system from brand strategy to visual expression."
+        "title": "Brand Visual Identity System",
+        "subtitle": "Building comprehensive and extensible brand identity systems from the brand core.",
+        "subtitle2": "Through systematic visual guidelines, I ensure consistency across media and contexts."
       },
-      "02-ui-guidelines": {
-        "title": "UI Visual Guidelines",
-        "subtitle": "Chapter 02 · Building Visual Systems",
-        "desc": "Establishing cross-platform digital visual language and component library."
+      "02-cmf-packaging": {
+        "title": "Product CMF & Packaging Design",
+        "subtitle": "Shaping product and packaging perception through color, material, and finish.",
+        "subtitle2": "CMF and packaging design strengthen brand recognition and tactile quality."
       },
-      "03-cmf": {
-        "title": "Product CMF Definition",
-        "subtitle": "Chapter 03 · Translating Physical Textures",
-        "desc": "Transforming digital aesthetics into physical product materials and craftsmanship."
+      "03-key-visual": {
+        "title": "Key Visual & Poster System",
+        "subtitle": "Developing scalable key visual systems based on a unified visual language.",
+        "subtitle2": "Key visuals and posters enhance brand recognition across communication scenarios."
       },
-      "04-motion-design": {
-        "title": "Motion Design System",
-        "subtitle": "Chapter 04 · Orchestrating Dynamic Interactions",
-        "desc": "Motion design guidelines that bring interfaces to life."
+      "04-regional-marketing": {
+        "title": "Regional Marketing & Campaign Design",
+        "subtitle": "Designing targeted visual strategies for regional markets and campaign goals.",
+        "subtitle2": "Systematic campaign design improves communication efficiency and clarity."
       },
-      "05-data-viz": {
-        "title": "Data Visualization",
-        "subtitle": "Chapter 05 · Simplifying Complex Information",
-        "desc": "Transforming complex data into intuitive visual narratives."
+      "05-offline-space": {
+        "title": "Offline Space & Marketing Materials",
+        "subtitle": "Extending brand systems into physical spaces and offline materials.",
+        "subtitle2": "Maintaining visual consistency and recognition in real-world environments."
       },
-      "06-marketing-plan": {
-        "title": "Brand Marketing Visuals",
-        "subtitle": "Chapter 06 · Cross-channel Visual Extension",
-        "desc": "Cross-channel visual system extension and communication strategy."
+      "06-art-gallery": {
+        "title": "Art Projects & Gallery Practice",
+        "subtitle": "Exploring visual expression beyond commercial brand projects.",
+        "subtitle2": "Art practices inform design judgment and aesthetic sensibility."
       }
     },
     "skills": {
@@ -95,21 +96,47 @@
       }
     },
     "services": {
-      "designSystem": {
-        "title": "Design System",
-        "desc": "Building cross-platform design languages and component libraries, ensuring perfect balance between brand consistency and development efficiency."
+      "brandFoundation": {
+        "title": "Brand Foundation",
+        "subtitle": "Brand Visual Foundation",
+        "problem": "I help establish a clear and structured visual foundation for brands.",
+        "desc": "By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication.",
+        "chips": ["Brand Foundation", "Visual System", "Guidelines"]
       },
-      "productDesign": {
-        "title": "Product Design",
-        "desc": "Full-chain product design services from user research to interaction and visual design, creating exceptional user experiences."
+      "productPhysical": {
+        "title": "Product & Physical Experience",
+        "subtitle": "Product CMF & Packaging Design",
+        "problem": "I shape cohesive product and packaging experiences through CMF design.",
+        "desc": "By aligning color, material, and finish decisions, I strengthen brand perception at the physical level.",
+        "chips": ["CMF", "Packaging", "Material", "Finish"]
       },
-      "development": {
-        "title": "Development",
-        "desc": "Modern frontend development based on React/Vue, motion implementation, responsive design and performance optimization."
+      "visualCommunication": {
+        "title": "Visual Communication System",
+        "subtitle": "Key Visual & Communication System",
+        "problem": "I develop scalable visual communication systems for brands.",
+        "desc": "Through key visuals and repeatable design rules, brand messages become clearer and more memorable.",
+        "chips": ["Key Visual", "Visual Language", "Communication"]
       },
-      "strategy": {
-        "title": "Strategy",
-        "desc": "User research, competitive analysis, product strategy planning, data-driven design decision support."
+      "campaignMarketing": {
+        "title": "Campaign & Regional Marketing",
+        "subtitle": "Regional Marketing Support",
+        "problem": "I support brands in regional campaigns and market-specific communication.",
+        "desc": "By aligning visual strategy with local contexts, campaigns remain consistent and effective.",
+        "chips": ["Campaign", "Strategy", "Marketing"]
+      },
+      "offlineApplications": {
+        "title": "Offline & Real-world Applications",
+        "subtitle": "Offline Space & Applications",
+        "problem": "I translate brand systems into real-world environments.",
+        "desc": "From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces.",
+        "chips": ["Offline", "Spatial", "Application"]
+      },
+      "creativeExploration": {
+        "title": "Creative & Art-driven Exploration",
+        "subtitle": "Art Direction & Visual Exploration",
+        "problem": "I explore visual expression beyond commercial boundaries.",
+        "desc": "Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking.",
+        "chips": ["Art Direction", "Exhibition", "Experiment"]
       }
     }
   },
@@ -125,11 +152,13 @@
     "contactTitle": "Contact",
     "emailLabel": "Email",
     "wechatLabel": "WeChat",
-    "greeting": "Hi, I'm [Name].",
-    "introLine1": "A product designer dedicated to bridging the gap between design and engineering.",
-    "introLine2": "My career started with code, but I quickly realized my true passion lies at the intersection of design and technology. Over the past 6 years, I've helped startups and enterprises launch successful digital products, always pursuing the perfect balance of aesthetics and functionality.",
+    "greeting": "Hi, I'm Tian Yangmin.",
+    "introLine1": "A brand-focused designer working at the intersection of visual identity and product design.",
+    "introLine2": "My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability.",
+    "introLine3": "Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions.",
+    "introLine4": "To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking.",
     "downloadResume": "Download Resume",
-    "contactMe": "Contact Me",
+    "contactMe": "Get in Touch",
     "letsTalk": "Let's Talk.",
     "contactIntro": "Ready to start your next project?",
     "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it.",
@@ -206,8 +235,15 @@
     "artGallery": "Art Gallery",
     "viewFullCase": "View Full Case",
     "featured": {
-      "title": "Project GENESIS",
-      "desc": "A complete 0-1 journey covering brand strategy, UI design, CMF, packaging, and marketing. We redefined the core value of the product."
+      "title": "Brand Building Practice",
+      "desc": "Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change.",
+      "tags": ["Brand Strategy", "System Thinking", "Iteration", "Application"]
+    },
+    "gallery": {
+      "title": "Visual Notes & Art Works",
+      "desc": "Cross-media visual creation and art practice, exploring expression free from commercial constraints, and feeding back into design judgment.",
+      "tags": ["Art Direction", "Mixed Media", "Illustration", "Painting"],
+      "enter": "Enter Gallery"
     },
     "modules": {
       "form": {
