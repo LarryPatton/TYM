@@ -229,9 +229,9 @@
     "artGallery": "艺术画廊",
     "viewFullCase": "查看完整案例",
     "featured": {
-      "title": "Brand Building Practice",
+      "title": "品牌构建实践",
       "desc": "记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。",
-      "tags": ["Brand Strategy", "System Thinking", "Iteration", "Application"]
+      "tags": ["品牌策略", "系统思维", "迭代优化", "落地应用"]
     },
     "gallery": {
       "title": "Visual Notes & Art Works",
@@ -332,96 +332,208 @@
   "case": {
     "pageTitle": "案例研究",
     "featuredCaseStudy": "Featured Case Study",
-    "projectTitle": "Project GENESIS",
-    "projectDesc": "从品牌战略到实体产品发布的完整 0-1 旅程。",
+    "projectTitle": "Brand Building Practice",
+    "projectDesc": "记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。",
     "role": "角色",
     "roleValue": "主设计师",
     "duration": "周期",
     "durationValue": "12 个月",
     "team": "团队",
-    "teamValue": "8 人",
+    "teamValue": "核心团队",
     "scope": "范围",
-    "scopeValue": "全栈设计",
-    "startReading": "开始阅读 (第 01 章)",
+    "scopeValue": "品牌全案",
+    "startReading": "开始阅读 Phase 01",
     "tableOfContents": "目录",
-    "chaptersInfo": "{{count}} 个章节 • 预计阅读 {{time}} 分钟",
-    "read": "阅读",
-    "minutes": "分钟",
+    "phasesInfo": "{{count}} 个阶段",
+    "explore": "探索",
     "quickAccess": "快速访问",
-    "viewResults": "直接查看结果与复盘",
-    "backToIndex": "← 返回目录",
+    "viewResults": "直接查看最终阶段",
+    "backToIndex": "返回目录",
     "backToToc": "目录",
-    "previousChapter": "上一章",
-    "nextChapter": "下一章",
-    "chapterIntro": "Chapter Intro",
-    "narrativeHandoff": "Narrative Handoff",
-    "conclusion": "Conclusion",
-    "goal": "Goal",
-    "defineStrategy": "定义策略",
-    "leadDesigner": "主设计师",
-    "output": "Output",
-    "asset": "资产",
-    "contents": "Contents",
-    "visualLanguageSource": "视觉语言来源",
-    "viewRelatedWorks": "查看相关作品",
-    "chapterDeliverables": "本章产出",
-    "caseStudyEnd": "案例研究结束",
-    "contactMe": "联系我",
-    "backToTableOfContents": "返回目录",
-    "beforeOptionA": "Before / Option A",
-    "afterOptionB": "After / Option B",
-    "item": "Item",
-    "continueReading": "继续阅读",
-    "shareThisCase": "分享本案例",
-    "relatedCases": "相关案例",
-    "chapters": {
-      "01-background": {
-        "title": "背景与环境",
-        "desc": "项目概览、挑战与战略方向。",
-        "output": "战略方案",
-        "time": "5"
+    "nextPhase": "下一阶段",
+    "screenLabels": {
+      "principles": "设计原则",
+      "logo": "标志设计",
+      "color": "色彩体系",
+      "typography": "字体版式",
+      "validation": "最小验证",
+      "summary": "阶段小结",
+      "positioning": "产品定位",
+      "cmf-explore": "CMF 探索",
+      "cmf-final": "CMF 定案",
+      "packaging": "包装设计",
+      "consistency": "一致性验证",
+      "realworld": "真实场景",
+      "comparison": "产品对照",
+      "variation": "差异控制",
+      "efficiency": "效率提升",
+      "sequence": "序列感",
+      "packaging-system": "包装系统",
+      "kv": "主视觉",
+      "regional": "区域适配",
+      "offline": "线下环境",
+      "online-offline": "线上线下",
+      "pressure": "承压总结",
+      "closing": "收尾"
+    },
+    "phases": {
+      "phase-01": {
+        "title": "品牌视觉系统的建立",
+        "desc": "在产品方向尚未明确的早期阶段，建立足够稳定、可长期使用的视觉基础。",
+        "screens": {
+          "intro": {
+            "content": "在品牌尚未明确产品规模与传播方式的早期阶段，首要目标不是「设计得多完整」，而是建立一个足够稳定、可以长期使用的视觉基础。"
+          },
+          "principles": {
+            "title": "系统建立的三个核心原则",
+            "items": {
+              "clear": {
+                "title": "Clear",
+                "desc": "在不确定环境中，优先建立清晰的视觉方向"
+              },
+              "restrained": {
+                "title": "Restrained",
+                "desc": "避免过度风格化，为未来变化预留空间"
+              },
+              "extendable": {
+                "title": "Extendable",
+                "desc": "所有设计必须考虑后续产品与传播使用"
+              }
+            }
+          },
+          "logo": {
+            "title": "标志设计并非追求形式复杂，而是强调结构稳定性",
+            "content": "通过简洁且可控制的结构逻辑，确保标志在不同尺寸与媒介中保持一致识别。",
+            "note": "稳定性 > 表现力"
+          },
+          "color": {
+            "title": "色彩体系以长期使用为前提建立",
+            "content": "通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。"
+          },
+          "typography": {
+            "title": "字体与版式用于支撑信息表达，而非强化风格",
+            "content": "清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。"
+          },
+          "validation": {
+            "title": "在系统建立完成后，通过最小应用进行验证",
+            "content": "这些应用并非最终形态，而是用于确认系统在真实使用场景中的可行性。"
+          },
+          "summary": {
+            "title": "这一阶段的成果，并不是一个「完成态」的品牌",
+            "content": "而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。"
+          }
+        }
       },
-      "02-ui-guidelines": {
-        "title": "UI 视觉规范",
-        "desc": "建立视觉语言与组件库。",
-        "output": "设计系统",
-        "time": "8"
+      "phase-02": {
+        "title": "产品 A：从概念到落地",
+        "desc": "首款产品的完整设计过程，从概念探索到最终上市。",
+        "screens": {
+          "intro": {
+            "content": "这是品牌推出的第一款核心产品，也是品牌视觉系统第一次被用于真实产品场景。"
+          },
+          "positioning": {
+            "title": "在产品设计开始前，先明确边界",
+            "content": "哪些视觉要素必须与品牌保持一致，哪些层面允许产品形成自身特征。产品 A 并不是一个独立个体，而是品牌系统中的第一个分支。"
+          },
+          "cmf-explore": {
+            "title": "CMF 的选择以品牌长期感知为前提",
+            "content": "在多个可能性中，逐步排除短期趋势与过度表达，最终收敛至既符合产品功能，又能承接品牌气质的方案。"
+          },
+          "cmf-final": {
+            "title": "最终的 CMF 方案，强调克制与可持续性",
+            "content": "色彩、材料与工艺被视为品牌表达的一部分，而非单纯的产品装饰。"
+          },
+          "packaging": {
+            "title": "包装是用户接触品牌的第一个界面",
+            "content": "在设计中，包装不仅承载信息，也承担着将品牌系统转译为可被触达体验的角色。"
+          },
+          "consistency": {
+            "title": "在产品层面，系统一致性得到了首次验证",
+            "content": "即使在新的载体与比例中，品牌的核心识别依然清晰成立。",
+            "note": "这一屏是「品牌的产品」而非「好看的产品」的证明"
+          },
+          "realworld": {
+            "title": "设计最终需要面对真实环境",
+            "content": "在不同光线、尺度与使用条件下，产品与包装仍能保持清晰识别，这是设计是否成立的重要标准。"
+          },
+          "summary": {
+            "title": "产品 A 的完成，验证了品牌系统的可行性",
+            "content": "它不仅是一次产品落地，也为后续产品的设计节奏与差异控制，提供了明确参照。"
+          }
+        }
       },
-      "03-cmf": {
-        "title": "产品 CMF",
-        "desc": "定义硬件的色彩、材质与工艺。",
-        "output": "CMF 规格书",
-        "time": "6"
+      "phase-03": {
+        "title": "产品 B：一致性中的差异化",
+        "desc": "第二款产品如何在保持品牌一致性的同时实现差异化。",
+        "screens": {
+          "intro": {
+            "content": "在已有品牌系统与首款产品的基础上，第二款产品的设计重点不再是「从零开始」，而是如何在保持一致性的同时，做出合理变化。"
+          },
+          "comparison": {
+            "title": "对照是判断差异最直接的方式",
+            "content": "两款产品在视觉结构、比例与核心语言上保持一致，但在细节层面根据产品特性进行调整。",
+            "note": "这一屏是 Phase 03 的「灵魂」"
+          },
+          "consistency": {
+            "title": "一致性并非限制，而是品牌识别的基础",
+            "content": "在 Product B 中，核心视觉元素被完整保留，以确保品牌在不同产品中依然清晰可辨。"
+          },
+          "variation": {
+            "title": "变化并非随意，而是被系统允许的",
+            "content": "在保持核心一致的前提下，通过 CMF 的细微调整，使 Product B 在产品序列中具备自身特征。"
+          },
+          "efficiency": {
+            "title": "已有系统显著提升了设计效率",
+            "content": "在 Product B 的设计中，更多精力被用于判断与优化，而非重复建立基础规则。",
+            "note": "这是成熟设计师的信号"
+          },
+          "sequence": {
+            "title": "当多个产品并列呈现时，品牌的整体形象开始变得清晰",
+            "content": "这不仅是单个产品的成功，而是品牌系统开始发挥作用的标志。"
+          },
+          "summary": {
+            "title": "Product B 的完成，标志着品牌进入可持续扩展阶段",
+            "content": "在一致性与差异之间的平衡，为后续包装系统与营销扩展提供了稳定基础。"
+          }
+        }
       },
-      "04-packaging": {
-        "title": "包装设计",
-        "desc": "开箱体验与结构包装设计。",
-        "output": "刀模图, 样机",
-        "time": "5"
-      },
-      "05-poster-kv": {
-        "title": "海报 & 主视觉",
-        "desc": "数字与平面媒体的关键视觉。",
-        "output": "高清资源",
-        "time": "4"
-      },
-      "06-marketing-plan": {
-        "title": "营销计划",
-        "desc": "上市策略与活动规划。",
-        "output": "活动路线图",
-        "time": "7"
-      },
-      "07-offline-materials": {
-        "title": "线下物料",
-        "desc": "展位设计与印刷品。",
-        "output": "印刷文件",
-        "time": "5"
-      },
-      "08-results-review": {
-        "title": "结果与复盘",
-        "desc": "数据分析、用户反馈与项目回顾。",
-        "output": "绩效报告",
-        "time": "4"
+      "phase-04": {
+        "title": "包装与营销的系统化扩展",
+        "desc": "将品牌视觉系统延展到包装、营销与更多触点。",
+        "screens": {
+          "intro": {
+            "content": "当产品逐步进入市场，品牌视觉不再只存在于理想条件下，而需要在真实环境与多样场景中持续保持清晰与一致。"
+          },
+          "packaging-system": {
+            "title": "包装被视为品牌系统的重要组成部分",
+            "content": "在产品数量增加的情况下，通过统一的结构与视觉逻辑，确保包装在不同规格与信息层级中依然保持品牌识别。"
+          },
+          "kv": {
+            "title": "主视觉并非独立存在，而是从品牌系统中生长",
+            "content": "通过统一的视觉母题与规则，主视觉能够在不同传播场景中保持一致表达，同时具备灵活延展性。"
+          },
+          "regional": {
+            "title": "在不同区域与传播语境中，视觉需要适度调整，但不失核心识别",
+            "content": "系统的存在，使这些变化始终处于可控范围之内。"
+          },
+          "offline": {
+            "title": "真实环境往往是不理想的",
+            "content": "在不同光线、材质与空间条件下，品牌视觉仍能保持清晰与稳定，这是系统是否成立的重要检验。",
+            "note": "这是整个案例的「可信度锚点」"
+          },
+          "online-offline": {
+            "title": "线上与线下并非割裂的两个系统",
+            "content": "通过统一的视觉语言，品牌在不同触点中形成连续体验，而非碎片化呈现。"
+          },
+          "pressure": {
+            "title": "在复杂应用与真实使用中，品牌系统保持了稳定结构与清晰表达",
+            "content": "这标志着系统不再只是设计成果，而成为可被持续使用的品牌基础设施。"
+          },
+          "closing": {
+            "title": "随着系统逐步成熟，设计开始真正融入品牌的日常运作",
+            "content": "这一阶段的完成，也为后续品牌发展提供了稳定基础。"
+          }
+        }
       }
     }
   },

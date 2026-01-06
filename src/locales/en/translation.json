@@ -338,96 +338,208 @@
   "case": {
     "pageTitle": "Case Studies",
     "featuredCaseStudy": "Featured Case Study",
-    "projectTitle": "Project GENESIS",
-    "projectDesc": "A complete 0-1 journey from brand strategy to physical product launch.",
+    "projectTitle": "Brand Building Practice",
+    "projectDesc": "Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change.",
     "role": "Role",
     "roleValue": "Lead Designer",
     "duration": "Duration",
     "durationValue": "12 Months",
     "team": "Team",
-    "teamValue": "8 People",
+    "teamValue": "Core Team",
     "scope": "Scope",
-    "scopeValue": "Full-stack Design",
-    "startReading": "Start Reading (Chapter 01)",
+    "scopeValue": "Full Brand",
+    "startReading": "Start Reading Phase 01",
     "tableOfContents": "Table of Contents",
-    "chaptersInfo": "{{count}} Chapters • Est. {{time}} min read",
-    "read": "Read",
-    "minutes": "min",
+    "phasesInfo": "{{count}} Phases",
+    "explore": "Explore",
     "quickAccess": "Quick Access",
-    "viewResults": "Jump to Results & Review",
-    "backToIndex": "← Back to Index",
+    "viewResults": "Jump to Final Phase",
+    "backToIndex": "Back to Index",
     "backToToc": "TOC",
-    "previousChapter": "Previous Chapter",
-    "nextChapter": "Next Chapter",
-    "chapterIntro": "Chapter Intro",
-    "narrativeHandoff": "Narrative Handoff",
-    "conclusion": "Conclusion",
-    "goal": "Goal",
-    "defineStrategy": "Define Strategy",
-    "leadDesigner": "Lead Designer",
-    "output": "Output",
-    "asset": "Asset",
-    "contents": "Contents",
-    "visualLanguageSource": "Visual Language Source",
-    "viewRelatedWorks": "View Related Works",
-    "chapterDeliverables": "Chapter Deliverables",
-    "caseStudyEnd": "Case Study Complete",
-    "contactMe": "Contact Me",
-    "backToTableOfContents": "Back to Table of Contents",
-    "beforeOptionA": "Before / Option A",
-    "afterOptionB": "After / Option B",
-    "item": "Item",
-    "continueReading": "Continue Reading",
-    "shareThisCase": "Share This Case",
-    "relatedCases": "Related Cases",
-    "chapters": {
-      "01-background": {
-        "title": "Background & Context",
-        "desc": "Project overview, challenges, and strategic direction.",
-        "output": "Strategy Plan",
-        "time": "5"
+    "nextPhase": "Next Phase",
+    "screenLabels": {
+      "principles": "Design Principles",
+      "logo": "Logo Design",
+      "color": "Color System",
+      "typography": "Typography",
+      "validation": "Validation",
+      "summary": "Summary",
+      "positioning": "Positioning",
+      "cmf-explore": "CMF Exploration",
+      "cmf-final": "CMF Decision",
+      "packaging": "Packaging",
+      "consistency": "Consistency",
+      "realworld": "Real-world",
+      "comparison": "Comparison",
+      "variation": "Variation",
+      "efficiency": "Efficiency",
+      "sequence": "Sequence",
+      "packaging-system": "Packaging System",
+      "kv": "Key Visual",
+      "regional": "Regional",
+      "offline": "Offline",
+      "online-offline": "Online & Offline",
+      "pressure": "Pressure Test",
+      "closing": "Closing"
+    },
+    "phases": {
+      "phase-01": {
+        "title": "Brand Identity System",
+        "desc": "Establishing a stable and long-term usable visual foundation in the early stage when product direction is not yet clear.",
+        "screens": {
+          "intro": {
+            "content": "In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
+          },
+          "principles": {
+            "title": "Three Core Principles for System Building",
+            "items": {
+              "clear": {
+                "title": "Clear",
+                "desc": "In uncertain environments, prioritize establishing a clear visual direction"
+              },
+              "restrained": {
+                "title": "Restrained",
+                "desc": "Avoid over-stylization, leave room for future changes"
+              },
+              "extendable": {
+                "title": "Extendable",
+                "desc": "All designs must consider subsequent products and communication use"
+              }
+            }
+          },
+          "logo": {
+            "title": "Logo design is not about formal complexity, but structural stability",
+            "content": "Through simple and controllable structural logic, ensure the logo maintains consistent recognition across different sizes and media.",
+            "note": "Stability > Expressiveness"
+          },
+          "color": {
+            "title": "The color system is established with long-term use as the premise",
+            "content": "Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
+          },
+          "typography": {
+            "title": "Typography supports information expression, not style reinforcement",
+            "content": "Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities."
+          },
+          "validation": {
+            "title": "After the system is established, validate through minimum applications",
+            "content": "These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
+          },
+          "summary": {
+            "title": "The outcome of this phase is not a 'complete' brand",
+            "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
+          }
+        }
       },
-      "02-ui-guidelines": {
-        "title": "UI Visual Guidelines",
-        "desc": "Establishing visual language and component library.",
-        "output": "Design System",
-        "time": "8"
+      "phase-02": {
+        "title": "Product A: From Concept to Launch",
+        "desc": "The complete design process of the first product, from concept exploration to final launch.",
+        "screens": {
+          "intro": {
+            "content": "This is the brand's first core product, and the first time the brand visual system is applied to a real product scenario."
+          },
+          "positioning": {
+            "title": "Before product design begins, clarify the boundaries",
+            "content": "Which visual elements must remain consistent with the brand, and which aspects allow the product to develop its own characteristics. Product A is not an independent entity, but the first branch of the brand system."
+          },
+          "cmf-explore": {
+            "title": "CMF selection is premised on long-term brand perception",
+            "content": "Among multiple possibilities, gradually eliminate short-term trends and over-expression, converging to a solution that meets product function while carrying brand character."
+          },
+          "cmf-final": {
+            "title": "The final CMF solution emphasizes restraint and sustainability",
+            "content": "Color, material, and finish are considered part of brand expression, not mere product decoration."
+          },
+          "packaging": {
+            "title": "Packaging is the user's first interface with the brand",
+            "content": "In design, packaging not only carries information, but also translates the brand system into a touchable experience."
+          },
+          "consistency": {
+            "title": "At the product level, system consistency is validated for the first time",
+            "content": "Even in new carriers and proportions, the brand's core recognition remains clearly established.",
+            "note": "This screen proves it's 'the brand's product' rather than just 'a nice product'"
+          },
+          "realworld": {
+            "title": "Design ultimately faces real-world conditions",
+            "content": "Under different lighting, scales, and usage conditions, the product and packaging maintain clear recognition - an important criterion for design validity."
+          },
+          "summary": {
+            "title": "The completion of Product A validates the brand system's feasibility",
+            "content": "It's not just a product launch, but also provides clear reference for subsequent product design rhythm and differentiation control."
+          }
+        }
       },
-      "03-cmf": {
-        "title": "Product CMF",
-        "desc": "Defining color, material, and finish for hardware.",
-        "output": "CMF Spec Sheet",
-        "time": "6"
+      "phase-03": {
+        "title": "Product B: Consistency with Variation",
+        "desc": "How the second product achieves differentiation while maintaining brand consistency.",
+        "screens": {
+          "intro": {
+            "content": "Building on the existing brand system and first product, the second product's design focus is no longer 'starting from zero', but how to make reasonable changes while maintaining consistency."
+          },
+          "comparison": {
+            "title": "Comparison is the most direct way to judge differences",
+            "content": "The two products maintain consistency in visual structure, proportion, and core language, while adjusting details according to product characteristics.",
+            "note": "This screen is the 'soul' of Phase 03"
+          },
+          "consistency": {
+            "title": "Consistency is not a limitation, but the foundation of brand recognition",
+            "content": "In Product B, core visual elements are fully preserved to ensure the brand remains clearly identifiable across different products."
+          },
+          "variation": {
+            "title": "Variation is not arbitrary, but permitted by the system",
+            "content": "While maintaining core consistency, through subtle CMF adjustments, Product B develops its own characteristics within the product sequence."
+          },
+          "efficiency": {
+            "title": "The existing system significantly improves design efficiency",
+            "content": "In Product B's design, more effort is devoted to judgment and optimization rather than repeatedly establishing basic rules.",
+            "note": "This is the signal of a mature designer"
+          },
+          "sequence": {
+            "title": "When multiple products are displayed together, the brand's overall image becomes clear",
+            "content": "This is not just the success of individual products, but a sign that the brand system is beginning to work."
+          },
+          "summary": {
+            "title": "The completion of Product B marks the brand entering sustainable expansion",
+            "content": "The balance between consistency and differentiation provides a stable foundation for subsequent packaging systems and marketing extensions."
+          }
+        }
       },
-      "04-packaging": {
-        "title": "Packaging Design",
-        "desc": "Unboxing experience and structural packaging design.",
-        "output": "Die-cut, Mockup",
-        "time": "5"
-      },
-      "05-poster-kv": {
-        "title": "Poster & Key Visual",
-        "desc": "Key visuals for digital and print media.",
-        "output": "HD Assets",
-        "time": "4"
-      },
-      "06-marketing-plan": {
-        "title": "Marketing Plan",
-        "desc": "Go-to-market strategy and campaign planning.",
-        "output": "Campaign Roadmap",
-        "time": "7"
-      },
-      "07-offline-materials": {
-        "title": "Offline Materials",
-        "desc": "Booth design and print collaterals.",
-        "output": "Print Files",
-        "time": "5"
-      },
-      "08-results-review": {
-        "title": "Results & Review",
-        "desc": "Data analysis, user feedback, and project retrospective.",
-        "output": "Performance Report",
-        "time": "4"
+      "phase-04": {
+        "title": "Packaging & Marketing Extensions",
+        "desc": "Extending the brand visual system to packaging, marketing, and more touchpoints.",
+        "screens": {
+          "intro": {
+            "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
+          },
+          "packaging-system": {
+            "title": "Packaging is viewed as an important component of the brand system",
+            "content": "As product numbers increase, through unified structure and visual logic, packaging maintains brand recognition across different specifications and information levels."
+          },
+          "kv": {
+            "title": "Key visuals don't exist independently, but grow from the brand system",
+            "content": "Through unified visual motifs and rules, key visuals maintain consistent expression across different communication scenarios while having flexible extensibility."
+          },
+          "regional": {
+            "title": "In different regions and communication contexts, visuals need moderate adjustment without losing core recognition",
+            "content": "The system's existence keeps these changes within controllable range."
+          },
+          "offline": {
+            "title": "Real-world environments are often imperfect",
+            "content": "Under different lighting, materials, and spatial conditions, brand visuals maintain clarity and stability - an important test of system validity.",
+            "note": "This is the 'credibility anchor' of the entire case"
+          },
+          "online-offline": {
+            "title": "Online and offline are not two separate systems",
+            "content": "Through unified visual language, the brand forms a continuous experience across different touchpoints, rather than fragmented presentation."
+          },
+          "pressure": {
+            "title": "Under complex applications and real use, the brand system maintains stable structure and clear expression",
+            "content": "This marks the system as no longer just a design outcome, but sustainable brand infrastructure."
+          },
+          "closing": {
+            "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
+            "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
+          }
+        }
       }
     }
   },

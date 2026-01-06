@@ -9,7 +9,7 @@ import About from './pages/About';
 import CaseStudiesList from './pages/CaseStudiesList';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import CaseIndex from './pages/CaseIndex';
-import CaseChapter from './pages/CaseChapter';
+import PhaseDetail from './pages/PhaseDetail';
 import ShowcaseDemos from './pages/ShowcaseDemos';
 import ShowcaseSidebarDemos from './pages/ShowcaseSidebarDemos';
 import ServiceDemo from './pages/ServiceDemo';
@@ -37,9 +37,9 @@ function App() {
           <Route path="work/case-studies" element={<CaseStudiesList />} />
           <Route path="work/case-studies/:slug" element={<CaseStudyDetail />} />
           
-          {/* Sequential Case Study Routes */}
+          {/* Case Study Routes - 4 Phases */}
           <Route path="work/the-case" element={<CaseIndex />} />
-          <Route path="work/the-case/:chapterId" element={<CaseChapter />} />
+          <Route path="work/the-case/:phaseId" element={<PhaseDetail />} />
 
           {/* Showcase Demos */}
           <Route path="showcase-demos" element={<ShowcaseDemos />} />
