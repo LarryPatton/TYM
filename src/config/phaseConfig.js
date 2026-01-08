@@ -15,12 +15,13 @@ export const phase01Config = {
     {
       id: 'intro',
       type: 'intro',
-      imageHint: '品牌标志单独展示 / 标志 + 视觉关键词'
+      imageHint: '品牌标志单独展示 / 标志 + 视觉关键词',
+      // 使用 encodeURI 处理路径中的特殊字符
+      bgImage: '/images/Phase%2001%20%E2%80%94%20Brand%20Identity%200%E2%80%931/01/01.png'
     },
     {
-      id: 'principles',
-      type: 'principles',
-      items: ['clear', 'restrained', 'extendable']
+      id: 'brand-identity',
+      type: 'brand-identity'
     },
     {
       id: 'logo',

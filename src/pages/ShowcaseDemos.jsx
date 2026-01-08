@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // Mock Data
 const projects = [
@@ -270,6 +271,34 @@ const ShowcaseDemos = () => {
               {s.id}. {s.name}
             </button>
           ))}
+
+          <div style={{ height: '1px', background: '#444', margin: '10px 0' }} />
+          
+          <Link 
+            to="/scrollytelling-demo" 
+            style={{
+              padding: '8px 16px',
+              background: '#333',
+              color: '#fff',
+              border: '1px solid #444',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              textAlign: 'left',
+              fontSize: '0.9rem',
+              textDecoration: 'none',
+              display: 'block',
+              marginBottom: '8px'
+            }}
+          >
+            → Scrollytelling Techniques
+          </Link>
+
+          <div style={{ fontSize: '0.8rem', color: '#888', margin: '10px 0 5px', textTransform: 'uppercase' }}>Interaction Demos</div>
+          
+          <Link to="/demo/mouse-cursor" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Mouse & Cursor</Link>
+          <Link to="/demo/scroll-navigation" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Scroll & Navigation</Link>
+          <Link to="/demo/content-transition" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Content & Transitions</Link>
+          <Link to="/demo/visual-effects" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Visual Effects</Link>
         </div>
       </div>
 

@@ -234,8 +234,9 @@
       "tags": ["品牌策略", "系统思维", "迭代优化", "落地应用"]
     },
     "gallery": {
-      "title": "Visual Notes & Art Works",
-      "desc": "跨媒介的视觉创作与艺术实践，用于探索不受商业约束的表达方式，并反向滋养设计判断。",
+      "label": "Art Practice · Visual Exploration",
+      "title": "艺术画廊",
+      "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
       "tags": ["Art Direction", "Mixed Media", "Illustration", "Painting"],
       "enter": "进入画廊"
     },
@@ -281,21 +282,50 @@
     "capabilityTags": "能力标签",
     "relatedWorks": "同系列作品",
     "modules": {
-      "form": {
-        "label": "Module A",
-        "title": "造型 Form",
-        "titleShort": "造型",
-        "quote": "\"纸笔摩擦中的灵光乍现\"",
-        "enter": "进入造型",
-        "tags": ["新国画人", "综合材料", "插画故事", "风格化板绘"]
+      "form-structure": {
+        "number": "01",
+        "title": "Form & Structure",
+        "subtitle": "造型与结构研究",
+        "desc": "围绕形体、比例与结构关系的持续探索，关注画面中秩序的建立方式，以及形式如何承载稳定感。",
+        "media": ["国画", "板绘", "插画"],
+        "keywords": ["Form", "Structure", "Composition", "Balance"],
+        "enter": "探索模块"
       },
-      "photo": {
-        "label": "Module B",
-        "title": "摄影 Photo",
-        "titleShort": "摄影",
-        "quote": "\"定格记忆的时光标本\"",
-        "enter": "进入摄影",
-        "tags": ["产品摄影", "风景摄影"]
+      "material-texture": {
+        "number": "02",
+        "title": "Material & Texture",
+        "subtitle": "材料与质感实验",
+        "desc": "通过不同材料与媒介的并置与叠加，研究质感、肌理与触觉联想在视觉中的呈现方式。",
+        "media": ["综合材料", "国画", "摄影"],
+        "keywords": ["Material", "Texture", "Surface", "Tactility"],
+        "enter": "探索模块"
+      },
+      "narrative-imagery": {
+        "number": "03",
+        "title": "Narrative & Imagery",
+        "subtitle": "图像与叙事表达",
+        "desc": "以图像作为叙事载体，探索隐喻、情绪与观看路径，关注画面如何在非语言状态下传递信息。",
+        "media": ["插画", "板绘", "摄影"],
+        "keywords": ["Narrative", "Imagery", "Symbol", "Mood"],
+        "enter": "探索模块"
+      },
+      "light-atmosphere": {
+        "number": "04",
+        "title": "Light & Atmosphere",
+        "subtitle": "光感与氛围研究",
+        "desc": "围绕光线、明暗与空间层次的表现，研究氛围如何影响观看情绪与整体感知。",
+        "media": ["摄影", "板绘", "综合材料"],
+        "keywords": ["Light", "Shadow", "Atmosphere", "Space"],
+        "enter": "探索模块"
+      },
+      "observation-reality": {
+        "number": "05",
+        "title": "Observation & Reality",
+        "subtitle": "观察与现实记录",
+        "desc": "基于对现实世界的观察与记录，关注日常场景中的结构、节奏与视觉秩序。",
+        "media": ["摄影", "速写", "综合材料"],
+        "keywords": ["Observation", "Reality", "Everyday", "Visual Rhythm"],
+        "enter": "探索模块"
       }
     },
     "submodules": {

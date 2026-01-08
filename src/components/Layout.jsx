@@ -73,6 +73,9 @@ const Layout = () => {
   
   // 移除 hideFooter 逻辑，让所有页面都显示 Footer
   const hideFooter = false;
+
+  // 判断是否需要隐藏 Header (例如在 Phase Detail 页面)
+  const hideHeader = location.pathname.includes('/work/the-case/');
   
   const isActive = (path) => {
     return location.pathname === path ? 'var(--color-text-main)' : 'var(--color-text-muted)';
@@ -81,53 +84,55 @@ const Layout = () => {
   return (
     <div style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-text-main)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* 顶部导航 - Sticky Header */}
-      <nav style={{ 
-        position: 'sticky', 
-        top: 0, 
-        zIndex: 1000,
-        background: 'var(--color-bg)', 
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid var(--color-border)',
-        padding: '0 40px',
-        height: '80px',
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
-      }}>
-        {/* 左侧 Logo */}
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div style={{ fontWeight: '900', fontSize: '1.5em', letterSpacing: '-1px' }}>PORTFOLIO.</div>
-        </Link>
-          
-        {/* 中间导航链接 */}
-        <div style={{ display: 'flex', gap: '40px' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: isActive('/'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.home')}</Link>
-          <Link to="/work" style={{ textDecoration: 'none', color: isActive('/work'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.work')}</Link>
-          <Link to="/about" style={{ textDecoration: 'none', color: isActive('/about'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.about')}</Link>
-        </div>
-
-        {/* 右侧：语言切换 + 主题切换 + CTA 按钮 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <LanguageSwitcher variant="toggle" />
-          <ThemeToggle />
-          <Link to="/about" state={{ scrollTo: 'contact' }} style={{ textDecoration: 'none' }}>
-            <button style={{
-              padding: '10px 24px',
-              background: 'var(--color-primary)',
-              color: 'var(--color-text-inverse)',
-              border: 'none',
-              borderRadius: 'var(--radius-full)',
-              fontWeight: '500',
-              fontSize: '0.9em',
-              cursor: 'pointer',
-              transition: 'transform 0.2s, background-color var(--transition-fast)'
-            }}>
-              {t('nav.contact')}
-            </button>
+      {!hideHeader && (
+        <nav style={{ 
+          position: 'sticky', 
+          top: 0, 
+          zIndex: 1000,
+          background: 'var(--color-bg)', 
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid var(--color-border)',
+          padding: '0 40px',
+          height: '80px',
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
+        }}>
+          {/* 左侧 Logo */}
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{ fontWeight: '900', fontSize: '1.5em', letterSpacing: '-1px' }}>PORTFOLIO.</div>
           </Link>
-        </div>
-      </nav>
+            
+          {/* 中间导航链接 */}
+          <div style={{ display: 'flex', gap: '40px' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: isActive('/'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.home')}</Link>
+            <Link to="/work" style={{ textDecoration: 'none', color: isActive('/work'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.work')}</Link>
+            <Link to="/about" style={{ textDecoration: 'none', color: isActive('/about'), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}>{t('nav.about')}</Link>
+          </div>
+
+          {/* 右侧：语言切换 + 主题切换 + CTA 按钮 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <LanguageSwitcher variant="toggle" />
+            <ThemeToggle />
+            <Link to="/about" state={{ scrollTo: 'contact' }} style={{ textDecoration: 'none' }}>
+              <button style={{
+                padding: '10px 24px',
+                background: 'var(--color-primary)',
+                color: 'var(--color-text-inverse)',
+                border: 'none',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: '500',
+                fontSize: '0.9em',
+                cursor: 'pointer',
+                transition: 'transform 0.2s, background-color var(--transition-fast)'
+              }}>
+                {t('nav.contact')}
+              </button>
+            </Link>
+          </div>
+        </nav>
+      )}
 
       {/* 页面内容容器 - 首页全屏，其他页面限制宽度 */}
       <main style={{ 

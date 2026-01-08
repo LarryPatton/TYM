@@ -14,6 +14,11 @@ import ShowcaseDemos from './pages/ShowcaseDemos';
 import ShowcaseSidebarDemos from './pages/ShowcaseSidebarDemos';
 import ServiceDemo from './pages/ServiceDemo';
 import DesignSystem from './pages/DesignSystem';
+import ScrollytellingDemo from './pages/ScrollytellingDemo';
+import MouseCursorDemo from './pages/demos/MouseCursorDemo';
+import ScrollNavigationDemo from './pages/demos/ScrollNavigationDemo';
+import ContentTransitionDemo from './pages/demos/ContentTransitionDemo';
+import VisualEffectsDemo from './pages/demos/VisualEffectsDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
 
@@ -46,6 +51,13 @@ function App() {
           <Route path="showcase-sidebar-demos" element={<ShowcaseSidebarDemos />} />
           <Route path="service-demo" element={<ServiceDemo />} />
           <Route path="design-system" element={<DesignSystem />} />
+          <Route path="scrollytelling-demo" element={<ScrollytellingDemo />} />
+          
+          {/* New Interaction Demos */}
+          <Route path="demo/mouse-cursor" element={<MouseCursorDemo />} />
+          <Route path="demo/scroll-navigation" element={<ScrollNavigationDemo />} />
+          <Route path="demo/content-transition" element={<ContentTransitionDemo />} />
+          <Route path="demo/visual-effects" element={<VisualEffectsDemo />} />
 
           {/* New Gallery Routes */}
           <Route path="gallery" element={<GalleryHome />} />

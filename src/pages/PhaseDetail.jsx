@@ -11,6 +11,8 @@ import {
   ComparisonScreen,
   GalleryScreen,
   SummaryScreen,
+  LogoScrollScreen,
+  BrandIdentityScreen, // 品牌架构图组件
   ProgressIndicator,
   responsiveStyles
 } from '../components/PhaseScreens';
@@ -69,6 +71,19 @@ const PhaseDetail = () => {
     const screenLabel = t(`case.screenLabels.${screenConfig.id}`, { defaultValue: screenConfig.id });
     const screenData = t(`case.phases.${phase.id}.screens.${screenConfig.id}`, { returnObjects: true });
     
+    // 特殊处理 Logo 屏幕
+    if (screenConfig.id === 'logo' && phase.id === 'phase-01') {
+      return (
+        <LogoScrollScreen
+          key={screenConfig.id}
+          screenNumber={screenNumber}
+          screenLabel={screenLabel}
+          title={screenData?.title || ''}
+          content={screenData?.content || ''}
+        />
+      );
+    }
+
     switch (screenConfig.type) {
       case 'intro':
         return (
@@ -79,6 +94,7 @@ const PhaseDetail = () => {
             titleZh={t(`case.phases.${phase.id}.title`)}
             content={screenData?.content || ''}
             imageHint={screenConfig.imageHint}
+            bgImage={screenConfig.bgImage}
           />
         );
       
@@ -97,10 +113,17 @@ const PhaseDetail = () => {
           />
         );
       
+      case 'brand-identity':
+        return (
+          <BrandIdentityScreen key={screenConfig.id} />
+        );
+      
       case 'content':
         return (
           <ContentScreen
             key={screenConfig.id}
+            id={screenConfig.id} // Pass ID
+            phaseId={phase.id}   // Pass Phase ID
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={screenData?.title || ''}
@@ -116,6 +139,8 @@ const PhaseDetail = () => {
         return (
           <ComparisonScreen
             key={screenConfig.id}
+            id={screenConfig.id} // Pass ID
+            phaseId={phase.id}   // Pass Phase ID
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={screenData?.title || ''}
@@ -133,6 +158,8 @@ const PhaseDetail = () => {
         return (
           <GalleryScreen
             key={screenConfig.id}
+            id={screenConfig.id} // Pass ID
+            phaseId={phase.id}   // Pass Phase ID
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={screenData?.title || ''}
@@ -147,6 +174,8 @@ const PhaseDetail = () => {
         return (
           <SummaryScreen
             key={screenConfig.id}
+            id={screenConfig.id} // Pass ID
+            phaseId={phase.id}   // Pass Phase ID
             title={screenData?.title || ''}
             content={screenData?.content || ''}
             imageHint={screenConfig.imageHint}
@@ -169,10 +198,15 @@ const PhaseDetail = () => {
     <>
       <style>{responsiveStyles}</style>
       <div style={{ position: 'relative', background: 'var(--color-bg)' }}>
-        {/* 顶部导航 */}
+        {/* 顶部导航 - 仅在非第一屏显示 */}
         <motion.header
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ 
+            opacity: currentScreen > 1 ? 1 : 0, 
+            y: currentScreen > 1 ? 0 : -20,
+            pointerEvents: currentScreen > 1 ? 'auto' : 'none'
+          }}
+          transition={{ duration: 0.3 }}
           style={{
             position: 'fixed',
             top: 0,

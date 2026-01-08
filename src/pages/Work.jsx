@@ -351,152 +351,75 @@ const Work = () => {
         </motion.div>
       </Link>
 
-      {/* 分割线：艺术画廊 - 生长动画 */}
-      <motion.div 
-        variants={fadeInUp}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '24px',
-          padding: '20px clamp(40px, 8vw, 100px)'
-        }}
-      >
+      {/* 艺术画廊卡片 - 与上方 Featured Case Study 同样式 */}
+      <Link to="/gallery" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
         <motion.div 
-          variants={dividerLineLeft}
-          style={{ flex: 1, height: '1px', background: styles.dividerLine }} 
-        />
-        <motion.span 
-          variants={dividerText}
-          style={{ fontSize: '0.85rem', color: styles.dividerText, fontWeight: '400', whiteSpace: 'nowrap' }}
+          variants={cardContainer}
+          whileHover={styles.primaryHover}
+          transition={{ duration: 0.3 }}
+          style={{ 
+            ...styles.primary,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            borderTop: isDark ? '1px solid #222' : '1px solid #e5e5e5'
+          }}
         >
-          {t('work.artGallery')}
-        </motion.span>
-        <motion.div 
-          variants={dividerLineRight}
-          style={{ flex: 1, height: '1px', background: styles.dividerLine }} 
-        />
-      </motion.div>
-
-      {/* 画廊模块：两列并排 */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
-      }}>
-        {/* 造型 Form */}
-        <Link to="/gallery/form" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-          <motion.div 
-            variants={cardContainer}
-            whileHover={styles.secondaryHover}
-            transition={{ duration: 0.3 }}
-            style={{ 
-              ...styles.secondary,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              borderRight: isDark ? '1px solid #222' : '1px solid #e5e5e5'
-            }}
-          >
-            <AnimatedLabel text={t('work.modules.form.label')} isPrimary={false} />
+          <div style={{ maxWidth: '800px' }}>
+            {/* 标签 - 左侧滑入 */}
+            <AnimatedLabel text={t('work.gallery.label')} isPrimary={true} />
             
-            <motion.div variants={fadeInUp} style={{ marginBottom: '16px' }}>
+            {/* 标题 - 逐字淡入 */}
+            <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
               <AnimatedTitle 
-                text={t('work.modules.form.title')}
-                as="h3"
+                text={t('work.gallery.title')}
                 style={{ 
                   fontFamily: 'var(--font-serif)', 
-                  fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
-                  lineHeight: 1.2,
+                  fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
+                  lineHeight: 1.1,
                   ...styles.title
                 }}
               />
             </motion.div>
             
+            {/* 描述 - 淡入上移 */}
             <motion.p 
               variants={descReveal}
               style={{ 
-                fontSize: '1rem', 
-                fontStyle: 'italic', 
-                fontFamily: 'var(--font-serif)',
-                marginBottom: '30px',
-                ...styles.quote
+                fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', 
+                lineHeight: 1.8, 
+                marginBottom: '50px', 
+                maxWidth: '600px',
+                ...styles.desc
               }}
             >
-              {t('work.modules.form.quote')}
+              {t('work.gallery.desc')}
             </motion.p>
             
+            {/* CTA - 淡入 + 箭头动画 */}
             <motion.div 
               variants={ctaReveal}
-              style={{ fontSize: '1rem', fontWeight: '500', ...styles.cta }}
+              style={{ 
+                fontSize: '1.1rem', 
+                fontWeight: '500', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                ...styles.cta
+              }}
             >
-              {t('work.modules.form.enter')} 
+              {t('work.gallery.enter')} 
               <motion.span 
-                style={{ display: 'inline-block', marginLeft: '4px' }}
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                style={{ fontSize: '1.3rem', display: 'inline-block' }}
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
               >
                 →
               </motion.span>
             </motion.div>
-          </motion.div>
-        </Link>
-
-        {/* 摄影 Photo */}
-        <Link to="/gallery/photo" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-          <motion.div 
-            variants={cardContainer}
-            whileHover={styles.secondaryHover}
-            transition={{ duration: 0.3 }}
-            style={{ 
-              ...styles.secondary,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center'
-            }}
-          >
-            <AnimatedLabel text={t('work.modules.photo.label')} isPrimary={false} />
-            
-            <motion.div variants={fadeInUp} style={{ marginBottom: '16px' }}>
-              <AnimatedTitle 
-                text={t('work.modules.photo.title')}
-                as="h3"
-                style={{ 
-                  fontFamily: 'var(--font-serif)', 
-                  fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
-                  lineHeight: 1.2,
-                  ...styles.title
-                }}
-              />
-            </motion.div>
-            
-            <motion.p 
-              variants={descReveal}
-              style={{ 
-                fontSize: '1rem', 
-                fontStyle: 'italic', 
-                fontFamily: 'var(--font-serif)',
-                marginBottom: '30px',
-                ...styles.quote
-              }}
-            >
-              {t('work.modules.photo.quote')}
-            </motion.p>
-            
-            <motion.div 
-              variants={ctaReveal}
-              style={{ fontSize: '1rem', fontWeight: '500', ...styles.cta }}
-            >
-              {t('work.modules.photo.enter')} 
-              <motion.span 
-                style={{ display: 'inline-block', marginLeft: '4px' }}
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              >
-                →
-              </motion.span>
-            </motion.div>
-          </motion.div>
-        </Link>
-      </div>
+          </div>
+        </motion.div>
+      </Link>
     </motion.div>
   );
 };

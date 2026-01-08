@@ -240,8 +240,9 @@
       "tags": ["Brand Strategy", "System Thinking", "Iteration", "Application"]
     },
     "gallery": {
-      "title": "Visual Notes & Art Works",
-      "desc": "Cross-media visual creation and art practice, exploring expression free from commercial constraints, and feeding back into design judgment.",
+      "label": "Art Practice · Visual Exploration",
+      "title": "Art Gallery",
+      "desc": "As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, while enriching my judgment in brand and product design.",
       "tags": ["Art Direction", "Mixed Media", "Illustration", "Painting"],
       "enter": "Enter Gallery"
     },
@@ -287,21 +288,50 @@
     "capabilityTags": "Capability Tags",
     "relatedWorks": "Related Works",
     "modules": {
-      "form": {
-        "label": "Module A",
-        "title": "Form",
-        "titleShort": "Form",
-        "quote": "\"Sparks of inspiration in the friction of pen and paper\"",
-        "enter": "Enter Form",
-        "tags": ["New China Painter", "Mixed Media", "Illustration Story", "Stylized Board"]
+      "form-structure": {
+        "number": "01",
+        "title": "Form & Structure",
+        "subtitle": "Form & Structure Study",
+        "desc": "A continuous exploration of form, proportion, and structural relationships, focusing on how order is established in composition and how form carries a sense of stability.",
+        "media": ["Ink Painting", "Digital Painting", "Illustration"],
+        "keywords": ["Form", "Structure", "Composition", "Balance"],
+        "enter": "Explore Module"
       },
-      "photo": {
-        "label": "Module B",
-        "title": "Photo",
-        "titleShort": "Photo",
-        "quote": "\"Time specimens that freeze memories\"",
-        "enter": "Enter Photo",
-        "tags": ["Product Photography", "Landscape Photography"]
+      "material-texture": {
+        "number": "02",
+        "title": "Material & Texture",
+        "subtitle": "Material & Texture Experiments",
+        "desc": "Through the juxtaposition and layering of different materials and media, studying how texture, grain, and tactile associations manifest visually.",
+        "media": ["Mixed Media", "Ink Painting", "Photography"],
+        "keywords": ["Material", "Texture", "Surface", "Tactility"],
+        "enter": "Explore Module"
+      },
+      "narrative-imagery": {
+        "number": "03",
+        "title": "Narrative & Imagery",
+        "subtitle": "Imagery & Narrative Expression",
+        "desc": "Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state.",
+        "media": ["Illustration", "Digital Painting", "Photography"],
+        "keywords": ["Narrative", "Imagery", "Symbol", "Mood"],
+        "enter": "Explore Module"
+      },
+      "light-atmosphere": {
+        "number": "04",
+        "title": "Light & Atmosphere",
+        "subtitle": "Light & Atmosphere Study",
+        "desc": "Exploring the representation of light, shadow, and spatial layers, studying how atmosphere influences viewing emotions and overall perception.",
+        "media": ["Photography", "Digital Painting", "Mixed Media"],
+        "keywords": ["Light", "Shadow", "Atmosphere", "Space"],
+        "enter": "Explore Module"
+      },
+      "observation-reality": {
+        "number": "05",
+        "title": "Observation & Reality",
+        "subtitle": "Observation & Reality Documentation",
+        "desc": "Based on observation and documentation of the real world, focusing on structure, rhythm, and visual order in everyday scenes.",
+        "media": ["Photography", "Sketching", "Mixed Media"],
+        "keywords": ["Observation", "Reality", "Everyday", "Visual Rhythm"],
+        "enter": "Explore Module"
       }
     },
     "submodules": {
