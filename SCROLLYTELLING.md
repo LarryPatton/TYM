@@ -123,7 +123,7 @@
 ## 7. Mask Reveal (遮罩揭示)
 
 ### 效果描述
-随着滚动，一个遮罩（如圆形）逐渐扩大，最终揭示出底层的全屏图片或视频。这种效果常用于从一个局部细节过渡到宏大场景。
+随着滚动，一个遮罩（如圆形）逐渐扩大，最终 revealing out underlying full-screen image or video. This effect commonly used from a local detail transition to a grander scene.
 
 ### 技术原理
 - **核心 CSS**: `clip-path`
@@ -177,3 +177,85 @@
 - 展示事物的两面性（如：问题 vs 解决方案）。
 - 闪卡（Flashcards）效果。
 - 模拟实体书阅读体验。
+
+---
+
+## 10. Perspective Tunnel (时空隧道)
+**效果**: 多层图片随着滚动向屏幕深处推进，产生穿越时空的视觉体验。
+**原理**: `scale` + `opacity` + `zIndex` 随滚动变化。
+
+## 11. Exploding Components (爆炸拆解)
+**效果**: 产品图片分解为多个零部件悬浮，展示内部结构。
+**原理**: 多个图层随滚动在 Y 轴和旋转角度上产生不同位移。
+
+## 12. Motion Path (路径漫游)
+**效果**: 元素沿着预设的曲线轨迹移动。
+**原理**: 将滚动进度映射到 X/Y 坐标，模拟沿 SVG 路径运动。
+
+## 13. Cinematic Pan (电影运镜)
+**效果**: 超宽全景图随垂直滚动进行水平平移。
+**原理**: 垂直滚动映射为背景图的 `background-position-x` 或 `x` 位移。
+
+## 14. Origami Fold (折纸效果)
+**效果**: 图片像折纸一样折叠或展开。
+**原理**: `rotateX` + `transform-origin: bottom` + `perspective`。
+
+## 15. Slice Transition (切片错位)
+**效果**: 图片被分割成条状，滚动时交错移动。
+**原理**: 多个 `div` 显示同一背景图的不同部分，奇偶行设置相反的 `y` 位移。
+
+## 16. Pixelation Morph (像素重组)
+**效果**: 图片像素化模糊后切换到另一张图。
+**原理**: `scale` 缩小 + `image-rendering: pixelated` + `opacity` 切换。
+
+## 17. Grid Shuffle (网格重组)
+**效果**: 散落的图片随滚动吸附拼合成整齐网格。
+**原理**: 初始设置随机或散乱的 `x/y` 偏移，滚动至 `0`。
+
+## 18. Spread Out (扇形展开)
+**效果**: 堆叠的卡片像扇子一样旋转展开。
+**原理**: 不同卡片设置不同的 `rotate` 和 `x` 终点值。
+
+## 19. Curtain Reveal (幕布揭示)
+**效果**: 黑色幕布向上拉起，揭示下层内容。
+**原理**: 控制遮罩层的 `height` 从 `100%` 变为 `0%`。
+
+## 20. Color Bloom (色彩绽放)
+**效果**: 黑白图片中心扩散出彩色。
+**原理**: `clip-path: circle()` 半径随滚动增大，揭示上层彩色图。
+
+## 21. Focus Shift (景深切换)
+**效果**: 前景和背景交替模糊/清晰。
+**原理**: `filter: blur()` 值随滚动在前后层之间反向变化。
+
+## 22. Liquid Distortion (液化扰动)
+**效果**: 图片产生水波纹扭曲。
+**原理**: SVG `feTurbulence` + `feDisplacementMap` 滤镜。
+
+## 23. Velocity Skew (速度倾斜)
+**效果**: 滚动越快，图片倾斜越明显。
+**原理**: 监听滚动速度（或模拟）映射到 `skewY`。
+
+## 24. Circular Carousel (摩天轮旋转)
+**效果**: 图片在圆环上旋转切换。
+**原理**: 容器整体 `rotate`，子元素反向 `rotate` 保持直立（可选）。
+
+## 25. Card Stack (卡片堆叠)
+**效果**: 卡片堆叠，随滚动逐张飞出。
+**原理**: 不同的 `start/end` 滚动区间触发 `y` 和 `rotate` 变化。
+
+## 26. Scale-down-to-Grid (缩放归位)
+**效果**: 全屏大图缩小并移动到网格特定位置。
+**原理**: `scale` 从 1 变小，`x/y` 从 0 移至目标位置。
+
+## 27. Pin & Zoom (定点探查)
+**效果**: 图片固定并放大查看细节。
+**原理**: `position: sticky` + `scale` 增大。
+
+## 28. Typography Mask (文字遮罩)
+**效果**: 图片只在巨大文字内部显示。
+**原理**: `mix-blend-mode: screen` 或 `background-clip: text`。
+
+## 29. Split Screen Reveal (中分揭示)
+**效果**: 屏幕从中间裂开，露出背后内容。
+**原理**: 左右两半容器分别向左/右移动 `x: -50% / 50%`。
