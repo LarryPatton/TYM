@@ -259,3 +259,228 @@
 ## 29. Split Screen Reveal (中分揭示)
 **效果**: 屏幕从中间裂开，露出背后内容。
 **原理**: 左右两半容器分别向左/右移动 `x: -50% / 50%`。
+
+---
+
+# Scrollytelling Advanced (进阶版)
+
+本文档第二部分介绍了进阶版的 26 种 Scrollytelling 技术，涵盖媒体控制、SVG 绘制、数据可视化、3D 效果、交互增强、图片处理、页面结构和特效等 8 大类别。
+
+**演示页面路由**: `/scrollytelling-advanced`
+
+---
+
+## Phase 1: 媒体控制类 (Media Control)
+
+### 30. Scroll-driven Video (滚动控制视频)
+**效果**: 滚动直接控制视频播放进度，实现苹果官网式的产品展示体验。
+**原理**: 
+- 监听 `scrollYProgress` 变化
+- 将滚动进度映射到 `video.currentTime = progress * video.duration`
+**适用场景**: 产品 3D 展示、复杂动画序列、沉浸式叙事
+
+### 31. Image Sequence Frame (图片序列帧)
+**效果**: 滚动切换图片帧，实现定格动画效果（如 AirPods Pro 页面）。
+**原理**: `currentFrame = Math.floor(scrollProgress * totalFrames)`
+**适用场景**: 产品旋转展示、动画分解、过程演示
+
+### 32. Lottie Animation Control (Lottie 动画控制)
+**效果**: 滚动控制 Lottie 或 CSS 动画的播放进度。
+**原理**: 将滚动进度映射到动画的 `rotate`、`scale`、`borderRadius` 等属性
+**适用场景**: 复杂矢量动画、品牌动效、交互式图标
+
+### 33. Scroll-triggered Audio (滚动触发音效)
+**效果**: 滚动到特定区域触发音效变化或背景音乐切换。
+**原理**: 将滚动区间分段，每段对应不同音效状态
+**适用场景**: 沉浸式故事、游戏化体验、情绪引导
+
+---
+
+## Phase 2: SVG 与绘制类 (SVG & Drawing)
+
+### 34. SVG Path Drawing (SVG 路径绘制)
+**效果**: 滚动时 SVG 路径逐渐绘制出来，呈现手绘动画效果。
+**原理**: 
+- 使用 `motion.path` 的 `pathLength` 属性
+- 将滚动进度映射到 `pathLength: [0, 1]`
+**适用场景**: 签名动画、路线展示、插图揭示
+
+### 35. SVG Morphing (SVG 形状变形)
+**效果**: SVG 形状在滚动过程中平滑变形（圆形→星形→方形）。
+**原理**: 使用 `animate` + `d` 属性过渡不同的 SVG path
+**适用场景**: 品牌动效、状态转换可视化、创意展示
+
+### 36. Handwriting Reveal (手写文字显现)
+**效果**: 模拟手写文字逐笔画显现的效果。
+**原理**: 复杂 SVG 路径 + `pathLength` 动画
+**适用场景**: 个性化签名、艺术字展示、创意文案
+
+---
+
+## Phase 3: 数据可视化类 (Data Visualization)
+
+### 37. Counter Animation (数字滚动计数器)
+**效果**: 数字从 0 滚动增加到目标值。
+**原理**: `displayValue = Math.floor(targetValue * scrollProgress)`
+**适用场景**: 数据统计展示、成就展示、里程碑庆祝
+
+### 38. Chart Animation (图表动画)
+**效果**: 柱状图、折线图等图表随滚动生长。
+**原理**: 将滚动进度映射到柱状图的 `height` 属性
+**适用场景**: 年度报告、数据故事、业绩展示
+
+### 39. Progress Ring (环形进度条)
+**效果**: 环形进度条随滚动填充，显示百分比。
+**原理**: 
+- SVG `circle` + `strokeDasharray` + `strokeDashoffset`
+- `strokeDashoffset = circumference * (1 - progress)`
+**适用场景**: 技能展示、项目进度、目标达成
+
+---
+
+## Phase 4: 3D 与 WebGL 类 (3D & WebGL)
+
+### 40. 3D Scene Control (3D 场景控制)
+**效果**: 滚动控制 3D 立方体或场景的旋转角度和位置。
+**原理**: CSS 3D transforms + `perspective` + `rotateX/Y/Z`
+**适用场景**: 产品 3D 展示、空间导览、创意展示
+
+### 41. 3D Model Rotation (3D 模型旋转)
+**效果**: 滚动 360° 旋转查看产品模型。
+**原理**: `rotateY: [0, 360]` + `scale` 变化
+**适用场景**: 电商产品展示、工业设计、艺术品展览
+
+### 42. Particle System (粒子系统)
+**效果**: 粒子随滚动扩散或聚合，创造动态视觉。
+**原理**: 
+- 生成随机位置的粒子数组
+- 滚动控制每个粒子的 `x/y` 偏移量
+**适用场景**: 背景装饰、情绪表达、品牌氛围
+
+---
+
+## Phase 5: 交互增强类 (Interaction Enhancement)
+
+### 43. Scroll Snap Sections (滚动吸附)
+**效果**: 滚动自动吸附到各个章节，创造分页浏览体验。
+**原理**: CSS `scroll-snap-type: y mandatory` + `scroll-snap-align: start`
+**适用场景**: 全屏幻灯片、产品特性展示、章节导航
+
+### 44. Magnetic Scroll (磁性滚动)
+**效果**: 滚动时元素像被磁铁吸引一样聚焦到当前项。
+**原理**: 根据滚动进度计算 `activeIndex`，高亮对应元素
+**适用场景**: 列表导航、时间轴、步骤指引
+
+### 45. Scroll Direction Animation (滚动方向动画)
+**效果**: 检测滚动方向（上/下），触发不同的动画效果。
+**原理**: 
+- 比较 `currentScrollY` 和 `lastScrollY`
+- 根据方向设置不同的 `rotate`、`color` 等属性
+**适用场景**: 导航栏显隐、方向指示、差异化反馈
+
+### 46. Scroll Velocity Effects (滚动速度效果)
+**效果**: 滚动速度影响元素的倾斜、模糊等视觉效果。
+**原理**: 
+- 计算 `velocity = (currentProgress - lastProgress) / deltaTime`
+- 映射到 `skewX`、`filter: blur()` 等属性
+**适用场景**: 运动感强化、速度可视化、动态反馈
+
+---
+
+## Phase 6: 图片处理类 (Image Processing)
+
+### 47. Ken Burns Effect (肯伯恩斯效果)
+**效果**: 图片缓慢缩放 + 平移，纪录片风格的静态图片动态化。
+**原理**: 
+- `scale: [1, 1.5]`
+- `x/y` 同时产生小幅位移
+**适用场景**: 纪录片叙事、照片故事、历史回顾
+
+### 48. Before/After Slider (前后对比滑块)
+**效果**: 滚动控制对比图的分割线位置，展示前后差异。
+**原理**: 
+- 使用 `clip-path: inset()` 控制可见区域
+- 分割线位置随滚动移动
+**适用场景**: 设计对比、修复前后、改版展示
+
+### 49. Image Comparison Morph (图片对比融合)
+**效果**: 两张图片通过透明度渐变平滑切换。
+**原理**: 
+- 图片 1: `opacity: [1, 0]`
+- 图片 2: `opacity: [0, 1]`
+**适用场景**: 时间推移、季节变化、状态切换
+
+---
+
+## Phase 7: 页面结构类 (Page Structure)
+
+### 50. Page Turning (翻页效果)
+**效果**: 模拟真实的书页翻转动画。
+**原理**: 
+- `rotateY` 控制翻转角度
+- `transform-origin: left center` 设置旋转轴心
+- `backface-visibility: hidden` 隐藏背面
+**适用场景**: 电子书、产品手册、故事叙述
+
+### 51. Infinite Loop Scroll (无限循环滚动)
+**效果**: 内容无缝循环滚动，到达末尾后无感接续。
+**原理**: 
+- 复制内容三份拼接
+- 循环移动 `translateX`
+**适用场景**: 品牌展示墙、合作伙伴 logo、滚动公告
+
+### 52. Scroll Hijacking (滚动劫持)
+**效果**: 接管默认滚动行为，实现分步推进的叙事节奏。
+**原理**: 
+- 大高度容器 + `position: sticky`
+- 根据滚动进度计算当前步骤 `activeStep`
+**适用场景**: 流程说明、教程引导、故事分段
+
+---
+
+## Phase 8: 特效类 (Special Effects)
+
+### 53. Confetti / Celebration (庆祝彩带)
+**效果**: 滚动到特定位置触发彩带飘落的庆祝动画。
+**原理**: 
+- 滚动超过阈值时生成随机彩带粒子
+- 每个粒子独立执行下落 + 旋转动画
+**适用场景**: 成就解锁、活动庆祝、重要里程碑
+
+### 54. Glitch Effect (故障效果)
+**效果**: 模拟数字故障的视觉效果（RGB 色彩分离）。
+**原理**: 
+- 三层文字叠加（红、青、白）
+- 不同的 `translate` 偏移量产生错位
+- `mix-blend-mode: screen` 混合
+**适用场景**: 科技感展示、错误状态、赛博朋克风格
+
+### 55. Noise/Grain Overlay (噪点覆盖)
+**效果**: 滚动控制噪点覆盖强度，创造复古胶片感。
+**原理**: 
+- SVG `feTurbulence` 滤镜生成噪点
+- 滚动控制噪点层的 `opacity`
+- 可叠加扫描线效果
+**适用场景**: 复古风格、电影质感、艺术化处理
+
+---
+
+## 技术栈总结
+
+### 核心依赖
+- **Framer Motion**: `useScroll`, `useTransform`, `motion` 组件
+- **React Hooks**: `useRef`, `useState`, `useEffect`
+- **CSS**: `position: sticky`, `perspective`, `transform-style: preserve-3d`
+
+### 最佳实践
+1. **性能优化**: 使用 `will-change` 提示浏览器，避免不必要的重绘
+2. **渐进增强**: 为不支持的浏览器提供降级方案
+3. **可访问性**: 提供跳过动画的选项，尊重 `prefers-reduced-motion`
+4. **移动端适配**: 触控设备上的滚动体验可能需要调整
+
+### 演示页面
+- **基础版 (29 种)**: `/scrollytelling-demo`
+- **进阶版 (26 种)**: `/scrollytelling-advanced`
+- **专家版 (7 种)**: `/scrollytelling-expert`
+
+**总计: 62 种 Scrollytelling 技术**

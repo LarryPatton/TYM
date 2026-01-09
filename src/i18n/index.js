@@ -54,13 +54,7 @@ i18n
     // 插值配置
     interpolation: {
       // React 已经安全处理了 XSS，所以不需要转义
-      escapeValue: false,
-      // 格式化函数
-      format: (value, format, lng) => {
-        if (format === 'uppercase') return value.toUpperCase();
-        if (format === 'lowercase') return value.toLowerCase();
-        return value;
-      }
+      escapeValue: false
     },
     // 调试模式（生产环境应设为 false）
     debug: import.meta.env.DEV,

@@ -1,314 +1,370 @@
-import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-// Mock Data
-const projects = [
-  { id: '01', title: '品牌视觉识别', subtitle: 'Chapter 01', desc: '从品牌战略到视觉表达的完整识别系统。', cover: '#2a2a3e' },
-  { id: '02', title: 'UI 视觉规范', subtitle: 'Chapter 02', desc: '建立跨平台的数字视觉语言与组件库。', cover: '#1e3a5f' },
-  { id: '03', title: '产品 CMF 定义', subtitle: 'Chapter 03', desc: '将数字美学转化为实体产品的材质与工艺。', cover: '#3d2e1e' },
-  { id: '04', title: '动效设计系统', subtitle: 'Chapter 04', desc: '为界面注入生命力的动效设计规范。', cover: '#2e3d2e' },
+// 布局方案数据
+const schemes = [
+  { id: 1, name: 'Classic Split', nameCn: '左右分屏', desc: '经典的左文右图分屏布局，适合讲故事型的案例展示' },
+  { id: 2, name: 'Overlapping Layers', nameCn: '交错层叠', desc: '图文交错层叠，视差滚动效果增添层次感' },
+  { id: 3, name: 'Magazine Style', nameCn: '杂志排版', desc: '大胆的杂志风格排版，文字与图片的戏剧性对比' },
+  { id: 4, name: 'Immersive Fullscreen', nameCn: '全屏沉浸', desc: '全屏背景切换，营造沉浸式浏览体验' },
+  { id: 5, name: 'Asymmetric Grid', nameCn: '非对称网格', desc: '打破常规的非对称网格布局，现代感十足' },
+  { id: 6, name: 'Minimalist Card', nameCn: '极简卡片', desc: '干净的卡片设计，聚焦内容本身' },
+  { id: 7, name: 'Diagonal / Z-Pattern', nameCn: '对角线', desc: 'Z字形视觉流动，引导用户阅读路径' },
+  { id: 8, name: 'Typography Driven', nameCn: '文字主导', desc: '以大字体为主导的设计，强调文字的表现力' },
+  { id: 9, name: 'Sidebar / Sticky', nameCn: '侧边导航', desc: '固定侧边栏导航，便于快速定位内容' },
+  { id: 10, name: 'Gallery Slider', nameCn: '画廊幻灯片', desc: '横向滚动的画廊式布局，适合作品集展示' },
 ];
 
-// --- Scheme 1: Classic Split (左右分屏) ---
-const Scheme1 = () => {
-  return (
-    <div style={{ background: '#0a0a0a' }}>
-      {projects.map((project, i) => (
-        <div key={i} style={{ height: '100vh', display: 'flex', position: 'sticky', top: 0, background: '#0a0a0a', borderBottom: '1px solid #222' }}>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px', color: '#fff' }}>
-            <span style={{ color: '#666', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' }}>{project.subtitle}</span>
-            <h2 style={{ fontSize: '4rem', margin: '0 0 30px 0', fontFamily: 'serif' }}>{project.title}</h2>
-            <p style={{ color: '#999', fontSize: '1.2rem', lineHeight: 1.6 }}>{project.desc}</p>
-          </div>
-          <div style={{ flex: 1, background: project.cover, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.1)', fontSize: '3rem', fontWeight: 'bold' }}>
-            IMAGE AREA
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+// 其他演示链接
+const otherDemos = [
+  { path: '/scrollytelling-demo', name: 'Scrollytelling Techniques', desc: '滚动讲故事技术演示（29种基础效果）' },
+  { path: '/scrollytelling-advanced', name: 'Scrollytelling Advanced', desc: '进阶滚动叙事技术（26种新效果）' },
+  { path: '/scrollytelling-expert', name: 'Scrollytelling Expert', desc: '专家级滚动叙事技术（7种前沿效果）' },
+];
 
-// --- Scheme 2: Overlapping Layers (交错层叠) ---
-const Scheme2Item = ({ project }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  
-  return (
-    <div ref={ref} style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ width: '70%', height: '70%', background: project.cover, position: 'absolute', left: '10%', top: '15%' }} />
-      <motion.div style={{ position: 'absolute', right: '15%', bottom: '20%', background: '#fff', padding: '60px', width: '400px', y }}>
-        <span style={{ display: 'block', color: '#999', marginBottom: '10px' }}>{project.subtitle}</span>
-        <h2 style={{ fontSize: '2.5rem', margin: '0 0 20px 0', color: '#000' }}>{project.title}</h2>
-        <p style={{ color: '#444', lineHeight: 1.6 }}>{project.desc}</p>
-      </motion.div>
-    </div>
-  );
-};
-const Scheme2 = () => <div style={{ background: '#111' }}>{projects.map((p, i) => <Scheme2Item key={i} project={p} />)}</div>;
-
-// --- Scheme 3: Magazine Style (杂志排版) ---
-const Scheme3 = () => {
-  return (
-    <div style={{ background: '#f5f5f5', padding: '100px 0' }}>
-      {projects.map((project, i) => (
-        <div key={i} style={{ maxWidth: '1200px', margin: '0 auto 200px', position: 'relative' }}>
-          <div style={{ height: '600px', background: project.cover, marginBottom: '-100px', width: '80%', marginLeft: 'auto' }} />
-          <h2 style={{ fontSize: '8rem', position: 'relative', zIndex: 1, mixBlendMode: 'difference', color: '#fff', margin: 0, lineHeight: 0.8 }}>{project.title}</h2>
-          <div style={{ display: 'flex', gap: '40px', marginTop: '60px', paddingLeft: '5%' }}>
-            <div style={{ width: '200px', borderTop: '2px solid #000', paddingTop: '20px' }}>{project.subtitle}</div>
-            <div style={{ width: '400px', fontSize: '1.2rem', lineHeight: 1.6 }}>{project.desc}</div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// --- Scheme 4: Immersive Fullscreen (全屏沉浸) ---
-const Scheme4Item = ({ project }) => {
-  return (
-    <div style={{ height: '100vh', width: '100%', position: 'sticky', top: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: project.cover, color: '#fff' }}>
-      <div style={{ textAlign: 'center', maxWidth: '800px', padding: '0 20px' }}>
-        <h2 style={{ fontSize: '5rem', marginBottom: '30px', textShadow: '0 10px 30px rgba(0,0,0,0.3)' }}>{project.title}</h2>
-        <p style={{ fontSize: '1.5rem', opacity: 0.8 }}>{project.desc}</p>
-      </div>
-    </div>
-  );
-};
-const Scheme4 = () => <div>{projects.map((p, i) => <Scheme4Item key={i} project={p} />)}</div>;
-
-// --- Scheme 5: Asymmetric Grid (非对称网格) ---
-const Scheme5 = () => {
-  return (
-    <div style={{ background: '#fff', padding: '100px 40px' }}>
-      {projects.map((project, i) => (
-        <div key={i} style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', marginBottom: '200px', alignItems: 'center' }}>
-          <div style={{ gridColumn: i % 2 === 0 ? '1 / 6' : '7 / 13', fontSize: '4rem', fontWeight: 'bold', lineHeight: 1.1 }}>
-            {project.title}
-          </div>
-          <div style={{ gridColumn: i % 2 === 0 ? '7 / 12' : '2 / 6', height: '500px', background: project.cover }} />
-          <div style={{ gridColumn: i % 2 === 0 ? '2 / 5' : '8 / 11', marginTop: '40px' }}>
-            <div style={{ borderTop: '1px solid #000', paddingTop: '20px', marginBottom: '10px' }}>{project.subtitle}</div>
-            <p>{project.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// --- Scheme 6: Minimalist Card (极简卡片) ---
-const Scheme6Item = ({ project }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-
-  return (
-    <div ref={ref} style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <motion.div style={{ width: '500px', background: '#fff', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', scale, opacity }}>
-        <div style={{ height: '300px', background: project.cover }} />
-        <div style={{ padding: '40px' }}>
-          <div style={{ fontSize: '0.9rem', color: '#888', marginBottom: '10px' }}>{project.subtitle}</div>
-          <h3 style={{ fontSize: '2rem', margin: '0 0 15px 0' }}>{project.title}</h3>
-          <p style={{ color: '#555' }}>{project.desc}</p>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-const Scheme6 = () => <div style={{ background: '#f0f0f0' }}>{projects.map((p, i) => <Scheme6Item key={i} project={p} />)}</div>;
-
-// --- Scheme 7: Diagonal / Z-Pattern (对角线) ---
-const Scheme7 = () => {
-  return (
-    <div style={{ background: '#1a1a1a', color: '#fff', overflow: 'hidden' }}>
-      {projects.map((project, i) => (
-        <div key={i} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '100px', position: 'relative' }}>
-          <h2 style={{ fontSize: '6rem', alignSelf: 'flex-start', marginBottom: '40px' }}>{project.title}</h2>
-          <div style={{ width: '60%', height: '400px', background: project.cover, alignSelf: 'center', transform: 'rotate(-5deg)', border: '10px solid rgba(255,255,255,0.1)' }} />
-          <div style={{ alignSelf: 'flex-end', maxWidth: '400px', marginTop: '40px', textAlign: 'right' }}>
-            <div style={{ color: '#666', marginBottom: '10px' }}>{project.subtitle}</div>
-            <p style={{ fontSize: '1.2rem' }}>{project.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// --- Scheme 8: Typography Driven (文字主导) ---
-const Scheme8 = () => {
-  return (
-    <div style={{ background: '#fff' }}>
-      {projects.map((project, i) => (
-        <div key={i} style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-          <h2 style={{ fontSize: '15vw', lineHeight: 0.8, textAlign: 'center', color: '#000', margin: 0, position: 'relative', zIndex: 2, mixBlendMode: 'multiply' }}>
-            {project.title.split('').map((char, idx) => <span key={idx} style={{ display: 'inline-block' }}>{char}</span>)}
-          </h2>
-          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '30vw', height: '30vw', borderRadius: '50%', background: project.cover, zIndex: 1 }} />
-          <div style={{ position: 'absolute', bottom: '50px', left: '50%', transform: 'translateX(-50%)', textAlign: 'center' }}>
-            <p>{project.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// --- Scheme 9: Sidebar / Sticky (侧边导航) ---
-const Scheme9 = () => {
-  const [activeId, setActiveId] = useState(projects[0].id);
-  
-  return (
-    <div style={{ display: 'flex', background: '#111', color: '#fff' }}>
-      <div style={{ width: '300px', height: '100vh', position: 'sticky', top: 0, padding: '60px 40px', borderRight: '1px solid #333', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        {projects.map(p => (
-          <div key={p.id} style={{ padding: '15px 0', color: activeId === p.id ? '#fff' : '#444', cursor: 'pointer', fontSize: '1.2rem', transition: 'color 0.3s' }}>
-            {p.id} {p.title}
-          </div>
-        ))}
-      </div>
-      <div style={{ flex: 1 }}>
-        {projects.map((project, i) => (
-          <motion.div 
-            key={i} 
-            onViewportEnter={() => setActiveId(project.id)}
-            style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #222' }}
-          >
-            <div style={{ width: '80%', height: '70%', background: project.cover, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <h2>{project.title}</h2>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// --- Scheme 10: Gallery Slider (画廊幻灯片) ---
-const Scheme10 = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-75%']);
-
-  return (
-    <div ref={containerRef} style={{ height: '400vh', background: '#000' }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-        <motion.div style={{ display: 'flex', gap: '100px', paddingLeft: '100px', x }}>
-          {projects.map((project, i) => (
-            <div key={i} style={{ width: '80vw', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '40px' }}>
-              <div style={{ height: '60vh', background: project.cover, borderRadius: '20px' }} />
-              <div>
-                <h2 style={{ color: '#fff', fontSize: '3rem', margin: 0 }}>{project.title}</h2>
-                <p style={{ color: '#888', fontSize: '1.2rem' }}>{project.desc}</p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </div>
-  );
-};
+// 交互演示
+const interactionDemos = [
+  { path: '/demo/mouse-cursor', name: 'Mouse & Cursor', desc: '鼠标与光标交互效果' },
+  { path: '/demo/scroll-navigation', name: 'Scroll & Navigation', desc: '滚动与导航效果' },
+  { path: '/demo/content-transition', name: 'Content & Transitions', desc: '内容过渡动画' },
+  { path: '/demo/visual-effects', name: 'Visual Effects', desc: '视觉特效演示' },
+  { path: '/demo/immersive-gallery', name: 'Immersive 3D Gallery', desc: '沉浸式 3D 画廊 (New Direction 1)' },
+  { path: '/demo/timeline', name: 'Micro-interaction Timeline', desc: '微交互时间轴 (New Direction 2)' },
+  { path: '/demo/data-storytelling', name: 'Data Storytelling', desc: '数据可视化叙事 (New Direction 3)' },
+  { path: '/demo/liquid-theme', name: 'Liquid Theme Transition', desc: '流体主题切换 (New Direction 4)' },
+  { path: '/demo/interactive-background', name: 'Interactive Magnetic Field', desc: '交互式磁场背景 (New Direction 5)' },
+];
 
 const ShowcaseDemos = () => {
-  const [currentScheme, setCurrentScheme] = useState(1);
-
-  const schemes = [
-    { id: 1, name: 'Classic Split', component: Scheme1 },
-    { id: 2, name: 'Overlapping Layers', component: Scheme2 },
-    { id: 3, name: 'Magazine Style', component: Scheme3 },
-    { id: 4, name: 'Immersive Fullscreen', component: Scheme4 },
-    { id: 5, name: 'Asymmetric Grid', component: Scheme5 },
-    { id: 6, name: 'Minimalist Card', component: Scheme6 },
-    { id: 7, name: 'Diagonal / Z-Pattern', component: Scheme7 },
-    { id: 8, name: 'Typography Driven', component: Scheme8 },
-    { id: 9, name: 'Sidebar / Sticky', component: Scheme9 },
-    { id: 10, name: 'Gallery Slider', component: Scheme10 },
-  ];
-
-  const CurrentComponent = schemes.find(s => s.id === currentScheme)?.component || Scheme1;
+  const [hoveredScheme, setHoveredScheme] = useState(null);
+  const [isLayoutExpanded, setIsLayoutExpanded] = useState(true);
+  const [isInteractionExpanded, setIsInteractionExpanded] = useState(true);
 
   return (
-    <div>
-      {/* Control Panel */}
-      <div style={{
-        position: 'fixed',
-        top: '20px',
-        right: '20px',
-        zIndex: 9999,
-        background: 'rgba(0,0,0,0.8)',
-        padding: '20px',
-        borderRadius: '12px',
-        backdropFilter: 'blur(10px)',
-        color: '#fff',
-        maxHeight: '80vh',
-        overflowY: 'auto'
-      }}>
-        <h3 style={{ margin: '0 0 15px 0', fontSize: '1rem' }}>Select Layout Scheme</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {schemes.map(s => (
-            <button
-              key={s.id}
-              onClick={() => {
-                setCurrentScheme(s.id);
-                window.scrollTo(0, 0);
-              }}
+    <div style={{ 
+      minHeight: '100vh', 
+      background: '#0a0a0a', 
+      color: '#fff',
+      padding: '80px 60px'
+    }}>
+      {/* 页面标题 */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{ marginBottom: '60px' }}
+      >
+        <h1 style={{ 
+          fontSize: '3.5rem', 
+          fontWeight: 'bold', 
+          margin: '0 0 20px 0',
+          letterSpacing: '-1px'
+        }}>
+          Showcase Demos
+        </h1>
+        <p style={{ 
+          fontSize: '1.2rem', 
+          color: '#666',
+          maxWidth: '600px',
+          lineHeight: 1.6
+        }}>
+          探索不同的布局方案和交互效果，为您的项目找到最佳的展示方式。
+        </p>
+      </motion.div>
+
+      {/* Layout Schemes 区块 */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        style={{ marginBottom: '60px' }}
+      >
+        {/* 可折叠标题 */}
+        <div 
+          onClick={() => setIsLayoutExpanded(!isLayoutExpanded)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            paddingBottom: '20px',
+            borderBottom: '1px solid #222',
+            marginBottom: '30px',
+            userSelect: 'none'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <h2 style={{ 
+              fontSize: '1.5rem', 
+              margin: 0,
+              color: '#fff'
+            }}>
+              Layout Schemes
+            </h2>
+            <span style={{ 
+              fontSize: '0.9rem', 
+              color: '#666',
+              background: '#1a1a1a',
+              padding: '4px 12px',
+              borderRadius: '20px'
+            }}>
+              {schemes.length} 种布局
+            </span>
+          </div>
+          <span style={{ 
+            fontSize: '0.8rem',
+            color: '#666',
+            transform: isLayoutExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease'
+          }}>▼</span>
+        </div>
+
+        {/* 布局方案网格 */}
+        <div style={{ 
+          maxHeight: isLayoutExpanded ? '2000px' : '0px',
+          overflow: 'hidden',
+          transition: 'max-height 0.5s ease-in-out'
+        }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '20px'
+          }}>
+            {schemes.map((scheme, index) => (
+              <motion.div
+                key={scheme.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <Link
+                  to={`/showcase-demos/${scheme.id}`}
+                  onMouseEnter={() => setHoveredScheme(scheme.id)}
+                  onMouseLeave={() => setHoveredScheme(null)}
+                  style={{
+                    display: 'block',
+                    padding: '30px',
+                    background: hoveredScheme === scheme.id ? '#1a1a1a' : '#111',
+                    borderRadius: '12px',
+                    textDecoration: 'none',
+                    color: '#fff',
+                    border: '1px solid #222',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredScheme === scheme.id ? 'translateY(-4px)' : 'translateY(0)'
+                  }}
+                >
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '12px',
+                    marginBottom: '15px'
+                  }}>
+                    <span style={{ 
+                      fontSize: '1.5rem', 
+                      fontWeight: 'bold',
+                      color: '#444',
+                      fontFamily: 'monospace'
+                    }}>
+                      {String(scheme.id).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <h3 style={{ 
+                        fontSize: '1.1rem', 
+                        margin: 0,
+                        color: hoveredScheme === scheme.id ? '#fff' : '#ccc'
+                      }}>
+                        {scheme.name}
+                      </h3>
+                      <span style={{ 
+                        fontSize: '0.85rem', 
+                        color: '#666'
+                      }}>
+                        {scheme.nameCn}
+                      </span>
+                    </div>
+                  </div>
+                  <p style={{ 
+                    fontSize: '0.9rem', 
+                    color: '#666',
+                    margin: 0,
+                    lineHeight: 1.5
+                  }}>
+                    {scheme.desc}
+                  </p>
+                  <div style={{
+                    marginTop: '15px',
+                    fontSize: '0.85rem',
+                    color: hoveredScheme === scheme.id ? '#888' : '#444',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px'
+                  }}>
+                    查看演示 →
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 其他演示链接 */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        style={{ marginBottom: '60px' }}
+      >
+        <h2 style={{ 
+          fontSize: '1.5rem', 
+          margin: '0 0 20px 0',
+          color: '#fff',
+          paddingBottom: '20px',
+          borderBottom: '1px solid #222'
+        }}>
+          Other Techniques
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {otherDemos.map((demo, index) => (
+            <Link
+              key={index}
+              to={demo.path}
               style={{
-                padding: '8px 16px',
-                background: currentScheme === s.id ? '#fff' : 'transparent',
-                color: currentScheme === s.id ? '#000' : '#aaa',
-                border: '1px solid #444',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                textAlign: 'left',
-                fontSize: '0.9rem'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '20px 25px',
+                background: '#111',
+                borderRadius: '10px',
+                textDecoration: 'none',
+                color: '#fff',
+                border: '1px solid #222',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#1a1a1a';
+                e.currentTarget.style.transform = 'translateX(5px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#111';
+                e.currentTarget.style.transform = 'translateX(0)';
               }}
             >
-              {s.id}. {s.name}
-            </button>
+              <div>
+                <h3 style={{ margin: '0 0 5px 0', fontSize: '1.1rem' }}>→ {demo.name}</h3>
+                <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>{demo.desc}</p>
+              </div>
+            </Link>
           ))}
-
-          <div style={{ height: '1px', background: '#444', margin: '10px 0' }} />
-          
-          <Link 
-            to="/scrollytelling-demo" 
-            style={{
-              padding: '8px 16px',
-              background: '#333',
-              color: '#fff',
-              border: '1px solid #444',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              fontSize: '0.9rem',
-              textDecoration: 'none',
-              display: 'block',
-              marginBottom: '8px'
-            }}
-          >
-            → Scrollytelling Techniques
-          </Link>
-
-          <div style={{ fontSize: '0.8rem', color: '#888', margin: '10px 0 5px', textTransform: 'uppercase' }}>Interaction Demos</div>
-          
-          <Link to="/demo/mouse-cursor" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Mouse & Cursor</Link>
-          <Link to="/demo/scroll-navigation" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Scroll & Navigation</Link>
-          <Link to="/demo/content-transition" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Content & Transitions</Link>
-          <Link to="/demo/visual-effects" style={{ display: 'block', padding: '6px 16px', color: '#aaa', textDecoration: 'none', fontSize: '0.9rem' }}>• Visual Effects</Link>
         </div>
-      </div>
+      </motion.section>
 
-      {/* Demo Area */}
-      <CurrentComponent />
-      
-      {/* Footer Spacer */}
-      <div style={{ height: '50vh', background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555' }}>
-        End of Demo
-      </div>
+      {/* Interaction Demos 区块 */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
+        {/* 可折叠标题 */}
+        <div 
+          onClick={() => setIsInteractionExpanded(!isInteractionExpanded)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            paddingBottom: '20px',
+            borderBottom: '1px solid #222',
+            marginBottom: '20px',
+            userSelect: 'none'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <h2 style={{ 
+              fontSize: '1.5rem', 
+              margin: 0,
+              color: '#fff'
+            }}>
+              Interaction Demos
+            </h2>
+            <span style={{ 
+              fontSize: '0.9rem', 
+              color: '#666',
+              background: '#1a1a1a',
+              padding: '4px 12px',
+              borderRadius: '20px'
+            }}>
+              {interactionDemos.length} 个演示
+            </span>
+          </div>
+          <span style={{ 
+            fontSize: '0.8rem',
+            color: '#666',
+            transform: isInteractionExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease'
+          }}>▼</span>
+        </div>
+
+        {/* 交互演示列表 */}
+        <div style={{ 
+          maxHeight: isInteractionExpanded ? '500px' : '0px',
+          overflow: 'hidden',
+          transition: 'max-height 0.4s ease-in-out'
+        }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+            gap: '15px'
+          }}>
+            {interactionDemos.map((demo, index) => (
+              <Link
+                key={index}
+                to={demo.path}
+                style={{
+                  display: 'block',
+                  padding: '20px',
+                  background: '#111',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  color: '#fff',
+                  border: '1px solid #222',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#1a1a1a';
+                  e.currentTarget.style.borderColor = '#333';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#111';
+                  e.currentTarget.style.borderColor = '#222';
+                }}
+              >
+                <h3 style={{ margin: '0 0 8px 0', fontSize: '1rem' }}>• {demo.name}</h3>
+                <p style={{ margin: 0, color: '#666', fontSize: '0.85rem' }}>{demo.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Footer */}
+      <motion.footer 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        style={{ 
+          marginTop: '80px',
+          paddingTop: '40px',
+          borderTop: '1px solid #222',
+          textAlign: 'center',
+          color: '#444'
+        }}
+      >
+        <p style={{ margin: 0, fontSize: '0.9rem' }}>
+          选择一个布局方案开始探索 →
+        </p>
+      </motion.footer>
     </div>
   );
 };
