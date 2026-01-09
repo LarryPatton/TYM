@@ -424,21 +424,23 @@ const LottieAnimationControl = () => {
     offset: ["start start", "end end"]
   });
 
-  // 路径绘制进度
-  const pathLength = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  // 优化：缩短动画行程，使其更紧凑
+  // 路径绘制进度 (0 -> 0.5 完成绘制)
+  const pathLength = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   
-  // 标注显现
+  // 标注显现 (0.2 -> 0.6 依次出现)
   const labelOpacity1 = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
-  const labelOpacity2 = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
-  const labelOpacity3 = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
+  const labelOpacity2 = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
+  const labelOpacity3 = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
 
-  // 最终成型动画
-  const fillOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 0.1]);
-  const glowOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 0.5]);
+  // 最终成型动画 (0.6 -> 0.9 完成)
+  const fillOpacity = useTransform(scrollYProgress, [0.6, 0.9], [0, 0.1]);
+  const glowOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 0.5]);
 
   return (
-    <div ref={ref} style={{ height: '300vh', position: 'relative', background: '#050a14', overflow: 'hidden' }}>
+    // 优化：高度从 300vh 减少到 180vh，减少空白期
+    <div ref={ref} style={{ height: '140vh', position: 'relative', background: '#050a14', overflow: 'hidden' }}>
       {/* 背景网格 */}
       <div style={{ 
         position: 'absolute', 
@@ -461,7 +463,8 @@ const LottieAnimationControl = () => {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        paddingTop: '100px' // 额外下移内容，避免视觉重心过高
       }}>
         
         {/* 顶部标题 - 相对位置 */}
