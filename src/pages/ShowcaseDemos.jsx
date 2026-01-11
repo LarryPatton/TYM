@@ -34,6 +34,7 @@ const interactionDemos = [
   { path: '/demo/data-storytelling', name: 'Data Storytelling', desc: '数据可视化叙事 (New Direction 3)' },
   { path: '/demo/liquid-theme', name: 'Liquid Theme Transition', desc: '流体主题切换 (New Direction 4)' },
   { path: '/demo/interactive-background', name: 'Interactive Magnetic Field', desc: '交互式磁场背景 (New Direction 5)' },
+  { path: '/showcase-demos/color-reveal', name: 'Color Reveal (Particle)', desc: '粒子汇聚色彩揭示 (Plan C)' },
 ];
 
 const ShowcaseDemos = () => {

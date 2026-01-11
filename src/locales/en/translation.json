@@ -388,8 +388,15 @@
     "backToToc": "TOC",
     "nextPhase": "Next Phase",
     "screenLabels": {
+      "intro": "Introduction",
+      "core-principles": "Core Principles",
+      "stability-message": "Stability Principle",
+      "brand-identity": "Brand Identity",
       "principles": "Design Principles",
       "logo": "Logo Design",
+      "logo-structure": "Logo Structure",
+      "logo-focus-lens": "Logo Focus",
+      "logo-variations": "Logo Variations",
       "color": "Color System",
       "typography": "Typography",
       "validation": "Validation",
@@ -420,6 +427,16 @@
           "intro": {
             "content": "In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
           },
+          "core-principles": {
+            "title": "CORE PRINCIPLES",
+            "subtitle": "Three Core Principles of the System",
+            "nodes": {
+              "system": { "label": "SYSTEM", "sub": "Core Principles" },
+              "clarity": { "label": "CLARITY", "sub": "Clarity", "desc": "Prioritize clear visual direction" },
+              "restraint": { "label": "RESTRAINT", "sub": "Restraint", "desc": "Avoid over-stylization" },
+              "scalability": { "label": "SCALABILITY", "sub": "Scalability", "desc": "Consider future product & expansion" }
+            }
+          },
           "principles": {
             "title": "Three Core Principles for System Building",
             "items": {
@@ -441,6 +458,18 @@
             "title": "Logo design is not about formal complexity, but structural stability",
             "content": "Through simple and controllable structural logic, ensure the logo maintains consistent recognition across different sizes and media.",
             "note": "Stability > Expressiveness"
+          },
+          "logo-structure": {
+            "title": "Logo Structure Analysis",
+            "content": "Through clear structural decomposition, revealing the internal logic and proportional relationships of the logo design."
+          },
+          "logo-focus-lens": {
+            "title": "Logo Detail Focus",
+            "content": "Diving into key details of the logo, showcasing the refined considerations and craftsmanship in design."
+          },
+          "logo-variations": {
+            "title": "Logo Variations Exploration",
+            "content": "From wireframe to final form, documenting the design exploration and decision-making process."
           },
           "color": {
             "title": "The color system is established with long-term use as the premise",

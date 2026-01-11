@@ -10,31 +10,64 @@ export const phase01Config = {
   titleEn: 'Brand Identity 0–1',
   titleKey: 'case.phases.phase-01.title',
   next: 'phase-02',
-  totalScreens: 7,
+  totalScreens: 11, // 更新总屏幕数 (10 -> 11)
   screens: [
     {
       id: 'intro',
       type: 'intro',
       imageHint: '品牌标志单独展示 / 标志 + 视觉关键词',
       // 使用 encodeURI 处理路径中的特殊字符
-      bgImage: '/images/Phase%2001%20%E2%80%94%20Brand%20Identity%200%E2%80%931/01/01.png'
+      bgImage: '/images/phase-01/cover.png'
     },
     {
-      id: 'brand-identity',
-      type: 'brand-identity'
+      id: 'core-principles',
+      type: 'core-principles'
     },
     {
-      id: 'logo',
-      type: 'content',
+      id: 'stability-message',
+      type: 'stability-message'
+    },
+    // Logo 结构展示 (image 3.png)
+    {
+      id: 'logo-structure',
+      type: 'logo-structure', // 修改类型为专用组件
       imageHint: 'Logo 结构示意 / 网格 / 比例 / 核心构成',
-      reverse: false
     },
+    // Logo 变体 Focus Lens 展示
     {
-      id: 'color',
-      type: 'content',
-      imageHint: '主色 + 辅助色逻辑示意 / 色彩比例规则',
-      reverse: true,
-      bgAlt: true
+      id: 'logo-focus-lens',
+      type: 'logo-focus-lens',
+      imageHint: 'Logo 变体 Focus Lens 展示'
+    },
+    // Logo 变体展示 (image 2 & 18)
+    {
+      id: 'logo-variations', // ID 变更以反映内容
+      type: 'logo-marquee', // 使用新的跑马灯类型
+      imageHint: 'Logo 变体展示',
+    },
+    // 色彩揭示 (Color Reveal) - 插入在 Logo Exploration 之前
+    {
+      id: 'color-reveal',
+      type: 'color-reveal'
+    },
+    // Logo 变体探索 (image 9 & 10) - 修改为并列展示
+    {
+      id: 'logo-exploration',
+      type: 'gallery', // 使用 gallery 类型
+      columns: 2, // 两列并排
+      images: [
+        { 
+          src: '/images/phase-01/logo-explore-01.png',
+          hint: 'Logo 变体 A', 
+          label: 'Variation A' 
+        },
+        { 
+          src: '/images/phase-01/logo-explore-02.png',
+          hint: 'Logo 变体 B', 
+          label: 'Variation B' 
+        }
+      ],
+      bgAlt: true // 使用交替背景色
     },
     {
       id: 'typography',
@@ -47,15 +80,22 @@ export const phase01Config = {
       type: 'gallery',
       columns: 2,
       images: [
-        { hint: '最小应用场景 1: 包装雏形', label: '包装验证' },
+        { hint: '最小应用场景 1: 包装 seme质', label: '包装验证' },
         { hint: '最小应用场景 2: 页面/物料', label: '物料验证' }
       ],
       bgAlt: true
     },
+    // 倒数第二屏：品牌手册目录概览
     {
       id: 'summary',
       type: 'summary',
       imageHint: '系统元素总览 / 产品方向暗示'
+    },
+    // 最后一屏：封底 + 导航按钮
+    {
+      id: 'phase-closing',
+      type: 'phase-closing',
+      bgImage: '/images/phase-01/closing.png'
     }
   ]
 };

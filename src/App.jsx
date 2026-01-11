@@ -27,6 +27,7 @@ import TimelineDemo from './pages/demos/TimelineDemo';
 import DataStorytellingDemo from './pages/demos/DataStorytellingDemo';
 import LiquidThemeDemo from './pages/demos/LiquidThemeDemo';
 import InteractiveBackgroundDemo from './pages/demos/InteractiveBackgroundDemo';
+import ColorRevealDemo from './pages/demos/ColorRevealDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
 
@@ -74,6 +75,7 @@ function App() {
           <Route path="demo/data-storytelling" element={<DataStorytellingDemo />} />
           <Route path="demo/liquid-theme" element={<LiquidThemeDemo />} />
           <Route path="demo/interactive-background" element={<InteractiveBackgroundDemo />} />
+          <Route path="showcase-demos/color-reveal" element={<ColorRevealDemo />} />
 
           {/* New Gallery Routes */}
           <Route path="gallery" element={<GalleryHome />} />

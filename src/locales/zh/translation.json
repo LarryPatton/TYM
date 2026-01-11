@@ -382,8 +382,14 @@
     "backToToc": "目录",
     "nextPhase": "下一阶段",
     "screenLabels": {
+      "intro": "阶段引导",
+      "core-principles": "核心原则",
+      "stability-message": "稳定性原则",
+      "brand-identity": "品牌架构",
       "principles": "设计原则",
-      "logo": "标志设计",
+      "logo-structure": "标志结构",
+      "logo-focus-lens": "标志焦点",
+      "logo-variations": "标志变体",
       "color": "色彩体系",
       "typography": "字体版式",
       "validation": "最小验证",
@@ -414,27 +420,44 @@
           "intro": {
             "content": "在品牌尚未明确产品规模与传播方式的早期阶段，首要目标不是「设计得多完整」，而是建立一个足够稳定、可以长期使用的视觉基础。"
           },
-          "principles": {
-            "title": "系统建立的三个核心原则",
-            "items": {
-              "clear": {
-                "title": "Clear",
-                "desc": "在不确定环境中，优先建立清晰的视觉方向"
-              },
-              "restrained": {
-                "title": "Restrained",
-                "desc": "避免过度风格化，为未来变化预留空间"
-              },
-              "extendable": {
-                "title": "Extendable",
-                "desc": "所有设计必须考虑后续产品与传播使用"
-              }
+          "core-principles": {
+            "title": "CORE PRINCIPLES",
+            "subtitle": "系统建立的三个核心原则",
+            "nodes": {
+              "system": { "label": "SYSTEM", "sub": "核心原则" },
+              "clarity": { "label": "CLARITY", "sub": "清晰", "desc": "优先建立清晰的视觉方向" },
+              "restraint": { "label": "RESTRAINT", "sub": "克制", "desc": "避免过度风格化" },
+              "scalability": { "label": "SCALABILITY", "sub": "可延展", "desc": "考虑后续产品与传播" }
             }
+          },
+          "brand-identity": {
+            "title": "品牌核心架构",
+            "content": "从核心价值到视觉表达的推导过程"
+          },
+          "stability-message": {
+            "title": "标志设计的稳定性原则",
+            "content": "稳定性 > 表现力"
+          },
+          "principles": {
+            "title": "其他设计原则",
+            "content": "通过前面的稳定性原则，确定其他设计决定"
           },
           "logo": {
             "title": "标志设计并非追求形式复杂，而是强调结构稳定性",
             "content": "通过简洁且可控制的结构逻辑，确保标志在不同尺寸与媒介中保持一致识别。",
             "note": "稳定性 > 表现力"
+          },
+          "logo-structure": {
+            "title": "标志结构解析",
+            "content": "通过清晰的结构分解，展示标志设计的内在逻辑与比例关系。"
+          },
+          "logo-focus-lens": {
+            "title": "标志细节聚焦",
+            "content": "深入标志的关键细节，展示设计中的精细考量与工艺表达。"
+          },
+          "logo-variations": {
+            "title": "标志变体探索",
+            "content": "从线稿到成品的演变过程，记录设计探索与决策路径。"
           },
           "color": {
             "title": "色彩体系以长期使用为前提建立",

@@ -1205,7 +1205,7 @@ const CounterAnimation = () => {
             gap: '80px',
             scale,
             opacity,
-            filter: useTransform(blur, b => `blur(${b}px)`)
+            filter: useTransform(blur, b => `blur(${Math.max(0, b)}px)`)
           }}
         >
           {counts.map((count, i) => (

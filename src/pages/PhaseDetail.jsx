@@ -12,7 +12,17 @@ import {
   GalleryScreen,
   SummaryScreen,
   LogoScrollScreen,
-  BrandIdentityScreen, // 品牌架构图组件
+  LogoMarqueeScreen,
+  LogoStructureScreen,
+  LogoFocusLensScreen,
+  BrandIdentityScreen,
+  CorePrinciplesScreen,
+  StabilityMessageScreen,
+  PhaseClosingScreen,
+  ValidationStickyScreen,
+  TypographyStickyScreen,
+  SummaryTextHighlightScreen,
+  ColorRevealScreen,
   ProgressIndicator,
   responsiveStyles
 } from '../components/PhaseScreens';
@@ -71,7 +81,7 @@ const PhaseDetail = () => {
     const screenLabel = t(`case.screenLabels.${screenConfig.id}`, { defaultValue: screenConfig.id });
     const screenData = t(`case.phases.${phase.id}.screens.${screenConfig.id}`, { returnObjects: true });
     
-    // 特殊处理 Logo 屏幕
+    // 特殊处理 Logo 屏幕 (旧逻辑，现在通过 type 判断)
     if (screenConfig.id === 'logo' && phase.id === 'phase-01') {
       return (
         <LogoScrollScreen
@@ -81,6 +91,50 @@ const PhaseDetail = () => {
           title={screenData?.title || ''}
           content={screenData?.content || ''}
         />
+      );
+    }
+
+    // 特殊处理 Validation 屏幕 (Phase 01) - 使用 Sticky 布局
+    if (screenConfig.id === 'validation' && phase.id === 'phase-01') {
+      return (
+        <ValidationStickyScreen
+          key={screenConfig.id}
+          screenNumber={screenNumber}
+          screenLabel={screenLabel}
+          title={screenData?.title || ''}
+          content={screenData?.content || ''}
+        />
+      );
+    }
+
+    // 特殊处理 Typography 屏幕 (Phase 01) - 使用 Sticky 布局
+    if (screenConfig.id === 'typography' && phase.id === 'phase-01') {
+      return (
+        <TypographyStickyScreen
+          key={screenConfig.id}
+          screenNumber={screenNumber}
+          screenLabel={screenLabel}
+          title={screenData?.title || ''}
+          content={screenData?.content || ''}
+        />
+      );
+    }
+
+    // 特殊处理 Summary 屏幕 (Phase 01) - 使用 Text Highlight 布局
+    if (screenConfig.id === 'summary' && phase.id === 'phase-01') {
+      return (
+        <SummaryTextHighlightScreen
+          key={screenConfig.id}
+          title={screenData?.title || ''}
+          content={screenData?.content || ''}
+        />
+      );
+    }
+
+    // 特殊处理 Color Reveal 屏幕 (Phase 01)
+    if (screenConfig.type === 'color-reveal') {
+      return (
+        <ColorRevealScreen key={screenConfig.id} />
       );
     }
 
@@ -98,6 +152,16 @@ const PhaseDetail = () => {
           />
         );
       
+      case 'core-principles':
+        return (
+          <CorePrinciplesScreen key={screenConfig.id} />
+        );
+
+      case 'stability-message':
+        return (
+          <StabilityMessageScreen key={screenConfig.id} />
+        );
+
       case 'principles':
         return (
           <PrinciplesScreen
@@ -116,6 +180,48 @@ const PhaseDetail = () => {
       case 'brand-identity':
         return (
           <BrandIdentityScreen key={screenConfig.id} />
+        );
+      
+      case 'logo-scroll':
+        return (
+          <LogoScrollScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+          />
+        );
+      
+      case 'logo-marquee':
+        return (
+          <LogoMarqueeScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+          />
+        );
+      
+      case 'logo-structure':
+        return (
+          <LogoStructureScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            // 显式传入图片路径，确保正确
+            imageSrc={`${import.meta.env.BASE_URL}images/phase-01/logo-structure.png`}
+          />
+        );
+      
+      case 'logo-focus-lens':
+        return (
+          <LogoFocusLensScreen
+            key={screenConfig.id}
+          />
         );
       
       case 'content':
@@ -170,6 +276,21 @@ const PhaseDetail = () => {
           />
         );
       
+      case 'phase-closing':
+        return (
+          <PhaseClosingScreen
+            key={screenConfig.id}
+            bgImage={screenConfig.bgImage}
+            nextPhase={nextPhaseConfig ? {
+              id: nextPhaseConfig.id,
+              titleZh: t(`case.phases.${nextPhaseConfig.id}.title`)
+            } : null}
+            backLabel={t('case.backToIndex')}
+            nextLabel={t('case.nextPhase')}
+            onNavigate={navigate}
+          />
+        );
+      
       case 'summary':
         return (
           <SummaryScreen
@@ -198,8 +319,8 @@ const PhaseDetail = () => {
     <>
       <style>{responsiveStyles}</style>
       <div style={{ position: 'relative', background: 'var(--color-bg)' }}>
-        {/* 顶部导航 - 仅在非第一屏显示 */}
-        <motion.header
+        {/* 顶部导航 - 改造为左上角悬浮胶囊 */}
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ 
             opacity: currentScreen > 1 ? 1 : 0, 
@@ -209,39 +330,40 @@ const PhaseDetail = () => {
           transition={{ duration: 0.3 }}
           style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            padding: 'var(--space-lg) var(--space-2xl)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            top: '24px',
+            left: '24px',
             zIndex: 100,
-            background: 'linear-gradient(to bottom, var(--color-bg), transparent)'
           }}
         >
           <Link 
             to="/work/the-case" 
             style={{ 
               textDecoration: 'none', 
-              color: 'var(--color-text-muted)', 
-              fontSize: 'var(--text-sm)',
+              color: '#fff', 
+              fontSize: '0.85rem',
               display: 'flex',
               alignItems: 'center',
-              gap: 'var(--space-xs)'
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
             }}
           >
-            ← {t('case.backToToc')}
+            <span>←</span>
+            <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
+            <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
+            <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
           </Link>
-          
-          <div style={{ 
-            fontSize: 'var(--text-sm)', 
-            color: 'var(--color-text-light)',
-            fontWeight: '500'
-          }}>
-            Phase {phase.number} — {phase.titleEn}
-          </div>
-        </motion.header>
+        </motion.div>
         
         {/* 进度指示器 */}
         <ProgressIndicator 
