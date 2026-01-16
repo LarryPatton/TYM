@@ -7,26 +7,47 @@ import { SECTION_PADDING } from './Common';
 // 风格：倒三角形几何布局，与第二屏正三角形呼应
 // ============================================
 export const BrandIdentityContent = ({ style, progress }) => {
-  // 品牌主色
-  const brandColor = '#E07B4C';
-  const brandColorGlow = 'rgba(224, 123, 76, 0.4)';
-  const brandColorLight = '#FFB088';
+  // ============================================
+  // 【品牌色定义】
+  // ============================================
+  const brandColor = '#FF4600';           // 品牌主色: 鲜橙色
+  const brandColorGlow = 'rgba(255, 70, 0, 0.4)'; // 品牌色发光效果
+  const brandColorLight = '#FF7A3D';      // 品牌亮色: 浅橙色
 
-  // 坐标定义 (视口 1200 x 900，与 CorePrinciples 保持一致的比例感)
-  const centerX = 600;
-  const centerY = 450;
-  const radius = 350; // 半径，拉开间距
+  // ============================================
+  // 【几何坐标配置】
+  // ============================================
+  
+  /**
+   * SVG 视口配置
+   * - 视口尺寸: 1200 x 900 (与 CorePrinciples 保持一致)
+   * - centerX, centerY: 中心点坐标
+   * - radius: 倒三角形半径 (节点到中心的距离)
+   * 
+   * 可调参数:
+   * - radius: 350 - 调整三角形大小
+   */
+  const centerX = 600;                    // 中心 X 坐标
+  const centerY = 450;                    // 中心 Y 坐标
+  const radius = 350;                     // 半径 (拉开间距)
 
-  // 倒三角形顶点
-  // 左上 (Core Values)
+  /**
+   * 倒三角形顶点坐标计算
+   * - 左上: Core Values (核心价值)
+   * - 右上: Tonality (调性)
+   * - 正下: Personality (个性)
+   * 
+   * 数学原理: 使用三角函数计算等边三角形顶点
+   */
+  // 左上顶点 (Core Values)
   const topLeftX = centerX - radius * Math.cos(Math.PI / 6);
   const topLeftY = centerY - radius * Math.sin(Math.PI / 6);
   
-  // 右上 (Tonality)
+  // 右上顶点 (Tonality)
   const topRightX = centerX + radius * Math.cos(Math.PI / 6);
   const topRightY = centerY - radius * Math.sin(Math.PI / 6);
 
-  // 正下 (Personality)
+  // 正下顶点 (Personality)
   const bottomX = centerX;
   const bottomY = centerY + radius;
 

@@ -2,73 +2,81 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { BrandIdentityContent } from './BrandIdentityScreen';
+import { useScreenTransition } from './TransitionContext';
 
 // ============================================
 // 核心原则展示组件 (CorePrinciplesScreen)
 // 优化版：放大尺寸，逐个出现，增强叙事感
 // 集成 BrandIdentityScreen 实现同屏无缝切换
+// 
+// 过渡配置位置: src/config/transitionConfig.js → SCREEN_TRANSITIONS['core-principles']
 // ============================================
 export const CorePrinciplesScreen = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
+  
+  // 获取过渡配置 (支持实时调试)
+  const T = useScreenTransition('core-principles');
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"]
   });
 
-  // 品牌色定义
-  const brandColor = '#E07B4C'; 
-  const brandColorLight = '#FFB088';
+  // ============================================
+  // 【品牌色定义】
+  // ============================================
+  const brandColor = '#FF4600';
+  const brandColorLight = '#FF7A3D';
   const bgColor = '#0a0a0a';
 
   // ============================================
-  // 阶段 1: Core Principles 动画 (0.0 - 0.5)
+  // 【动效参数 - 从统一配置读取】
+  // 修改过渡效果请编辑: src/config/transitionConfig.js
   // ============================================
   
-  // 整体透明度：在 0.5 - 0.6 期间淡出
-  const principlesOpacity = useTransform(scrollYProgress, [0.5, 0.6], [1, 0]);
-  // 整体位移：在 0.5 - 0.6 期间上移
-  const principlesY = useTransform(scrollYProgress, [0.5, 0.6], ["0%", "-20%"]);
-
-  // 节点透明度
-  const opacityCenter = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
-  const opacityTop = useTransform(scrollYProgress, [0.1, 0.15], [0, 1]);
-  const opacityLeft = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
-  const opacityRight = useTransform(scrollYProgress, [0.3, 0.35], [0, 1]);
-
-  // 连线进度
-  const pathCenterToTop = useTransform(scrollYProgress, [0.05, 0.1], [0, 1]);
-  const pathCenterToLeft = useTransform(scrollYProgress, [0.15, 0.2], [0, 1]);
-  const pathCenterToRight = useTransform(scrollYProgress, [0.25, 0.3], [0, 1]);
+  // === 阶段1: Core Principles 动画 ===
   
-  // 外框连线进度 (最后闭合)
-  const pathBorder = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
-
+  // 节点顺序出现
+  const opacityCenter = useTransform(scrollYProgress, T.nodeCenter.scrollRange, T.nodeCenter.valueRange);
+  const opacityTop = useTransform(scrollYProgress, T.nodeTop.scrollRange, T.nodeTop.valueRange);
+  const opacityLeft = useTransform(scrollYProgress, T.nodeLeft.scrollRange, T.nodeLeft.valueRange);
+  const opacityRight = useTransform(scrollYProgress, T.nodeRight.scrollRange, T.nodeRight.valueRange);
+  
+  // 连线绘制
+  const pathCenterToTop = useTransform(scrollYProgress, T.pathCenterToTop.scrollRange, T.pathCenterToTop.valueRange);
+  const pathCenterToLeft = useTransform(scrollYProgress, T.pathCenterToLeft.scrollRange, T.pathCenterToLeft.valueRange);
+  const pathCenterToRight = useTransform(scrollYProgress, T.pathCenterToRight.scrollRange, T.pathCenterToRight.valueRange);
+  const pathBorder = useTransform(scrollYProgress, T.pathBorder.scrollRange, T.pathBorder.valueRange);
+  
   // 整体缩放
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const scale = useTransform(scrollYProgress, T.phase1Scale.scrollRange, T.phase1Scale.valueRange);
+  
+  // 阶段1离场
+  const principlesOpacity = useTransform(scrollYProgress, T.phase1ExitOpacity.scrollRange, T.phase1ExitOpacity.valueRange);
+  const principlesY = useTransform(scrollYProgress, T.phase1ExitY.scrollRange, T.phase1ExitY.valueRange);
+  
+  // 底部说明文字透明度 (复用节点透明度配置)
+  const textOpacityTop = opacityTop;
+  const textOpacityLeft = opacityLeft;
+  const textOpacityRight = opacityRight;
 
-  // 底部文字透明度
-  const textOpacityTop = useTransform(scrollYProgress, [0.1, 0.15], [0, 1]);
-  const textOpacityLeft = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
-  const textOpacityRight = useTransform(scrollYProgress, [0.3, 0.35], [0, 1]);
-
-  // ============================================
-  // 阶段 2: Brand Identity 动画 (0.5 - 1.0)
-  // ============================================
-
-  // 整体透明度：在 0.5 - 0.6 期间淡入
-  const identityOpacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
-  // 整体位移：在 0.5 - 0.6 期间从下移入
-  const identityY = useTransform(scrollYProgress, [0.5, 0.6], ["20%", "0%"]);
-  // 整体缩放
-  const identityScale = useTransform(scrollYProgress, [0.5, 1], [0.9, 1]);
-
-  // 内部步骤进度 - 细化为顺序出现
-  const identityStep1 = useTransform(scrollYProgress, [0.6, 0.68], [0, 1]); // ZMR (Center)
-  const identityStep2 = useTransform(scrollYProgress, [0.68, 0.76], [0, 1]); // Core Values (Left)
-  const identityStep3 = useTransform(scrollYProgress, [0.76, 0.84], [0, 1]); // Tonality (Right)
-  const identityStep4 = useTransform(scrollYProgress, [0.84, 0.92], [0, 1]); // Personality (Bottom)
-  const identityStep5 = useTransform(scrollYProgress, [0.92, 1.0], [0, 1]); // Border/Lines
+  // === 阶段2: Brand Identity 动画 ===
+  
+  // 入场动画
+  const identityOpacity = useTransform(scrollYProgress, T.phase2EntryOpacity.scrollRange, T.phase2EntryOpacity.valueRange);
+  const identityY = useTransform(scrollYProgress, T.phase2EntryY.scrollRange, T.phase2EntryY.valueRange);
+  const identityScale = useTransform(scrollYProgress, T.phase2Scale.scrollRange, T.phase2Scale.valueRange);
+  
+  // 内部元素顺序出现
+  const identityStep1 = useTransform(scrollYProgress, T.identityStep1.scrollRange, T.identityStep1.valueRange);
+  const identityStep2 = useTransform(scrollYProgress, T.identityStep2.scrollRange, T.identityStep2.valueRange);
+  const identityStep3 = useTransform(scrollYProgress, T.identityStep3.scrollRange, T.identityStep3.valueRange);
+  const identityStep4 = useTransform(scrollYProgress, T.identityStep4.scrollRange, T.identityStep4.valueRange);
+  const identityStep5 = useTransform(scrollYProgress, T.identityStep5.scrollRange, T.identityStep5.valueRange);
 
   // 坐标定义 (放大版) - 视口 1200 x 900
   const centerX = 600;

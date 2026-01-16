@@ -1,11 +1,11 @@
-// ... existing code ...
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 
 // ============================================
 // 屏幕: 字体版式 Sticky 展示 (TypographyStickyScreen)
-// 左侧固定文案，右侧滚动展示图片
+// 布局: 左侧固定文案 (28%)，右侧滚动展示图片 (72%)
+// 效果: 滚动时左侧文案保持固定，右侧字体样本图依次进入视口
 // ============================================
 export const TypographyStickyScreen = ({
   screenNumber,
@@ -15,7 +15,19 @@ export const TypographyStickyScreen = ({
 }) => {
   const containerRef = useRef(null);
   
-  // 图片列表
+  // ============================================
+  // 【图片资源配置】
+  // ============================================
+  
+  /**
+   * 字体样本图片列表
+   * - 每张图片占据一个视口高度的滚动区域
+   * - type: 'wide' 表示 16:9 宽幅展示
+   * 
+   * 可调参数:
+   * - src: 图片路径
+   * - label: 底部标签文字
+   */
   const images = [
     { 
       src: `${import.meta.env.BASE_URL}images/phase-01/type-specimen-01.png`,

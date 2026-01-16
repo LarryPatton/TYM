@@ -1,9 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
+import { useScreenTransition } from './TransitionContext';
+import { SCREEN_TRANSITIONS } from '../../config/transitionConfig';
 
 // ============================================
 // 屏幕 01: 阶段引导页 (IntroScreen)
 // 优化版：极简质感，深色过渡，中心扩散揭示效果
+// 
+// 过渡配置位置: src/config/transitionConfig.js → SCREEN_TRANSITIONS['intro']
+// 调试: 使用页面右上角的 Leva 面板实时调整
 // ============================================
 export const IntroScreen = ({ 
   phaseNumber, 
@@ -15,26 +20,37 @@ export const IntroScreen = ({
   showScrollHint = true 
 }) => {
   const ref = useRef(null);
+  
+  // 获取过渡配置 (支持实时调试)
+  const T = useScreenTransition('intro');
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"] // 监听整个 250vh 的滚动过程
+    offset: ["start start", "end end"]
   });
   
-  // 遮罩扩散效果
-  // 0% -> 120%: 随着滚动，透明圆孔（揭示区域）从 0 扩大到覆盖全屏
-  const maskRadius = useTransform(scrollYProgress, [0, 0.6], ["0%", "150%"]);
+  // ============================================
+  // 【动效参数 - 从统一配置读取】
+  // 修改过渡效果请编辑: src/config/transitionConfig.js
+  // ============================================
   
-  // 呼呼吸层的不透明度：一旦开始滚动，迅速消失
-  const breathingLayerOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+  // 遮罩揭示效果
+  const maskRadius = useTransform(scrollYProgress, T.maskReveal.scrollRange, T.maskReveal.valueRange);
   
-  // 2. 文字离场阶段 (60% - 100%)
-  // 迷雾散完后，文字才开始上移淡出
-  const textY = useTransform(scrollYProgress, [0.6, 1], ["0%", "-50%"]);
-  const textOpacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
+  // 呼吸层透明度
+  const breathingLayerOpacity = useTransform(scrollYProgress, T.breathingLayer.scrollRange, T.breathingLayer.valueRange);
   
-  // 3. 背景视差 (贯穿全程)
-  // 稍微移动一点点，保持生动感，但不要移太多导致露底
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  // 文字离场 - Y轴位移
+  const textY = useTransform(scrollYProgress, T.textExitY.scrollRange, T.textExitY.valueRange);
+  
+  // 文字离场 - 透明度
+  const textOpacity = useTransform(scrollYProgress, T.textExitOpacity.scrollRange, T.textExitOpacity.valueRange);
+  
+  // 背景视差
+  const bgY = useTransform(scrollYProgress, T.parallax.scrollRange, T.parallax.valueRange);
 
   // 动态生成 mask-image
   const maskImage = useMotionTemplate`radial-gradient(circle at center, transparent ${maskRadius}, black calc(${maskRadius} + 20%))`;

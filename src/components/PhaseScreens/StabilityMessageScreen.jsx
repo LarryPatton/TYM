@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useScreenTransition } from './TransitionContext';
 
 // ============================================
 // 流式文字组件 - 逐字出现效果
 // ============================================
-const StreamingText = ({ text, progress, highlightWords = [], highlightColor = '#E07B4C', style = {} }) => {
+const StreamingText = ({ text, progress, highlightWords = [], highlightColor = '#FF4600', style = {} }) => {
   const chars = text.split('');
   
   return (
@@ -51,46 +52,52 @@ const StreamingText = ({ text, progress, highlightWords = [], highlightColor = '
 // ============================================
 // 稳定性原则文字高亮组件 (StabilityMessageScreen)
 // 纯色背景 + 流式文字加载
+// 
+// 过渡配置位置: src/config/transitionConfig.js → SCREEN_TRANSITIONS['stability-message']
 // ============================================
 export const StabilityMessageScreen = () => {
   const ref = useRef(null);
+  
+  // 获取过渡配置 (支持实时调试)
+  const T = useScreenTransition('stability-message');
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"]
   });
 
-  // 品牌色定义
-  const brandColor = '#E07B4C';
+  // ============================================
+  // 【品牌色定义】
+  // ============================================
+  const brandColor = '#FF4600';
 
   // ============================================
-  // 动画时间线设计 (总滚动高度 350vh)
+  // 【动效参数 - 从统一配置读取】
+  // 修改过渡效果请编辑: src/config/transitionConfig.js
   // ============================================
-  // 0.00 - 0.15: 第一句流式出现
-  // 0.15 - 0.30: 第二句流式出现
-  // 0.30 - 0.45: 第三句流式出现
-  // 0.45 - 0.55: "STABILITY" + "稳定性 > 表现力" 淡入
-  // 0.55 - 0.85: 停留展示
-  // 0.85 - 1.00: 整体淡出
-  // ============================================
-
-  // 各行文字的流式进度
-  const line1Progress = useTransform(scrollYProgress, [0.00, 0.15], [0, 1]);
-  const line2Progress = useTransform(scrollYProgress, [0.15, 0.30], [0, 1]);
-  const line3Progress = useTransform(scrollYProgress, [0.30, 0.45], [0, 1]);
-
-  // STABILITY 大字
-  const stabilityOpacity = useTransform(scrollYProgress, [0.45, 0.52, 0.85, 0.95], [0, 1, 1, 0]);
-  const stabilityScale = useTransform(scrollYProgress, [0.45, 0.52], [0.85, 1]);
-
-  // 稳定性 > 表现力
-  const conclusionOpacity = useTransform(scrollYProgress, [0.50, 0.55, 0.85, 0.95], [0, 1, 1, 0]);
-  const conclusionY = useTransform(scrollYProgress, [0.50, 0.55], [15, 0]);
-
-  // 整体容器淡出
-  const containerOpacity = useTransform(scrollYProgress, [0.92, 1.0], [1, 0]);
   
-  // 文字行淡出
-  const linesOpacity = useTransform(scrollYProgress, [0.85, 0.95], [1, 0]);
+  // 流式文字进度
+  const line1Progress = useTransform(scrollYProgress, T.line1Progress.scrollRange, T.line1Progress.valueRange);
+  const line2Progress = useTransform(scrollYProgress, T.line2Progress.scrollRange, T.line2Progress.valueRange);
+  const line3Progress = useTransform(scrollYProgress, T.line3Progress.scrollRange, T.line3Progress.valueRange);
+
+  // STABILITY 大字动画
+  const stabilityOpacity = useTransform(scrollYProgress, T.stabilityOpacity.scrollRange, T.stabilityOpacity.valueRange);
+  const stabilityScale = useTransform(scrollYProgress, T.stabilityScale.scrollRange, T.stabilityScale.valueRange);
+
+  // 结论文字动画
+  const conclusionOpacity = useTransform(scrollYProgress, T.conclusionOpacity.scrollRange, T.conclusionOpacity.valueRange);
+  const conclusionY = useTransform(scrollYProgress, T.conclusionY.scrollRange, T.conclusionY.valueRange);
+
+  // 离场动画
+  const containerOpacity = useTransform(scrollYProgress, T.containerExitOpacity.scrollRange, T.containerExitOpacity.valueRange);
+  const linesOpacity = useTransform(scrollYProgress, T.linesExitOpacity.scrollRange, T.linesExitOpacity.valueRange);
+  
+  // 滚动提示显隐
+  const scrollHintOpacity = useTransform(scrollYProgress, T.scrollHintOpacity.scrollRange, T.scrollHintOpacity.valueRange);
 
   // 文字基础样式
   const textBaseStyle = {
@@ -207,7 +214,7 @@ export const StabilityMessageScreen = () => {
             bottom: '50px',
             left: '50%',
             transform: 'translateX(-50%)',
-            opacity: useTransform(scrollYProgress, [0.55, 0.60, 0.80, 0.85], [0, 0.5, 0.5, 0]),
+            opacity: scrollHintOpacity,
             zIndex: 5
           }}
         >

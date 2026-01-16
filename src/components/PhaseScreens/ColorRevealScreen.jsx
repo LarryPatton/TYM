@@ -7,49 +7,160 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 // ============================================
 export const ColorRevealScreen = () => {
   const containerRef = useRef(null);
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"]    // 滚动范围: 元素顶部对齐视口顶部 → 元素底部对齐视口底部
   });
 
-  // 品牌橙色
-  const brandColor = '#FF4600';
-  const brandColorLight = '#FF7A3D';
+  // ============================================
+  // 【品牌色定义】
+  // ============================================
+  const brandColor = '#FF4600';           // 品牌主色: 鲜橙色
+  const brandColorLight = '#FF7A3D';      // 品牌亮色: 浅橙色
 
-  // 1. 粒子数据生成
+  // ============================================
+  // 【粒子数据生成】
+  // ============================================
+  
+  /**
+   * 粒子配置
+   * - 共 50 个粒子，每 5 个中有 1 个是橙色 (品牌色)
+   * - 橙色粒子是"目标粒子"，会向中心聚合
+   * - 其他颜色粒子会向外散开
+   * 
+   * 可调参数:
+   * - length: 50 - 粒子总数
+   * - i % 5 === 0 - 每5个粒子中有1个是橙色
+   * - size 范围 - 橙色粒子更大 (20-50px)，其他更小 (10-30px)
+   */
   const particles = useMemo(() => {
     return Array.from({ length: 50 }).map((_, i) => {
-      const isOrange = i % 5 === 0;
+      const isOrange = i % 5 === 0;       // 每5个粒子中有1个是橙色
       return {
         id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: isOrange ? Math.random() * 30 + 20 : Math.random() * 20 + 10,
+        x: Math.random() * 100,           // 初始 X 位置 (0-100vw)
+        y: Math.random() * 100,           // 初始 Y 位置 (0-100vh)
+        size: isOrange ? Math.random() * 30 + 20 : Math.random() * 20 + 10, // 粒子大小
         color: isOrange ? brandColor : ['#FF4D4D', '#8A2BE2', '#007AFF', '#00CED1', '#FFD700'][Math.floor(Math.random() * 5)],
-        isTarget: isOrange
+        isTarget: isOrange                // 是否为目标粒子 (向中心聚合)
       };
     });
   }, []);
 
-  // 2. 动画控制
+  // ============================================
+  // 【动画时间线设计】(总滚动高度 400vh)
+  // ============================================
+  // 0.0 - 0.1:  静态等待
+  // 0.1 - 0.5:  粒子聚合阶段 (橙色向中心，其他散开)
+  // 0.6 - 0.8:  爆炸扩散阶段 (中心圆形放大)
+  // 0.7 - 0.8:  背景色切换 (黑色 → 橙色)
+  // 0.8 - 0.88: 文字内容淡入
+  // 0.82 - 0.94: 关键词圆圈依次出现
+  // ============================================
+
+  // ============================================
+  // 【动效参数 - 粒子聚合动画】
+  // ============================================
+  
+  /**
+   * 粒子聚合进度
+   * - 滚动进度 10% → 50%: 从 0 到 1
+   * - 效果: 控制粒子从散开状态向中心/外围移动的进度
+   * 
+   * 可调参数:
+   * - [0.1, 0.5]: 聚合动画的滚动区间
+   * - [0, 1]: 进度范围
+   */
   const convergenceProgress = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
+  
+  // ============================================
+  // 【动效参数 - 爆炸扩散动画】
+  // ============================================
+  
+  /**
+   * 爆炸圆形缩放
+   * - 滚动进度 60% → 80%: 从 1 倍放大到 50 倍
+   * - 效果: 中心圆形急剧放大，填满屏幕
+   * 
+   * 可调参数:
+   * - [0.6, 0.8]: 爆炸的滚动区间
+   * - [1, 50]: 缩放范围 (1=原始大小, 50=放大50倍)
+   */
   const explosionScale = useTransform(scrollYProgress, [0.6, 0.8], [1, 50]);
+  
+  /**
+   * 爆炸圆形透明度
+   * - 滚动进度 75% → 80%: 从完全可见到完全消失
+   * - 效果: 爆炸圆形在放大过程中渐渐消失
+   * 
+   * 可调参数:
+   * - [0.75, 0.8]: 淡出的滚动区间
+   * - [1, 0]: 透明度范围
+   */
   const explosionOpacity = useTransform(scrollYProgress, [0.75, 0.8], [1, 0]);
+  
+  /**
+   * 背景色渐变
+   * - 滚动进度 70% → 80%: 从深黑色过渡到品牌橙色
+   * - 效果: 全屏背景色切换，强化品牌色视觉冲击
+   * 
+   * 可调参数:
+   * - [0.7, 0.8]: 颜色过渡的滚动区间
+   * - ['#0a0a0a', brandColor]: 起始和目标颜色
+   */
   const backgroundColor = useTransform(scrollYProgress, [0.7, 0.8], ['#0a0a0a', brandColor]);
 
-  // 阶段 3: 文字内容动画
+  // ============================================
+  // 【动效参数 - 文字内容入场】
+  // ============================================
+  
+  /**
+   * 内容区透明度
+   * - 滚动进度 80% → 88%: 淡入
+   * - 效果: 背景色切换完成后，文字内容出现
+   */
   const contentOpacity = useTransform(scrollYProgress, [0.8, 0.88], [0, 1]);
+  
+  /**
+   * 内容区 Y 轴位移
+   * - 滚动进度 80% → 88%: 从下方 40px 上浮到原位
+   * - 效果: 上浮入场动画
+   */
   const contentY = useTransform(scrollYProgress, [0.8, 0.88], [40, 0]);
   
-  // 关键词圆圈依次出现
+  // ============================================
+  // 【动效参数 - 关键词圆圈顺序出现】
+  // ============================================
+  
+  /**
+   * 第一个关键词 "快乐"
+   * - 滚动进度 82% → 88%: 淡入 + 缩放
+   */
   const circle1Opacity = useTransform(scrollYProgress, [0.82, 0.88], [0, 1]);
   const circle1Scale = useTransform(scrollYProgress, [0.82, 0.88], [0.8, 1]);
+  
+  /**
+   * 第二个关键词 "创造力"
+   * - 滚动进度 85% → 91%: 淡入 + 缩放
+   */
   const circle2Opacity = useTransform(scrollYProgress, [0.85, 0.91], [0, 1]);
   const circle2Scale = useTransform(scrollYProgress, [0.85, 0.91], [0.8, 1]);
+  
+  /**
+   * 第三个关键词 "趣味"
+   * - 滚动进度 88% → 94%: 淡入 + 缩放
+   */
   const circle3Opacity = useTransform(scrollYProgress, [0.88, 0.94], [0, 1]);
   const circle3Scale = useTransform(scrollYProgress, [0.88, 0.94], [0.8, 1]);
 
-  // 关键词数据
+  /**
+   * 关键词数据配置
+   * - 可调整文字内容和动画参数
+   */
   const keywords = [
     { text: '快乐', sub: 'JOY', opacity: circle1Opacity, scale: circle1Scale },
     { text: '创造力', sub: 'CREATIVITY', opacity: circle2Opacity, scale: circle2Scale },

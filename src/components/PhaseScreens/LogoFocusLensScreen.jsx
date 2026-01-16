@@ -3,27 +3,47 @@ import { motion, useScroll } from 'framer-motion';
 
 export const LogoFocusLensScreen = () => {
   const ref = useRef(null);
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"]    // 滚动范围: 元素顶部对齐视口顶部 → 元素底部对齐视口底部
   });
 
-  // 使用 BASE_URL 确保路径正确（适配子路径部署）
+  // ============================================
+  // 【图片资源配置】
+  // ============================================
   const basePath = import.meta.env.BASE_URL || '/';
   const folderPath = `${basePath}images/phase-01/logo-variants`;
   
+  /**
+   * Logo 变体卡片数据
+   * - 共 5 张卡片，随滚动依次激活
+   * - 可调整卡片数量和顺序
+   */
   const items = [
-    { id: 1, title: 'Wireframe', img: `${folderPath}/Group675.png` },
-    { id: 2, title: 'Sketch', img: `${folderPath}/Group671.png` },
-    { id: 3, title: 'Grid', img: `${folderPath}/Group672.png` },
-    { id: 4, title: 'Solid', img: `${folderPath}/Group673.png` },
-    { id: 5, title: 'Final', img: `${folderPath}/Group674.png` }
+    { id: 1, title: 'Wireframe', img: `${folderPath}/Group675.png` },  // 线框稿
+    { id: 2, title: 'Sketch', img: `${folderPath}/Group671.png` },     // 草图
+    { id: 3, title: 'Grid', img: `${folderPath}/Group672.png` },       // 网格
+    { id: 4, title: 'Solid', img: `${folderPath}/Group673.png` },      // 实心
+    { id: 5, title: 'Final', img: `${folderPath}/Group674.png` }       // 最终版
   ];
   
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // ============================================
+  // 【滚动进度 → 激活索引映射】
+  // ============================================
+  /**
+   * 监听滚动进度，计算当前激活的卡片索引
+   * - 滚动进度 0 → 1 均匀映射到 0 → (items.length - 1)
+   * - 效果: 滚动时依次切换焦点卡片
+   */
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
+      // 将 0~1 的滚动进度映射到 0~4 的索引
       const index = Math.round(latest * (items.length - 1));
       setActiveIndex(index);
     });

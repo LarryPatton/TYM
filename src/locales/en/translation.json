@@ -417,7 +417,10 @@
       "offline": "Offline",
       "online-offline": "Online & Offline",
       "pressure": "Pressure Test",
-      "closing": "Closing"
+      "closing": "Closing",
+      "color-reveal": "Color Reveal",
+      "logo-exploration": "Logo Exploration",
+      "phase-closing": "Phase Closing"
     },
     "phases": {
       "phase-01": {

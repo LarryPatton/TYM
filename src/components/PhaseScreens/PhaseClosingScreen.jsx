@@ -3,14 +3,15 @@ import { motion } from 'framer-motion';
 
 // ============================================
 // 屏幕: Phase 封底 (PhaseClosingScreen)
-// 全屏图片展示 + 标题文字 + 导航按钮，作为 Phase 最后一屏
+// 布局: 全屏背景图 + 中心文案 + 底部导航按钮
+// 用途: 作为每个 Phase 的最后一屏，提供阶段总结和导航
 // ============================================
 export const PhaseClosingScreen = ({ 
-  bgImage,
-  nextPhase,      // { id, titleZh }
-  backLabel = '返回目录',
-  nextLabel = '下一阶段',
-  onNavigate
+  bgImage,                              // 背景图片路径
+  nextPhase,                            // 下一阶段信息 { id, titleZh }
+  backLabel = '返回目录',                // 返回按钮文字
+  nextLabel = '下一阶段',                // 下一步按钮文字
+  onNavigate                            // 导航回调函数
 }) => {
   return (
     <section style={{

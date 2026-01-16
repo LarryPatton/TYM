@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Leva } from 'leva';
 import { useTitle } from '../hooks/useTitle';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
 import {
@@ -23,9 +24,16 @@ import {
   TypographyStickyScreen,
   SummaryTextHighlightScreen,
   ColorRevealScreen,
+  BoundariesScreen,
+  PriorityGridScreen,
+  PackagingGalleryScreen,
+  ConsistencyMosaicScreen,
   ProgressIndicator,
-  responsiveStyles
+  responsiveStyles,
+  TransitionProvider,
+  TransitionDebugger,
 } from '../components/PhaseScreens';
+import { ExportConfigButton } from '../components/PhaseScreens/ExportConfigButton';
 
 // 主组件
 const PhaseDetail = () => {
@@ -157,6 +165,73 @@ const PhaseDetail = () => {
           <CorePrinciplesScreen key={screenConfig.id} />
         );
 
+      case 'sticky-scroll':
+        return (
+          <ValidationStickyScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            images={screenConfig.images} // Pass images from config
+          />
+        );
+
+      case 'boundaries':
+        return (
+          <BoundariesScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            emphasis={screenData?.emphasis || ''}
+            images={screenConfig.images || []}
+          />
+        );
+
+      case 'priority-grid':
+        return (
+          <PriorityGridScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            emphasis={screenData?.emphasis || ''}
+            images={screenConfig.images || []}
+            bgAlt={screenConfig.bgAlt}
+          />
+        );
+
+      case 'packaging-gallery':
+        return (
+          <PackagingGalleryScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            emphasis={screenData?.emphasis || ''}
+            images={screenConfig.images || []}
+            bgAlt={screenConfig.bgAlt}
+          />
+        );
+
+      case 'consistency-mosaic':
+        return (
+          <ConsistencyMosaicScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            emphasis={screenData?.emphasis || ''}
+            images={screenConfig.images || []}
+            bgAlt={screenConfig.bgAlt}
+          />
+        );
+
       case 'stability-message':
         return (
           <StabilityMessageScreen key={screenConfig.id} />
@@ -238,6 +313,7 @@ const PhaseDetail = () => {
             imageHint={screenConfig.imageHint}
             reverse={screenConfig.reverse}
             bgAlt={screenConfig.bgAlt}
+            customImage={screenConfig.bgImage} // Pass customImage from config
           />
         );
       
@@ -315,9 +391,44 @@ const PhaseDetail = () => {
     }
   };
 
+  // 开发环境启用调试模式
+  const isDev = import.meta.env.DEV;
+
   return (
-    <>
+    <TransitionProvider debug={isDev}>
       <style>{responsiveStyles}</style>
+      
+      {/* Leva 调试面板 - 仅开发环境显示 */}
+      {isDev && (
+        <>
+          <Leva 
+            collapsed={true}
+            oneLineLabels={false}
+            flat={false}
+            theme={{
+              colors: {
+                accent1: '#FF4600',
+                accent2: '#FF7A3D',
+                accent3: '#FF4600',
+                elevation1: '#1a1a1a',
+                elevation2: '#2a2a2a',
+                elevation3: '#3a3a3a',
+              },
+              fontSizes: {
+                root: '11px',
+              },
+            }}
+            titleBar={{
+              title: '🎛️ Transition Debugger',
+              drag: true,
+              filter: true,
+            }}
+          />
+          {/* 导出配置按钮 - 添加到 Leva 面板 */}
+          <ExportConfigButton />
+        </>
+      )}
+      
       <div style={{ position: 'relative', background: 'var(--color-bg)' }}>
         {/* 顶部导航 - 改造为左上角悬浮胶囊 */}
         <motion.div
@@ -376,7 +487,7 @@ const PhaseDetail = () => {
           renderScreen(screenConfig, index)
         )}
       </div>
-    </>
+    </TransitionProvider>
   );
 };
 

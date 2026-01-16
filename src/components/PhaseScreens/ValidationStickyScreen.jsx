@@ -1,22 +1,29 @@
-// ... existing code ...
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 
 // ============================================
 // 屏幕: 验证阶段 Sticky 展示 (ValidationStickyScreen)
-// 左侧固定文案，右侧滚动展示图片
+// 布局: 左侧固定文案 (28%)，右侧滚动展示图片 (72%)
+// 效果: 滚动时左侧文案保持固定，右侧图片依次进入视口
 // ============================================
 export const ValidationStickyScreen = ({
   screenNumber,
   screenLabel,
   title,
-  content
+  content,
+  images = null // 接受外部传入的 images 配置
 }) => {
   const containerRef = useRef(null);
   
-  // 图片列表
-  const images = [
+  // ============================================
+  // 【图片资源配置】
+  // ============================================
+  
+  /**
+   * 默认图片列表配置 (Phase 01 Validation)
+   */
+  const defaultImages = [
     { 
       src: `${import.meta.env.BASE_URL}images/phase-01/validation-preview-01.png`,
       type: 'wide', // 16:9
@@ -41,6 +48,9 @@ export const ValidationStickyScreen = ({
       label: 'Material Validation'
     }
   ];
+
+  // 使用传入的 images 或默认配置
+  const displayImages = images || defaultImages;
 
   return (
     <section 
@@ -110,7 +120,7 @@ export const ValidationStickyScreen = ({
 
         {/* 右侧滚动区域 (72%) */}
         <div style={{ width: '72%', paddingBottom: '10vh' }}>
-          {images.map((item, index) => (
+          {displayImages.map((item, index) => (
             <div 
               key={index} 
               style={{ 
@@ -138,12 +148,12 @@ export const ValidationStickyScreen = ({
                         background: '#1a1a1a'
                       }}
                     >
-                      <img 
-                        src={subItem.src} 
-                        alt={subItem.label}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        onError={(e) => e.target.style.display = 'none'}
-                      />
+                    <img 
+                      src={`${import.meta.env.BASE_URL}${subItem.src.replace(/^\//, '')}`} 
+                      alt={subItem.label}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      onError={(e) => e.target.style.display = 'none'}
+                    />
                     </motion.div>
                   ))}
                 </div>
@@ -164,7 +174,7 @@ export const ValidationStickyScreen = ({
                   }}
                 >
                   <img 
-                    src={item.src} 
+                    src={`${import.meta.env.BASE_URL}${item.src.replace(/^\//, '')}`} 
                     alt={item.label}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     onError={(e) => e.target.style.display = 'none'}

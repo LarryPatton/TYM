@@ -100,6 +100,9 @@ export const phase01Config = {
   ]
 };
 
+// Phase 02 素材基础路径
+const PHASE02_BASE = '/images/Phase 02 — Product A · From Concept to Launch';
+
 // Phase 02: Product A · From Concept to Launch (8屏)
 export const phase02Config = {
   id: 'phase-02',
@@ -110,62 +113,145 @@ export const phase02Config = {
   next: 'phase-03',
   totalScreens: 8,
   screens: [
+    // Screen 01: Intro - 建立语境
     {
       id: 'intro',
       type: 'intro',
-      imageHint: '产品 A 整体形象 (Hero Shot) / 产品 + 包装'
+      imageHint: 'Concept to Launch',
+      bgImage: `${PHASE02_BASE}/01/Group 670.png`,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
+    // Screen 02: Boundaries - 提出张力
     {
-      id: 'positioning',
-      type: 'content',
-      imageHint: '品牌核心关键词 vs 产品 A 功能/气质关键词',
-      reverse: false
-    },
-    {
-      id: 'cmf-explore',
-      type: 'gallery',
-      columns: 2,
+      id: 'boundaries',
+      type: 'boundaries', // 新组件类型
       images: [
-        { hint: 'CMF 探索: 色彩范围对比', label: '色彩探索' },
-        { hint: 'CMF 探索: 材料/表面处理', label: '材质探索' }
+        { src: `${PHASE02_BASE}/02/Group 664.png`, label: '资源边界' },
+        { src: `${PHASE02_BASE}/02/Group 665.png`, label: '市场边界' },
+        { src: `${PHASE02_BASE}/02/Group 666.png`, label: '目标边界' }
+      ],
+      scrollBehavior: { sticky: false, length: 'longer', intensity: 'low' }
+    },
+    // Screen 03: CMF - 制造偏差 (Sticky)
+    {
+      id: 'cmf',
+      type: 'sticky-scroll',
+      scrollBehavior: { sticky: true, length: 'medium-long', intensity: 'medium' },
+      images: [
+        // Group 系列 - 主要展示
+        { src: `${PHASE02_BASE}/03/Group 362.png`, type: 'wide', label: 'Color Exploration' },
+        { src: `${PHASE02_BASE}/03/Group 363.png`, type: 'wide', label: 'Material Logic' },
+        { src: `${PHASE02_BASE}/03/Group 364.png`, type: 'wide', label: 'Finish Texture' },
+        { src: `${PHASE02_BASE}/03/Group 365.png`, type: 'wide', label: 'Light Interaction' },
+        { src: `${PHASE02_BASE}/03/Group 366.png`, type: 'wide', label: 'Surface Treatment' },
+        { src: `${PHASE02_BASE}/03/Group 367.png`, type: 'wide', label: 'Color Gradient' },
+        { src: `${PHASE02_BASE}/03/Group 368.png`, type: 'wide', label: 'Texture Detail' },
+        { src: `${PHASE02_BASE}/03/Group 369.png`, type: 'wide', label: 'Material Sample' },
+        { src: `${PHASE02_BASE}/03/Group 370.png`, type: 'wide', label: 'Finish Comparison' },
+        { src: `${PHASE02_BASE}/03/Group 371.png`, type: 'wide', label: 'Final Selection' },
+        // 纹理细节
+        { src: `${PHASE02_BASE}/03/1ff9c36d43e2aa290dc6b82f83702922 1.png`, type: 'square', label: 'Texture A' },
+        { src: `${PHASE02_BASE}/03/883d02f3e57829b58a6e58487c64264b 1.png`, type: 'square', label: 'Texture B' },
+        { src: `${PHASE02_BASE}/03/b33233ec45553682aa3146562850098f 1.png`, type: 'square', label: 'Texture C' },
+        { src: `${PHASE02_BASE}/03/f32de9a079e26ec7f77dea82e078a312 1.png`, type: 'square', label: 'Texture D' }
+      ],
+      // 颜色序列 - 可用于动画
+      colorSequence: [
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 1.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 2.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 3.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 4.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 5.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 6.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 7.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 8.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 9.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 10.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 11.png`,
+        `${PHASE02_BASE}/03/11b6c338c4d938bf67cfe7e44425c1de 12.png`
+      ]
+    },
+    // Screen 04: Manufacturing - 认知反转 (强制 Sticky)
+    {
+      id: 'manufacturing',
+      type: 'sticky-scroll',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE02_BASE}/04/Group 671.png`, type: 'wide', label: 'Design Validation' },
+        { src: `${PHASE02_BASE}/04/Group 672.png`, type: 'wide', label: 'Mold Flow Analysis' },
+        { src: `${PHASE02_BASE}/04/Group 673.png`, type: 'wide', label: 'Assembly Testing' },
+        { src: `${PHASE02_BASE}/04/Group 674.png`, type: 'wide', label: 'Tolerance Check' }
+      ]
+    },
+    // Screen 05: Priority - 重建理解
+    {
+      id: 'priority',
+      type: 'priority-grid', // 新组件类型
+      scrollBehavior: { sticky: false, length: 'medium', intensity: 'medium' },
+      images: [
+        { src: `${PHASE02_BASE}/05/CUBE.png`, label: 'Base' },
+        { src: `${PHASE02_BASE}/05/CUBE-2.png`, label: 'Variant 2' },
+        { src: `${PHASE02_BASE}/05/CUBE-3.png`, label: 'Variant 3' },
+        { src: `${PHASE02_BASE}/05/CUBE-4.png`, label: 'Variant 4' },
+        { src: `${PHASE02_BASE}/05/CUBE-5.png`, label: 'Variant 5' },
+        { src: `${PHASE02_BASE}/05/CUBE-6.png`, label: 'Variant 6' },
+        { src: `${PHASE02_BASE}/05/CUBE-7.png`, label: 'Variant 7' },
+        { src: `${PHASE02_BASE}/05/CUBE-07.png`, label: 'Variant 07' },
+        { src: `${PHASE02_BASE}/05/CUBE-8.png`, label: 'Variant 8' },
+        { src: `${PHASE02_BASE}/05/CUBE-08.png`, label: 'Variant 08' },
+        { src: `${PHASE02_BASE}/05/CUBE-9.png`, label: 'Variant 9' },
+        { src: `${PHASE02_BASE}/05/CUBE-09.png`, label: 'Variant 09' },
+        { src: `${PHASE02_BASE}/05/CUBE-10.png`, label: 'Variant 10' },
+        { src: `${PHASE02_BASE}/05/CUBE-010.png`, label: 'Variant 010' }
       ],
       bgAlt: true
     },
-    {
-      id: 'cmf-final',
-      type: 'content',
-      imageHint: '最终 CMF 方案 / 色彩材质质感 / 局部特写',
-      reverse: true
-    },
+    // Screen 06: Packaging - 系统扩展
     {
       id: 'packaging',
-      type: 'content',
-      imageHint: '包装与产品整体关系 / 包装结构 + 视觉组合',
-      reverse: false,
-      bgAlt: true
+      type: 'packaging-gallery', // 新组件类型
+      scrollBehavior: { sticky: false, length: 'normal-long', intensity: 'low' },
+      images: [
+        { src: `${PHASE02_BASE}/06/Group 675.png`, label: 'Package Design 1' },
+        { src: `${PHASE02_BASE}/06/Group 676.png`, label: 'Package Design 2' },
+        { src: `${PHASE02_BASE}/06/Group 677.png`, label: 'Package Design 3' },
+        { src: `${PHASE02_BASE}/06/Group 678.png`, label: 'Package Design 4' },
+        { src: `${PHASE02_BASE}/06/Group 679.png`, label: 'Package Design 5' },
+        { src: `${PHASE02_BASE}/06/Group 680.png`, label: 'Package Design 6' },
+        { src: `${PHASE02_BASE}/06/Group 681.png`, label: 'Package Design 7' },
+        { src: `${PHASE02_BASE}/06/Group 682.png`, label: 'Package Design 8' },
+        { src: `${PHASE02_BASE}/06/Group 683.png`, label: 'Package Design 9' },
+        { src: `${PHASE02_BASE}/06/Group 684.png`, label: 'Package Design 10' }
+      ]
     },
+    // Screen 07: Consistency - 方法论内化
     {
       id: 'consistency',
-      type: 'comparison',
-      leftHint: '产品 A 实物展示',
-      rightHint: '品牌基础元素 (Logo/色彩/字体)',
-      leftLabel: 'Product A',
-      rightLabel: 'Brand Elements'
-    },
-    {
-      id: 'realworld',
-      type: 'gallery',
-      columns: 2,
+      type: 'consistency-mosaic', // 新组件类型
+      scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
       images: [
-        { hint: '实拍场景 1: 真实光线环境', label: '场景 A' },
-        { hint: '实拍场景 2: 使用状态', label: '场景 B' }
+        { src: `${PHASE02_BASE}/07/image 438.png`, label: 'Application 1' },
+        { src: `${PHASE02_BASE}/07/image 439.png`, label: 'Application 2' },
+        { src: `${PHASE02_BASE}/07/image 440.png`, label: 'Application 3' },
+        { src: `${PHASE02_BASE}/07/image 441.png`, label: 'Application 4' },
+        { src: `${PHASE02_BASE}/07/image 442.png`, label: 'Application 5' },
+        { src: `${PHASE02_BASE}/07/8a0eed244fce156891537ba43bc925c3 1.png`, label: 'Detail A' },
+        { src: `${PHASE02_BASE}/07/197e2c4a26993b96f408fd662e3edd34 1.png`, label: 'Detail B' },
+        { src: `${PHASE02_BASE}/07/a154da4cef07fdccb067466df02d5914 1.png`, label: 'Detail C' },
+        { src: `${PHASE02_BASE}/07/fdbf13941b94a3afcf2b9f22f15356ed 1.png`, label: 'Detail D' }
       ],
       bgAlt: true
     },
+    // Screen 08: Closing - 收束与行动意图
     {
-      id: 'summary',
-      type: 'summary',
-      imageHint: '产品 A 最终形态 / 下一产品方向暗示'
+      id: 'closing',
+      type: 'phase-closing',
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'none' },
+      images: [
+        { src: `${PHASE02_BASE}/08/Group 685.png`, label: 'Final Overview' },
+        { src: `${PHASE02_BASE}/08/image 443.png`, label: 'Product Shot' }
+      ],
+      bgImage: `${PHASE02_BASE}/08/Group 685.png`
     }
   ]
 };

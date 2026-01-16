@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { MAX_WIDTH_WIDE } from './Common';
+import { useScreenTransition } from './TransitionContext';
 
 // ============================================
 // 屏幕: Logo 无限跑马灯展示 (LogoMarqueeScreen)
 // 滚动锁定版：需要滑动多次才能离开
+// 
+// 过渡配置位置: src/config/transitionConfig.js → SCREEN_TRANSITIONS['logo-marquee']
 // ============================================
 export const LogoMarqueeScreen = ({
   screenNumber,
@@ -13,32 +16,45 @@ export const LogoMarqueeScreen = ({
   content
 }) => {
   const ref = useRef(null);
+  
+  // 获取过渡配置 (支持实时调试)
+  const T = useScreenTransition('logo-marquee');
+  
+  // ============================================
+  // 【滚动监听配置】
+  // ============================================
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"]
   });
 
-  // Logo 图片列表
+  // ============================================
+  // 【图片资源配置】
+  // ============================================
   const baseImages = [
     'logo-marquee-01.png',
     'logo-marquee-02.png'
   ];
   
-  // 重复多组实现无缝循环
   const marqueeImages = [...baseImages, ...baseImages, ...baseImages, ...baseImages];
 
-  // 跑马灯位移：随滚动进度从 0% 移动到 -50%
-  const marqueeX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  // ============================================
+  // 【动效参数 - 从统一配置读取】
+  // 修改过渡效果请编辑: src/config/transitionConfig.js
+  // ============================================
   
-  // 标题淡入
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const titleY = useTransform(scrollYProgress, [0, 0.1], [30, 0]);
+  // 跑马灯位移
+  const marqueeX = useTransform(scrollYProgress, T.marqueeX.scrollRange, T.marqueeX.valueRange);
   
-  // 整体淡出（离开时）
-  const containerOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0]);
+  // 标题入场
+  const titleOpacity = useTransform(scrollYProgress, T.titleEntryOpacity.scrollRange, T.titleEntryOpacity.valueRange);
+  const titleY = useTransform(scrollYProgress, T.titleEntryY.scrollRange, T.titleEntryY.valueRange);
+  
+  // 离场动画
+  const containerOpacity = useTransform(scrollYProgress, T.containerExitOpacity.scrollRange, T.containerExitOpacity.valueRange);
 
-  // 进度指示器
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // 进度条
+  const progressWidth = useTransform(scrollYProgress, T.progressWidth.scrollRange, T.progressWidth.valueRange);
 
   return (
     <div ref={ref} style={{ 
@@ -165,7 +181,7 @@ export const LogoMarqueeScreen = ({
               <motion.div 
                 style={{
                   height: '100%',
-                  background: '#E07B4C',
+                  background: '#FF4600',
                   width: progressWidth,
                   borderRadius: '1px'
                 }}

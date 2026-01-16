@@ -10,20 +10,23 @@ import {
 
 // ============================================
 // 屏幕: 画廊展示 (GalleryScreen)
-// 多图网格展示，用于展示应用场景、物料等
+// 布局: 多图网格展示，支持自定义列数
+// 用途: 展示应用场景、物料、效果图等
 // ============================================
 export const GalleryScreen = ({ 
-  id,
-  phaseId,
-  screenNumber, 
-  screenLabel, 
-  title, 
-  content, 
-  images = [], // [{ hint, label }]
-  columns = 2,
-  bgAlt = false
+  id,                                   // 屏幕唯一标识
+  phaseId,                              // 所属阶段 ID
+  screenNumber,                         // 屏幕编号 (如 "04")
+  screenLabel,                          // 屏幕标签 (如 "Validation")
+  title,                                // 标题
+  content,                              // 描述内容
+  images = [],                          // 图片数组 [{ src, hint, label }]
+  columns = 2,                          // 网格列数 (默认2列)
+  bgAlt = false                         // 是否使用交替背景色
 }) => {
-  // Phase 01: Validation Custom Render - 包装与物料验证
+  // ============================================
+  // 【Phase 01 专属渲染 - 包装与物料验证】
+  // ============================================
   const renderValidationImages = () => (
     <div style={{ 
       display: 'flex',
