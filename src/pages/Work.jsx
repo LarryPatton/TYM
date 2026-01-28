@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
@@ -418,6 +418,10 @@ const Work = () => {
 
   const styles = isDark ? darkStyles : lightStyles;
 
+  // 滚动提示透明度控制
+  const { scrollY } = useScroll();
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+
   return (
     <motion.div 
       key={theme}
@@ -426,9 +430,46 @@ const Work = () => {
       variants={pageContainer}
       style={{ 
         minHeight: '100vh',
+        position: 'relative',
         ...styles.page
       }}
     >
+      {/* 滚动提示 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        style={{
+          opacity: scrollIndicatorOpacity,
+          position: 'fixed',
+          bottom: '50px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px',
+          color: isDark ? 'rgba(255,255,255,0.4)' : 'var(--color-text-light)',
+          fontSize: '0.75rem',
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          zIndex: 50,
+          pointerEvents: 'none',
+        }}
+      >
+        <span>{t('common.scroll')}</span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          style={{
+            width: '1px',
+            height: '50px',
+            background: isDark 
+              ? 'linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)'
+              : 'linear-gradient(to bottom, var(--color-text-light), transparent)',
+          }}
+        />
+      </motion.div>
+
       {/* 主卡片：深度案例研究 */}
       <Link to="/work/the-case" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
         <motion.div 
