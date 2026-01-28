@@ -1,0 +1,82 @@
+key,zh,en
+home.pageTitle,首页,Home
+home.heroName,田阳敏,Lumi Tian
+home.heroRole,品牌设计师,Brand Designer
+home.heroDesc,"聚焦品牌设计、平面设计与 CMF，","Focused on brand design, graphic design, and CMF,"
+home.heroDesc2,"通过系统化的设计，构建统一而有辨识度的视觉表达。",I build cohesive and recognizable visual systems through systematic design.
+home.heroTags[0],品牌设计,Brand Design
+home.heroTags[1],平面设计,Graphic Design
+home.heroTags[2],CMF,CMF
+home.viewFeaturedCases,查看精选案例,View Featured Cases
+home.contactMe,联系我,Contact Me
+home.sectionHero,首页,Home
+home.sectionWorks,作品,Works
+home.sectionServices,服务,Services
+home.sectionContact,联系,Contact
+home.featuredTitle,作品集导读 · 精选作品,Portfolio Guide · Featured Works
+home.partnersTitle,合作品牌,Partners
+home.ctaTitle,想一起做点有价值的事吗？,Interested in working on something meaningful together?
+home.ctaDesc,让我们把想法变成清晰而持久的作品。,Let's turn ideas into clear and lasting work.
+home.emailMe,发邮件给我,Email Me
+home.wechatContact,微信联系,WeChat Contact
+home.cases.01-brand-identity.title,品牌视觉系统（VI）,Brand Visual Identity System
+home.cases.01-brand-identity.subtitle,"从品牌核心出发，构建完整、可延展的视觉识别系统。",Building comprehensive and extensible brand identity systems from the brand core.
+home.cases.01-brand-identity.subtitle2,"通过视觉规范的系统化设计，确保品牌在不同媒介与场景中的一致表达。","Through systematic visual guidelines, I ensure consistency across media and contexts."
+home.cases.02-cmf-packaging.title,产品 CMF 与包装设计,Product CMF & Packaging Design
+home.cases.02-cmf-packaging.subtitle,"从材料、色彩与工艺出发，塑造产品与包装的整体感知。","Shaping product and packaging perception through color, material, and finish."
+home.cases.02-cmf-packaging.subtitle2,"通过 CMF 与包装设计，强化品牌在实体层面的识别度与品质感。",CMF and packaging design strengthen brand recognition and tactile quality.
+home.cases.03-key-visual.title,品牌主视觉与海报系统,Key Visual & Poster System
+home.cases.03-key-visual.subtitle,"围绕品牌核心视觉语言，建立可持续延展的主视觉体系。",Developing scalable key visual systems based on a unified visual language.
+home.cases.03-key-visual.subtitle2,"通过主视觉与海报系统，强化品牌在传播中的视觉记忆点。",Key visuals and posters enhance brand recognition across communication scenarios.
+home.cases.04-regional-marketing.title,区域营销与传播方案,Regional Marketing & Campaign Design
+home.cases.04-regional-marketing.subtitle,"基于区域市场与传播目标，制定具有针对性的视觉策略。",Designing targeted visual strategies for regional markets and campaign goals.
+home.cases.04-regional-marketing.subtitle2,"通过系统化的营销设计，提升品牌在特定场景中的传播效率。",Systematic campaign design improves communication efficiency and clarity.
+home.cases.05-offline-space.title,线下空间与营销物料设计,Offline Space & Marketing Materials
+home.cases.05-offline-space.subtitle,将品牌视觉系统延展至线下空间与实体物料。,Extending brand systems into physical spaces and offline materials.
+home.cases.05-offline-space.subtitle2,"在真实环境中，保持品牌表达的一致性与识别度。",Maintaining visual consistency and recognition in real-world environments.
+home.cases.06-art-gallery.title,艺术项目与画廊实践,Art Projects & Gallery Practice
+home.cases.06-art-gallery.subtitle,"作为商业品牌项目之外的视觉实践，探索更自由的表达方式。",Exploring visual expression beyond commercial brand projects.
+home.cases.06-art-gallery.subtitle2,"通过艺术项目，反向滋养设计判断与审美敏感度。",Art practices inform design judgment and aesthetic sensibility.
+home.skills.productDesign.title,产品设计,Product Design
+home.skills.productDesign.desc,"UI/UX, 原型设计, 设计系统","UI/UX, Prototyping, Design Systems"
+home.skills.development.title,开发,Development
+home.skills.development.desc,"React, 前端架构, 交互开发","React, Frontend Architecture, Interactive Dev"
+home.skills.strategy.title,策略,Strategy
+home.skills.strategy.desc,"用户研究, 产品策略, 数据分析","User Research, Product Strategy, Data Analysis"
+home.services.brandFoundation.title,品牌视觉基础构建,Brand Foundation
+home.services.brandFoundation.problem,"当品牌缺乏清晰的视觉方向，或现有视觉体系零散、难以统一落地时。",I help establish a clear and structured visual foundation for brands.
+home.services.brandFoundation.desc,"构建完整的品牌视觉体系（VI / Brand Guidelines），明确品牌视觉原则与使用边界，为产品、包装与传播提供统一的视觉基础。","By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication."
+home.services.brandFoundation.chips[0],品牌基础,Brand Foundation
+home.services.brandFoundation.chips[1],视觉系统,Visual System
+home.services.brandFoundation.chips[2],规范指南,Guidelines
+home.services.productPhysical.title,产品与实体体验设计（CMF / 包装）,Product & Physical Experience
+home.services.productPhysical.problem,"当产品在外观、材质或包装上缺乏统一的品牌感知，难以体现品质与差异。",I shape cohesive product and packaging experiences through CMF design.
+home.services.productPhysical.desc,"产品 CMF 定义（色彩 / 材料 / 工艺），包装设计与产品体验的整体统一，强化品牌在可触达层面的识别度。","By aligning color, material, and finish decisions, I strengthen brand perception at the physical level."
+home.services.productPhysical.chips[0],CMF,CMF
+home.services.productPhysical.chips[1],包装设计,Packaging
+home.services.productPhysical.chips[2],材料,Material
+home.services.productPhysical.chips[3],工艺,Finish
+home.services.visualCommunication.title,品牌主视觉与传播视觉系统,Visual Communication System
+home.services.visualCommunication.problem,"当品牌在传播中缺乏统一的视觉语言，视觉表现零散、记忆点不足。",I develop scalable visual communication systems for brands.
+home.services.visualCommunication.desc,"品牌主视觉（Key Visual）定义，系列化海报与传播视觉设计，建立可持续延展的视觉表达体系。","Through key visuals and repeatable design rules, brand messages become clearer and more memorable."
+home.services.visualCommunication.chips[0],主视觉,Key Visual
+home.services.visualCommunication.chips[1],视觉语言,Visual Language
+home.services.visualCommunication.chips[2],传播设计,Communication
+home.services.campaignMarketing.title,区域营销与传播支持,Campaign & Regional Marketing
+home.services.campaignMarketing.problem,"当品牌需要在特定区域或阶段开展营销，但缺乏清晰的视觉策略与执行支持。",I support brands in regional campaigns and market-specific communication.
+home.services.campaignMarketing.desc,"区域营销视觉方案设计，Campaign 主视觉与传播物料支持，协助品牌在不同市场中保持一致表达。","By aligning visual strategy with local contexts, campaigns remain consistent and effective."
+home.services.campaignMarketing.chips[0],营销活动,Campaign
+home.services.campaignMarketing.chips[1],策略规划,Strategy
+home.services.campaignMarketing.chips[2],市场推广,Marketing
+home.services.offlineApplications.title,线下场景与实体落地支持,Offline & Real-world Applications
+home.services.offlineApplications.problem,"当品牌视觉难以有效落地到线下空间、物料或真实使用场景中。",I translate brand systems into real-world environments.
+home.services.offlineApplications.desc,"线下营销物料设计，空间、展陈与实体触点的视觉应用，确保品牌在真实环境中的清晰呈现。","From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces."
+home.services.offlineApplications.chips[0],线下物料,Offline
+home.services.offlineApplications.chips[1],空间设计,Spatial
+home.services.offlineApplications.chips[2],落地应用,Application
+home.services.creativeExploration.title,艺术导向与视觉探索项目,Creative & Art-driven Exploration
+home.services.creativeExploration.problem,"当品牌或项目需要更具表达力、文化属性或实验性的视觉探索。",I explore visual expression beyond commercial boundaries.
+home.services.creativeExploration.desc,"艺术画廊与展览视觉设计，实验性视觉项目，为品牌提供更具深度的美学参考。","Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking."
+home.services.creativeExploration.chips[0],艺术指导,Art Direction
+home.services.creativeExploration.chips[1],展览设计,Exhibition
+home.services.creativeExploration.chips[2],实验项目,Experiment

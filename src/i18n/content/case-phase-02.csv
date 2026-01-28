@@ -1,0 +1,26 @@
+key,zh,en
+case.phases.phase-02.title,产品 A：从概念到落地,Product A: From Concept to Launch
+case.phases.phase-02.desc,"首款产品的完整设计过程，从概念探索到最终上市。","The complete design process of the first product, from concept exploration to final launch."
+case.phases.phase-02.screens.intro.content,"这是一次从概念到落地的完整产品设计实践。项目覆盖设计决策、执行验证与最终上线。","This is a complete product design practice from concept to launch. The project covers design decisions, execution verification, and final launch."
+case.phases.phase-02.screens.intro.emphasis,这是一个被真正使用的产品。,This is a product that is truly used.
+case.phases.phase-02.screens.boundaries.title,"设计并不是从创意开始，而是从边界开始","Design doesn't start with creativity, but with boundaries"
+case.phases.phase-02.screens.boundaries.content,"在资源、市场与目标明确前，任何设计都不可成立。","Before resources, market, and goals are clear, no design can be established."
+case.phases.phase-02.screens.boundaries.emphasis,"先限定问题，才有解法。","Define the problem first, then find the solution."
+case.phases.phase-02.screens.cmf.title,CMF 是连接品牌长期规划与产品落地的关键中介,CMF is the key intermediary connecting brand long-term planning with product implementation
+case.phases.phase-02.screens.cmf.content,"它既要服务品牌表达，也必须服从产品功能与制造现实。","It must serve brand expression while also conforming to product function and manufacturing reality."
+case.phases.phase-02.screens.cmf.emphasis,"美学不是目的，是约束下的结果。","Aesthetics is not the goal, but the result under constraints."
+case.phases.phase-02.screens.manufacturing.title,设计决策必须在真实制造条件中被持续校验,Design decisions must be continuously validated in real manufacturing conditions
+case.phases.phase-02.screens.manufacturing.content,"从物料、配件到工厂样品，设计始终处于反馈回路中。","From materials, components to factory samples, design is always in the feedback loop."
+case.phases.phase-02.screens.manufacturing.emphasis,设计不是在图里完成的。,Design is not completed in drawings.
+case.phases.phase-02.screens.priority.title,"不同市场，需要不同的优先级判断","Different markets require different priority judgments"
+case.phases.phase-02.screens.priority.content,"首批方案并非「最好看」，而是「最适合进入市场」。","The first batch of solutions is not 'the best looking', but 'the most suitable for market entry'."
+case.phases.phase-02.screens.priority.emphasis,设计是一种选择机制。,Design is a selection mechanism.
+case.phases.phase-02.screens.packaging.title,包装是用户接触品牌的第一个界面,Packaging is the user's first interface with the brand
+case.phases.phase-02.screens.packaging.content,"它不仅承载信息，也影响用户对产品价值的预期。","It not only carries information, but also affects users' expectations of product value."
+case.phases.phase-02.screens.packaging.emphasis,"第一触点，决定第一判断。","The first touchpoint determines the first judgment."
+case.phases.phase-02.screens.consistency.title,"一致性，是品牌被记住的前提","Consistency is the prerequisite for a brand to be remembered"
+case.phases.phase-02.screens.consistency.content,"无论使用场景如何变化，识别应保持稳定。","Regardless of how usage scenarios change, recognition should remain stable."
+case.phases.phase-02.screens.consistency.emphasis,"识别感不是装饰，是系统结果。","Recognition is not decoration, but a system result."
+case.phases.phase-02.screens.closing.title,这个产品验证了整套设计系统的可行性,This product validates the feasibility of the entire design system
+case.phases.phase-02.screens.closing.content,它为后续产品与设计决策提供了可复用的参考模型。,It provides a reusable reference model for subsequent products and design decisions.
+case.phases.phase-02.screens.closing.emphasis,"这不是一个案例，而是一个样本。","This is not a case, but a sample."

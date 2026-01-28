@@ -1,0 +1,35 @@
+key,zh,en
+work.pageTitle,作品,Work
+work.title,精选作品.,Selected Works.
+work.subtitle,"探索设计与技术的边界，","Exploring the boundaries of design and technology,"
+work.subtitle2,每一个项目都是一次新的尝试。,each project is a new experiment.
+work.filter,筛选,Filter
+work.all,全部,All
+work.caseStudy,案例研究,Case Study
+work.projectDetails,项目详情,Project Details
+work.viewProject,查看项目,View Project
+work.featuredCaseStudy,深度案例研究,Featured Case Study
+work.artGallery,艺术画廊,Art Gallery
+work.viewFullCase,查看完整案例,View Full Case
+work.featured.title,品牌构建实践,Brand Building Practice
+work.featured.desc,"记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。","Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change."
+work.featured.tags[0],品牌策略,Brand Strategy
+work.featured.tags[1],系统思维,System Thinking
+work.featured.tags[2],迭代优化,Iteration
+work.featured.tags[3],落地应用,Application
+work.gallery.label,Art Practice · Visual Exploration,Art Practice · Visual Exploration
+work.gallery.title,艺术画廊,Art Gallery
+work.gallery.desc,"作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。","As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, while enriching my judgment in brand and product design."
+work.gallery.tags[0],Art Direction,Art Direction
+work.gallery.tags[1],Mixed Media,Mixed Media
+work.gallery.tags[2],Illustration,Illustration
+work.gallery.tags[3],Painting,Painting
+work.gallery.enter,进入画廊,Enter Gallery
+work.modules.form.label,Module A,Module A
+work.modules.form.title,造型 Form,Form
+work.modules.form.quote,"\"纸笔摩擦中的灵光乍现\"","""Sparks of inspiration in the friction of pen and paper"""
+work.modules.form.enter,进入造型,Enter Form
+work.modules.photo.label,Module B,Module B
+work.modules.photo.title,摄影 Photo,Photo
+work.modules.photo.quote,"\"定格记忆的时光标本\"","""Time specimens that freeze memories"""
+work.modules.photo.enter,进入摄影,Enter Photo

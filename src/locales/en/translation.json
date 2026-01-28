@@ -1,34 +1,521 @@
 {
-  "common": {
-    "loading": "Loading...",
-    "error": "Something went wrong",
-    "retry": "Retry",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "save": "Save",
-    "delete": "Delete",
-    "edit": "Edit",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "close": "Close",
-    "search": "Search",
-    "noResults": "No results found",
-    "viewMore": "View More",
-    "viewAll": "View All",
-    "learnMore": "Learn More",
-    "scroll": "Scroll"
+  "about": {
+    "pageTitle": "About",
+    "title": "About Me.",
+    "sectionIntro": "Intro",
+    "sectionExpertise": "Expertise",
+    "sectionJourney": "Journey",
+    "sectionContact": "Contact",
+    "expertiseTitle": "Expertise",
+    "journeyTitle": "Journey",
+    "contactTitle": "Contact",
+    "emailLabel": "Email",
+    "wechatLabel": "WeChat",
+    "greeting": "Hi, I'm Tian Yangmin.",
+    "introLine1": "A brand-focused designer working at the intersection of visual identity and product design.",
+    "introLine2": "My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability.",
+    "introLine3": "Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions.",
+    "introLine4": "To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking.",
+    "downloadResume": "Download Resume",
+    "contactMe": "Get in Touch",
+    "letsTalk": "Let's Talk.",
+    "contactIntro": "Ready to start your next project?",
+    "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "projectConsultation": "Project Consultation",
+    "messageSent": "Message Sent!",
+    "thankYou": "Thank you for reaching out. I'll get back to you within 24 hours.",
+    "sendAnother": "Send Another",
+    "formName": "Name",
+    "formNamePlaceholder": "Your name",
+    "formEmail": "Email",
+    "formEmailPlaceholder": "your@email.com",
+    "formProjectType": "Project Type",
+    "formProjectTypeOptions": {
+      "webDesign": "Web Design & Development",
+      "mobileApp": "Mobile App Design",
+      "branding": "Branding",
+      "consulting": "Consulting",
+      "other": "Other"
+    },
+    "formDetails": "Project Details",
+    "formDetailsPlaceholder": "Please tell me about your goals, timeline, and any specific requirements...",
+    "submitting": "Sending...",
+    "submit": "Send Message",
+    "expertise": {
+      "strategy": {
+        "title": "Strategy",
+        "items": [
+          "Product Strategy",
+          "User Research",
+          "Data Analysis",
+          "Market Positioning"
+        ]
+      },
+      "design": {
+        "title": "Design",
+        "items": [
+          "UI/UX Design",
+          "Design Systems",
+          "Prototyping",
+          "Interaction Design"
+        ]
+      },
+      "development": {
+        "title": "Development",
+        "items": [
+          "React / Next.js",
+          "Creative Coding",
+          "WebGL / Three.js",
+          "Frontend Architecture"
+        ]
+      }
+    },
+    "journey": {
+      "item1": {
+        "year": "2021 - Present",
+        "role": "Senior Product Designer",
+        "company": "Tech Innovators Inc."
+      },
+      "item2": {
+        "year": "2019 - 2021",
+        "role": "UI/UX Designer",
+        "company": "Creative Studio"
+      },
+      "item3": {
+        "year": "2017 - 2019",
+        "role": "Frontend Developer",
+        "company": "StartUp Alpha"
+      },
+      "item4": {
+        "year": "2013 - 2017",
+        "role": "Bachelor of Design",
+        "company": "Academy of Arts"
+      }
+    }
   },
-  "nav": {
-    "home": "Home",
+  "case": {
+    "pageTitle": "Case Studies",
+    "featuredCaseStudy": "Featured Case Study",
+    "projectTitle": "Brand Building Practice",
+    "projectDesc": "Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change.",
+    "role": "Role",
+    "roleValue": "Lead Designer",
+    "duration": "Duration",
+    "durationValue": "12 Months",
+    "team": "Team",
+    "teamValue": "Core Team",
+    "scope": "Scope",
+    "scopeValue": "Full Brand",
+    "startReading": "Start Reading Phase 01",
+    "tableOfContents": "Table of Contents",
+    "phasesInfo": "{{count}} Phases",
+    "explore": "Explore",
+    "quickAccess": "Quick Access",
+    "viewResults": "Jump to Final Phase",
+    "backToIndex": "Back to Index",
+    "backToToc": "TOC",
+    "nextPhase": "Next Phase",
+    "screenLabels": {
+      "intro": "Introduction",
+      "core-principles": "Core Principles",
+      "stability-message": "Stability Principle",
+      "brand-identity": "Brand Identity",
+      "principles": "Design Principles",
+      "logo-structure": "Logo Structure",
+      "logo-focus-lens": "Logo Focus",
+      "logo-variations": "Logo Variations",
+      "color": "Color System",
+      "typography": "Typography",
+      "validation": "Validation",
+      "summary": "Summary",
+      "positioning": "Positioning",
+      "cmf-explore": "CMF Exploration",
+      "cmf-final": "CMF Decision",
+      "packaging": "Packaging",
+      "consistency": "Consistency",
+      "realworld": "Real-world",
+      "comparison": "Comparison",
+      "variation": "Variation",
+      "efficiency": "Efficiency",
+      "sequence": "Sequence",
+      "packaging-system": "Packaging System",
+      "kv": "Key Visual",
+      "regional": "Regional",
+      "offline": "Offline",
+      "online-offline": "Online & Offline",
+      "pressure": "Pressure Test",
+      "closing": "Closing",
+      "color-reveal": "Color Reveal",
+      "logo-exploration": "Logo Exploration",
+      "phase-closing": "Phase Closing"
+    },
+    "phases": {
+      "phase-01": {
+        "title": "Brand Identity System",
+        "desc": "Establishing a stable and long-term usable visual foundation in the early stage when product direction is not yet clear.",
+        "screens": {
+          "intro": {
+            "content": "In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
+          },
+          "core-principles": {
+            "title": "CORE PRINCIPLES",
+            "subtitle": "Three Core Principles of the System",
+            "nodes": {
+              "system": {
+                "label": "SYSTEM",
+                "sub": "Core Principles"
+              },
+              "clarity": {
+                "label": "CLARITY",
+                "sub": "Clarity",
+                "desc": "Prioritize clear visual direction"
+              },
+              "restraint": {
+                "label": "RESTRAINT",
+                "sub": "Restraint",
+                "desc": "Avoid over-stylization"
+              },
+              "scalability": {
+                "label": "SCALABILITY",
+                "sub": "Scalability",
+                "desc": "Consider future product & expansion"
+              }
+            }
+          },
+          "brand-identity": {
+            "title": "Brand Core Architecture",
+            "content": "The derivation process from core values to visual expression"
+          },
+          "stability-message": {
+            "title": "Logo Design Stability Principle",
+            "content": "Stability > Expressiveness"
+          },
+          "principles": {
+            "title": "Other Design Principles",
+            "content": "Determine other design decisions through the stability principle"
+          },
+          "logo": {
+            "title": "Logo design is not about formal complexity, but structural stability",
+            "content": "Through simple and controllable structural logic, ensure the logo maintains consistent recognition across different sizes and media.",
+            "note": "Stability > Expressiveness"
+          },
+          "logo-structure": {
+            "title": "Logo Structure Analysis",
+            "content": "Through clear structural decomposition, revealing the internal logic and proportional relationships of the logo design."
+          },
+          "logo-focus-lens": {
+            "title": "Logo Detail Focus",
+            "content": "Diving into key details of the logo, showcasing the refined considerations and craftsmanship in design."
+          },
+          "logo-variations": {
+            "title": "Logo Variations Exploration",
+            "content": "From wireframe to final form, documenting the design exploration and decision-making process."
+          },
+          "color": {
+            "title": "The color system is established with long-term use as the premise",
+            "content": "Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
+          },
+          "typography": {
+            "title": "Typography supports information expression, not style reinforcement",
+            "content": "Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities."
+          },
+          "validation": {
+            "title": "After the system is established, validate through minimum applications",
+            "content": "These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
+          },
+          "summary": {
+            "title": "The outcome of this phase is not a 'complete' brand",
+            "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
+          }
+        }
+      },
+      "phase-02": {
+        "title": "Product A: From Concept to Launch",
+        "desc": "The complete design process of the first product, from concept exploration to final launch.",
+        "screens": {
+          "intro": {
+            "content": "This is a complete product design practice from concept to launch. The project covers design decisions, execution verification, and final launch.",
+            "emphasis": "This is a product that is truly used."
+          },
+          "boundaries": {
+            "title": "Design doesn't start with creativity, but with boundaries",
+            "content": "Before resources, market, and goals are clear, no design can be established.",
+            "emphasis": "Define the problem first, then find the solution."
+          },
+          "cmf": {
+            "title": "CMF is the key intermediary connecting brand long-term planning with product implementation",
+            "content": "It must serve brand expression while also conforming to product function and manufacturing reality.",
+            "emphasis": "Aesthetics is not the goal, but the result under constraints."
+          },
+          "manufacturing": {
+            "title": "Design decisions must be continuously validated in real manufacturing conditions",
+            "content": "From materials, components to factory samples, design is always in the feedback loop.",
+            "emphasis": "Design is not completed in drawings."
+          },
+          "priority": {
+            "title": "Different markets require different priority judgments",
+            "content": "The first batch of solutions is not 'the best looking', but 'the most suitable for market entry'.",
+            "emphasis": "Design is a selection mechanism."
+          },
+          "packaging": {
+            "title": "Packaging is the user's first interface with the brand",
+            "content": "It not only carries information, but also affects users' expectations of product value.",
+            "emphasis": "The first touchpoint determines the first judgment."
+          },
+          "consistency": {
+            "title": "Consistency is the prerequisite for a brand to be remembered",
+            "content": "Regardless of how usage scenarios change, recognition should remain stable.",
+            "emphasis": "Recognition is not decoration, but a system result."
+          },
+          "closing": {
+            "title": "This product validates the feasibility of the entire design system",
+            "content": "It provides a reusable reference model for subsequent products and design decisions.",
+            "emphasis": "This is not a case, but a sample."
+          }
+        }
+      },
+      "phase-03": {
+        "title": "Product B: Consistency with Variation",
+        "desc": "How the second product achieves differentiation while maintaining brand consistency.",
+        "screens": {
+          "intro": {
+            "content": "Building on the existing brand system and first product, the second product's design focus is no longer 'starting from zero', but how to make reasonable changes while maintaining consistency."
+          },
+          "concept-comparison": {
+            "title": "Comparison is the most direct way to judge differences",
+            "content": "The two products maintain consistency in visual structure, proportion, and core language, while adjusting details according to product characteristics.",
+            "emphasis": "Differentiation is change permitted by the system"
+          },
+          "component-showcase": {
+            "title": "Core components maintain consistent design language",
+            "content": "From main structure to detail components, design follows the same visual logic and proportion principles.",
+            "emphasis": "Consistency starts from the component level"
+          },
+          "document-gallery": {
+            "title": "Systematic design delivery",
+            "content": "Complete design specifications and documentation ensure design intent can be accurately executed.",
+            "emphasis": "Design goes beyond images, it's about specifications"
+          },
+          "sticky-upper": {
+            "title": "Product details and material expression",
+            "content": "Showcasing product craftsmanship details and texture treatment through different angles and close-ups.",
+            "emphasis": "Details determine quality perception"
+          },
+          "sticky-lower": {
+            "title": "Complete visual presentation of the product",
+            "content": "From parts to whole, showing the complete visual logic of product design.",
+            "emphasis": "The overall sense comes from consistency in every part"
+          },
+          "panorama-marquee": {
+            "title": "Product performance in multiple scenarios",
+            "content": "Products maintain consistent brand recognition across different usage scenarios and display methods.",
+            "emphasis": "Scenarios change, recognition remains"
+          },
+          "gallery-upper": {
+            "title": "Systematic documentation of design specifications",
+            "content": "Complete design guidelines ensure the brand can be consistently expressed at any touchpoint.",
+            "emphasis": "Specifications are the guarantee of consistency"
+          },
+          "gallery-lower": {
+            "title": "Brand extension and application examples",
+            "content": "From products to communication materials, brand visuals maintain consistency across various media.",
+            "emphasis": "Extension is not copying, it's the natural growth of the system"
+          },
+          "closing": {
+            "title": "Product B validates the sustainability of the brand system",
+            "content": "The completion of this phase marks the brand entering a mature stage of replicable expansion."
+          }
+        }
+      },
+      "phase-04": {
+        "title": "Packaging & Marketing Extensions",
+        "desc": "Extending the brand visual system to packaging, marketing, and more touchpoints.",
+        "screens": {
+          "intro": {
+            "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
+          },
+          "packaging-system": {
+            "title": "Packaging is viewed as an important component of the brand system",
+            "content": "As product numbers increase, through unified structure and visual logic, packaging maintains brand recognition across different specifications and information levels."
+          },
+          "kv": {
+            "title": "Key visuals don't exist independently, but grow from the brand system",
+            "content": "Through unified visual motifs and rules, key visuals maintain consistent expression across different communication scenarios while having flexible extensibility."
+          },
+          "regional": {
+            "title": "In different regions and communication contexts, visuals need moderate adjustment without losing core recognition",
+            "content": "The system's existence keeps these changes within controllable range."
+          },
+          "offline": {
+            "title": "Real-world environments are often imperfect",
+            "content": "Under different lighting, materials, and spatial conditions, brand visuals maintain clarity and stability - an important test of system validity.",
+            "note": "This is the 'credibility anchor' of the entire case"
+          },
+          "online-offline": {
+            "title": "Online and offline are not two separate systems",
+            "content": "Through unified visual language, the brand forms a continuous experience across different touchpoints, rather than fragmented presentation."
+          },
+          "pressure": {
+            "title": "Under complex applications and real use, the brand system maintains stable structure and clear expression",
+            "content": "This marks the system as no longer just a design outcome, but sustainable brand infrastructure."
+          },
+          "closing": {
+            "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
+            "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
+          }
+        }
+      }
+    }
+  },
+  "gallery": {
+    "modules": {
+      "form-structure": {
+        "number": "01",
+        "title": "Form & Structure",
+        "subtitle": "Form & Structure Study",
+        "desc": "A continuous exploration of form, proportion, and structural relationships, focusing on how order is established in composition and how form carries a sense of stability.",
+        "media": [
+          "Ink Painting",
+          "Digital Painting",
+          "Illustration"
+        ],
+        "keywords": [
+          "Form",
+          "Structure",
+          "Composition",
+          "Balance"
+        ],
+        "enter": "Explore Module"
+      },
+      "material-texture": {
+        "number": "02",
+        "title": "Material & Texture",
+        "subtitle": "Material & Texture Experiments",
+        "desc": "Through the juxtaposition and layering of different materials and media, studying how texture, grain, and tactile associations manifest visually.",
+        "media": [
+          "Mixed Media",
+          "Ink Painting",
+          "Photography"
+        ],
+        "keywords": [
+          "Material",
+          "Texture",
+          "Surface",
+          "Tactility"
+        ],
+        "enter": "Explore Module"
+      },
+      "narrative-imagery": {
+        "number": "03",
+        "title": "Narrative & Imagery",
+        "subtitle": "Imagery & Narrative Expression",
+        "desc": "Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state.",
+        "media": [
+          "Illustration",
+          "Digital Painting",
+          "Photography"
+        ],
+        "keywords": [
+          "Narrative",
+          "Imagery",
+          "Symbol",
+          "Mood"
+        ],
+        "enter": "Explore Module"
+      },
+      "light-atmosphere": {
+        "number": "04",
+        "title": "Light & Atmosphere",
+        "subtitle": "Light & Atmosphere Study",
+        "desc": "Exploring the representation of light, shadow, and spatial layers, studying how atmosphere influences viewing emotions and overall perception.",
+        "media": [
+          "Photography",
+          "Digital Painting",
+          "Mixed Media"
+        ],
+        "keywords": [
+          "Light",
+          "Shadow",
+          "Atmosphere",
+          "Space"
+        ],
+        "enter": "Explore Module"
+      },
+      "observation-reality": {
+        "number": "05",
+        "title": "Observation & Reality",
+        "subtitle": "Observation & Reality Documentation",
+        "desc": "Based on observation and documentation of the real world, focusing on structure, rhythm, and visual order in everyday scenes.",
+        "media": [
+          "Photography",
+          "Sketching",
+          "Mixed Media"
+        ],
+        "keywords": [
+          "Observation",
+          "Reality",
+          "Everyday",
+          "Visual Rhythm"
+        ],
+        "enter": "Explore Module"
+      }
+    },
+    "submodules": {
+      "new-china-painter": {
+        "title": "New China Painter",
+        "desc": "The collision of traditional ink and modern composition."
+      },
+      "mixed-media": {
+        "title": "Mixed Media",
+        "desc": "Exploring the texture and emotion of different materials."
+      },
+      "illustration-story": {
+        "title": "Illustration Story",
+        "desc": "Telling coherent narratives through images."
+      },
+      "stylized-board": {
+        "title": "Stylized Board",
+        "desc": "Style exploration in digital painting."
+      },
+      "product": {
+        "title": "Product Photography",
+        "desc": "The texture of objects under light and shadow."
+      },
+      "landscape": {
+        "title": "Landscape Photography",
+        "desc": "Capturing moments of nature and the city."
+      },
+      "unknown": {
+        "title": "Unknown Module"
+      }
+    },
+    "pageTitle": "Gallery",
+    "title": "Art Gallery",
+    "subtitle": "A personal collection of visual works, exploring the infinite possibilities of form and light.",
+    "categories": "Categories",
+    "allWorks": "All Works",
+    "backToGallery": "← Back to Gallery",
+    "latestRelease": "Latest",
+    "featuredRecommend": "Featured",
+    "workImage": "[ Artwork ]",
+    "mainVisual": "[ Main Visual ]",
+    "detail": "[ Detail {{num}} ]",
+    "related": "[ Related {{num}} ]",
     "work": "Work",
-    "about": "About",
-    "gallery": "Gallery",
-    "caseStudies": "Case Studies",
-    "designSystem": "Design System",
-    "showcase": "Showcase",
-    "contact": "Contact",
-    "services": "Services"
+    "workDetail": "Work Detail",
+    "workTitle": "Artwork Title {{num}}",
+    "previous": "← Previous",
+    "next": "Next →",
+    "year": "Year",
+    "medium": "Medium",
+    "size": "Size",
+    "digitalPainting": "Digital Painting",
+    "digitalPhotography": "Digital Photography",
+    "workDesc": "A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines.",
+    "capabilityTags": "Capability Tags",
+    "relatedWorks": "Related Works"
   },
   "home": {
     "pageTitle": "Home",
@@ -36,7 +523,11 @@
     "heroRole": "Brand Designer",
     "heroDesc": "Focused on brand design, graphic design, and CMF,",
     "heroDesc2": "I build cohesive and recognizable visual systems through systematic design.",
-    "heroTags": ["Brand Design", "Graphic Design", "CMF"],
+    "heroTags": [
+      "Brand Design",
+      "Graphic Design",
+      "CMF"
+    ],
     "viewFeaturedCases": "View Featured Cases",
     "contactMe": "Contact Me",
     "sectionHero": "Home",
@@ -98,126 +589,64 @@
     "services": {
       "brandFoundation": {
         "title": "Brand Foundation",
-        "subtitle": "Brand Visual Foundation",
         "problem": "I help establish a clear and structured visual foundation for brands.",
         "desc": "By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication.",
-        "chips": ["Brand Foundation", "Visual System", "Guidelines"]
+        "chips": [
+          "Brand Foundation",
+          "Visual System",
+          "Guidelines"
+        ]
       },
       "productPhysical": {
         "title": "Product & Physical Experience",
-        "subtitle": "Product CMF & Packaging Design",
         "problem": "I shape cohesive product and packaging experiences through CMF design.",
         "desc": "By aligning color, material, and finish decisions, I strengthen brand perception at the physical level.",
-        "chips": ["CMF", "Packaging", "Material", "Finish"]
+        "chips": [
+          "CMF",
+          "Packaging",
+          "Material",
+          "Finish"
+        ]
       },
       "visualCommunication": {
         "title": "Visual Communication System",
-        "subtitle": "Key Visual & Communication System",
         "problem": "I develop scalable visual communication systems for brands.",
         "desc": "Through key visuals and repeatable design rules, brand messages become clearer and more memorable.",
-        "chips": ["Key Visual", "Visual Language", "Communication"]
+        "chips": [
+          "Key Visual",
+          "Visual Language",
+          "Communication"
+        ]
       },
       "campaignMarketing": {
         "title": "Campaign & Regional Marketing",
-        "subtitle": "Regional Marketing Support",
         "problem": "I support brands in regional campaigns and market-specific communication.",
         "desc": "By aligning visual strategy with local contexts, campaigns remain consistent and effective.",
-        "chips": ["Campaign", "Strategy", "Marketing"]
+        "chips": [
+          "Campaign",
+          "Strategy",
+          "Marketing"
+        ]
       },
       "offlineApplications": {
         "title": "Offline & Real-world Applications",
-        "subtitle": "Offline Space & Applications",
         "problem": "I translate brand systems into real-world environments.",
         "desc": "From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces.",
-        "chips": ["Offline", "Spatial", "Application"]
+        "chips": [
+          "Offline",
+          "Spatial",
+          "Application"
+        ]
       },
       "creativeExploration": {
         "title": "Creative & Art-driven Exploration",
-        "subtitle": "Art Direction & Visual Exploration",
         "problem": "I explore visual expression beyond commercial boundaries.",
         "desc": "Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking.",
-        "chips": ["Art Direction", "Exhibition", "Experiment"]
-      }
-    }
-  },
-  "about": {
-    "pageTitle": "About",
-    "title": "About Me.",
-    "sectionIntro": "Intro",
-    "sectionExpertise": "Expertise",
-    "sectionJourney": "Journey",
-    "sectionContact": "Contact",
-    "expertiseTitle": "Expertise",
-    "journeyTitle": "Journey",
-    "contactTitle": "Contact",
-    "emailLabel": "Email",
-    "wechatLabel": "WeChat",
-    "greeting": "Hi, I'm Tian Yangmin.",
-    "introLine1": "A brand-focused designer working at the intersection of visual identity and product design.",
-    "introLine2": "My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability.",
-    "introLine3": "Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions.",
-    "introLine4": "To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking.",
-    "downloadResume": "Download Resume",
-    "contactMe": "Get in Touch",
-    "letsTalk": "Let's Talk.",
-    "contactIntro": "Ready to start your next project?",
-    "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it.",
-    "copy": "Copy",
-    "copied": "Copied",
-    "projectConsultation": "Project Consultation",
-    "messageSent": "Message Sent!",
-    "thankYou": "Thank you for reaching out. I'll get back to you within 24 hours.",
-    "sendAnother": "Send Another",
-    "formName": "Name",
-    "formNamePlaceholder": "Your name",
-    "formEmail": "Email",
-    "formEmailPlaceholder": "your@email.com",
-    "formProjectType": "Project Type",
-    "formProjectTypeOptions": {
-      "webDesign": "Web Design & Development",
-      "mobileApp": "Mobile App Design",
-      "branding": "Branding",
-      "consulting": "Consulting",
-      "other": "Other"
-    },
-    "formDetails": "Project Details",
-    "formDetailsPlaceholder": "Please tell me about your goals, timeline, and any specific requirements...",
-    "submitting": "Sending...",
-    "submit": "Send Message",
-    "expertise": {
-      "strategy": {
-        "title": "Strategy",
-        "items": ["Product Strategy", "User Research", "Data Analysis", "Market Positioning"]
-      },
-      "design": {
-        "title": "Design",
-        "items": ["UI/UX Design", "Design Systems", "Prototyping", "Interaction Design"]
-      },
-      "development": {
-        "title": "Development",
-        "items": ["React / Next.js", "Creative Coding", "WebGL / Three.js", "Frontend Architecture"]
-      }
-    },
-    "journey": {
-      "item1": {
-        "year": "2021 - Present",
-        "role": "Senior Product Designer",
-        "company": "Tech Innovators Inc."
-      },
-      "item2": {
-        "year": "2019 - 2021",
-        "role": "UI/UX Designer",
-        "company": "Creative Studio"
-      },
-      "item3": {
-        "year": "2017 - 2019",
-        "role": "Frontend Developer",
-        "company": "StartUp Alpha"
-      },
-      "item4": {
-        "year": "2013 - 2017",
-        "role": "Bachelor of Design",
-        "company": "Academy of Arts"
+        "chips": [
+          "Art Direction",
+          "Exhibition",
+          "Experiment"
+        ]
       }
     }
   },
@@ -237,13 +666,23 @@
     "featured": {
       "title": "Brand Building Practice",
       "desc": "Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change.",
-      "tags": ["Brand Strategy", "System Thinking", "Iteration", "Application"]
+      "tags": [
+        "Brand Strategy",
+        "System Thinking",
+        "Iteration",
+        "Application"
+      ]
     },
     "gallery": {
       "label": "Art Practice · Visual Exploration",
       "title": "Art Gallery",
       "desc": "As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, while enriching my judgment in brand and product design.",
-      "tags": ["Art Direction", "Mixed Media", "Illustration", "Painting"],
+      "tags": [
+        "Art Direction",
+        "Mixed Media",
+        "Illustration",
+        "Painting"
+      ],
       "enter": "Enter Gallery"
     },
     "modules": {
@@ -261,349 +700,25 @@
       }
     }
   },
-  "gallery": {
-    "pageTitle": "Gallery",
-    "title": "Art Gallery",
-    "subtitle": "A personal collection of visual works, exploring the infinite possibilities of form and light.",
-    "categories": "Categories",
-    "allWorks": "All Works",
-    "backToGallery": "← Back to Gallery",
-    "latestRelease": "Latest",
-    "featuredRecommend": "Featured",
-    "workImage": "[ Artwork ]",
-    "mainVisual": "[ Main Visual ]",
-    "detail": "[ Detail {{num}} ]",
-    "related": "[ Related {{num}} ]",
-    "work": "Work",
-    "workDetail": "Work Detail",
-    "workTitle": "Artwork Title {{num}}",
-    "previous": "← Previous",
-    "next": "Next →",
-    "year": "Year",
-    "medium": "Medium",
-    "size": "Size",
-    "digitalPainting": "Digital Painting",
-    "digitalPhotography": "Digital Photography",
-    "workDesc": "A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines.",
-    "capabilityTags": "Capability Tags",
-    "relatedWorks": "Related Works",
-    "modules": {
-      "form-structure": {
-        "number": "01",
-        "title": "Form & Structure",
-        "subtitle": "Form & Structure Study",
-        "desc": "A continuous exploration of form, proportion, and structural relationships, focusing on how order is established in composition and how form carries a sense of stability.",
-        "media": ["Ink Painting", "Digital Painting", "Illustration"],
-        "keywords": ["Form", "Structure", "Composition", "Balance"],
-        "enter": "Explore Module"
-      },
-      "material-texture": {
-        "number": "02",
-        "title": "Material & Texture",
-        "subtitle": "Material & Texture Experiments",
-        "desc": "Through the juxtaposition and layering of different materials and media, studying how texture, grain, and tactile associations manifest visually.",
-        "media": ["Mixed Media", "Ink Painting", "Photography"],
-        "keywords": ["Material", "Texture", "Surface", "Tactility"],
-        "enter": "Explore Module"
-      },
-      "narrative-imagery": {
-        "number": "03",
-        "title": "Narrative & Imagery",
-        "subtitle": "Imagery & Narrative Expression",
-        "desc": "Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state.",
-        "media": ["Illustration", "Digital Painting", "Photography"],
-        "keywords": ["Narrative", "Imagery", "Symbol", "Mood"],
-        "enter": "Explore Module"
-      },
-      "light-atmosphere": {
-        "number": "04",
-        "title": "Light & Atmosphere",
-        "subtitle": "Light & Atmosphere Study",
-        "desc": "Exploring the representation of light, shadow, and spatial layers, studying how atmosphere influences viewing emotions and overall perception.",
-        "media": ["Photography", "Digital Painting", "Mixed Media"],
-        "keywords": ["Light", "Shadow", "Atmosphere", "Space"],
-        "enter": "Explore Module"
-      },
-      "observation-reality": {
-        "number": "05",
-        "title": "Observation & Reality",
-        "subtitle": "Observation & Reality Documentation",
-        "desc": "Based on observation and documentation of the real world, focusing on structure, rhythm, and visual order in everyday scenes.",
-        "media": ["Photography", "Sketching", "Mixed Media"],
-        "keywords": ["Observation", "Reality", "Everyday", "Visual Rhythm"],
-        "enter": "Explore Module"
-      }
-    },
-    "submodules": {
-      "new-china-painter": {
-        "title": "New China Painter",
-        "desc": "The collision of traditional ink and modern composition."
-      },
-      "mixed-media": {
-        "title": "Mixed Media",
-        "desc": "Exploring the texture and emotion of different materials."
-      },
-      "illustration-story": {
-        "title": "Illustration Story",
-        "desc": "Telling coherent narratives through images."
-      },
-      "stylized-board": {
-        "title": "Stylized Board",
-        "desc": "Style exploration in digital painting."
-      },
-      "product": {
-        "title": "Product Photography",
-        "desc": "The texture of objects under light and shadow."
-      },
-      "landscape": {
-        "title": "Landscape Photography",
-        "desc": "Capturing moments of nature and the city."
-      },
-      "unknown": {
-        "title": "Unknown Module",
-        "desc": ""
-      }
-    }
-  },
-  "case": {
-    "pageTitle": "Case Studies",
-    "featuredCaseStudy": "Featured Case Study",
-    "projectTitle": "Brand Building Practice",
-    "projectDesc": "Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change.",
-    "role": "Role",
-    "roleValue": "Lead Designer",
-    "duration": "Duration",
-    "durationValue": "12 Months",
-    "team": "Team",
-    "teamValue": "Core Team",
-    "scope": "Scope",
-    "scopeValue": "Full Brand",
-    "startReading": "Start Reading Phase 01",
-    "tableOfContents": "Table of Contents",
-    "phasesInfo": "{{count}} Phases",
-    "explore": "Explore",
-    "quickAccess": "Quick Access",
-    "viewResults": "Jump to Final Phase",
-    "backToIndex": "Back to Index",
-    "backToToc": "TOC",
-    "nextPhase": "Next Phase",
-    "screenLabels": {
-      "intro": "Introduction",
-      "core-principles": "Core Principles",
-      "stability-message": "Stability Principle",
-      "brand-identity": "Brand Identity",
-      "principles": "Design Principles",
-      "logo": "Logo Design",
-      "logo-structure": "Logo Structure",
-      "logo-focus-lens": "Logo Focus",
-      "logo-variations": "Logo Variations",
-      "color": "Color System",
-      "typography": "Typography",
-      "validation": "Validation",
-      "summary": "Summary",
-      "positioning": "Positioning",
-      "cmf-explore": "CMF Exploration",
-      "cmf-final": "CMF Decision",
-      "packaging": "Packaging",
-      "consistency": "Consistency",
-      "realworld": "Real-world",
-      "comparison": "Comparison",
-      "variation": "Variation",
-      "efficiency": "Efficiency",
-      "sequence": "Sequence",
-      "packaging-system": "Packaging System",
-      "kv": "Key Visual",
-      "regional": "Regional",
-      "offline": "Offline",
-      "online-offline": "Online & Offline",
-      "pressure": "Pressure Test",
-      "closing": "Closing",
-      "color-reveal": "Color Reveal",
-      "logo-exploration": "Logo Exploration",
-      "phase-closing": "Phase Closing"
-    },
-    "phases": {
-      "phase-01": {
-        "title": "Brand Identity System",
-        "desc": "Establishing a stable and long-term usable visual foundation in the early stage when product direction is not yet clear.",
-        "screens": {
-          "intro": {
-            "content": "In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
-          },
-          "core-principles": {
-            "title": "CORE PRINCIPLES",
-            "subtitle": "Three Core Principles of the System",
-            "nodes": {
-              "system": { "label": "SYSTEM", "sub": "Core Principles" },
-              "clarity": { "label": "CLARITY", "sub": "Clarity", "desc": "Prioritize clear visual direction" },
-              "restraint": { "label": "RESTRAINT", "sub": "Restraint", "desc": "Avoid over-stylization" },
-              "scalability": { "label": "SCALABILITY", "sub": "Scalability", "desc": "Consider future product & expansion" }
-            }
-          },
-          "principles": {
-            "title": "Three Core Principles for System Building",
-            "items": {
-              "clear": {
-                "title": "Clear",
-                "desc": "In uncertain environments, prioritize establishing a clear visual direction"
-              },
-              "restrained": {
-                "title": "Restrained",
-                "desc": "Avoid over-stylization, leave room for future changes"
-              },
-              "extendable": {
-                "title": "Extendable",
-                "desc": "All designs must consider subsequent products and communication use"
-              }
-            }
-          },
-          "logo": {
-            "title": "Logo design is not about formal complexity, but structural stability",
-            "content": "Through simple and controllable structural logic, ensure the logo maintains consistent recognition across different sizes and media.",
-            "note": "Stability > Expressiveness"
-          },
-          "logo-structure": {
-            "title": "Logo Structure Analysis",
-            "content": "Through clear structural decomposition, revealing the internal logic and proportional relationships of the logo design."
-          },
-          "logo-focus-lens": {
-            "title": "Logo Detail Focus",
-            "content": "Diving into key details of the logo, showcasing the refined considerations and craftsmanship in design."
-          },
-          "logo-variations": {
-            "title": "Logo Variations Exploration",
-            "content": "From wireframe to final form, documenting the design exploration and decision-making process."
-          },
-          "color": {
-            "title": "The color system is established with long-term use as the premise",
-            "content": "Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
-          },
-          "typography": {
-            "title": "Typography supports information expression, not style reinforcement",
-            "content": "Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities."
-          },
-          "validation": {
-            "title": "After the system is established, validate through minimum applications",
-            "content": "These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
-          },
-          "summary": {
-            "title": "The outcome of this phase is not a 'complete' brand",
-            "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
-          }
-        }
-      },
-      "phase-02": {
-        "title": "Product A: From Concept to Launch",
-        "desc": "The complete design process of the first product, from concept exploration to final launch.",
-        "screens": {
-          "intro": {
-            "content": "This is the brand's first core product, and the first time the brand visual system is applied to a real product scenario."
-          },
-          "positioning": {
-            "title": "Before product design begins, clarify the boundaries",
-            "content": "Which visual elements must remain consistent with the brand, and which aspects allow the product to develop its own characteristics. Product A is not an independent entity, but the first branch of the brand system."
-          },
-          "cmf-explore": {
-            "title": "CMF selection is premised on long-term brand perception",
-            "content": "Among multiple possibilities, gradually eliminate short-term trends and over-expression, converging to a solution that meets product function while carrying brand character."
-          },
-          "cmf-final": {
-            "title": "The final CMF solution emphasizes restraint and sustainability",
-            "content": "Color, material, and finish are considered part of brand expression, not mere product decoration."
-          },
-          "packaging": {
-            "title": "Packaging is the user's first interface with the brand",
-            "content": "In design, packaging not only carries information, but also translates the brand system into a touchable experience."
-          },
-          "consistency": {
-            "title": "At the product level, system consistency is validated for the first time",
-            "content": "Even in new carriers and proportions, the brand's core recognition remains clearly established.",
-            "note": "This screen proves it's 'the brand's product' rather than just 'a nice product'"
-          },
-          "realworld": {
-            "title": "Design ultimately faces real-world conditions",
-            "content": "Under different lighting, scales, and usage conditions, the product and packaging maintain clear recognition - an important criterion for design validity."
-          },
-          "summary": {
-            "title": "The completion of Product A validates the brand system's feasibility",
-            "content": "It's not just a product launch, but also provides clear reference for subsequent product design rhythm and differentiation control."
-          }
-        }
-      },
-      "phase-03": {
-        "title": "Product B: Consistency with Variation",
-        "desc": "How the second product achieves differentiation while maintaining brand consistency.",
-        "screens": {
-          "intro": {
-            "content": "Building on the existing brand system and first product, the second product's design focus is no longer 'starting from zero', but how to make reasonable changes while maintaining consistency."
-          },
-          "comparison": {
-            "title": "Comparison is the most direct way to judge differences",
-            "content": "The two products maintain consistency in visual structure, proportion, and core language, while adjusting details according to product characteristics.",
-            "note": "This screen is the 'soul' of Phase 03"
-          },
-          "consistency": {
-            "title": "Consistency is not a limitation, but the foundation of brand recognition",
-            "content": "In Product B, core visual elements are fully preserved to ensure the brand remains clearly identifiable across different products."
-          },
-          "variation": {
-            "title": "Variation is not arbitrary, but permitted by the system",
-            "content": "While maintaining core consistency, through subtle CMF adjustments, Product B develops its own characteristics within the product sequence."
-          },
-          "efficiency": {
-            "title": "The existing system significantly improves design efficiency",
-            "content": "In Product B's design, more effort is devoted to judgment and optimization rather than repeatedly establishing basic rules.",
-            "note": "This is the signal of a mature designer"
-          },
-          "sequence": {
-            "title": "When multiple products are displayed together, the brand's overall image becomes clear",
-            "content": "This is not just the success of individual products, but a sign that the brand system is beginning to work."
-          },
-          "summary": {
-            "title": "The completion of Product B marks the brand entering sustainable expansion",
-            "content": "The balance between consistency and differentiation provides a stable foundation for subsequent packaging systems and marketing extensions."
-          }
-        }
-      },
-      "phase-04": {
-        "title": "Packaging & Marketing Extensions",
-        "desc": "Extending the brand visual system to packaging, marketing, and more touchpoints.",
-        "screens": {
-          "intro": {
-            "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
-          },
-          "packaging-system": {
-            "title": "Packaging is viewed as an important component of the brand system",
-            "content": "As product numbers increase, through unified structure and visual logic, packaging maintains brand recognition across different specifications and information levels."
-          },
-          "kv": {
-            "title": "Key visuals don't exist independently, but grow from the brand system",
-            "content": "Through unified visual motifs and rules, key visuals maintain consistent expression across different communication scenarios while having flexible extensibility."
-          },
-          "regional": {
-            "title": "In different regions and communication contexts, visuals need moderate adjustment without losing core recognition",
-            "content": "The system's existence keeps these changes within controllable range."
-          },
-          "offline": {
-            "title": "Real-world environments are often imperfect",
-            "content": "Under different lighting, materials, and spatial conditions, brand visuals maintain clarity and stability - an important test of system validity.",
-            "note": "This is the 'credibility anchor' of the entire case"
-          },
-          "online-offline": {
-            "title": "Online and offline are not two separate systems",
-            "content": "Through unified visual language, the brand forms a continuous experience across different touchpoints, rather than fragmented presentation."
-          },
-          "pressure": {
-            "title": "Under complex applications and real use, the brand system maintains stable structure and clear expression",
-            "content": "This marks the system as no longer just a design outcome, but sustainable brand infrastructure."
-          },
-          "closing": {
-            "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
-            "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
-          }
-        }
-      }
-    }
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "search": "Search",
+    "noResults": "No results found",
+    "viewMore": "View More",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "scroll": "Scroll"
   },
   "footer": {
     "email": "Email",
@@ -619,5 +734,16 @@
   "theme": {
     "switchToDark": "Switch to Dark Mode",
     "switchToLight": "Switch to Light Mode"
+  },
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "about": "About",
+    "gallery": "Gallery",
+    "caseStudies": "Case Studies",
+    "designSystem": "Design System",
+    "showcase": "Showcase",
+    "contact": "Contact",
+    "services": "Services"
   }
 }

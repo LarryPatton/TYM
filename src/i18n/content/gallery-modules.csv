@@ -1,0 +1,61 @@
+key,zh,en
+gallery.modules.form-structure.number,01,01
+gallery.modules.form-structure.title,Form & Structure,Form & Structure
+gallery.modules.form-structure.subtitle,造型与结构研究,Form & Structure Study
+gallery.modules.form-structure.desc,"围绕形体、比例与结构关系的持续探索，关注画面中秩序的建立方式，以及形式如何承载稳定感。","A continuous exploration of form, proportion, and structural relationships, focusing on how order is established in composition and how form carries a sense of stability."
+gallery.modules.form-structure.media[0],国画,Ink Painting
+gallery.modules.form-structure.media[1],板绘,Digital Painting
+gallery.modules.form-structure.media[2],插画,Illustration
+gallery.modules.form-structure.keywords[0],Form,Form
+gallery.modules.form-structure.keywords[1],Structure,Structure
+gallery.modules.form-structure.keywords[2],Composition,Composition
+gallery.modules.form-structure.keywords[3],Balance,Balance
+gallery.modules.form-structure.enter,探索模块,Explore Module
+gallery.modules.material-texture.number,02,02
+gallery.modules.material-texture.title,Material & Texture,Material & Texture
+gallery.modules.material-texture.subtitle,材料与质感实验,Material & Texture Experiments
+gallery.modules.material-texture.desc,"通过不同材料与媒介的并置与叠加，研究质感、肌理与触觉联想在视觉中的呈现方式。","Through the juxtaposition and layering of different materials and media, studying how texture, grain, and tactile associations manifest visually."
+gallery.modules.material-texture.media[0],综合材料,Mixed Media
+gallery.modules.material-texture.media[1],国画,Ink Painting
+gallery.modules.material-texture.media[2],摄影,Photography
+gallery.modules.material-texture.keywords[0],Material,Material
+gallery.modules.material-texture.keywords[1],Texture,Texture
+gallery.modules.material-texture.keywords[2],Surface,Surface
+gallery.modules.material-texture.keywords[3],Tactility,Tactility
+gallery.modules.material-texture.enter,探索模块,Explore Module
+gallery.modules.narrative-imagery.number,03,03
+gallery.modules.narrative-imagery.title,Narrative & Imagery,Narrative & Imagery
+gallery.modules.narrative-imagery.subtitle,图像与叙事表达,Imagery & Narrative Expression
+gallery.modules.narrative-imagery.desc,"以图像作为叙事载体，探索隐喻、情绪与观看路径，关注画面如何在非语言状态下传递信息。","Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state."
+gallery.modules.narrative-imagery.media[0],插画,Illustration
+gallery.modules.narrative-imagery.media[1],板绘,Digital Painting
+gallery.modules.narrative-imagery.media[2],摄影,Photography
+gallery.modules.narrative-imagery.keywords[0],Narrative,Narrative
+gallery.modules.narrative-imagery.keywords[1],Imagery,Imagery
+gallery.modules.narrative-imagery.keywords[2],Symbol,Symbol
+gallery.modules.narrative-imagery.keywords[3],Mood,Mood
+gallery.modules.narrative-imagery.enter,探索模块,Explore Module
+gallery.modules.light-atmosphere.number,04,04
+gallery.modules.light-atmosphere.title,Light & Atmosphere,Light & Atmosphere
+gallery.modules.light-atmosphere.subtitle,光感与氛围研究,Light & Atmosphere Study
+gallery.modules.light-atmosphere.desc,"围绕光线、明暗与空间层次的表现，研究氛围如何影响观看情绪与整体感知。","Exploring the representation of light, shadow, and spatial layers, studying how atmosphere influences viewing emotions and overall perception."
+gallery.modules.light-atmosphere.media[0],摄影,Photography
+gallery.modules.light-atmosphere.media[1],板绘,Digital Painting
+gallery.modules.light-atmosphere.media[2],综合材料,Mixed Media
+gallery.modules.light-atmosphere.keywords[0],Light,Light
+gallery.modules.light-atmosphere.keywords[1],Shadow,Shadow
+gallery.modules.light-atmosphere.keywords[2],Atmosphere,Atmosphere
+gallery.modules.light-atmosphere.keywords[3],Space,Space
+gallery.modules.light-atmosphere.enter,探索模块,Explore Module
+gallery.modules.observation-reality.number,05,05
+gallery.modules.observation-reality.title,Observation & Reality,Observation & Reality
+gallery.modules.observation-reality.subtitle,观察与现实记录,Observation & Reality Documentation
+gallery.modules.observation-reality.desc,"基于对现实世界的观察与记录，关注日常场景中的结构、节奏与视觉秩序。","Based on observation and documentation of the real world, focusing on structure, rhythm, and visual order in everyday scenes."
+gallery.modules.observation-reality.media[0],摄影,Photography
+gallery.modules.observation-reality.media[1],速写,Sketching
+gallery.modules.observation-reality.media[2],综合材料,Mixed Media
+gallery.modules.observation-reality.keywords[0],Observation,Observation
+gallery.modules.observation-reality.keywords[1],Reality,Reality
+gallery.modules.observation-reality.keywords[2],Everyday,Everyday
+gallery.modules.observation-reality.keywords[3],Visual Rhythm,Visual Rhythm
+gallery.modules.observation-reality.enter,探索模块,Explore Module

@@ -1,0 +1,54 @@
+key,zh,en
+case.pageTitle,案例研究,Case Studies
+case.featuredCaseStudy,Featured Case Study,Featured Case Study
+case.projectTitle,品牌构建实践,Brand Building Practice
+case.projectDesc,"记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。","Documenting design decisions and system evolution across different brand stages, focusing on how design maintains consistency and judgment through change."
+case.role,角色,Role
+case.roleValue,主设计师,Lead Designer
+case.duration,周期,Duration
+case.durationValue,12 个月,12 Months
+case.team,团队,Team
+case.teamValue,核心团队,Core Team
+case.scope,范围,Scope
+case.scopeValue,品牌全案,Full Brand
+case.startReading,开始阅读 Phase 01,Start Reading Phase 01
+case.tableOfContents,目录,Table of Contents
+case.phasesInfo,{{count}} 个阶段,{{count}} Phases
+case.explore,探索,Explore
+case.quickAccess,快速访问,Quick Access
+case.viewResults,直接查看最终阶段,Jump to Final Phase
+case.backToIndex,返回目录,Back to Index
+case.backToToc,目录,TOC
+case.nextPhase,下一阶段,Next Phase
+case.screenLabels.intro,阶段引导,Introduction
+case.screenLabels.core-principles,核心原则,Core Principles
+case.screenLabels.stability-message,稳定性原则,Stability Principle
+case.screenLabels.brand-identity,品牌架构,Brand Identity
+case.screenLabels.principles,设计原则,Design Principles
+case.screenLabels.logo-structure,标志结构,Logo Structure
+case.screenLabels.logo-focus-lens,标志焦点,Logo Focus
+case.screenLabels.logo-variations,标志变体,Logo Variations
+case.screenLabels.color,色彩体系,Color System
+case.screenLabels.typography,字体版式,Typography
+case.screenLabels.validation,最小验证,Validation
+case.screenLabels.summary,阶段小结,Summary
+case.screenLabels.positioning,产品定位,Positioning
+case.screenLabels.cmf-explore,CMF 探索,CMF Exploration
+case.screenLabels.cmf-final,CMF 定案,CMF Decision
+case.screenLabels.packaging,包装设计,Packaging
+case.screenLabels.consistency,一致性验证,Consistency
+case.screenLabels.realworld,真实场景,Real-world
+case.screenLabels.comparison,产品对照,Comparison
+case.screenLabels.variation,差异控制,Variation
+case.screenLabels.efficiency,效率提升,Efficiency
+case.screenLabels.sequence,序列感,Sequence
+case.screenLabels.packaging-system,包装系统,Packaging System
+case.screenLabels.kv,主视觉,Key Visual
+case.screenLabels.regional,区域适配,Regional
+case.screenLabels.offline,线下环境,Offline
+case.screenLabels.online-offline,线上线下,Online & Offline
+case.screenLabels.pressure,承压总结,Pressure Test
+case.screenLabels.closing,收尾,Closing
+case.screenLabels.color-reveal,色彩揭示,Color Reveal
+case.screenLabels.logo-exploration,标志探索,Logo Exploration
+case.screenLabels.phase-closing,阶段结束,Phase Closing

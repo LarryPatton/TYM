@@ -1,0 +1,69 @@
+key,zh,en
+about.pageTitle,关于,About
+about.title,About Me.,About Me.
+about.sectionIntro,简介,Intro
+about.sectionExpertise,专业能力,Expertise
+about.sectionJourney,旅程,Journey
+about.sectionContact,联系,Contact
+about.expertiseTitle,专业能力,Expertise
+about.journeyTitle,职业历程,Journey
+about.contactTitle,联系方式,Contact
+about.emailLabel,邮箱,Email
+about.wechatLabel,微信,WeChat
+about.greeting,你好，我是田阳敏 / Lumi Tian。,"Hi, I'm Tian Yangmin."
+about.introLine1,一名专注于品牌视觉与产品设计的设计师。,A brand-focused designer working at the intersection of visual identity and product design.
+about.introLine2,"我的工作聚焦于品牌从 0–1 的构建过程，涵盖视觉识别系统、产品 CMF、包装与营销视觉的整体设计，致力于在秩序与感性之间，建立清晰、可持续的视觉表达。","My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability."
+about.introLine3,"在过去一年的初创品牌实践中，我深度参与了品牌视觉体系的搭建，以及多款产品从概念到落地的完整过程。相比单点输出，我更关注系统如何在真实环境中被反复使用、验证与演进。","Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions."
+about.introLine4,"对我而言，设计不仅是形式的选择，而是一种基于判断、经验与长期视角的持续实践。","To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking."
+about.downloadResume,下载简历,Download Resume
+about.contactMe,联系我,Get in Touch
+about.letsTalk,Let's Talk.,Let's Talk.
+about.contactIntro,准备好开始下一个项目了吗？,Ready to start your next project?
+about.contactIntro2,"无论是全新的构想还是正在进行的项目，我都乐意倾听。","Whether it's a brand new idea or an ongoing project, I'd love to hear about it."
+about.copy,复制,Copy
+about.copied,已复制,Copied
+about.projectConsultation,项目咨询,Project Consultation
+about.messageSent,消息已发送!,Message Sent!
+about.thankYou,感谢您的联系。我会在 24 小时内回复您。,Thank you for reaching out. I'll get back to you within 24 hours.
+about.sendAnother,发送另一条,Send Another
+about.formName,姓名,Name
+about.formNamePlaceholder,您的姓名,Your name
+about.formEmail,邮箱,Email
+about.formEmailPlaceholder,your@email.com,your@email.com
+about.formProjectType,项目类型,Project Type
+about.formProjectTypeOptions.webDesign,网页设计与开发,Web Design & Development
+about.formProjectTypeOptions.mobileApp,移动应用设计,Mobile App Design
+about.formProjectTypeOptions.branding,品牌设计,Branding
+about.formProjectTypeOptions.consulting,咨询,Consulting
+about.formProjectTypeOptions.other,其他,Other
+about.formDetails,项目详情,Project Details
+about.formDetailsPlaceholder,请告诉我您的目标、时间表以及任何具体要求...,"Please tell me about your goals, timeline, and any specific requirements..."
+about.submitting,发送中...,Sending...
+about.submit,发送消息,Send Message
+about.expertise.strategy.title,策略,Strategy
+about.expertise.strategy.items[0],产品策略,Product Strategy
+about.expertise.strategy.items[1],用户研究,User Research
+about.expertise.strategy.items[2],数据分析,Data Analysis
+about.expertise.strategy.items[3],市场定位,Market Positioning
+about.expertise.design.title,设计,Design
+about.expertise.design.items[0],UI/UX 设计,UI/UX Design
+about.expertise.design.items[1],设计系统,Design Systems
+about.expertise.design.items[2],原型设计,Prototyping
+about.expertise.design.items[3],交互设计,Interaction Design
+about.expertise.development.title,开发,Development
+about.expertise.development.items[0],React / Next.js,React / Next.js
+about.expertise.development.items[1],创意编程,Creative Coding
+about.expertise.development.items[2],WebGL / Three.js,WebGL / Three.js
+about.expertise.development.items[3],前端架构,Frontend Architecture
+about.journey.item1.year,2021 - 至今,2021 - Present
+about.journey.item1.role,高级产品设计师,Senior Product Designer
+about.journey.item1.company,Tech Innovators Inc.,Tech Innovators Inc.
+about.journey.item2.year,2019 - 2021,2019 - 2021
+about.journey.item2.role,UI/UX 设计师,UI/UX Designer
+about.journey.item2.company,Creative Studio,Creative Studio
+about.journey.item3.year,2017 - 2019,2017 - 2019
+about.journey.item3.role,前端开发工程师,Frontend Developer
+about.journey.item3.company,StartUp Alpha,StartUp Alpha
+about.journey.item4.year,2013 - 2017,2013 - 2017
+about.journey.item4.role,设计学学士,Bachelor of Design
+about.journey.item4.company,艺术学院,Academy of Arts

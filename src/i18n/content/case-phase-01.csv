@@ -1,0 +1,40 @@
+key,zh,en
+case.phases.phase-01.title,品牌视觉系统的建立,Brand Identity System
+case.phases.phase-01.desc,"在产品方向尚未明确的早期阶段，建立足够稳定、可长期使用的视觉基础。","Establishing a stable and long-term usable visual foundation in the early stage when product direction is not yet clear."
+case.phases.phase-01.screens.intro.content,"在品牌尚未明确产品规模与传播方式的早期阶段，首要目标不是「设计得多完整」，而是建立一个足够稳定、可以长期使用的视觉基础。","In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
+case.phases.phase-01.screens.core-principles.title,CORE PRINCIPLES,CORE PRINCIPLES
+case.phases.phase-01.screens.core-principles.subtitle,系统建立的三个核心原则,Three Core Principles of the System
+case.phases.phase-01.screens.core-principles.nodes.system.label,SYSTEM,SYSTEM
+case.phases.phase-01.screens.core-principles.nodes.system.sub,核心原则,Core Principles
+case.phases.phase-01.screens.core-principles.nodes.clarity.label,CLARITY,CLARITY
+case.phases.phase-01.screens.core-principles.nodes.clarity.sub,清晰,Clarity
+case.phases.phase-01.screens.core-principles.nodes.clarity.desc,优先建立清晰的视觉方向,Prioritize clear visual direction
+case.phases.phase-01.screens.core-principles.nodes.restraint.label,RESTRAINT,RESTRAINT
+case.phases.phase-01.screens.core-principles.nodes.restraint.sub,克制,Restraint
+case.phases.phase-01.screens.core-principles.nodes.restraint.desc,避免过度风格化,Avoid over-stylization
+case.phases.phase-01.screens.core-principles.nodes.scalability.label,SCALABILITY,SCALABILITY
+case.phases.phase-01.screens.core-principles.nodes.scalability.sub,可延展,Scalability
+case.phases.phase-01.screens.core-principles.nodes.scalability.desc,考虑后续产品与传播,Consider future product & expansion
+case.phases.phase-01.screens.brand-identity.title,品牌核心架构,Brand Core Architecture
+case.phases.phase-01.screens.brand-identity.content,从核心价值到视觉表达的推导过程,The derivation process from core values to visual expression
+case.phases.phase-01.screens.stability-message.title,标志设计的稳定性原则,Logo Design Stability Principle
+case.phases.phase-01.screens.stability-message.content,稳定性 > 表现力,Stability > Expressiveness
+case.phases.phase-01.screens.principles.title,其他设计原则,Other Design Principles
+case.phases.phase-01.screens.principles.content,"通过前面的稳定性原则，确定其他设计决定",Determine other design decisions through the stability principle
+case.phases.phase-01.screens.logo.title,"标志设计并非追求形式复杂，而是强调结构稳定性","Logo design is not about formal complexity, but structural stability"
+case.phases.phase-01.screens.logo.content,"通过简洁且可控制的结构逻辑，确保标志在不同尺寸与媒介中保持一致识别。","Through simple and controllable structural logic, ensure the logo maintains consistent recognition across different sizes and media."
+case.phases.phase-01.screens.logo.note,稳定性 > 表现力,Stability > Expressiveness
+case.phases.phase-01.screens.logo-structure.title,标志结构解析,Logo Structure Analysis
+case.phases.phase-01.screens.logo-structure.content,"通过清晰的结构分解，展示标志设计的内在逻辑与比例关系。","Through clear structural decomposition, revealing the internal logic and proportional relationships of the logo design."
+case.phases.phase-01.screens.logo-focus-lens.title,标志细节聚焦,Logo Detail Focus
+case.phases.phase-01.screens.logo-focus-lens.content,"深入标志的关键细节，展示设计中的精细考量与工艺表达。","Diving into key details of the logo, showcasing the refined considerations and craftsmanship in design."
+case.phases.phase-01.screens.logo-variations.title,标志变体探索,Logo Variations Exploration
+case.phases.phase-01.screens.logo-variations.content,"从线稿到成品的演变过程，记录设计探索与决策路径。","From wireframe to final form, documenting the design exploration and decision-making process."
+case.phases.phase-01.screens.color.title,色彩体系以长期使用为前提建立,The color system is established with long-term use as the premise
+case.phases.phase-01.screens.color.content,"通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。","Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
+case.phases.phase-01.screens.typography.title,"字体与版式用于支撑信息表达，而非强化风格","Typography supports information expression, not style reinforcement"
+case.phases.phase-01.screens.typography.content,清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。,Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities.
+case.phases.phase-01.screens.validation.title,"在系统建立完成后，通过最小应用进行验证","After the system is established, validate through minimum applications"
+case.phases.phase-01.screens.validation.content,"这些应用并非最终形态，而是用于确认系统在真实使用场景中的可行性。","These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
+case.phases.phase-01.screens.summary.title,"这一阶段的成果，并不是一个「完成态」的品牌",The outcome of this phase is not a 'complete' brand
+case.phases.phase-01.screens.summary.content,而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。,But a visual foundation that can support subsequent product design and continue to grow through change.

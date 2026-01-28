@@ -1,0 +1,26 @@
+key,zh,en
+gallery.pageTitle,画廊,Gallery
+gallery.title,艺术画廊,Art Gallery
+gallery.subtitle,"以视觉作品为主的个人创作集合，探索造型与光影的无限可能。","A personal collection of visual works, exploring the infinite possibilities of form and light."
+gallery.categories,分类,Categories
+gallery.allWorks,全部作品,All Works
+gallery.backToGallery,← 返回画廊首页,← Back to Gallery
+gallery.latestRelease,最新发布,Latest
+gallery.featuredRecommend,精选推荐,Featured
+gallery.workImage,[ 作品图 ],[ Artwork ]
+gallery.mainVisual,[ 主视觉大图 ],[ Main Visual ]
+gallery.detail,[ 细节 {{num}} ],[ Detail {{num}} ]
+gallery.related,[ 相关 {{num}} ],[ Related {{num}} ]
+gallery.work,作品,Work
+gallery.workDetail,作品详情,Work Detail
+gallery.workTitle,作品标题 {{num}},Artwork Title {{num}}
+gallery.previous,← 上一件,← Previous
+gallery.next,下一件 →,Next →
+gallery.year,年份,Year
+gallery.medium,媒介,Medium
+gallery.size,尺寸,Size
+gallery.digitalPainting,数字绘画,Digital Painting
+gallery.digitalPhotography,数码摄影,Digital Photography
+gallery.workDesc,这里是关于作品的简短描述。阐述创作动机、使用的技术或背后的故事。保持在 3-5 行以内。,"A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines."
+gallery.capabilityTags,能力标签,Capability Tags
+gallery.relatedWorks,同系列作品,Related Works

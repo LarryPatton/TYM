@@ -1,0 +1,10 @@
+key,zh,en
+footer.email,邮箱,Email
+footer.wechat,微信,WeChat
+footer.resume,简历,Resume
+footer.copyright,© {{year}} Your Name. All Rights Reserved.,© {{year}} Your Name. All Rights Reserved.
+language.switchTo,切换语言,Switch Language
+language.zh,中文,中文
+language.en,English,English
+theme.switchToDark,切换到暗色模式,Switch to Dark Mode
+theme.switchToLight,切换到亮色模式,Switch to Light Mode

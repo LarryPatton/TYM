@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build && node scripts/copy-404.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "i18n:build": "node scripts/build-i18n.cjs",
+    "i18n:watch": "node scripts/build-i18n.cjs --watch"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

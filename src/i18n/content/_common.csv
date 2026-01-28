@@ -1,0 +1,19 @@
+key,zh,en
+common.loading,加载中...,Loading...
+common.error,出错了,Something went wrong
+common.retry,重试,Retry
+common.cancel,取消,Cancel
+common.confirm,确认,Confirm
+common.save,保存,Save
+common.delete,删除,Delete
+common.edit,编辑,Edit
+common.back,返回,Back
+common.next,下一步,Next
+common.previous,上一步,Previous
+common.close,关闭,Close
+common.search,搜索,Search
+common.noResults,暂无结果,No results found
+common.viewMore,查看更多,View More
+common.viewAll,查看全部,View All
+common.learnMore,了解更多,Learn More
+common.scroll,滚动,Scroll
