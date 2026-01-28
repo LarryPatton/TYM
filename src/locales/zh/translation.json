@@ -1,0 +1,636 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "close": "关闭",
+    "search": "搜索",
+    "noResults": "暂无结果",
+    "viewMore": "查看更多",
+    "viewAll": "查看全部",
+    "learnMore": "了解更多",
+    "scroll": "滚动"
+  },
+  "nav": {
+    "home": "首页",
+    "work": "作品",
+    "about": "关于",
+    "gallery": "画廊",
+    "caseStudies": "案例研究",
+    "designSystem": "设计系统",
+    "showcase": "展示",
+    "contact": "联系我们",
+    "services": "服务"
+  },
+  "home": {
+    "pageTitle": "首页",
+    "heroName": "田阳敏",
+    "heroRole": "品牌设计师",
+    "heroDesc": "聚焦品牌设计、平面设计与 CMF，",
+    "heroDesc2": "通过系统化的设计，构建统一而有辨识度的视觉表达。",
+    "heroTags": ["品牌设计", "平面设计", "CMF"],
+    "viewFeaturedCases": "查看精选案例",
+    "contactMe": "联系我",
+    "sectionHero": "首页",
+    "sectionWorks": "作品",
+    "sectionServices": "服务",
+    "sectionContact": "联系",
+    "featuredTitle": "作品集导读 · 精选作品",
+    "partnersTitle": "合作品牌",
+    "ctaTitle": "想一起做点有价值的事吗？",
+    "ctaDesc": "让我们把想法变成清晰而持久的作品。",
+    "emailMe": "发邮件给我",
+    "wechatContact": "微信联系",
+    "cases": {
+      "01-brand-identity": {
+        "title": "品牌视觉系统（VI）",
+        "subtitle": "从品牌核心出发，构建完整、可延展的视觉识别系统。",
+        "subtitle2": "通过视觉规范的系统化设计，确保品牌在不同媒介与场景中的一致表达。"
+      },
+      "02-cmf-packaging": {
+        "title": "产品 CMF 与包装设计",
+        "subtitle": "从材料、色彩与工艺出发，塑造产品与包装的整体感知。",
+        "subtitle2": "通过 CMF 与包装设计，强化品牌在实体层面的识别度与品质感。"
+      },
+      "03-key-visual": {
+        "title": "品牌主视觉与海报系统",
+        "subtitle": "围绕品牌核心视觉语言，建立可持续延展的主视觉体系。",
+        "subtitle2": "通过主视觉与海报系统，强化品牌在传播中的视觉记忆点。"
+      },
+      "04-regional-marketing": {
+        "title": "区域营销与传播方案",
+        "subtitle": "基于区域市场与传播目标，制定具有针对性的视觉策略。",
+        "subtitle2": "通过系统化的营销设计，提升品牌在特定场景中的传播效率。"
+      },
+      "05-offline-space": {
+        "title": "线下空间与营销物料设计",
+        "subtitle": "将品牌视觉系统延展至线下空间与实体物料。",
+        "subtitle2": "在真实环境中，保持品牌表达的一致性与识别度。"
+      },
+      "06-art-gallery": {
+        "title": "艺术项目与画廊实践",
+        "subtitle": "作为商业品牌项目之外的视觉实践，探索更自由的表达方式。",
+        "subtitle2": "通过艺术项目，反向滋养设计判断与审美敏感度。"
+      }
+    },
+    "skills": {
+      "productDesign": {
+        "title": "产品设计",
+        "desc": "UI/UX, 原型设计, 设计系统"
+      },
+      "development": {
+        "title": "开发",
+        "desc": "React, 前端架构, 交互开发"
+      },
+      "strategy": {
+        "title": "策略",
+        "desc": "用户研究, 产品策略, 数据分析"
+      }
+    },
+    "services": {
+      "brandFoundation": {
+        "title": "品牌视觉基础构建",
+        "problem": "当品牌缺乏清晰的视觉方向，或现有视觉体系零散、难以统一落地时。",
+        "desc": "构建完整的品牌视觉体系（VI / Brand Guidelines），明确品牌视觉原则与使用边界，为产品、包装与传播提供统一的视觉基础。",
+        "chips": ["品牌基础", "视觉系统", "规范指南"]
+      },
+      "productPhysical": {
+        "title": "产品与实体体验设计（CMF / 包装）",
+        "problem": "当产品在外观、材质或包装上缺乏统一的品牌感知，难以体现品质与差异。",
+        "desc": "产品 CMF 定义（色彩 / 材料 / 工艺），包装设计与产品体验的整体统一，强化品牌在可触达层面的识别度。",
+        "chips": ["CMF", "包装设计", "材料", "工艺"]
+      },
+      "visualCommunication": {
+        "title": "品牌主视觉与传播视觉系统",
+        "problem": "当品牌在传播中缺乏统一的视觉语言，视觉表现零散、记忆点不足。",
+        "desc": "品牌主视觉（Key Visual）定义，系列化海报与传播视觉设计，建立可持续延展的视觉表达体系。",
+        "chips": ["主视觉", "视觉语言", "传播设计"]
+      },
+      "campaignMarketing": {
+        "title": "区域营销与传播支持",
+        "problem": "当品牌需要在特定区域或阶段开展营销，但缺乏清晰的视觉策略与执行支持。",
+        "desc": "区域营销视觉方案设计，Campaign 主视觉与传播物料支持，协助品牌在不同市场中保持一致表达。",
+        "chips": ["营销活动", "策略规划", "市场推广"]
+      },
+      "offlineApplications": {
+        "title": "线下场景与实体落地支持",
+        "problem": "当品牌视觉难以有效落地到线下空间、物料或真实使用场景中。",
+        "desc": "线下营销物料设计，空间、展陈与实体触点的视觉应用，确保品牌在真实环境中的清晰呈现。",
+        "chips": ["线下物料", "空间设计", "落地应用"]
+      },
+      "creativeExploration": {
+        "title": "艺术导向与视觉探索项目",
+        "problem": "当品牌或项目需要更具表达力、文化属性或实验性的视觉探索。",
+        "desc": "艺术画廊与展览视觉设计，实验性视觉项目，为品牌提供更具深度的美学参考。",
+        "chips": ["艺术指导", "展览设计", "实验项目"]
+      }
+    }
+  },
+  "about": {
+    "pageTitle": "关于",
+    "title": "About Me.",
+    "sectionIntro": "简介",
+    "sectionExpertise": "专业能力",
+    "sectionJourney": "旅程",
+    "sectionContact": "联系",
+    "expertiseTitle": "专业能力",
+    "journeyTitle": "职业历程",
+    "contactTitle": "联系方式",
+    "emailLabel": "邮箱",
+    "wechatLabel": "微信",
+    "greeting": "你好，我是田阳敏 / Lumi Tian。",
+    "introLine1": "一名专注于品牌视觉与产品设计的设计师。",
+    "introLine2": "我的工作聚焦于品牌从 0–1 的构建过程，涵盖视觉识别系统、产品 CMF、包装与营销视觉的整体设计，致力于在秩序与感性之间，建立清晰、可持续的视觉表达。",
+    "introLine3": "在过去一年的初创品牌实践中，我深度参与了品牌视觉体系的搭建，以及多款产品从概念到落地的完整过程。相比单点输出，我更关注系统如何在真实环境中被反复使用、验证与演进。",
+    "introLine4": "对我而言，设计不仅是形式的选择，而是一种基于判断、经验与长期视角的持续实践。",
+    "downloadResume": "下载简历",
+    "contactMe": "联系我",
+    "letsTalk": "Let's Talk.",
+    "contactIntro": "准备好开始下一个项目了吗？",
+    "contactIntro2": "无论是全新的构想还是正在进行的项目，我都乐意倾听。",
+    "copy": "复制",
+    "copied": "已复制",
+    "projectConsultation": "项目咨询",
+    "messageSent": "消息已发送!",
+    "thankYou": "感谢您的联系。我会在 24 小时内回复您。",
+    "sendAnother": "发送另一条",
+    "formName": "姓名",
+    "formNamePlaceholder": "您的姓名",
+    "formEmail": "邮箱",
+    "formEmailPlaceholder": "your@email.com",
+    "formProjectType": "项目类型",
+    "formProjectTypeOptions": {
+      "webDesign": "网页设计与开发",
+      "mobileApp": "移动应用设计",
+      "branding": "品牌设计",
+      "consulting": "咨询",
+      "other": "其他"
+    },
+    "formDetails": "项目详情",
+    "formDetailsPlaceholder": "请告诉我您的目标、时间表以及任何具体要求...",
+    "submitting": "发送中...",
+    "submit": "发送消息",
+    "expertise": {
+      "strategy": {
+        "title": "Strategy",
+        "items": ["Product Strategy", "User Research", "Data Analysis", "Market Positioning"]
+      },
+      "design": {
+        "title": "Design",
+        "items": ["UI/UX Design", "Design Systems", "Prototyping", "Interaction Design"]
+      },
+      "development": {
+        "title": "Development",
+        "items": ["React / Next.js", "Creative Coding", "WebGL / Three.js", "Frontend Architecture"]
+      }
+    },
+    "journey": {
+      "item1": {
+        "year": "2021 - Present",
+        "role": "Senior Product Designer",
+        "company": "Tech Innovators Inc."
+      },
+      "item2": {
+        "year": "2019 - 2021",
+        "role": "UI/UX Designer",
+        "company": "Creative Studio"
+      },
+      "item3": {
+        "year": "2017 - 2019",
+        "role": "Frontend Developer",
+        "company": "StartUp Alpha"
+      },
+      "item4": {
+        "year": "2013 - 2017",
+        "role": "Bachelor of Design",
+        "company": "Academy of Arts"
+      }
+    }
+  },
+  "work": {
+    "pageTitle": "作品",
+    "title": "精选作品.",
+    "subtitle": "探索设计与技术的边界，",
+    "subtitle2": "每一个项目都是一次新的尝试。",
+    "filter": "筛选",
+    "all": "全部",
+    "caseStudy": "案例研究",
+    "projectDetails": "项目详情",
+    "viewProject": "查看项目",
+    "featuredCaseStudy": "深度案例研究",
+    "artGallery": "艺术画廊",
+    "viewFullCase": "查看完整案例",
+    "featured": {
+      "title": "品牌构建实践",
+      "desc": "记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。",
+      "tags": ["品牌策略", "系统思维", "迭代优化", "落地应用"]
+    },
+    "gallery": {
+      "label": "Art Practice · Visual Exploration",
+      "title": "艺术画廊",
+      "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
+      "tags": ["Art Direction", "Mixed Media", "Illustration", "Painting"],
+      "enter": "进入画廊"
+    },
+    "modules": {
+      "form": {
+        "label": "Module A",
+        "title": "造型 Form",
+        "quote": "\"纸笔摩擦中的灵光乍现\"",
+        "enter": "进入造型"
+      },
+      "photo": {
+        "label": "Module B",
+        "title": "摄影 Photo",
+        "quote": "\"定格记忆的时光标本\"",
+        "enter": "进入摄影"
+      }
+    }
+  },
+  "gallery": {
+    "pageTitle": "画廊",
+    "title": "艺术画廊",
+    "subtitle": "以视觉作品为主的个人创作集合，探索造型与光影的无限可能。",
+    "categories": "分类",
+    "allWorks": "全部作品",
+    "backToGallery": "← 返回画廊首页",
+    "latestRelease": "最新发布",
+    "featuredRecommend": "精选推荐",
+    "workImage": "[ 作品图 ]",
+    "mainVisual": "[ 主视觉大图 ]",
+    "detail": "[ 细节 {{num}} ]",
+    "related": "[ 相关 {{num}} ]",
+    "work": "作品",
+    "workDetail": "作品详情",
+    "workTitle": "作品标题 {{num}}",
+    "previous": "← 上一件",
+    "next": "下一件 →",
+    "year": "年份",
+    "medium": "媒介",
+    "size": "尺寸",
+    "digitalPainting": "数字绘画",
+    "digitalPhotography": "数码摄影",
+    "workDesc": "这里是关于作品的简短描述。阐述创作动机、使用的技术或背后的故事。保持在 3-5 行以内。",
+    "capabilityTags": "能力标签",
+    "relatedWorks": "同系列作品",
+    "modules": {
+      "form-structure": {
+        "number": "01",
+        "title": "Form & Structure",
+        "subtitle": "造型与结构研究",
+        "desc": "围绕形体、比例与结构关系的持续探索，关注画面中秩序的建立方式，以及形式如何承载稳定感。",
+        "media": ["国画", "板绘", "插画"],
+        "keywords": ["Form", "Structure", "Composition", "Balance"],
+        "enter": "探索模块"
+      },
+      "material-texture": {
+        "number": "02",
+        "title": "Material & Texture",
+        "subtitle": "材料与质感实验",
+        "desc": "通过不同材料与媒介的并置与叠加，研究质感、肌理与触觉联想在视觉中的呈现方式。",
+        "media": ["综合材料", "国画", "摄影"],
+        "keywords": ["Material", "Texture", "Surface", "Tactility"],
+        "enter": "探索模块"
+      },
+      "narrative-imagery": {
+        "number": "03",
+        "title": "Narrative & Imagery",
+        "subtitle": "图像与叙事表达",
+        "desc": "以图像作为叙事载体，探索隐喻、情绪与观看路径，关注画面如何在非语言状态下传递信息。",
+        "media": ["插画", "板绘", "摄影"],
+        "keywords": ["Narrative", "Imagery", "Symbol", "Mood"],
+        "enter": "探索模块"
+      },
+      "light-atmosphere": {
+        "number": "04",
+        "title": "Light & Atmosphere",
+        "subtitle": "光感与氛围研究",
+        "desc": "围绕光线、明暗与空间层次的表现，研究氛围如何影响观看情绪与整体感知。",
+        "media": ["摄影", "板绘", "综合材料"],
+        "keywords": ["Light", "Shadow", "Atmosphere", "Space"],
+        "enter": "探索模块"
+      },
+      "observation-reality": {
+        "number": "05",
+        "title": "Observation & Reality",
+        "subtitle": "观察与现实记录",
+        "desc": "基于对现实世界的观察与记录，关注日常场景中的结构、节奏与视觉秩序。",
+        "media": ["摄影", "速写", "综合材料"],
+        "keywords": ["Observation", "Reality", "Everyday", "Visual Rhythm"],
+        "enter": "探索模块"
+      }
+    },
+    "submodules": {
+      "new-china-painter": {
+        "title": "新国画人",
+        "desc": "传统笔墨与现代构成的碰撞。"
+      },
+      "mixed-media": {
+        "title": "综合材料",
+        "desc": "探索不同材质的肌理与情感。"
+      },
+      "illustration-story": {
+        "title": "插画故事",
+        "desc": "用画面讲述连贯的叙事。"
+      },
+      "stylized-board": {
+        "title": "风格化板绘",
+        "desc": "数字绘画的风格探索。"
+      },
+      "product": {
+        "title": "产品摄影",
+        "desc": "光影下的物体质感。"
+      },
+      "landscape": {
+        "title": "风景摄影",
+        "desc": "记录自然与城市的瞬间。"
+      },
+      "unknown": {
+        "title": "未知模块",
+        "desc": ""
+      }
+    }
+  },
+  "case": {
+    "pageTitle": "案例研究",
+    "featuredCaseStudy": "Featured Case Study",
+    "projectTitle": "品牌构建实践",
+    "projectDesc": "记录品牌在不同阶段中的设计决策与系统演进，关注设计如何在变化中保持一致性与判断力。",
+    "role": "角色",
+    "roleValue": "主设计师",
+    "duration": "周期",
+    "durationValue": "12 个月",
+    "team": "团队",
+    "teamValue": "核心团队",
+    "scope": "范围",
+    "scopeValue": "品牌全案",
+    "startReading": "开始阅读 Phase 01",
+    "tableOfContents": "目录",
+    "phasesInfo": "{{count}} 个阶段",
+    "explore": "探索",
+    "quickAccess": "快速访问",
+    "viewResults": "直接查看最终阶段",
+    "backToIndex": "返回目录",
+    "backToToc": "目录",
+    "nextPhase": "下一阶段",
+    "screenLabels": {
+      "intro": "阶段引导",
+      "core-principles": "核心原则",
+      "stability-message": "稳定性原则",
+      "brand-identity": "品牌架构",
+      "principles": "设计原则",
+      "logo-structure": "标志结构",
+      "logo-focus-lens": "标志焦点",
+      "logo-variations": "标志变体",
+      "color": "色彩体系",
+      "typography": "字体版式",
+      "validation": "最小验证",
+      "summary": "阶段小结",
+      "positioning": "产品定位",
+      "cmf-explore": "CMF 探索",
+      "cmf-final": "CMF 定案",
+      "packaging": "包装设计",
+      "consistency": "一致性验证",
+      "realworld": "真实场景",
+      "comparison": "产品对照",
+      "variation": "差异控制",
+      "efficiency": "效率提升",
+      "sequence": "序列感",
+      "packaging-system": "包装系统",
+      "kv": "主视觉",
+      "regional": "区域适配",
+      "offline": "线下环境",
+      "online-offline": "线上线下",
+      "pressure": "承压总结",
+      "closing": "收尾",
+      "color-reveal": "色彩揭示",
+      "logo-exploration": "标志探索",
+      "phase-closing": "阶段结束"
+    },
+    "phases": {
+      "phase-01": {
+        "title": "品牌视觉系统的建立",
+        "desc": "在产品方向尚未明确的早期阶段，建立足够稳定、可长期使用的视觉基础。",
+        "screens": {
+          "intro": {
+            "content": "在品牌尚未明确产品规模与传播方式的早期阶段，首要目标不是「设计得多完整」，而是建立一个足够稳定、可以长期使用的视觉基础。"
+          },
+          "core-principles": {
+            "title": "CORE PRINCIPLES",
+            "subtitle": "系统建立的三个核心原则",
+            "nodes": {
+              "system": { "label": "SYSTEM", "sub": "核心原则" },
+              "clarity": { "label": "CLARITY", "sub": "清晰", "desc": "优先建立清晰的视觉方向" },
+              "restraint": { "label": "RESTRAINT", "sub": "克制", "desc": "避免过度风格化" },
+              "scalability": { "label": "SCALABILITY", "sub": "可延展", "desc": "考虑后续产品与传播" }
+            }
+          },
+          "brand-identity": {
+            "title": "品牌核心架构",
+            "content": "从核心价值到视觉表达的推导过程"
+          },
+          "stability-message": {
+            "title": "标志设计的稳定性原则",
+            "content": "稳定性 > 表现力"
+          },
+          "principles": {
+            "title": "其他设计原则",
+            "content": "通过前面的稳定性原则，确定其他设计决定"
+          },
+          "logo": {
+            "title": "标志设计并非追求形式复杂，而是强调结构稳定性",
+            "content": "通过简洁且可控制的结构逻辑，确保标志在不同尺寸与媒介中保持一致识别。",
+            "note": "稳定性 > 表现力"
+          },
+          "logo-structure": {
+            "title": "标志结构解析",
+            "content": "通过清晰的结构分解，展示标志设计的内在逻辑与比例关系。"
+          },
+          "logo-focus-lens": {
+            "title": "标志细节聚焦",
+            "content": "深入标志的关键细节，展示设计中的精细考量与工艺表达。"
+          },
+          "logo-variations": {
+            "title": "标志变体探索",
+            "content": "从线稿到成品的演变过程，记录设计探索与决策路径。"
+          },
+          "color": {
+            "title": "色彩体系以长期使用为前提建立",
+            "content": "通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。"
+          },
+          "typography": {
+            "title": "字体与版式用于支撑信息表达，而非强化风格",
+            "content": "清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。"
+          },
+          "validation": {
+            "title": "在系统建立完成后，通过最小应用进行验证",
+            "content": "这些应用并非最终形态，而是用于确认系统在真实使用场景中的可行性。"
+          },
+          "summary": {
+            "title": "这一阶段的成果，并不是一个「完成态」的品牌",
+            "content": "而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。"
+          }
+        }
+      },
+      "phase-02": {
+        "title": "产品 A：从概念到落地",
+        "desc": "首款产品的完整设计过程，从概念探索到最终上市。",
+        "screens": {
+          "intro": {
+            "content": "这是一次从概念到落地的完整产品设计实践。项目覆盖设计决策、执行验证与最终上线。",
+            "emphasis": "这是一个被真正使用的产品。"
+          },
+          "boundaries": {
+            "title": "设计并不是从创意开始，而是从边界开始",
+            "content": "在资源、市场与目标明确前，任何设计都不可成立。",
+            "emphasis": "先限定问题，才有解法。"
+          },
+          "cmf": {
+            "title": "CMF 是连接品牌长期规划与产品落地的关键中介",
+            "content": "它既要服务品牌表达，也必须服从产品功能与制造现实。",
+            "emphasis": "美学不是目的，是约束下的结果。"
+          },
+          "manufacturing": {
+            "title": "设计决策必须在真实制造条件中被持续校验",
+            "content": "从物料、配件到工厂样品，设计始终处于反馈回路中。",
+            "emphasis": "设计不是在图里完成的。"
+          },
+          "priority": {
+            "title": "不同市场，需要不同的优先级判断",
+            "content": "首批方案并非「最好看」，而是「最适合进入市场」。",
+            "emphasis": "设计是一种选择机制。"
+          },
+          "packaging": {
+            "title": "包装是用户接触品牌的第一个界面",
+            "content": "它不仅承载信息，也影响用户对产品价值的预期。",
+            "emphasis": "第一触点，决定第一判断。"
+          },
+          "consistency": {
+            "title": "一致性，是品牌被记住的前提",
+            "content": "无论使用场景如何变化，识别应保持稳定。",
+            "emphasis": "识别感不是装饰，是系统结果。"
+          },
+          "closing": {
+            "title": "这个产品验证了整套设计系统的可行性",
+            "content": "它为后续产品与设计决策提供了可复用的参考模型。",
+            "emphasis": "这不是一个案例，而是一个样本。"
+          }
+        }
+      },
+      "phase-03": {
+        "title": "产品 B：一致性中的差异化",
+        "desc": "第二款产品如何在保持品牌一致性的同时实现差异化。",
+        "screens": {
+          "intro": {
+            "content": "在已有品牌系统与首款产品的基础上，第二款产品的设计重点不再是「从零开始」，而是如何在保持一致性的同时，做出合理变化。"
+          },
+          "concept-comparison": {
+            "title": "对照是判断差异最直接的方式",
+            "content": "两款产品在视觉结构、比例与核心语言上保持一致，但在细节层面根据产品特性进行调整。",
+            "emphasis": "差异化是被系统允许的变化"
+          },
+          "component-showcase": {
+            "title": "核心组件保持一致的设计语言",
+            "content": "从主体结构到细节配件，设计遵循同一套视觉逻辑与比例原则。",
+            "emphasis": "一致性从组件层面开始建立"
+          },
+          "document-gallery": {
+            "title": "系统化的设计交付",
+            "content": "完整的设计规范与文档确保设计意图能够被准确执行。",
+            "emphasis": "设计不止于图像，更在于规范"
+          },
+          "sticky-upper": {
+            "title": "产品细节与材质表现",
+            "content": "通过不同角度与特写展示产品的工艺细节与质感处理。",
+            "emphasis": "细节决定品质感知"
+          },
+          "sticky-lower": {
+            "title": "产品视觉的完整呈现",
+            "content": "从局部到整体，展示产品设计的完整视觉逻辑。",
+            "emphasis": "整体感来自每个局部的一致"
+          },
+          "panorama-marquee": {
+            "title": "多场景下的产品表现",
+            "content": "产品在不同使用场景与展示方式下保持一致的品牌识别。",
+            "emphasis": "场景变化，识别不变"
+          },
+          "gallery-upper": {
+            "title": "设计规范的系统化文档",
+            "content": "完整的设计指南确保品牌在任何触点都能被一致表达。",
+            "emphasis": "规范是一致性的保障"
+          },
+          "gallery-lower": {
+            "title": "品牌延展与应用示例",
+            "content": "从产品到传播物料，品牌视觉在各类媒介中保持统一。",
+            "emphasis": "延展不是复制，是系统的自然生长"
+          },
+          "closing": {
+            "title": "Product B 验证了品牌系统的可持续性",
+            "content": "这一阶段的完成标志着品牌进入可复制扩展的成熟阶段。"
+          }
+        }
+      },
+      "phase-04": {
+        "title": "包装与营销的系统化扩展",
+        "desc": "将品牌视觉系统延展到包装、营销与更多触点。",
+        "screens": {
+          "intro": {
+            "content": "当产品逐步进入市场，品牌视觉不再只存在于理想条件下，而需要在真实环境与多样场景中持续保持清晰与一致。"
+          },
+          "packaging-system": {
+            "title": "包装被视为品牌系统的重要组成部分",
+            "content": "在产品数量增加的情况下，通过统一的结构与视觉逻辑，确保包装在不同规格与信息层级中依然保持品牌识别。"
+          },
+          "kv": {
+            "title": "主视觉并非独立存在，而是从品牌系统中生长",
+            "content": "通过统一的视觉母题与规则，主视觉能够在不同传播场景中保持一致表达，同时具备灵活延展性。"
+          },
+          "regional": {
+            "title": "在不同区域与传播语境中，视觉需要适度调整，但不失核心识别",
+            "content": "系统的存在，使这些变化始终处于可控范围之内。"
+          },
+          "offline": {
+            "title": "真实环境往往是不理想的",
+            "content": "在不同光线、材质与空间条件下，品牌视觉仍能保持清晰与稳定，这是系统是否成立的重要检验。",
+            "note": "这是整个案例的「可信度锚点」"
+          },
+          "online-offline": {
+            "title": "线上与线下并非割裂的两个系统",
+            "content": "通过统一的视觉语言，品牌在不同触点中形成连续体验，而非碎片化呈现。"
+          },
+          "pressure": {
+            "title": "在复杂应用与真实使用中，品牌系统保持了稳定结构与清晰表达",
+            "content": "这标志着系统不再只是设计成果，而成为可被持续使用的品牌基础设施。"
+          },
+          "closing": {
+            "title": "随着系统逐步成熟，设计开始真正融入品牌的日常运作",
+            "content": "这一阶段的完成，也为后续品牌发展提供了稳定基础。"
+          }
+        }
+      }
+    }
+  },
+  "footer": {
+    "email": "邮箱",
+    "wechat": "微信",
+    "resume": "简历",
+    "copyright": "© {{year}} Your Name. All Rights Reserved."
+  },
+  "language": {
+    "switchTo": "切换语言",
+    "zh": "中文",
+    "en": "English"
+  },
+  "theme": {
+    "switchToDark": "切换到暗色模式",
+    "switchToLight": "切换到亮色模式"
+  }
+}

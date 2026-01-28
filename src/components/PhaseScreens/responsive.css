@@ -1,0 +1,374 @@
+/**
+ * PhaseScreens 响应式样式
+ * 统一管理所有屏幕组件的移动端适配
+ */
+
+/* ========================================
+   BASE RESPONSIVE RULES
+   ======================================== */
+
+/* 屏幕容器基础响应式 */
+.phase-screen {
+  min-height: 100vh;
+  padding: var(--space-page-y) var(--space-page-x);
+  box-sizing: border-box;
+}
+
+/* ========================================
+   GRID LAYOUTS - 网格布局响应式
+   ======================================== */
+
+/* 通用网格 - 移动端单列 */
+@media (max-width: 767px) {
+  .phase-grid,
+  .principles-grid,
+  .content-screen-grid,
+  .comparison-screen-grid,
+  .gallery-grid,
+  .square-grid,
+  .priority-grid,
+  .slide-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-lg) !important;
+  }
+
+  /* 两列网格在平板上保持两列 */
+  .phase-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 平板适配 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .phase-grid-3,
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .phase-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY - 移动端字体缩放
+   ======================================== */
+
+@media (max-width: 767px) {
+  .phase-title {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+
+  .phase-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem) !important;
+  }
+
+  .phase-description {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem) !important;
+    line-height: 1.7 !important;
+  }
+
+  /* 屏幕编号 */
+  .screen-number {
+    font-size: var(--text-xs) !important;
+  }
+
+  /* 标签 */
+  .screen-label {
+    font-size: var(--text-xs) !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* ========================================
+   GALLERY SCREENS - 画廊类组件
+   ======================================== */
+
+/* GalleryScreen */
+@media (max-width: 767px) {
+  .gallery-screen .gallery-item {
+    aspect-ratio: 4/3 !important;
+  }
+
+  .gallery-screen .gallery-caption {
+    font-size: var(--text-sm) !important;
+    padding: var(--space-sm) !important;
+  }
+}
+
+/* SquareGridScreen */
+@media (max-width: 767px) {
+  .square-grid-screen .grid-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--space-sm) !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .square-grid-screen .grid-container {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* PackagingGalleryScreen */
+@media (max-width: 767px) {
+  .packaging-gallery .gallery-row {
+    flex-direction: column !important;
+    gap: var(--space-md) !important;
+  }
+
+  .packaging-gallery .gallery-item {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
+/* ========================================
+   COMPARISON SCREENS - 对比类组件
+   ======================================== */
+
+@media (max-width: 767px) {
+  .comparison-screen {
+    flex-direction: column !important;
+  }
+
+  .comparison-screen .comparison-side {
+    width: 100% !important;
+    min-height: 50vh !important;
+  }
+
+  .comparison-screen .comparison-divider {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   STICKY SECTIONS - 滚动粘性组件
+   ======================================== */
+
+@media (max-width: 767px) {
+  .sticky-section {
+    position: relative !important;
+  }
+
+  .sticky-section .sticky-content {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  /* 禁用水平滚动粘性效果 */
+  .horizontal-scroll-section {
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .horizontal-scroll-section .scroll-item {
+    scroll-snap-align: start !important;
+    flex-shrink: 0 !important;
+    width: 85vw !important;
+  }
+}
+
+/* ========================================
+   CAROUSEL & MARQUEE - 轮播和跑马灯
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* 减慢移动端动画速度 */
+  .marquee-track {
+    animation-duration: 30s !important;
+  }
+
+  .logo-marquee .logo-item {
+    width: 100px !important;
+    margin: 0 var(--space-md) !important;
+  }
+
+  /* 三行跑马灯变两行 */
+  .three-row-marquee .marquee-row:nth-child(3) {
+    display: none !important;
+  }
+}
+
+/* GroupedCarouselScreen */
+@media (max-width: 767px) {
+  .grouped-carousel .carousel-item {
+    width: 280px !important;
+    height: auto !important;
+  }
+
+  .grouped-carousel .carousel-navigation {
+    bottom: var(--space-md) !important;
+  }
+}
+
+/* ========================================
+   DOCUMENT SCREENS - 文档类组件
+   ======================================== */
+
+@media (max-width: 767px) {
+  .document-gallery .document-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-lg) !important;
+  }
+
+  .document-focus-lens .lens-container {
+    flex-direction: column !important;
+  }
+
+  .document-focus-lens .document-preview {
+    width: 100% !important;
+    max-height: 50vh !important;
+  }
+
+  .paired-document-grid .document-pair {
+    flex-direction: column !important;
+    gap: var(--space-md) !important;
+  }
+}
+
+/* ========================================
+   FULLSCREEN IMAGES - 全屏图片
+   ======================================== */
+
+@media (max-width: 767px) {
+  .fullscreen-image-screen {
+    min-height: 60vh !important;
+  }
+
+  .fullscreen-image-screen .image-caption {
+    position: relative !important;
+    bottom: auto !important;
+    padding: var(--space-lg) var(--space-page-x) !important;
+    background: var(--color-bg) !important;
+  }
+
+  .panorama-full-screen {
+    height: 50vh !important;
+  }
+}
+
+/* ========================================
+   LOGO SCREENS - Logo 展示组件
+   ======================================== */
+
+@media (max-width: 767px) {
+  .logo-structure-screen .structure-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .logo-focus-lens .lens-magnifier {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .brand-identity-screen .identity-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========================================
+   INTRO & SUMMARY SCREENS - 开场/总结
+   ======================================== */
+
+@media (max-width: 767px) {
+  .intro-screen {
+    padding: var(--space-2xl) var(--space-page-x) !important;
+  }
+
+  .intro-screen .intro-number {
+    font-size: clamp(4rem, 20vw, 8rem) !important;
+  }
+
+  .summary-screen .summary-content {
+    padding: var(--space-xl) !important;
+  }
+
+  .phase-closing-screen .closing-stats {
+    flex-direction: column !important;
+    gap: var(--space-lg) !important;
+  }
+}
+
+/* ========================================
+   INTERACTIVE ELEMENTS - 交互元素
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* 增大触摸目标 */
+  .phase-button,
+  .carousel-nav-button,
+  .gallery-nav-button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: var(--space-md) !important;
+  }
+
+  /* 禁用复杂的鼠标跟随效果 */
+  .flashlight-mask,
+  .cursor-follower {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   PROGRESS INDICATOR - 进度指示器
+   ======================================== */
+
+@media (max-width: 767px) {
+  .progress-indicator {
+    right: var(--space-sm) !important;
+    gap: 8px !important;
+  }
+
+  .progress-indicator .progress-dot {
+    width: 4px !important;
+    height: 4px !important;
+  }
+
+  .progress-indicator .progress-dot.active {
+    height: 16px !important;
+  }
+}
+
+/* ========================================
+   SCROLL DRIVEN ANIMATIONS - 滚动驱动动画
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* 简化滚动驱动效果 */
+  .scroll-driven-element {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* 禁用视差效果 */
+  .parallax-element {
+    transform: none !important;
+  }
+
+  /* 飞入画廊改为普通网格 */
+  .fly-in-gallery .fly-item {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ========================================
+   PRINT STYLES - 打印样式
+   ======================================== */
+
+@media print {
+  .phase-screen {
+    min-height: auto !important;
+    page-break-inside: avoid !important;
+  }
+
+  .marquee-track,
+  .carousel-container,
+  .flashlight-mask {
+    display: none !important;
+  }
+}
