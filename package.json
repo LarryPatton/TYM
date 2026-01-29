@@ -10,7 +10,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "i18n:build": "node scripts/build-i18n.cjs",
-    "i18n:watch": "node scripts/build-i18n.cjs --watch"
+    "i18n:watch": "node scripts/build-i18n.cjs --watch",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{jpg,jpeg,png,gif,svg}": [
+      "node scripts/compress-images.js"
+    ]
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -36,6 +42,13 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "imagemin": "^9.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "lint-staged": "^16.2.7",
     "vite": "^7.2.4"
   }
 }
