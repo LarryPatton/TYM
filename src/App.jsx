@@ -43,7 +43,7 @@ function App() {
     <ThemeProvider>
       <LenisProvider>
         <ScrollLockProvider>
-          <BrowserRouter basename="/TYM">
+          <BrowserRouter basename="/">
           <ScrollToTop />
           <Routes>
           <Route path="/" element={<Layout />}>

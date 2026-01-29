@@ -141,6 +141,22 @@ export default defineConfig({
 })
 ```
 
+**⚠️ 重要**：同时也要修改 React Router 的 `basename` 配置，保持与 Vite `base` 一致。
+
+在 `src/App.jsx` 中：
+```jsx
+// ❌ 错误
+<BrowserRouter basename="/TYM">
+
+// ✅ 正确（Vercel 部署）
+<BrowserRouter basename="/">
+```
+
+如果不修改 Router basename，会出现以下错误：
+```
+<Router basename="/TYM"> is not able to match the URL "/"
+```
+
 ---
 
 ### ❌ 问题 4: 多语言（i18n）不工作
