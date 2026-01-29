@@ -97,7 +97,53 @@ Vercel 会自动识别以下配置（由 `vercel.json` 提供）：
 
 ---
 
-### ❌ 问题 3: 多语言（i18n）不工作
+### ❌ 问题 3: MIME 类型错误 - CSS/JS 文件加载失败 ⚠️
+
+**错误表现**：
+```
+Refused to apply style from '...' because its MIME type ('text/html') 
+is not a supported stylesheet MIME type
+```
+
+**原因**: `vite.config.js` 中的 `base` 路径配置错误
+
+**诊断**：
+1. 打开浏览器 Network 标签，检查失败的资源 URL
+2. 如果 URL 包含多余的路径前缀（如 `/TYM/assets/...`），说明 base 路径配置错误
+
+**解决方案**：
+
+检查 `vite.config.js` 文件：
+
+```js
+// ❌ 错误配置（GitHub Pages 专用）
+export default defineConfig({
+  base: '/TYM/',  // 这会导致 Vercel 部署失败
+})
+
+// ✅ 正确配置（Vercel 部署）
+export default defineConfig({
+  base: '/',  // Vercel 使用根路径
+})
+```
+
+**修复步骤**：
+1. 修改 `vite.config.js` 中的 `base` 为 `'/'`
+2. 提交代码到 GitHub
+3. Vercel 会自动重新部署
+4. 清除浏览器缓存后重新访问
+
+**注意**：如果需要同时支持 GitHub Pages 和 Vercel，可以使用环境变量：
+
+```js
+export default defineConfig({
+  base: process.env.VERCEL ? '/' : '/TYM/',
+})
+```
+
+---
+
+### ❌ 问题 4: 多语言（i18n）不工作
 
 **原因**: i18n 文件未在构建前生成
 
