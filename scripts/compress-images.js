@@ -61,9 +61,14 @@ async function compressImage(filePath) {
       plugins.push(
         imageminSvgo({
           plugins: [
-            { name: 'removeViewBox', active: false },
-            { name: 'cleanupIDs', active: true },
-            { name: 'removeUnusedNS', active: true },
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                },
+              },
+            },
           ],
         })
       );
