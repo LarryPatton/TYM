@@ -235,6 +235,9 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
   const images = group.images || [];
   const imageCount = images.length;
   
+  // 支持自定义布局配置（优先级高于自动布局）
+  const customLayout = group.layout; // 期待格式：{ rows: [{count: 5, scale: 1}, {count: 3, scale: 1.3}] }
+  
   // 根据图片数量决定布局（最后一组强制横排）
   const getGridLayout = () => {
     // 最后一组（第三组）强制横向排列
@@ -285,46 +288,121 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
         </motion.h3>
       )}
       
-      {/* 图片网格 */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: isLastGroup ? '24px' : '16px', // 最后一组间距稍大
-        maxWidth: isLastGroup ? '90%' : '1200px', // 最后一组横排需要更宽
-        width: '90%',
-        padding: '0 24px'
-      }}>
-        {images.map((img, imgIndex) => (
-          <motion.div
-            key={`img-${index}-${imgIndex}`}
-            style={{
-              aspectRatio: '1 / 1',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              background: 'rgba(255,255,255,0.02)'
-            }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: imgIndex * 0.08, duration: 0.4 }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
-              alt={img.label || `Image ${imgIndex + 1}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'
-              }}
-              onError={(e) => {
-                console.error('GroupedCarousel image load error:', img.src);
-                e.target.style.display = 'none';
-              }}
-            />
-          </motion.div>
-        ))}
-      </div>
+      {/* 图片网格 - 支持自定义分行布局 */}
+      {customLayout ? (
+        // 自定义布局：按行渲染，每行有不同的数量和尺寸
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+          maxWidth: '1200px',
+          width: '90%',
+          padding: '0 24px'
+        }}>
+          {customLayout.rows.map((rowConfig, rowIndex) => {
+            const rowImages = images.slice(
+              customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0),
+              customLayout.rows.slice(0, rowIndex + 1).reduce((sum, r) => sum + r.count, 0)
+            );
+            return (
+              <div
+                key={`row-${rowIndex}`}
+                style={{
+                  display: 'flex',
+                  gap: '16px',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                {rowImages.map((img, imgIndex) => {
+                  const globalIndex = customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0) + imgIndex;
+                  return (
+                    <motion.div
+                      key={`img-${index}-${globalIndex}`}
+                      style={{
+                        width: `${rowConfig.scale * 120}px`,
+                        height: `${rowConfig.scale * 120}px`,
+                        overflow: 'visible',
+                        background: 'transparent',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: globalIndex * 0.08, duration: 0.4 }}
+                    >
+                      <img
+                        src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                        alt={img.label || `Image ${globalIndex + 1}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          display: 'block',
+                          filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))'
+                        }}
+                        onError={(e) => {
+                          console.error('GroupedCarousel image load error:', img.src);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        // 默认网格布局
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gap: isLastGroup ? '24px' : '16px',
+          maxWidth: isLastGroup ? '90%' : '1200px',
+          width: '90%',
+          padding: '0 24px'
+        }}>
+          {images.map((img, imgIndex) => {
+            const hasVariantSuffix = img.src.includes('-1');
+            const imageScale = hasVariantSuffix ? 1 : 1.2;
+            
+            return (
+              <motion.div
+                key={`img-${index}-${imgIndex}`}
+                style={{
+                  aspectRatio: '1 / 1',
+                  overflow: 'visible',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: imgIndex * 0.08, duration: 0.4 }}
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                  alt={img.label || `Image ${imgIndex + 1}`}
+                  style={{
+                    width: `${imageScale * 100}%`,
+                    height: `${imageScale * 100}%`,
+                    objectFit: 'contain',
+                    display: 'block',
+                    filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))'
+                  }}
+                  onError={(e) => {
+                    console.error('GroupedCarousel image load error:', img.src);
+                    e.target.style.display = 'none';
+                  }}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
       
       {/* 图片计数 */}
       <motion.div style={{

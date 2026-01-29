@@ -17,6 +17,8 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
  * @param {Array} accessoryBackImages - 配件背面图片数组 (可选) [{src, label}]
  * @param {string} bgColor - 背景颜色
  * @param {boolean} noBorder - 是否无边框样式 (透明正方形图)
+ * @param {number} imageScale - 图片缩放比例 (可选，默认1)
+ * @param {string} gap - 自定义间距 (可选，默认根据列数自动计算)
  */
 export const SquareGridScreen = ({
   screenNumber,
@@ -28,7 +30,9 @@ export const SquareGridScreen = ({
   accessoryImages = [], 
   accessoryBackImages = [], // 新增：背面图片
   bgColor = '#000',
-  noBorder = false // 新增：无边框样式
+  noBorder = false, // 新增：无边框样式
+  imageScale = 1, // 新增：图片缩放比例
+  gap = null // 新增：自定义间距
 }) => {
   const containerRef = useRef(null);
   
@@ -50,14 +54,16 @@ export const SquareGridScreen = ({
   const rowCount = Math.max(...tempColumns.map(col => col.length), 1);
   
   // 根据行数动态调整视差位移范围
-  // 6 行需要更大的位移范围才能完整展示（使用不对称范围，起始位置更靠上）
+  // 优化：针对3行布局（11张图/4列）增大位移范围，确保所有图片完整显示
   const is6Row = rowCount >= 6;
+  const is3Row = rowCount === 3;
   
-  // 6 列时使用不对称位移：起始位置更靠上，结束位置更靠下
-  const fastStart = is6Row ? 100 : (rowCount >= 4 ? 200 : 120);  // 起始更靠上
-  const fastEnd = is6Row ? -1100 : (rowCount >= 4 ? -200 : -120); // 结束更靠下
-  const slowStart = is6Row ? 50 : (rowCount >= 4 ? 80 : 40);
-  const slowEnd = is6Row ? -900 : (rowCount >= 4 ? -80 : -40); // 增大慢列位移，确保底部图片完整展示
+  // 3行布局特殊处理：增大位移范围以适应错落布局
+  // 6列时使用不对称位移：起始位置更靠上，结束位置更靠下
+  const fastStart = is6Row ? 100 : (is3Row ? 300 : (rowCount >= 4 ? 200 : 120));  // 3行布局起始更靠上
+  const fastEnd = is6Row ? -1100 : (is3Row ? -300 : (rowCount >= 4 ? -200 : -120)); // 3行布局结束更靠下
+  const slowStart = is6Row ? 50 : (is3Row ? 200 : (rowCount >= 4 ? 80 : 40));
+  const slowEnd = is6Row ? -900 : (is3Row ? -200 : (rowCount >= 4 ? -80 : -40)); // 3行布局增大慢列位移
 
   // ----------------------------------------------------
   // Phase 1: Grid Animation (动态列数)
@@ -108,8 +114,8 @@ export const SquareGridScreen = ({
     col.map((img, i) => ({ ...img, originalIndex: colIndex + i * columnCount }))
   );
   
-  // 根据列数调整间距
-  const gapSize = columnCount >= 6 ? '12px' : '24px';
+  // 根据列数调整间距（支持自定义 gap）
+  const gapSize = gap || (columnCount >= 6 ? '12px' : '24px');
   const paddingTop = columnCount >= 6 ? '30px' : '60px';
 
   return (
@@ -195,6 +201,7 @@ export const SquareGridScreen = ({
                     image={img} 
                     index={img.originalIndex} 
                     isCenter={!isEvenCol}
+                    scale={imageScale}
                   />
                 ))}
               </motion.div>
@@ -338,8 +345,8 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
   );
 };
 
-// 子组件：单张卡片 (保持无背景)
-const GridItem = ({ image, index, isCenter }) => {
+// 子组件：单张卡片 (保持无背景，支持缩放)
+const GridItem = ({ image, index, isCenter, scale = 1 }) => {
   if (!image) return null;
   return (
     <motion.div
@@ -358,8 +365,8 @@ const GridItem = ({ image, index, isCenter }) => {
         src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
         alt={image.label}
         style={{
-          width: '100%',
-          height: '100%',
+          width: `${scale * 100}%`,
+          height: `${scale * 100}%`,
           objectFit: 'contain', 
           display: 'block',
           background: 'transparent',

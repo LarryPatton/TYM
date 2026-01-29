@@ -57,6 +57,16 @@ export const IntroScreen = ({
   const fullBgImageUrl = bgImage 
     ? `${import.meta.env.BASE_URL}${bgImage.replace(/^\//, '')}`
     : null;
+  
+  // 调试日志
+  if (bgImage) {
+    console.log('[IntroScreen Debug]', {
+      bgImage,
+      BASE_URL: import.meta.env.BASE_URL,
+      fullBgImageUrl,
+      enableFlashlight
+    });
+  }
 
   // 文字内容组件（复用）
   const TextContent = () => (
@@ -203,7 +213,7 @@ export const IntroScreen = ({
             width: '100%',
             height: '100%',
             background: bgImage 
-              ? `url(${fullBgImageUrl}) center center / contain no-repeat` 
+              ? `url(${fullBgImageUrl}) center center / cover no-repeat` 
               : 'var(--color-bg-alt)',
             backgroundColor: '#000', // 图片周围填充纯黑背景
             filter: 'brightness(0.9)' // 稍微压暗一点点，保证质感

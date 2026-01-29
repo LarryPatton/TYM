@@ -89,8 +89,8 @@ export const PairedDocumentGridScreen = ({
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '32px',
-          maxWidth: '1400px',
+          gap: '24px',
+          maxWidth: '1200px',
           width: '100%',
           padding: '0 60px',
           alignItems: 'center'
@@ -107,10 +107,10 @@ export const PairedDocumentGridScreen = ({
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '28px',
+                  gap: '16px',
                   y: yMotion,
                   // 中间列添加顶部偏移，形成错落
-                  paddingTop: isCenter ? '80px' : '0'
+                  paddingTop: isCenter ? '40px' : '0'
                 }}
               >
                 {colGroups.map((group) => (
@@ -154,19 +154,23 @@ const DocumentPair = ({ images, index }) => {
           key={imgIndex}
           style={{
             flex: 1,
-            aspectRatio: '1 / 1.414',  // A4 比例
+            height: '100%',
             position: 'relative',
             overflow: 'hidden',
-            borderRadius: '6px'
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           <img
             src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
             alt={img.label || `Document ${index * 2 + imgIndex + 1}`}
             style={{
-              width: '100%',
+              width: 'auto',
               height: '100%',
-              objectFit: 'cover',
+              maxWidth: '100%',
+              objectFit: 'contain',
               display: 'block',
               filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.4))'
             }}

@@ -374,7 +374,7 @@ export const phase03Config = {
   titleKey: 'case.phases.phase-03.title',
   prev: 'phase-02',
   next: 'phase-04',
-  totalScreens: 12, // 拆分后变为 12 屏
+  totalScreens: 13, // 新增一屏：document-focus
   bgColor: '#000000', // 统一背景色 - 纯黑
   screens: [
     // Screen 01: Intro - 全屏背景 (4983×2804, 16:9) with reveal effect
@@ -689,6 +689,17 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/grid-36/Frame 1430105697.png`, label: 'Grid 36' }
       ]
     },
+    // Screen 12.5: 文档聚焦展示 - 3张文档图片 (新增)
+    {
+      id: 'document-focus',
+      type: 'document-focus-lens',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE03_BASE}/document-focus/focus-01.png`, label: 'Document Focus 1' },
+        { src: `${PHASE03_BASE}/document-focus/focus-02.png`, label: 'Document Focus 2' },
+        { src: `${PHASE03_BASE}/document-focus/focus-03.png`, label: 'Document Focus 3' }
+      ]
+    },
     // Screen 13: 瀑布流 (上) - 9张 A4 竖向 (1592×2253)
     {
       id: 'gallery-upper',
@@ -733,7 +744,10 @@ export const phase03Config = {
   ]
 };
 
-// Phase 04: Packaging & Marketing Extensions (8屏)
+// Phase 04 素材基础路径
+const PHASE04_BASE = '/images/phase-04';
+
+// Phase 04: Packaging & Marketing Extensions (14屏)
 export const phase04Config = {
   id: 'phase-04',
   number: '04',
@@ -741,69 +755,334 @@ export const phase04Config = {
   titleKey: 'case.phases.phase-04.title',
   prev: 'phase-03',
   next: null,
-  totalScreens: 8,
+  totalScreens: 11, // 删除 Screen 11-13 后：11屏（01 Intro + 02-10 Products + 11 Closing）
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
+    // Screen 01: Intro - 建立语境 (with reveal + flashlight effects)
     {
       id: 'intro',
       type: 'intro',
-      imageHint: '多应用场景整体拼贴: 包装 / 营销物料 / 线下环境'
+      imageHint: '包装与营销系统化扩展',
+      bgImage: `${PHASE04_BASE}/cover/hero.png`,
+      enableFlashlight: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
+    
+    // Screen 02: 袋装系列 - 3列2行独立展示（更大图片尺寸）
     {
-      id: 'packaging-system',
-      type: 'gallery',
+      id: 'packaging-bag-series',
+      type: 'square-grid',
       columns: 3,
+      noBorder: false,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
       images: [
-        { hint: '包装规格 1', label: '规格 A' },
-        { hint: '包装规格 2', label: '规格 B' },
-        { hint: '包装规格 3', label: '规格 C' }
+        // 袋装系列 (5张 - 3+2布局)
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/1-bag/Nicotine Drops.png`, label: 'Bag-1' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/1-bag/Nicotine Drops-1.png`, label: 'Bag-2' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/1-bag/Nicotine Drops-2.png`, label: 'Bag-3' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/1-bag/Nicotine Drops-3.png`, label: 'Bag-4' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/1-bag/Nicotine Drops-4.png`, label: 'Bag-5' }
       ]
     },
+    
+    // Screen 03: 包装形态系统 - 5列3行网格（胶盒装、铁盒装、子弹盒）
     {
-      id: 'kv',
-      type: 'content',
-      imageHint: '主 KV 核心母题 / 1-2 个延展示例',
-      reverse: false,
-      bgAlt: true
-    },
-    {
-      id: 'regional',
-      type: 'gallery',
-      columns: 2,
+      id: 'packaging-grid',
+      type: 'square-grid',
+      columns: 5,
+      noBorder: false,
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
-        { hint: '区域适配 A: 结构一致 / 内容微调', label: '区域 A' },
-        { hint: '区域适配 B: 结构一致 / 内容微调', label: '区域 B' }
+        // 胶盒装系列 (5张)
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/2-plastic-box/Nicotine Drops.png`, label: 'Box-1' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/2-plastic-box/24.png`, label: 'Box-2' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/2-plastic-box/25.png`, label: 'Box-3' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/2-plastic-box/26.png`, label: 'Box-4' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/2-plastic-box/Nicotine Drops-1.png`, label: 'Box-5' },
+        
+        // 铁盒装系列 (5张)
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/3-tin-box/Nicotine Drops.png`, label: 'Tin-1' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/3-tin-box/Nicotine Drops-1.png`, label: 'Tin-2' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/3-tin-box/Nicotine Drops-2.png`, label: 'Tin-3' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/3-tin-box/Nicotine Drops-3.png`, label: 'Tin-4' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/3-tin-box/Nicotine Drops-4.png`, label: 'Tin-5' },
+        
+        // 子弹盒系列 (5张)
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/4-bullet-box/Nicotine Drops.png`, label: 'Bullet-1' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/4-bullet-box/Nicotine Drops-1.png`, label: 'Bullet-2' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/4-bullet-box/Nicotine Drops-2.png`, label: 'Bullet-3' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/4-bullet-box/Nicotine Drops-3.png`, label: 'Bullet-4' },
+        { src: `${PHASE04_BASE}/2-products/1-nicotine-drops/4-bullet-box/Nicotine Drops-4.png`, label: 'Bullet-5' }
       ]
     },
+    
+    // Screen 04: 主视觉跑马灯 - 三行流动
     {
-      id: 'offline',
-      type: 'gallery',
-      columns: 2,
+      id: 'kv-marquee',
+      type: 'three-row-marquee',
+      scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
+      showGradient: false,
       images: [
-        { hint: '线下实拍 1: 真实光线/比例', label: '场景 A' },
-        { hint: '线下实拍 2: 不完美环境', label: '场景 B' }
-      ],
-      bgAlt: true
+        // Row 1: 黑色系列
+        { src: `${PHASE04_BASE}/1-banner/1-black/Group 189.png`, label: 'Black-1' },
+        { src: `${PHASE04_BASE}/1-banner/1-black/Group 311.png`, label: 'Black-2' },
+        { src: `${PHASE04_BASE}/1-banner/1-black/Group 312.png`, label: 'Black-3' },
+        
+        // Row 2: R15 + 黄色系列
+        { src: `${PHASE04_BASE}/1-banner/2-r15/banner-RHYTHM 15 2.png`, label: 'R15-1' },
+        { src: `${PHASE04_BASE}/1-banner/2-r15/Group 299.png`, label: 'R15-2' },
+        { src: `${PHASE04_BASE}/1-banner/3-yellow/banner 16.png`, label: 'Yellow-1' },
+        { src: `${PHASE04_BASE}/1-banner/3-yellow/Group 298.png`, label: 'Yellow-2' },
+        
+        // Row 3: 蓝色系列
+        { src: `${PHASE04_BASE}/1-banner/4-blue/Group 308.png`, label: 'Blue-1' },
+        { src: `${PHASE04_BASE}/1-banner/4-blue/Group 394.png`, label: 'Blue-2' }
+      ]
     },
+    
+    // Screen 05: 主视觉全屏切换
     {
-      id: 'online-offline',
-      type: 'comparison',
-      leftHint: '线上: 页面/数字触点',
-      rightHint: '线下: 物料/实体触点',
-      leftLabel: '线上 Online',
-      rightLabel: '线下 Offline'
+      id: 'kv-popup',
+      type: 'popup-sequence',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE04_BASE}/1-banner/1-black/Group 189.png`, label: '黑色系统' },
+        { src: `${PHASE04_BASE}/1-banner/2-r15/banner-RHYTHM 15 2.png`, label: 'R15系列' },
+        { src: `${PHASE04_BASE}/1-banner/3-yellow/banner 16.png`, label: '黄色系统' },
+        { src: `${PHASE04_BASE}/1-banner/4-blue/Group 308.png`, label: '蓝色系统' }
+      ]
     },
+    
+    // Screen 06: 产品系列 A - 烟油方形网格 (透明素材，无边框)
     {
-      id: 'pressure',
-      type: 'content',
-      imageHint: '多产品 + 多应用整体展示 / 画面稳且干净',
-      reverse: true,
-      bgAlt: true
+      id: 'products-oil',
+      type: 'square-grid',
+      columns: 4,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
+      images: [
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT.png`, label: 'Oil-Base' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-1.png`, label: 'Oil-1' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-2.png`, label: 'Oil-2' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-3.png`, label: 'Oil-3' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-4.png`, label: 'Oil-4' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-5.png`, label: 'Oil-5' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-6.png`, label: 'Oil-6' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-7.png`, label: 'Oil-7' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-8.png`, label: 'Oil-8' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-9.png`, label: 'Oil-9' },
+        { src: `${PHASE04_BASE}/2-products/2-oil/ICE FLOW NICSALT-10.png`, label: 'Oil-10' }
+      ]
     },
+    
+    // Screen 07: 产品系列 B - Nano方形网格 (2行6列，密集展示)
+    {
+      id: 'products-nano',
+      type: 'square-grid',
+      columns: 6,
+      imageScale: 0.75,
+      gap: '0.3rem',
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
+      images: [
+        { src: `${PHASE04_BASE}/2-products/3-nano/51.png`, label: 'Nano-1' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/52.png`, label: 'Nano-2' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/53.png`, label: 'Nano-3' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/54.png`, label: 'Nano-4' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/55.png`, label: 'Nano-5' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/56.png`, label: 'Nano-6' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/57.png`, label: 'Nano-7' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/58.png`, label: 'Nano-8' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/59.png`, label: 'Nano-9' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/60.png`, label: 'Nano-10' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/61.png`, label: 'Nano-11' },
+        { src: `${PHASE04_BASE}/2-products/3-nano/62.png`, label: 'Nano-12' }
+      ]
+    },
+    
+    // Screen 08: 产品系列 C - Kiyomi配对滚动展示（两行布局：每行5对）
+    {
+      id: 'products-kiyomi',
+      type: 'product-pair-scroll',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      pairs: [
+        // Pair 1: K-63
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/63.png`, label: 'K-63' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/63-1.png`, label: 'K-63-v' }
+        },
+        // Pair 2: K-64
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/64.png`, label: 'K-64' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/64-1.png`, label: 'K-64-v' }
+        },
+        // Pair 3: K-65
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/65.png`, label: 'K-65' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/65-1.png`, label: 'K-65-v' }
+        },
+        // Pair 4: K-66
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/66.png`, label: 'K-66' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/66-1.png`, label: 'K-66-v' }
+        },
+        // Pair 5: K-67
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/67.png`, label: 'K-67' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/67-1.png`, label: 'K-67-v' }
+        },
+        // Pair 6: K-68
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/68.png`, label: 'K-68' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/68-1.png`, label: 'K-68-v' }
+        },
+        // Pair 7: K-69
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/69.png`, label: 'K-69' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/69-1.png`, label: 'K-69-v' }
+        },
+        // Pair 8: K-70
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/70.png`, label: 'K-70' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/70-1.png`, label: 'K-70-v' }
+        },
+        // Pair 9: K-71
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/71.png`, label: 'K-71' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/71-1.png`, label: 'K-71-v' }
+        },
+        // Pair 10: K-74
+        {
+          main: { src: `${PHASE04_BASE}/2-products/4-kiyomi/74.png`, label: 'K-74' },
+          variant: { src: `${PHASE04_BASE}/2-products/4-kiyomi/74-1.png`, label: 'K-74-v' }
+        }
+      ]
+    },
+    
+    // Screen 09: 产品系列 D - Spark 产品配对展示（2行×5列视差滚动）
+    {
+      id: 'products-spark',
+      type: 'product-pair-scroll',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      pairs: [
+        // Pair 1: Spark-75
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/75.png`, label: 'Spark-75' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105698.png`, label: 'Package-1' }
+        },
+        // Pair 2: Spark-76
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/76.png`, label: 'Spark-76' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105699.png`, label: 'Package-2' }
+        },
+        // Pair 3: Spark-77
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/77.png`, label: 'Spark-77' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105700.png`, label: 'Package-3' }
+        },
+        // Pair 4: Spark-78
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/78.png`, label: 'Spark-78' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105701.png`, label: 'Package-4' }
+        },
+        // Pair 5: Spark-79
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/79.png`, label: 'Spark-79' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105702.png`, label: 'Package-5' }
+        },
+        // Pair 6: Spark-80
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/80.png`, label: 'Spark-80' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105703.png`, label: 'Package-6' }
+        },
+        // Pair 7: Spark-81
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/81.png`, label: 'Spark-81' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105704.png`, label: 'Package-7' }
+        },
+        // Pair 8: Spark-82
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/82.png`, label: 'Spark-82' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105705.png`, label: 'Package-8' }
+        },
+        // Pair 9: Spark-83
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/83.png`, label: 'Spark-83' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105706.png`, label: 'Package-9' }
+        },
+        // Pair 10: Spark-84
+        {
+          main: { src: `${PHASE04_BASE}/2-products/5-spark/product/84.png`, label: 'Spark-84' },
+          variant: { src: `${PHASE04_BASE}/2-products/5-spark/package/Frame 1430105707.png`, label: 'Package-10' }
+        }
+      ]
+    },
+    
+    // Screen 10a: Addone 系列 - 分行展示（product 上行 + package 下行，纯纵向滚动）
+    {
+      id: 'products-addone',
+      type: 'two-row-static',
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      title: 'ADDONE SERIES',
+      layout: {
+        rows: [
+          { count: 5, scale: 1.8 },    // 上行：5张 product（放大1.8倍 = 252px）
+          { count: 3, scale: 2.3 }     // 下行：3张 package（放大2.3倍 = 322px）
+        ]
+      },
+      images: [
+        // Product 主体（5张 - 上行）
+        { src: `${PHASE04_BASE}/2-products/7-addone/product/image 143.png`, label: 'Addone-P1' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/product/image 144.png`, label: 'Addone-P2' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/product/image 145.png`, label: 'Addone-P3' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/product/image 146.png`, label: 'Addone-P4' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/product/image 147.png`, label: 'Addone-P5' },
+        // Package 包装（3张 - 下行，更大）
+        { src: `${PHASE04_BASE}/2-products/7-addone/package/30.png`, label: 'Addone-Pkg1' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/package/31.png`, label: 'Addone-Pkg2' },
+        { src: `${PHASE04_BASE}/2-products/7-addone/package/32.png`, label: 'Addone-Pkg3' }
+      ]
+    },
+    
+    // Screen 10b: Mingcang 系列 - 网格展示（type1 + type2）
+    {
+      id: 'products-mingcang',
+      type: 'square-grid',
+      columns: 5,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        // Type 1（5张）
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type1/10.png`, label: 'Mingcang-T1-1' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type1/11.png`, label: 'Mingcang-T1-2' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type1/12.png`, label: 'Mingcang-T1-3' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type1/4088173.png`, label: 'Mingcang-T1-4' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type1/4088174.png`, label: 'Mingcang-T1-5' },
+        // Type 2（5张）
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type2/image 148.png`, label: 'Mingcang-T2-1' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type2/image 149.png`, label: 'Mingcang-T2-2' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type2/image 150.png`, label: 'Mingcang-T2-3' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type2/image 151.png`, label: 'Mingcang-T2-4' },
+        { src: `${PHASE04_BASE}/2-products/8-mingcang/type2/image 152.png`, label: 'Mingcang-T2-5' }
+      ]
+    },
+    
+    // Screen 10c: Mist Flow 系列 - 居中展示（2张）
+    {
+      id: 'products-mistflow',
+      type: 'square-grid',
+      columns: 2,
+      scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
+      images: [
+        { src: `${PHASE04_BASE}/2-products/6-mist flow/13.png`, label: 'Mist-1' },
+        { src: `${PHASE04_BASE}/2-products/6-mist flow/14.png`, label: 'Mist-2' }
+      ]
+    },
+    
+    // Screen 11: Closing - 收束与导航
     {
       id: 'closing',
-      type: 'summary',
-      imageHint: '品牌整体形象汇总 / 未来扩展暗示'
+      type: 'phase-closing',
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'none' },
+      bgImage: `${PHASE04_BASE}/1-banner/1-black/Group 312.png`
     }
   ]
 };

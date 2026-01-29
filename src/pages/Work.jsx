@@ -310,7 +310,7 @@ const Work = () => {
     {
       id: 'phase-04',
       titleEn: 'Packaging',
-      image: null, // 暂无封面
+      image: '/images/case-index/phase-04-cover.png',
     },
     {
       id: 'phase-05',

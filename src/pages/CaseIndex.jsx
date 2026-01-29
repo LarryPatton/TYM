@@ -49,7 +49,7 @@ const CaseIndex = () => {
       titleEn: 'Packaging & Marketing Extensions',
       titleZh: t('case.phases.phase-04.title'),
       desc: t('case.phases.phase-04.desc'),
-      image: null, // 暂无封面
+      image: '/images/case-index/phase-04-cover.png',
       imagePlaceholder: '包装 · 营销 · 触点',
       isPlaceholder: false
     },

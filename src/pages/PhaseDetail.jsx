@@ -49,6 +49,9 @@ import {
   PhaseTocScreen, // Add PhaseTocScreen
   FactoryGalleryScreen, // 工厂图展示组件
   PopupSequenceScreen, // 弹出序列组件
+  RowByRowPopupGrid, // 逐行弹出网格组件
+  ProductPairScrollScreen, // 配对滚动展示组件
+  TwoRowStaticScreen, // 两行静态展示组件
   TransitionProvider,
   TransitionDebugger,
 } from '../components/PhaseScreens';
@@ -373,6 +376,8 @@ const PhaseDetail = () => {
             accessoryImages={screenConfig.accessoryImages || []}
             accessoryBackImages={screenConfig.accessoryBackImages || []}
             noBorder={screenConfig.noBorder || false} // 无边框样式
+            imageScale={screenConfig.imageScale} // 新增：图片缩放比例
+            gap={screenConfig.gap} // 新增：自定义间距
             bgColor="#000"
           />
         );
@@ -473,6 +478,32 @@ const PhaseDetail = () => {
           />
         );
 
+      case 'product-pair-scroll':
+        return (
+          <ProductPairScrollScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenData?.title || ''}
+            content={screenData?.content || ''}
+            pairs={screenConfig.pairs || []}
+            bgColor="#000"
+          />
+        );
+
+      case 'two-row-static':
+        return (
+          <TwoRowStaticScreen
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenConfig.title || screenData?.title || ''}
+            layout={screenConfig.layout}
+            images={screenConfig.images || []}
+            bgColor="#000"
+          />
+        );
+
       case 'factory-gallery':
         return (
           <FactoryGalleryScreen
@@ -496,6 +527,19 @@ const PhaseDetail = () => {
             screenLabel={screenLabel}
             images={screenConfig.images || []}
             bgColor="#000"
+          />
+        );
+
+      case 'row-by-row-popup':
+        return (
+          <RowByRowPopupGrid
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            images={screenConfig.images || []}
+            columns={screenConfig.columns || 5}
+            bgColor="#000"
+            enableFadeIn={screenConfig.id === 'packaging-grid-2'} // 为第二屏启用淡入效果
           />
         );
 
