@@ -57,12 +57,12 @@ const CaseIndex = () => {
     {
       id: 'phase-05',
       number: '05',
-      titleEn: 'Coming Soon',
-      titleZh: '即将上线',
-      desc: '更多精彩内容正在准备中...',
-      image: null,
-      imagePlaceholder: '敬请期待',
-      isPlaceholder: true
+      titleEn: 'Retail & Experience Expansion',
+      titleZh: t('case.phases.phase-05.title'),
+      desc: t('case.phases.phase-05.desc'),
+      image: '/images/case-index/phase-05-cover.png',
+      imagePlaceholder: '零售 · 场景 · 体验',
+      isPlaceholder: false
     },
     // 占位 Phase 06
     {

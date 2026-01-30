@@ -754,7 +754,7 @@ export const phase04Config = {
   titleEn: 'Packaging & Marketing Extensions',
   titleKey: 'case.phases.phase-04.title',
   prev: 'phase-03',
-  next: null,
+  next: 'phase-05',
   totalScreens: 11, // 删除 Screen 11-13 后：11屏（01 Intro + 02-10 Products + 11 Closing）
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
@@ -1087,12 +1087,418 @@ export const phase04Config = {
   ]
 };
 
+// Phase 05 素材基础路径
+const PHASE05_BASE = '/images/phase-05';
+
+// Phase 05: Retail & Experience Expansion (15屏)
+export const phase05Config = {
+  id: 'phase-05',
+  number: '05',
+  titleEn: 'Retail & Experience Expansion',
+  titleKey: 'case.phases.phase-05.title',
+  prev: 'phase-04',
+  next: null,
+  totalScreens: 13, // 15 - 3 + 1 = 13 (合并 Screen 04/05/06 为 kv-mixed-grid)
+  bgColor: '#0a0a0a', // 统一背景色 - 深黑
+  screens: [
+    // Screen 01: Intro - 建立语境
+    {
+      id: 'intro',
+      type: 'intro',
+      imageHint: '零售场景与体验拓展',
+      bgImage: `${PHASE05_BASE}/cover/hero.png`,
+      enableFlashlight: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
+    },
+    
+    // Screen 02: KV - KIYOMI 系列主视觉（6组×31张）
+    {
+      id: 'kv-kiyomi',
+      type: 'grouped-carousel',
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'KIYOMI 01',
+          layout: { rows: [{ count: 6, scale: 5.0 }] },  // 2.0 → 3.0 进一步放大
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 10.png`, label: 'K01-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 105.png`, label: 'K01-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 108.png`, label: 'K01-3' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 109.png`, label: 'K01-4' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 110.png`, label: 'K01-5' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 111.png`, label: 'K01-6' }
+          ]
+        },
+        {
+          label: 'KIYOMI 02',
+          layout: { rows: [{ count: 3, scale: 4.5 }] },  // 2.5 → 4.5 大幅放大
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-02/A4 - 20.png`, label: 'K02-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-02/A4 - 21.png`, label: 'K02-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-02/A4 - 22.png`, label: 'K02-3' }
+          ]
+        },
+        {
+          label: 'KIYOMI 03',
+          layout: { rows: [{ count: 5, scale: 4 }] },  // 2.2 → 3.5 进一步放大
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 5.png`, label: 'K03-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 84.png`, label: 'K03-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 106.png`, label: 'K03-3' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 112.png`, label: 'K03-4' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 113.png`, label: 'K03-5' }
+          ]
+        },
+        {
+          label: 'KIYOMI 04',
+          layout: { rows: [{ count: 4, scale: 4.0 }] },  // 2.3 → 4.0 大幅放大
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-04/A4 - 83.png`, label: 'K04-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-04/A4 - 114.png`, label: 'K04-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-04/A4 - 115.png`, label: 'K04-3' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-04/A4 - 116.png`, label: 'K04-4' }
+          ]
+        },
+        {
+          label: 'KIYOMI 05',
+          layout: { rows: [{ count: 7, scale: 3 }] },  // 1.8 → 2.8 进一步放大（7张图）
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 82.png`, label: 'K05-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 85.png`, label: 'K05-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 86.png`, label: 'K05-3' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 87.png`, label: 'K05-4' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 88.png`, label: 'K05-5' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 89.png`, label: 'K05-6' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 90.png`, label: 'K05-7' }
+          ]
+        },
+        {
+          label: 'KIYOMI 06',
+          layout: { rows: [{ count: 3, scale: 4.5 }] },  // 2.5 → 4.5 大幅放大
+          images: [
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-06/A4 - 12.png`, label: 'K06-1' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-06/A4 - 107.png`, label: 'K06-2' },
+            { src: `${PHASE05_BASE}/kv/kiyomi/group-06/A4 - 117.png`, label: 'K06-3' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 03: KV - 尼古丁糖（上5下7，分版本展示）
+    {
+      id: 'kv-nicotine-drops',
+      type: 'two-row-static',
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      title: '尼古丁糖系列',
+      layout: {
+        rows: [
+          { count: 5, scale: 1.6 },  // 上行：第一版（5张）
+          { count: 7, scale: 1.4 }   // 下行：第二版（7张，稍小）
+        ]
+      },
+      images: [
+        // 第一版（上行）
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-1/A4 - 43.png`, label: 'ND-V1-1' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-1/A4 - 44.png`, label: 'ND-V1-2' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-1/A4 - 55.png`, label: 'ND-V1-3' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-1/A4 - 56.png`, label: 'ND-V1-4' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-1/A4 - 101.png`, label: 'ND-V1-5' },
+        // 第二版（下行）
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 42.png`, label: 'ND-V2-1' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 47.png`, label: 'ND-V2-2' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 60.png`, label: 'ND-V2-3' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 61.png`, label: 'ND-V2-4' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 62.png`, label: 'ND-V2-5' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 103.png`, label: 'ND-V2-6' },
+        { src: `${PHASE05_BASE}/kv/nicotine-drops/version-2/A4 - 104.png`, label: 'ND-V2-7' }
+      ]
+    },
+    
+    // Screen 04: KV 混合网格（CUBE + SPARK + MOTOR，3列自然滚动视差）
+    {
+      id: 'kv-mixed-grid',
+      type: 'natural-parallax-grid',
+      columns: 3,
+      gap: '24px',
+      paddingTop: 60,
+      parallaxIntensity: 0.3,
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'CUBE SERIES',
+          images: [
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 2.png`, label: 'Cube-1' },
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 6.png`, label: 'Cube-2' },
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 13.png`, label: 'Cube-3' },
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 14.png`, label: 'Cube-4' },
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 48.png`, label: 'Cube-5' },
+            { src: `${PHASE05_BASE}/kv/cube/A4 - 92.png`, label: 'Cube-6' }
+          ]
+        },
+        {
+          label: 'SPARK SERIES',
+          images: [
+            { src: `${PHASE05_BASE}/kv/spark/中东1.png`, label: 'Spark-ME1' },
+            { src: `${PHASE05_BASE}/kv/spark/中东2.png`, label: 'Spark-ME2' },
+            { src: `${PHASE05_BASE}/kv/spark/非洲1.png`, label: 'Spark-AF1' },
+            { src: `${PHASE05_BASE}/kv/spark/非洲2.png`, label: 'Spark-AF2' },
+            { src: `${PHASE05_BASE}/kv/spark/非洲3.png`, label: 'Spark-AF3' },
+            { src: `${PHASE05_BASE}/kv/spark/非洲4.png`, label: 'Spark-AF4' }
+          ]
+        },
+        {
+          label: 'MOTOR SERIES',
+          images: [
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 15.png`, label: 'Motor-1' },
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 16.png`, label: 'Motor-2' },
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 17.png`, label: 'Motor-3' },
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 18.png`, label: 'Motor-4' },
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 95.png`, label: 'Motor-5' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 07: KV - M1/R15/烟油混合（KIYOMI 风格分组展示）
+    {
+      id: 'kv-marquee-mix',
+      type: 'grouped-carousel',
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'M1 SERIES',
+          layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
+          images: [
+            { src: `${PHASE05_BASE}/kv/m1/A4 - 50.png`, label: 'M1-1' },
+            { src: `${PHASE05_BASE}/kv/m1/A4 - 51.png`, label: 'M1-2' },
+            { src: `${PHASE05_BASE}/kv/m1/A4 - 96.png`, label: 'M1-3' },
+            { src: `${PHASE05_BASE}/kv/m1/A4 - 97.png`, label: 'M1-4' }
+          ]
+        },
+        {
+          label: 'R15 SERIES',
+          layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
+          images: [
+            { src: `${PHASE05_BASE}/kv/r15/A4 - 59.png`, label: 'R15-1' },
+            { src: `${PHASE05_BASE}/kv/r15/A4 - 98.png`, label: 'R15-2' },
+            { src: `${PHASE05_BASE}/kv/r15/A4 - 99.png`, label: 'R15-3' },
+            { src: `${PHASE05_BASE}/kv/r15/A4 - 100.png`, label: 'R15-4' }
+          ]
+        },
+        {
+          label: 'E-LIQUID SERIES',
+          layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
+          images: [
+            { src: `${PHASE05_BASE}/kv/e-liquid/A4 - 7.png`, label: 'Oil-1' },
+            { src: `${PHASE05_BASE}/kv/e-liquid/A4 - 8.png`, label: 'Oil-2' },
+            { src: `${PHASE05_BASE}/kv/e-liquid/A4 - 93.png`, label: 'Oil-3' },
+            { src: `${PHASE05_BASE}/kv/e-liquid/A4 - 94.png`, label: 'Oil-4' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 08: 实拍 - cube 产品（5×3网格）
+    {
+      id: 'photo-cube',
+      type: 'square-grid',
+      columns: 5,
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      images: [
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q6_fcd6ca2a-8de7-4571-9989-03dffecb102g 1.png`, label: 'Cube-P1' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q8_672f6ada-9467-4cb4-8518-d5873af73e5g 1.png`, label: 'Cube-P2' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q8_28810cc9-0b79-4a5e-9aa5-af73eb4089bg 1.png`, label: 'Cube-P3' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q8_a11be66c-7ec0-4ddd-be1a-15b9e8b08ccg 1.png`, label: 'Cube-P4' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q8_ae0b77d3-dffa-4c51-8829-d1fa58db4bag 1.png`, label: 'Cube-P5' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02q8_b78f8fc3-5af7-42d4-83f0-1b26701c699g 1.png`, label: 'Cube-P6' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02r5_d5ce4b06-9c4c-411e-b2ce-cc054bc98dfg 1.png`, label: 'Cube-P7' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02ro_4f31a9e6-c822-4391-9051-d160eb38464g 1.png`, label: 'Cube-P8' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02ro_a4a383c1-7d84-4214-98ef-ebc4725b026g 1.png`, label: 'Cube-P9' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02ro_d8bd7d3c-6181-4a21-a230-709379c6aecg 1.png`, label: 'Cube-P10' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02ro_da743e75-d630-42ac-8782-f5e3d22f378g 1.png`, label: 'Cube-P11' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02rp_6eee99ff-19e9-4caa-9727-f6245b77fb7g 1.png`, label: 'Cube-P12' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02rp_70494222-d9f1-4a78-a7f9-c32070f3f72g 1.png`, label: 'Cube-P13' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02rp_aa03b8b6-7321-40d2-a501-a8a75872d54g 1.png`, label: 'Cube-P14' },
+        { src: `${PHASE05_BASE}/photo/cube/img_v3_02rp_ac116a05-208c-4d7f-b8db-eb0e1644bbfg 1.png`, label: 'Cube-P15' }
+      ]
+    },
+    
+    // Screen 09: 实拍 - motor 产品（3×2网格）
+    {
+      id: 'photo-motor',
+      type: 'square-grid',
+      columns: 3,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_77b34125-e5a7-49fb-9ffb-7f7083f6c91g 1.png`, label: 'Motor-P1' },
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_4716b1ff-ffc3-4b93-aac4-851ad292550g 1.png`, label: 'Motor-P2' },
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_a9d4f672-a61d-4903-a0f9-84ebdb80f3dg 1.png`, label: 'Motor-P3' },
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_d08101b0-f6d1-4117-8e5d-6b34519da7dg 1.png`, label: 'Motor-P4' },
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_e622acd1-6dc2-400d-b040-4c0a5f1f09dg 1.png`, label: 'Motor-P5' },
+        { src: `${PHASE05_BASE}/photo/motor/img_v3_02ro_ffd236b1-4fa1-4812-8e16-00e7906d726g 1.png`, label: 'Motor-P6' }
+      ]
+    },
+    
+    // Screen 10: 实拍 - 展架（KIYOMI 风格分组展示：横4 + 竖8）
+    {
+      id: 'photo-display',
+      type: 'grouped-carousel',
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'DISPLAY - HORIZONTAL',
+          layout: { rows: [{ count: 4, scale: 3.5 }] },  // 4张横图，放大3.5倍
+          images: [
+            { src: `${PHASE05_BASE}/photo/display-stand/horizontal/img_v3_02pg_4ee36845-3ed4-4742-99b6-139219c18e7g 1.png`, label: 'Display-H1' },
+            { src: `${PHASE05_BASE}/photo/display-stand/horizontal/img_v3_02rv_1108cf29-6c1c-4a68-9c65-f267e396f78g 1.png`, label: 'Display-H2' },
+            { src: `${PHASE05_BASE}/photo/display-stand/horizontal/img_v3_02s5_4fb3c0b2-72d2-4026-aaed-8f5906f3c55g 1.png`, label: 'Display-H3' },
+            { src: `${PHASE05_BASE}/photo/display-stand/horizontal/img_v3_02tc_824d2d60-200c-4dbf-8636-8ef494e16ebg 1.png`, label: 'Display-H4' }
+          ]
+        },
+        {
+          label: 'DISPLAY - VERTICAL',
+          layout: { 
+            rows: [
+              { count: 4, scale: 3.5 },  // 上行4张，放大3.5倍
+              { count: 4, scale: 3.5 }   // 下行4张，放大3.5倍
+            ] 
+          },
+          images: [
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02mu_4331f3f7-2aee-4f67-a9b4-b2cd1de2fa9g 1.png`, label: 'Display-V1' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02pr_403b4e36-8fe4-45ec-b2bc-a2a9d337142g 1.png`, label: 'Display-V2' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02ra_0e9ab48e-6a3d-4a61-b096-f2ee835fa86g 1.png`, label: 'Display-V3' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02ra_f545f6a7-7eb5-4557-8e43-bf61616e6b6g 1.png`, label: 'Display-V4' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02rb_b3e8dbb6-3cca-4b26-b488-ef8a06406c3g 1.png`, label: 'Display-V5' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02rb_d960bb1f-1eaf-4797-b4dc-9869548c03fg 1.png`, label: 'Display-V6' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02rv_2b6abf77-ccb6-42c9-96ac-a0ab4d77d1eg 1.png`, label: 'Display-V7' },
+            { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02t9_0809d7b1-823d-4b5e-b537-c8b82eb741cg 1.png`, label: 'Display-V8' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 11: 实拍 - 店面（KIYOMI 风格分组展示：横9 + 竖3）
+    {
+      id: 'photo-store',
+      type: 'grouped-carousel',
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      rowGap: '11px',  // 自定义行间距：11px (45% of default 24px)
+      groups: [
+        {
+          label: 'STORE - HORIZONTAL',
+          layout: { 
+            rows: [
+              { count: 5, scale: 3.2 },  // 上行5张，放大3.2倍
+              { count: 4, scale: 3.2 }   // 下行4张，放大3.2倍
+            ] 
+          },
+          images: [
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02ok_96fee373-fd9a-4402-98d9-6f0fd6eda1eg 1.png`, label: 'Store-H1' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02ok_a6662106-718c-41b5-aa1e-c8d1a293e68g 1.png`, label: 'Store-H2' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02ok_c176f344-1da1-4be4-9825-9f3b8596cfeg 1.png`, label: 'Store-H3' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02ok_e9aa5c39-d41f-4c6c-b65a-9f74e97e2a6g 1.png`, label: 'Store-H4' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02p1_26bef36f-71d4-488b-975a-8eda613d31bg 1.png`, label: 'Store-H5' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02pp_88151d18-6e69-4bad-8a0f-2accc89711eg 1.png`, label: 'Store-H6' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02pp_d2e064f3-b87a-4cb1-98db-7f52f0187e9g 1.png`, label: 'Store-H7' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02pp_f294c519-962d-470a-b068-991af527261g 1.png`, label: 'Store-H8' },
+            { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02pr_2653183e-c2b2-4082-b5c4-beb4f002d79g 1.png`, label: 'Store-H9' }
+          ]
+        },
+        {
+          label: 'STORE - VERTICAL',
+          layout: { rows: [{ count: 3, scale: 4.5 }] },  // 3张竖图，放大4.5倍
+          images: [
+            { src: `${PHASE05_BASE}/photo/store/vertical/img_v3_02pa_1a6cc14c-8b9f-4560-9331-874d4f86d55g 1.png`, label: 'Store-V1' },
+            { src: `${PHASE05_BASE}/photo/store/vertical/img_v3_02ps_e6c13de7-8bbf-44be-81cc-7ca3948ea06g 1.png`, label: 'Store-V2' },
+            { src: `${PHASE05_BASE}/photo/store/vertical/img_v3_02pv_53f650e4-7676-4c4a-9e99-5a47160095dg 1.png`, label: 'Store-V3' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 10: 实拍 - 包装（3组KV，3列呈现 - 紧凑间距）
+    {
+      id: 'photo-packaging',
+      type: 'natural-parallax-grid',
+      columns: 3,
+      gap: '8px',
+      paddingTop: 60,
+      parallaxIntensity: 0.3,
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'PACKAGING COLLECTION',
+          images: [
+            { src: `${PHASE05_BASE}/photo/packaging/IMG_20260126_103830_edit_292227773485616 1.png`, label: 'Pkg-1' },
+            { src: `${PHASE05_BASE}/photo/packaging/IMG_20260126_104345_edit_292325401480914 1.png`, label: 'Pkg-2' },
+            { src: `${PHASE05_BASE}/photo/packaging/IMG_20260126_104453_edit_292348157471535 1.png`, label: 'Pkg-3' },
+            { src: `${PHASE05_BASE}/photo/packaging/IMG_20260126_104755_edit_292364704911116 1.png`, label: 'Pkg-4' },
+            { src: `${PHASE05_BASE}/photo/packaging/IMG_20260126_112639_edit_293234890828171 1.png`, label: 'Pkg-5' },
+            { src: `${PHASE05_BASE}/photo/packaging/img_v3_02sf_b4cca58e-abae-4a8c-b6c3-eb1af093ee7g 1.png`, label: 'Pkg-6' },
+            { src: `${PHASE05_BASE}/photo/packaging/img_v3_02t1_7440c7b3-6e0b-4194-9bf8-4e057ca4980g 1.png`, label: 'Pkg-7' },
+            { src: `${PHASE05_BASE}/photo/packaging/img_v3_02t1_e68a6bd0-d6bc-4e83-85ca-e136cb50125g 1.png`, label: 'Pkg-8' },
+            { src: `${PHASE05_BASE}/photo/packaging/img_v3_02tc_9df44ca7-60f7-4cc8-9c92-11730ecd457g 1.png`, label: 'Pkg-9' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 11: 实拍 - 展会（横向切换展示）
+    {
+      id: 'photo-expo',
+      type: 'popup-sequence',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE05_BASE}/photo/expo/56cd0386f2a6e96d2f94fc2743dfc9bb 1.png`, label: 'Expo-1' },
+        { src: `${PHASE05_BASE}/photo/expo/acc0dc973c3e4d2bd0de6423b74e2820 1.png`, label: 'Expo-2' },
+        { src: `${PHASE05_BASE}/photo/expo/img_v3_02li_0fbfdd72-72df-455f-988e-254b9ca515ag 1.png`, label: 'Expo-3' }
+      ]
+    },
+    
+    // Screen 12: 效果图（3组KV，3列呈现 - 紧凑间距，限制9图）
+    {
+      id: 'mockups',
+      type: 'natural-parallax-grid',
+      columns: 3,
+      gap: '8px',
+      paddingTop: 60,
+      parallaxIntensity: 0.3,
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      groups: [
+        {
+          label: 'MOCKUP COLLECTION',
+          images: [
+            { src: `${PHASE05_BASE}/mockups/4fe086c50cfa001b5fa8e0b117ec394b 1.png`, label: 'Mock-1' },
+            { src: `${PHASE05_BASE}/mockups/4fe086c50cfa001b5fa8e0b117ec394b 2.png`, label: 'Mock-2' },
+            { src: `${PHASE05_BASE}/mockups/4fe086c50cfa001b5fa8e0b117ec394b 3.png`, label: 'Mock-3' },
+            { src: `${PHASE05_BASE}/mockups/4fe086c50cfa001b5fa8e0b117ec394b 4.png`, label: 'Mock-4' },
+            { src: `${PHASE05_BASE}/mockups/4088168f25a7f357327953c0baf794f2 1.png`, label: 'Mock-5' },
+            { src: `${PHASE05_BASE}/mockups/4088168f25a7f357327953c0baf794f2 2.png`, label: 'Mock-6' },
+            { src: `${PHASE05_BASE}/mockups/4088168f25a7f357327953c0baf794f2 4.png`, label: 'Mock-7' },
+            { src: `${PHASE05_BASE}/mockups/Group 447.png`, label: 'Mock-8' },
+            { src: `${PHASE05_BASE}/mockups/Group 502.png`, label: 'Mock-9' }
+          ]
+        }
+      ]
+    },
+    
+    // Screen 15: Closing - 收束与导航
+    {
+      id: 'closing',
+      type: 'phase-closing',
+      scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
+      bgImage: `${PHASE05_BASE}/cover/hero.png`
+    }
+  ]
+};
+
 // 汇总配置
 export const phasesConfig = {
   'phase-01': phase01Config,
   'phase-02': phase02Config,
   'phase-03': phase03Config,
-  'phase-04': phase04Config
+  'phase-04': phase04Config,
+  'phase-05': phase05Config
 };
 
 // 获取 Phase 配置的辅助函数

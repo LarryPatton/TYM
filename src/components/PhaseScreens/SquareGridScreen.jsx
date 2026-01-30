@@ -19,6 +19,8 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
  * @param {boolean} noBorder - 是否无边框样式 (透明正方形图)
  * @param {number} imageScale - 图片缩放比例 (可选，默认1)
  * @param {string} gap - 自定义间距 (可选，默认根据列数自动计算)
+ * @param {string} rowGap - 自定义行间距 (可选，优先级高于gap)
+ * @param {string} columnGap - 自定义列间距 (可选，优先级高于gap)
  */
 export const SquareGridScreen = ({
   screenNumber,
@@ -32,7 +34,9 @@ export const SquareGridScreen = ({
   bgColor = '#000',
   noBorder = false, // 新增：无边框样式
   imageScale = 1, // 新增：图片缩放比例
-  gap = null // 新增：自定义间距
+  gap = null, // 新增：自定义间距
+  rowGap = null, // 新增：自定义行间距
+  columnGap = null // 新增：自定义列间距
 }) => {
   const containerRef = useRef(null);
   
@@ -114,8 +118,11 @@ export const SquareGridScreen = ({
     col.map((img, i) => ({ ...img, originalIndex: colIndex + i * columnCount }))
   );
   
-  // 根据列数调整间距（支持自定义 gap）
-  const gapSize = gap || (columnCount >= 6 ? '12px' : '24px');
+  // 根据列数调整间距（支持自定义 gap 和独立的 rowGap/columnGap）
+  const defaultGap = columnCount >= 6 ? '12px' : '24px';
+  const gapSize = gap || defaultGap;
+  const finalRowGap = rowGap || gapSize;
+  const finalColumnGap = columnGap || gapSize;
   const paddingTop = columnCount >= 6 ? '30px' : '60px';
 
   return (
@@ -167,7 +174,8 @@ export const SquareGridScreen = ({
           right: 0,
           display: 'grid',
           gridTemplateColumns: `repeat(${columnCount}, 1fr)`, // 动态列数
-          gap: gapSize,
+          rowGap: finalRowGap,
+          columnGap: finalColumnGap,
           maxWidth: columnCount >= 6 ? '1600px' : '1400px',
           width: '100%',
           padding: columnCount >= 6 ? '0 24px' : '0 48px',
@@ -189,7 +197,7 @@ export const SquareGridScreen = ({
                 style={{ 
                   display: 'flex', 
                   flexDirection: 'column', 
-                  gap: gapSize, 
+                  gap: finalRowGap, 
                   y: yMotion,
                   // 奇数列添加顶部偏移，形成错落
                   paddingTop: isEvenCol ? '0' : paddingTop

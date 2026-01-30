@@ -314,8 +314,8 @@ const Work = () => {
     },
     {
       id: 'phase-05',
-      titleEn: 'Coming Soon',
-      image: null,
+      titleEn: 'Retail & Experience Expansion',
+      image: '/images/case-index/phase-05-cover.png',
     },
     {
       id: 'phase-06',

@@ -20,7 +20,8 @@ export const GroupedCarouselScreen = ({
   title,
   content,
   groups = [],
-  bgColor = '#000'
+  bgColor = '#000',
+  rowGap = '24px'  // 自定义行间距，默认 24px
 }) => {
   const containerRef = useRef(null);
   
@@ -110,6 +111,7 @@ export const GroupedCarouselScreen = ({
               totalGroups={totalGroups}
               getGroupRange={getGroupRange}
               isLastGroup={index === totalGroups - 1} // 标记最后一组
+              rowGap={rowGap}  // 传递行间距参数
             />
           ))}
         </div>
@@ -201,7 +203,7 @@ const IndicatorDot = ({ index, label, scrollYProgress, range, center }) => {
 /**
  * 单组场景（横向切换版本）
  */
-const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup }) => {
+const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px' }) => {
   const range = getGroupRange(index);
   
   // 透明度：进入时渐显，停顿时保持，离开时渐隐
@@ -294,9 +296,8 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '24px',
-          maxWidth: '1200px',
-          width: '90%',
+          gap: rowGap,  // 使用可配置的行间距参数（默认 24px）
+          width: '90%',  // 移除 maxWidth 限制，改为 90% 宽度
           padding: '0 24px'
         }}>
           {customLayout.rows.map((rowConfig, rowIndex) => {

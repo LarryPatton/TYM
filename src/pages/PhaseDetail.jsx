@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Leva } from 'leva';
+// import { Leva } from 'leva'; // 已禁用：移除调试面板
 import { useTitle } from '../hooks/useTitle';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
+import LoadingScreen from '../components/LoadingScreen';
 import {
   IntroScreen,
   PrinciplesScreen,
@@ -52,10 +54,11 @@ import {
   RowByRowPopupGrid, // 逐行弹出网格组件
   ProductPairScrollScreen, // 配对滚动展示组件
   TwoRowStaticScreen, // 两行静态展示组件
+  NaturalParallaxGrid, // 自然滚动视差网格组件
   TransitionProvider,
-  TransitionDebugger,
+  // TransitionDebugger, // 已禁用：移除调试工具
 } from '../components/PhaseScreens';
-import { ExportConfigButton } from '../components/PhaseScreens/ExportConfigButton';
+// import { ExportConfigButton } from '../components/PhaseScreens/ExportConfigButton'; // 已禁用：移除调试工具
 
 // 主组件
 const PhaseDetail = () => {
@@ -68,6 +71,188 @@ const PhaseDetail = () => {
   const nextPhaseConfig = getNextPhase(phaseId);
   
   useTitle(t(`case.phases.${phaseId}.title`) + ' | ' + t('case.pageTitle'));
+  
+  // 收集所有需要预加载的图片 URL
+  const imageUrls = useMemo(() => {
+    if (!phase) return [];
+    
+    const urls = [];
+    // 修复 BASE_URL 路径拼接：确保正确处理前导斜杠
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizeUrl = (path) => {
+      // 严格类型检查：确保 path 是字符串
+      if (!path || typeof path !== 'string') {
+        console.warn('[PhaseDetail] Invalid path type:', typeof path, path);
+        return null;
+      }
+      // 移除路径开头的斜杠，因为 baseUrl 已包含
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return baseUrl + cleanPath;
+    };
+    
+    phase.screens.forEach(screenConfig => {
+      // 收集 bgImage
+      if (screenConfig.bgImage) {
+        urls.push(normalizeUrl(screenConfig.bgImage));
+      }
+      
+      // 收集 image（单图）
+      if (screenConfig.image) {
+        urls.push(normalizeUrl(screenConfig.image));
+      }
+      
+      // 收集 images 数组
+      if (screenConfig.images && Array.isArray(screenConfig.images)) {
+        screenConfig.images.forEach(img => {
+          if (typeof img === 'string') {
+            urls.push(normalizeUrl(img));
+          } else if (img && img.src) {
+            urls.push(normalizeUrl(img.src));
+          }
+        });
+      }
+      
+      // 收集 marqueeImages, sceneImages, carouselImages
+      ['marqueeImages', 'sceneImages', 'carouselImages'].forEach(key => {
+        if (screenConfig[key] && Array.isArray(screenConfig[key])) {
+          screenConfig[key].forEach(img => {
+            if (typeof img === 'string') {
+              urls.push(normalizeUrl(img));
+            } else if (img && img.src) {
+              urls.push(normalizeUrl(img.src));
+            }
+          });
+        }
+      });
+      
+      // 收集 mainImages, subImages
+      ['mainImages', 'subImages'].forEach(key => {
+        if (screenConfig[key] && Array.isArray(screenConfig[key])) {
+          screenConfig[key].forEach(img => {
+            if (typeof img === 'string') {
+              urls.push(normalizeUrl(img));
+            } else if (img && img.src) {
+              urls.push(normalizeUrl(img.src));
+            }
+          });
+        }
+      });
+      
+      // 收集 imageGroups（二维数组）
+      if (screenConfig.imageGroups && Array.isArray(screenConfig.imageGroups)) {
+        screenConfig.imageGroups.forEach(group => {
+          if (Array.isArray(group)) {
+            group.forEach(img => {
+              if (typeof img === 'string') {
+                urls.push(normalizeUrl(img));
+              } else if (img && img.src) {
+                urls.push(normalizeUrl(img.src));
+              }
+            });
+          }
+        });
+      }
+      
+      // 收集 groups（分组数据）
+      if (screenConfig.groups && Array.isArray(screenConfig.groups)) {
+        screenConfig.groups.forEach(group => {
+          if (group.images && Array.isArray(group.images)) {
+            group.images.forEach(img => {
+              if (typeof img === 'string') {
+                urls.push(normalizeUrl(img));
+              } else if (img && img.src) {
+                urls.push(normalizeUrl(img.src));
+              }
+            });
+          }
+        });
+      }
+      
+      // 收集 pairs（配对数据）
+      if (screenConfig.pairs && Array.isArray(screenConfig.pairs)) {
+        screenConfig.pairs.forEach(pair => {
+          if (pair.images && Array.isArray(pair.images)) {
+            pair.images.forEach(img => {
+              if (typeof img === 'string') {
+                urls.push(normalizeUrl(img));
+              } else if (img && img.src) {
+                urls.push(normalizeUrl(img.src));
+              }
+            });
+          }
+        });
+      }
+      
+      // 收集 accessoryImages, accessoryBackImages
+      ['accessoryImages', 'accessoryBackImages'].forEach(key => {
+        if (screenConfig[key] && Array.isArray(screenConfig[key])) {
+          screenConfig[key].forEach(img => {
+            if (typeof img === 'string') {
+              urls.push(normalizeUrl(img));
+            } else if (img && img.src) {
+              urls.push(normalizeUrl(img.src));
+            }
+          });
+        }
+      });
+    });
+    
+    // 去重并过滤空值
+    const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
+    
+    console.log('[PhaseDetail] Collected image URLs:', uniqueUrls.length);
+    console.log('[PhaseDetail] Sample URLs:', uniqueUrls.slice(0, 5));
+    
+    return uniqueUrls;
+  }, [phase]);
+  
+  // 添加标志位，确保每个 Phase 只加载一次
+  const [hasPreloaded, setHasPreloaded] = useState(false);
+  // 添加 canEnter 状态，由动画完成回调控制
+  const [canEnter, setCanEnter] = useState(false);
+  
+  // 使用图片预加载 Hook（50% 阈值策略）
+  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+    enabled: !hasPreloaded, // 如果已经预加载过，则禁用
+    threshold: 50, // 加载 50% 后即可进入页面
+    onThresholdReached: (info) => {
+      console.log('[PhaseDetail] ✅ 50% threshold reached! (真实加载)', info);
+    },
+    onComplete: (stats) => {
+      console.log('[PhaseDetail] ✅ 100% loading complete!', stats);
+      setHasPreloaded(true); // 标记为已加载
+    },
+    onProgress: (info) => {
+      console.log('[PhaseDetail] Progress update:', info);
+    }
+  });
+  
+  // 动画完成回调：只有动画播放完毕且真实加载 >= 50% 时才允许进入
+  const handleAnimationComplete = useCallback(() => {
+    if (progress >= 50) {
+      console.log('[PhaseDetail] ✅ Animation complete! User can enter page.');
+      setCanEnter(true);
+    }
+  }, [progress]);
+  
+  // 调试输出
+  useEffect(() => {
+    console.log('[PhaseDetail] Loading state:', { 
+      isLoading, 
+      canEnter, 
+      progress, 
+      loadedCount, 
+      totalCount, 
+      hasPreloaded,
+      displayProgress: `真实 ${progress}% → 显示 ${progress >= 50 ? 100 : Math.round((progress / 50) * 100)}%`
+    });
+  }, [isLoading, canEnter, progress, loadedCount, totalCount, hasPreloaded]);
+  
+  // 当 phaseId 变化时，重置预加载标志和进入状态
+  useEffect(() => {
+    setHasPreloaded(false);
+    setCanEnter(false);
+  }, [phaseId]);
   
   // 滚动监听更新当前屏幕
   useEffect(() => {
@@ -379,6 +564,23 @@ const PhaseDetail = () => {
             imageScale={screenConfig.imageScale} // 新增：图片缩放比例
             gap={screenConfig.gap} // 新增：自定义间距
             bgColor="#000"
+          />
+        );
+
+      case 'natural-parallax-grid':
+        return (
+          <NaturalParallaxGrid
+            key={screenConfig.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            title={screenConfig.title || ''}
+            groups={screenConfig.groups || []}
+            images={screenConfig.images || []}
+            columns={screenConfig.columns || 3}
+            gap={screenConfig.gap || '24px'}
+            paddingTop={screenConfig.paddingTop || 60}
+            bgColor={screenConfig.bgColor || '#000'}
+            parallaxIntensity={screenConfig.parallaxIntensity || 0.3}
           />
         );
 
@@ -708,11 +910,24 @@ const PhaseDetail = () => {
   const isDev = import.meta.env.DEV;
 
   return (
-    <TransitionProvider debug={isDev}>
-      <style>{responsiveStyles}</style>
+    <>
+      {/* 加载屏幕 - 使用 !canEnter 控制显示，动画至少 2.5 秒 */}
+      <LoadingScreen 
+        isVisible={!canEnter}
+        realProgress={progress}
+        loadedCount={loadedCount}
+        totalCount={totalCount}
+        phaseNumber={phase.number}
+        threshold={50}
+        minDuration={2500}
+        onAnimationComplete={handleAnimationComplete}
+      />
       
-      {/* Leva 调试面板 - 仅开发环境显示 */}
-      {isDev && (
+      <TransitionProvider debug={isDev}>
+        <style>{responsiveStyles}</style>
+      
+      {/* Leva 调试面板 - 已禁用（移除右上角参数调节窗口） */}
+      {/* {isDev && (
         <>
           <Leva 
             collapsed={true}
@@ -737,10 +952,9 @@ const PhaseDetail = () => {
               filter: true,
             }}
           />
-          {/* 导出配置按钮 - 添加到 Leva 面板 */}
           <ExportConfigButton />
         </>
-      )}
+      )} */}
       
       <div style={{ 
         position: 'relative', 
@@ -821,6 +1035,7 @@ const PhaseDetail = () => {
         ))}
       </div>
     </TransitionProvider>
+    </>
   );
 };
 

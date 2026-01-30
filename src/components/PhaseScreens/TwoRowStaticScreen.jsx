@@ -82,8 +82,8 @@ export const TwoRowStaticScreen = ({
       <div style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '48px',
-        maxWidth: '1400px',
+        gap: '60px',
+        maxWidth: '1600px',
         width: '100%'
       }}>
         {layout.rows.map((rowConfig, rowIndex) => {
@@ -97,18 +97,18 @@ export const TwoRowStaticScreen = ({
               key={`row-${rowIndex}`}
               style={{
                 display: 'flex',
-                gap: '24px',
+                gap: '32px',
                 justifyContent: 'center',
                 alignItems: 'center'
               }}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 + rowIndex * 0.2 }}
-              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, delay: 0.2 + rowIndex * 0.5 }}
+              viewport={{ once: true, margin: '-150px' }}
             >
               {rowImages.map((img, imgIndex) => {
                 const globalIndex = startIndex + imgIndex;
-                const size = rowConfig.scale * 140; // 基础尺寸 140px
+                const size = rowConfig.scale * 180; // 基础尺寸提升到 180px
 
                 return (
                   <motion.div
