@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useControls, button, buttonGroup } from 'leva';
+// import { useControls, button, buttonGroup } from 'leva'; // 已禁用：移除调试面板
 
 /**
  * ============================================
  * 屏幕: 组件拼装展示 (ComponentAssemblyScreen)
  * ============================================
- * 带调试面板，可调整每个图片的位置和大小
- * 支持复制配置参数到剪贴板
- * 每个参数都有微调按钮 (+/-1, +/-10)
+ * 原本带调试面板，可调整每个图片的位置和大小
+ * 已禁用 Leva 调试面板，使用固定配置参数
  * ============================================
  */
 
@@ -55,120 +54,14 @@ const ComponentAssemblyScreen = () => {
     return `${import.meta.env.BASE_URL}${BASE_PATH.replace(/^\//, '')}/${file}`;
   };
 
-  // ===== 按列整体调整 =====
-  const colOffsets = useControls('📊 按列整体调整', {
-    '左1列X': { value: DEFAULT_CONFIG.colOffsets['左1列X'], min: -500, max: 500, step: 5, label: '左1列 X偏移' },
-    '左1列Y': { value: DEFAULT_CONFIG.colOffsets['左1列Y'], min: -500, max: 500, step: 5, label: '左1列 Y偏移' },
-    '左1列缩放': { value: DEFAULT_CONFIG.colOffsets['左1列缩放'], min: 0.5, max: 2, step: 0.05, label: '左1列 缩放' },
-    '左2列X': { value: DEFAULT_CONFIG.colOffsets['左2列X'], min: -500, max: 500, step: 5, label: '左2列 X偏移' },
-    '左2列Y': { value: DEFAULT_CONFIG.colOffsets['左2列Y'], min: -500, max: 500, step: 5, label: '左2列 Y偏移' },
-    '左2列缩放': { value: DEFAULT_CONFIG.colOffsets['左2列缩放'], min: 0.5, max: 2, step: 0.05, label: '左2列 缩放' },
-    '中间X': { value: DEFAULT_CONFIG.colOffsets['中间X'], min: -500, max: 500, step: 5, label: '中间 X偏移' },
-    '中间Y': { value: DEFAULT_CONFIG.colOffsets['中间Y'], min: -500, max: 500, step: 5, label: '中间 Y偏移' },
-    '中间缩放': { value: DEFAULT_CONFIG.colOffsets['中间缩放'], min: 0.5, max: 2, step: 0.05, label: '中间 缩放' },
-    '右1列X': { value: DEFAULT_CONFIG.colOffsets['右1列X'], min: -500, max: 500, step: 5, label: '右1列 X偏移' },
-    '右1列Y': { value: DEFAULT_CONFIG.colOffsets['右1列Y'], min: -500, max: 500, step: 5, label: '右1列 Y偏移' },
-    '右1列缩放': { value: DEFAULT_CONFIG.colOffsets['右1列缩放'], min: 0.5, max: 2, step: 0.05, label: '右1列 缩放' },
-    '右2列X': { value: DEFAULT_CONFIG.colOffsets['右2列X'], min: -500, max: 500, step: 5, label: '右2列 X偏移' },
-    '右2列Y': { value: DEFAULT_CONFIG.colOffsets['右2列Y'], min: -500, max: 500, step: 5, label: '右2列 Y偏移' },
-    '右2列缩放': { value: DEFAULT_CONFIG.colOffsets['右2列缩放'], min: 0.5, max: 2, step: 0.05, label: '右2列 缩放' },
-    '底部X': { value: DEFAULT_CONFIG.colOffsets['底部X'], min: -500, max: 500, step: 5, label: '底部 X偏移' },
-    '底部Y': { value: DEFAULT_CONFIG.colOffsets['底部Y'], min: -500, max: 500, step: 5, label: '底部 Y偏移' },
-    '底部缩放': { value: DEFAULT_CONFIG.colOffsets['底部缩放'], min: 0.5, max: 2, step: 0.05, label: '底部 缩放' },
-  });
-
-  // ===== 容器和网格控制 =====
-  const containerConfig = useControls('📦 容器设置', {
-    padding: { value: DEFAULT_CONFIG.container.padding, min: 0, max: 100, step: 5 },
-    gap: { value: DEFAULT_CONFIG.container.gap, min: 0, max: 30, step: 1 },
-    maxWidth: { value: DEFAULT_CONFIG.container.maxWidth, min: 1000, max: 2000, step: 50 },
-  });
-
-  const gridConfig = useControls('📐 网格列宽', {
-    col1Width: { value: DEFAULT_CONFIG.grid.col1Width, min: 80, max: 300, step: 10, label: '左1列 (L1-L6)' },
-    col2Width: { value: DEFAULT_CONFIG.grid.col2Width, min: 100, max: 400, step: 10, label: '左2列 (C3+C4)' },
-    col4Width: { value: DEFAULT_CONFIG.grid.col4Width, min: 100, max: 400, step: 10, label: '右1列 (R1-R4)' },
-    col5Width: { value: DEFAULT_CONFIG.grid.col5Width, min: 100, max: 400, step: 10, label: '右2列 (R5+R6)' },
-  });
-
-  // ===== 各图片位置控制 (带微调按钮) =====
-  // 创建图片控制的工厂函数
-  const createImageControl = (name, imageKey, xyRange = 500) => {
-    const defaults = DEFAULT_CONFIG.images[imageKey] || { x: 0, y: 0, scale: 1 };
-    const [values, set] = useControls(name, () => ({
-      x: { value: defaults.x, min: -xyRange, max: xyRange, step: 1 },
-      y: { value: defaults.y, min: -xyRange, max: xyRange, step: 1 },
-      scale: { value: defaults.scale, min: 0.1, max: 3, step: 0.01 },
-      'X微调': buttonGroup({
-        '◀◀': () => set({ x: values.x - 50 }),
-        '◀': () => set({ x: values.x - 5 }),
-        '▶': () => set({ x: values.x + 5 }),
-        '▶▶': () => set({ x: values.x + 50 }),
-      }),
-      'Y微调': buttonGroup({
-        '▲▲': () => set({ y: values.y - 50 }),
-        '▲': () => set({ y: values.y - 5 }),
-        '▼': () => set({ y: values.y + 5 }),
-        '▼▼': () => set({ y: values.y + 50 }),
-      }),
-      '缩放微调': buttonGroup({
-        '--': () => set({ scale: Math.max(0.1, +(values.scale - 0.2).toFixed(2)) }),
-        '-': () => set({ scale: Math.max(0.1, +(values.scale - 0.05).toFixed(2)) }),
-        '+': () => set({ scale: Math.min(3, +(values.scale + 0.05).toFixed(2)) }),
-        '++': () => set({ scale: Math.min(3, +(values.scale + 0.2).toFixed(2)) }),
-      }),
-    }));
-    return values;
-  };
-
-  // 左侧列
-  const L1 = createImageControl('🖼️ L1', 'L1');
-  const L2 = createImageControl('🖼️ L2', 'L2');
-  const L3 = createImageControl('🖼️ L3', 'L3');
-  const L4 = createImageControl('🖼️ L4', 'L4');
-  const L5 = createImageControl('🖼️ L5', 'L5');
-  const L6 = createImageControl('🖼️ L6', 'L6');
+  // ===== 使用固定配置（已禁用 Leva 调试面板） =====
+  const colOffsets = DEFAULT_CONFIG.colOffsets;
+  const containerConfig = DEFAULT_CONFIG.container;
+  const gridConfig = DEFAULT_CONFIG.grid;
   
-  // 中间区域
-  const C1 = createImageControl('🖼️ C1 (主图)', 'C1', 800);
-  const C3 = createImageControl('🖼️ C3', 'C3');
-  const C4 = createImageControl('🖼️ C4', 'C4');
-  const C5 = createImageControl('🖼️ C5 (底部)', 'C5');
-  
-  // 右侧列
-  const R1 = createImageControl('🖼️ R1', 'R1');
-  const R2 = createImageControl('🖼️ R2', 'R2');
-  const R3 = createImageControl('🖼️ R3', 'R3');
-  const R4 = createImageControl('🖼️ R4', 'R4');
-  const R5 = createImageControl('🖼️ R5', 'R5');
-  const R6 = createImageControl('🖼️ R6', 'R6');
-
-  // 使用 ref 存储最新配置，避免闭包问题
-  const configRef = useRef({});
-  
-  // 每次渲染时更新 ref 为最新值
-  useEffect(() => {
-    configRef.current = {
-      container: containerConfig,
-      grid: gridConfig,
-      colOffsets: colOffsets,
-      images: { L1, L2, L3, L4, L5, L6, C1, C3, C4, C5, R1, R2, R3, R4, R5, R6 }
-    };
-  });
-
-  // 复制按钮 - 直接从 ref 读取最新值
-  useControls('📋 导出配置', {
-    '复制到剪贴板': button(() => {
-      const jsonStr = JSON.stringify(configRef.current, null, 2);
-      navigator.clipboard.writeText(jsonStr).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      });
-    })
-  });
-
-  // 收集所有图片配置 (用于渲染)
-  const imageConfigs = { L1, L2, L3, L4, L5, L6, C1, C3, C4, C5, R1, R2, R3, R4, R5, R6 };
+  // 直接使用配置中的图片参数
+  const imageConfigs = DEFAULT_CONFIG.images;
+  const { L1, L2, L3, L4, L5, L6, C1, C3, C4, C5, R1, R2, R3, R4, R5, R6 } = imageConfigs;
 
   // 图片样式生成器 (支持列偏移)
   const getImageStyle = (config, colXOffset = 0, colYOffset = 0, colScale = 1) => ({

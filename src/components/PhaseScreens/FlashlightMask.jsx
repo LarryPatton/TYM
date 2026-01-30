@@ -39,35 +39,88 @@ export const FlashlightMaskV2 = ({
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
   
-  // 修复：组件挂载时检测鼠标是否已在容器内（解决 SPA 路由导航问题）
+  // 修复：组件挂载时直接检测鼠标位置（解决鼠标静止不动时手电筒不显示的问题）
   useEffect(() => {
     if (!containerRef.current || isTouchDevice) return;
     
-    const checkInitialMousePosition = (e) => {
+    // 使用 RAF 确保 DOM 完全渲染后再检测
+    const timer = requestAnimationFrame(() => {
       if (!containerRef.current) return;
       
       const rect = containerRef.current.getBoundingClientRect();
-      const x = e.clientX;
-      const y = e.clientY;
       
-      // 检测鼠标是否在容器内
-      if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-        setIsHovering(true);
-        mouseX.set(x - rect.left);
-        mouseY.set(y - rect.top);
-      }
-    };
-    
-    // 监听一次 mousemove 来获取当前鼠标位置
-    const handleFirstMove = (e) => {
-      checkInitialMousePosition(e);
-      window.removeEventListener('mousemove', handleFirstMove);
-    };
-    
-    window.addEventListener('mousemove', handleFirstMove);
+      // 方案 1: 尝试获取当前鼠标位置（通过 mouseenter 事件）
+      let mouseDetected = false;
+      
+      const handleMouseEnterOnce = (e) => {
+        if (mouseDetected) return;
+        mouseDetected = true;
+        
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        // 检测鼠标是否在容器内
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          setIsHovering(true);
+          mouseX.set(x - rect.left);
+          mouseY.set(y - rect.top);
+        }
+        
+        containerRef.current?.removeEventListener('mouseenter', handleMouseEnterOnce);
+      };
+      
+      // 监听 mouseenter 事件（当鼠标已在容器内时会立即触发）
+      containerRef.current?.addEventListener('mouseenter', handleMouseEnterOnce);
+      
+      // 方案 2: 使用 :hover 伪类检测（fallback）
+      // 如果鼠标已经在元素上，立即设置为 hovering
+      const checkIfAlreadyHovered = () => {
+        if (!containerRef.current || mouseDetected) return;
+        
+        // 通过 matches(':hover') 检测鼠标是否已在元素上
+        if (containerRef.current.matches(':hover')) {
+          setIsHovering(true);
+          // 设置默认位置为中心（因为无法获取精确坐标）
+          mouseX.set(rect.width / 2);
+          mouseY.set(rect.height / 2);
+          mouseDetected = true;
+        }
+      };
+      
+      // 延迟检测，确保 CSS 伪类状态已更新
+      setTimeout(checkIfAlreadyHovered, 50);
+      
+      // 方案 3: 监听第一次 mousemove 作为最后的 fallback
+      const handleFirstMove = (e) => {
+        if (!containerRef.current || mouseDetected) return;
+        
+        const x = e.clientX;
+        const y = e.clientY;
+        const currentRect = containerRef.current.getBoundingClientRect();
+        
+        // 检测鼠标是否在容器内
+        if (x >= currentRect.left && x <= currentRect.right && 
+            y >= currentRect.top && y <= currentRect.bottom) {
+          setIsHovering(true);
+          mouseX.set(x - currentRect.left);
+          mouseY.set(y - currentRect.top);
+          mouseDetected = true;
+        }
+        
+        window.removeEventListener('mousemove', handleFirstMove);
+      };
+      
+      window.addEventListener('mousemove', handleFirstMove);
+      
+      // 清理函数
+      return () => {
+        containerRef.current?.removeEventListener('mouseenter', handleMouseEnterOnce);
+        window.removeEventListener('mousemove', handleFirstMove);
+      };
+    });
     
     return () => {
-      window.removeEventListener('mousemove', handleFirstMove);
+      cancelAnimationFrame(timer);
     };
   }, [isTouchDevice, mouseX, mouseY]);
   

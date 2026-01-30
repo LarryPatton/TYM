@@ -650,6 +650,13 @@
       }
     }
   },
+  "loading": {
+    "loadingAssets": "Loading assets...",
+    "preparingExperience": "Preparing experience...",
+    "almostReady": "Almost ready...",
+    "welcome": "Welcome!",
+    "loadingExperience": "Loading experience..."
+  },
   "work": {
     "pageTitle": "Work",
     "title": "Selected Works.",

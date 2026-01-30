@@ -923,10 +923,15 @@ const PhaseDetail = () => {
         onAnimationComplete={handleAnimationComplete}
       />
       
-      <TransitionProvider debug={isDev}>
+      <TransitionProvider debug={false}>
         <style>{responsiveStyles}</style>
       
-      {/* Leva 调试面板 - 已禁用（移除右上角参数调节窗口） */}
+      {/* Leva 调试面板 - 已完全禁用（移除右上角参数调节窗口） */}
+      {/* 
+        如需在开发环境启用 Leva 调试面板，请：
+        1. 将上方 debug={false} 改为 debug={isDev}
+        2. 取消下方 <Leva> 组件的注释
+      */}
       {/* {isDev && (
         <>
           <Leva 

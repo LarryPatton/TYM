@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { mapProgressWithEasing } from '../utils/easing';
 
 /**
@@ -23,6 +24,7 @@ const LoadingScreen = ({
   minDuration = 2500, // 最小动画时长（毫秒）
   onAnimationComplete // 动画完成回调
 }) => {
+  const { t } = useTranslation();
   const [displayProgress, setDisplayProgress] = useState(0);
   const [startTime, setStartTime] = useState(null);
   
@@ -84,7 +86,7 @@ const LoadingScreen = ({
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 9999,
+            zIndex: 999, // 低于导航栏的 1000，让导航栏始终可见
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -205,10 +207,10 @@ const LoadingScreen = ({
                   fontFamily: 'var(--font-sans)',
                 }}
               >
-                {displayProgress < 30 && 'Loading assets...'}
-                {displayProgress >= 30 && displayProgress < 70 && 'Preparing experience...'}
-                {displayProgress >= 70 && displayProgress < 95 && 'Almost ready...'}
-                {displayProgress >= 95 && 'Welcome!'}
+                {displayProgress < 30 && t('loading.loadingAssets')}
+                {displayProgress >= 30 && displayProgress < 70 && t('loading.preparingExperience')}
+                {displayProgress >= 70 && displayProgress < 95 && t('loading.almostReady')}
+                {displayProgress >= 95 && t('loading.welcome')}
               </div>
               
               {/* 加载文本 */}
@@ -229,7 +231,7 @@ const LoadingScreen = ({
                   letterSpacing: '0.05em',
                 }}
               >
-                Loading experience...
+                {t('loading.loadingExperience')}
               </motion.div>
             </motion.div>
           </motion.div>

@@ -1,0 +1,4779 @@
+{
+  "total": 596,
+  "with_transparency": 594,
+  "without_transparency": 2,
+  "errors": 0,
+  "files_without_transparency": [
+    {
+      "path": "images\\case-index\\phase-05-cover.png",
+      "mode": "RGB",
+      "size": "1312x931",
+      "file_size": "970.8 KB",
+      "has_transparency": false,
+      "issue": "⚠️ RGB 模式（可能被强制转换）"
+    },
+    {
+      "path": "images\\phase-05\\cover\\hero.png",
+      "mode": "RGB",
+      "size": "1312x931",
+      "file_size": "970.8 KB",
+      "has_transparency": false,
+      "issue": "⚠️ RGB 模式（可能被强制转换）"
+    }
+  ],
+  "files_with_transparency": [
+    {
+      "path": "images\\case-index\\phase-01-cover.png",
+      "mode": "P",
+      "size": "4844x2540",
+      "file_size": "4.17 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\case-index\\phase-02-cover.png",
+      "mode": "P",
+      "size": "3681x1840",
+      "file_size": "478.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\case-index\\phase-03-cover.png",
+      "mode": "P",
+      "size": "4983x2804",
+      "file_size": "1021.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\case-index\\phase-04-cover.png",
+      "mode": "P",
+      "size": "2182x1228",
+      "file_size": "523.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\closing.png",
+      "mode": "RGBA",
+      "size": "4844x2540",
+      "file_size": "2.07 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\cover.png",
+      "mode": "RGBA",
+      "size": "4844x2540",
+      "file_size": "2.07 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-explore-01.png",
+      "mode": "RGBA",
+      "size": "2628x1476",
+      "file_size": "792.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-explore-02.png",
+      "mode": "RGBA",
+      "size": "2312x1480",
+      "file_size": "259.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-marquee-01.png",
+      "mode": "P",
+      "size": "2234x623",
+      "file_size": "16.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-marquee-02.png",
+      "mode": "P",
+      "size": "2212x623",
+      "file_size": "65.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-structure.png",
+      "mode": "P",
+      "size": "2576x1447",
+      "file_size": "74.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\summary.png",
+      "mode": "RGBA",
+      "size": "4884x2784",
+      "file_size": "813.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\type-specimen-01.png",
+      "mode": "RGBA",
+      "size": "2460x1572",
+      "file_size": "228.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\type-specimen-02.png",
+      "mode": "RGBA",
+      "size": "2460x1580",
+      "file_size": "228.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\validation-material-01.png",
+      "mode": "RGBA",
+      "size": "4876x2734",
+      "file_size": "9.08 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\validation-material-02.png",
+      "mode": "RGBA",
+      "size": "4876x2739",
+      "file_size": "9.60 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\validation-packaging.png",
+      "mode": "RGBA",
+      "size": "4876x2760",
+      "file_size": "12.17 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\validation-preview-01.png",
+      "mode": "RGBA",
+      "size": "3413x2017",
+      "file_size": "4.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\validation-preview-02.png",
+      "mode": "P",
+      "size": "3413x1933",
+      "file_size": "566.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-variants\\Group671.png",
+      "mode": "P",
+      "size": "900x1304",
+      "file_size": "39.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-variants\\Group672.png",
+      "mode": "P",
+      "size": "900x1304",
+      "file_size": "8.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-variants\\Group673.png",
+      "mode": "P",
+      "size": "900x1304",
+      "file_size": "3.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-variants\\Group674.png",
+      "mode": "P",
+      "size": "900x1304",
+      "file_size": "6.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-01\\logo-variants\\Group675.png",
+      "mode": "P",
+      "size": "900x1304",
+      "file_size": "17.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\boundaries\\boundary-01.png",
+      "mode": "RGBA",
+      "size": "1586x2153",
+      "file_size": "4.60 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\boundaries\\boundary-02.png",
+      "mode": "RGBA",
+      "size": "1589x2153",
+      "file_size": "5.06 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\boundaries\\boundary-03.png",
+      "mode": "RGBA",
+      "size": "1586x2153",
+      "file_size": "3.10 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\boundaries\\boundary-04.png",
+      "mode": "RGBA",
+      "size": "1584x2152",
+      "file_size": "6.04 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\boundaries\\boundary-05.png",
+      "mode": "RGBA",
+      "size": "1584x2152",
+      "file_size": "5.91 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\closing\\closing-01.png",
+      "mode": "RGBA",
+      "size": "4060x2284",
+      "file_size": "9.64 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\closing\\product-final.png",
+      "mode": "RGBA",
+      "size": "4056x2520",
+      "file_size": "2.97 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-01.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "200.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-02.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "214.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-03.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "213.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-04.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "214.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-05.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "174.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-06.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "215.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-07.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "199.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-08.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "222.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-09.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "164.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-10.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "201.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-11.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "182.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\color-sequence\\color-12.png",
+      "mode": "P",
+      "size": "572x572",
+      "file_size": "203.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-01.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "602.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-02.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "581.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-03.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "552.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-04.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "574.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-05.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "592.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-06.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "561.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-07.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "557.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-08.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "569.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-09.png",
+      "mode": "RGBA",
+      "size": "1634x1634",
+      "file_size": "1.94 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-10.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "541.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\main\\main-11.png",
+      "mode": "P",
+      "size": "1634x1634",
+      "file_size": "540.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\texture\\texture-01.png",
+      "mode": "RGBA",
+      "size": "988x1760",
+      "file_size": "2.43 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\texture\\texture-02.png",
+      "mode": "RGBA",
+      "size": "988x1760",
+      "file_size": "2.84 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\texture\\texture-03.png",
+      "mode": "RGBA",
+      "size": "980x1740",
+      "file_size": "3.48 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cmf\\texture\\texture-04.png",
+      "mode": "RGBA",
+      "size": "988x1760",
+      "file_size": "2.00 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\app-01.png",
+      "mode": "RGBA",
+      "size": "4351x482",
+      "file_size": "987.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\app-02.png",
+      "mode": "P",
+      "size": "4371x494",
+      "file_size": "293.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\app-03.png",
+      "mode": "P",
+      "size": "4408x509",
+      "file_size": "359.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\app-04.png",
+      "mode": "P",
+      "size": "4313x547",
+      "file_size": "282.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\app-05.png",
+      "mode": "P",
+      "size": "4361x479",
+      "file_size": "375.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-01.png",
+      "mode": "P",
+      "size": "1057x1457",
+      "file_size": "227.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-02.png",
+      "mode": "RGBA",
+      "size": "1257x1584",
+      "file_size": "1.11 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-03.png",
+      "mode": "P",
+      "size": "1297x1551",
+      "file_size": "193.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-04.png",
+      "mode": "P",
+      "size": "1893x1900",
+      "file_size": "198.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-01.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "156.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-02.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "544.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-03.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "569.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-04.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "581.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-05.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "742.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-06.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "724.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-07.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "562.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-08.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "654.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-09.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "177.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-10.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "157.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-11.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "138.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-12.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "143.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-13.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "681.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-14.png",
+      "mode": "P",
+      "size": "980x1424",
+      "file_size": "188.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-15.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "675.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\consistency\\detail-new-16.png",
+      "mode": "RGBA",
+      "size": "980x1424",
+      "file_size": "641.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\cover\\hero.png",
+      "mode": "P",
+      "size": "3681x1840",
+      "file_size": "506.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-01.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "8.36 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-02.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "10.40 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-03.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "7.84 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-04.png",
+      "mode": "RGBA",
+      "size": "2280x4032",
+      "file_size": "10.98 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-05.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "9.19 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-06.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "9.62 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-07.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "8.95 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-08.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "9.88 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-09.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "8.83 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-10.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "8.43 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\backplate\\backplate-11.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "8.42 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-01.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "10.90 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-02.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "9.56 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-03.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "12.40 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-04.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "12.79 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-05.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "13.52 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-06.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "11.76 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-07.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "12.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-08.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "14.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-09.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "11.88 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-10.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "10.68 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-11.png",
+      "mode": "RGBA",
+      "size": "2269x4032",
+      "file_size": "13.20 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\factory\\keycaps\\keycap-12.png",
+      "mode": "RGBA",
+      "size": "2268x4032",
+      "file_size": "12.22 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\manufacturing\\mfg-01.png",
+      "mode": "P",
+      "size": "709x731",
+      "file_size": "116.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\manufacturing\\mfg-02.png",
+      "mode": "P",
+      "size": "701x730",
+      "file_size": "126.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\manufacturing\\mfg-03.png",
+      "mode": "P",
+      "size": "675x728",
+      "file_size": "133.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\manufacturing\\mfg-04.png",
+      "mode": "P",
+      "size": "679x735",
+      "file_size": "130.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-01.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-02.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-03.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-04.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-05.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-06.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-07.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-08.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-09.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\packaging\\pkg-10.png",
+      "mode": "RGBA",
+      "size": "1004x1004",
+      "file_size": "9.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\popup\\popup-01.png",
+      "mode": "P",
+      "size": "1856x578",
+      "file_size": "19.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\popup\\popup-02.png",
+      "mode": "P",
+      "size": "1856x578",
+      "file_size": "16.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\popup\\popup-03.png",
+      "mode": "P",
+      "size": "1856x578",
+      "file_size": "6.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\popup\\popup-04.png",
+      "mode": "P",
+      "size": "1856x578",
+      "file_size": "51.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-01.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "83.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-02.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "83.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-03.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "84.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-04.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "86.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-05.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "84.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-06.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "82.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-07.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "86.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-07b.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "81.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-08.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "79.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-08b.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "83.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-09.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "86.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-09b.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "84.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-10.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "86.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\priority\\cube-10b.png",
+      "mode": "P",
+      "size": "937x937",
+      "file_size": "82.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\toc\\toc-01.png",
+      "mode": "P",
+      "size": "1871x275",
+      "file_size": "30.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\toc\\toc-02.png",
+      "mode": "P",
+      "size": "1871x275",
+      "file_size": "17.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\toc\\toc-03.png",
+      "mode": "P",
+      "size": "1871x275",
+      "file_size": "33.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\C1.png",
+      "mode": "RGBA",
+      "size": "4352x7212",
+      "file_size": "13.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\C3.png",
+      "mode": "P",
+      "size": "1668x3432",
+      "file_size": "251.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\C4.png",
+      "mode": "P",
+      "size": "1668x1136",
+      "file_size": "20.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\C5.png",
+      "mode": "P",
+      "size": "4712x858",
+      "file_size": "39.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\Group 350.png",
+      "mode": "P",
+      "size": "1248x252",
+      "file_size": "4.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\Group 686.png",
+      "mode": "RGBA",
+      "size": "4274x2760",
+      "file_size": "4.12 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L1.png",
+      "mode": "P",
+      "size": "1708x1120",
+      "file_size": "106.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L2.png",
+      "mode": "P",
+      "size": "1702x1097",
+      "file_size": "76.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L3.png",
+      "mode": "P",
+      "size": "2331x2342",
+      "file_size": "356.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L4.png",
+      "mode": "P",
+      "size": "2384x1608",
+      "file_size": "94.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L5.png",
+      "mode": "RGBA",
+      "size": "2372x1788",
+      "file_size": "1.92 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\L6.png",
+      "mode": "P",
+      "size": "2372x1136",
+      "file_size": "28.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R1.png",
+      "mode": "P",
+      "size": "1164x1106",
+      "file_size": "14.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R2.png",
+      "mode": "P",
+      "size": "1739x1138",
+      "file_size": "25.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R3.png",
+      "mode": "P",
+      "size": "1165x1120",
+      "file_size": "12.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R4.png",
+      "mode": "P",
+      "size": "1708x1120",
+      "file_size": "17.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R5.png",
+      "mode": "P",
+      "size": "2988x1104",
+      "file_size": "183.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-02\\分散\\R6.png",
+      "mode": "P",
+      "size": "2988x2185",
+      "file_size": "465.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\carousel\\carousel-01.png",
+      "mode": "RGBA",
+      "size": "3579x2012",
+      "file_size": "5.92 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\carousel\\carousel-02.png",
+      "mode": "RGBA",
+      "size": "3582x2016",
+      "file_size": "6.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\carousel\\carousel-03.png",
+      "mode": "RGBA",
+      "size": "3578x2009",
+      "file_size": "3.97 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\carousel\\carousel-04.png",
+      "mode": "RGBA",
+      "size": "3581x2014",
+      "file_size": "6.84 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\detail\\detail-01.png",
+      "mode": "P",
+      "size": "609x743",
+      "file_size": "70.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\detail\\detail-02.png",
+      "mode": "P",
+      "size": "545x767",
+      "file_size": "126.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\detail\\detail-03.png",
+      "mode": "P",
+      "size": "397x704",
+      "file_size": "91.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\detail\\detail-04.png",
+      "mode": "P",
+      "size": "548x561",
+      "file_size": "100.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\detail\\detail-05.png",
+      "mode": "P",
+      "size": "882x725",
+      "file_size": "189.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\main\\component-01.png",
+      "mode": "P",
+      "size": "1304x1028",
+      "file_size": "214.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\main\\component-02.png",
+      "mode": "P",
+      "size": "1304x1028",
+      "file_size": "203.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\components\\main\\component-03.png",
+      "mode": "P",
+      "size": "1304x1028",
+      "file_size": "201.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\concept\\concept-a.png",
+      "mode": "P",
+      "size": "1942x1938",
+      "file_size": "400.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\concept\\concept-b.png",
+      "mode": "P",
+      "size": "1559x1821",
+      "file_size": "546.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\cover\\hero.png",
+      "mode": "P",
+      "size": "4983x2804",
+      "file_size": "1.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\document-focus\\focus-01.png",
+      "mode": "RGBA",
+      "size": "1245x1975",
+      "file_size": "2.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\document-focus\\focus-02.png",
+      "mode": "P",
+      "size": "1660x1788",
+      "file_size": "260.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\document-focus\\focus-03.png",
+      "mode": "P",
+      "size": "1248x1882",
+      "file_size": "423.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents\\doc-01.png",
+      "mode": "RGBA",
+      "size": "2164x3063",
+      "file_size": "5.56 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents\\doc-02.png",
+      "mode": "RGBA",
+      "size": "2164x3063",
+      "file_size": "4.67 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents\\doc-03.png",
+      "mode": "RGBA",
+      "size": "2164x3063",
+      "file_size": "4.92 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents\\doc-04.png",
+      "mode": "RGBA",
+      "size": "2164x3063",
+      "file_size": "6.94 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\02\\A4 - 26.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.35 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\02\\A4 - 40.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.83 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\03\\A4 - 23.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\03\\A4 - 34.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.84 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\04\\A4 - 2.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.55 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\04\\A4 - 32.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.74 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\05\\A4 - 28.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.78 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\05\\A4 - 39.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.06 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\06\\A4 - 1.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.48 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\06\\A4 - 33.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.45 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\07\\A4 - 19.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.72 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\07\\A4 - 35.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.08 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\08\\A4 - 16.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.31 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\08\\A4 - 36.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.25 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\09\\A4 - 37.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.18 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\09\\A4 - 9.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.71 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\10\\A4 - 31.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.80 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\10\\A4 - 5.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\11\\A4 - 14.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.50 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\documents-paired\\11\\A4 - 38.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.49 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-01.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "3.71 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-02.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "2.97 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-03.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "4.08 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-04.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "3.65 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-05.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "4.72 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-06.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "5.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-07.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "3.58 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-08.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "4.44 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-a\\page-09.png",
+      "mode": "RGBA",
+      "size": "1592x2253",
+      "file_size": "1.92 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-01.png",
+      "mode": "RGBA",
+      "size": "1542x2742",
+      "file_size": "5.67 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-02.png",
+      "mode": "RGBA",
+      "size": "1567x2785",
+      "file_size": "5.52 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-03.png",
+      "mode": "RGBA",
+      "size": "1542x2742",
+      "file_size": "6.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-04.png",
+      "mode": "RGBA",
+      "size": "1542x2742",
+      "file_size": "7.86 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-05.png",
+      "mode": "RGBA",
+      "size": "1567x2785",
+      "file_size": "4.33 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-06.png",
+      "mode": "RGBA",
+      "size": "1567x2785",
+      "file_size": "6.51 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-07.png",
+      "mode": "RGBA",
+      "size": "1542x2742",
+      "file_size": "5.87 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-08.png",
+      "mode": "RGBA",
+      "size": "1567x2785",
+      "file_size": "6.41 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\gallery-b\\poster-09.png",
+      "mode": "RGBA",
+      "size": "1567x2785",
+      "file_size": "6.18 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-01.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "437.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-02.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "484.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-03.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "428.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-04.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "418.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-05.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "445.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-06.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "431.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-07.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "503.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-08.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "413.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-09.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "439.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\marquee\\marquee-10.png",
+      "mode": "RGBA",
+      "size": "1604x560",
+      "file_size": "415.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\panorama\\panorama-01.png",
+      "mode": "RGBA",
+      "size": "4756x3072",
+      "file_size": "4.44 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 483.png",
+      "mode": "RGBA",
+      "size": "752x968",
+      "file_size": "72.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 484.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "163.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 485.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "208.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 486.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "225.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 487.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "80.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 488.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "51.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 489.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "35.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 490.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "160.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 492.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "42.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 493.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "50.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 494.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "153.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 495.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "146.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 496.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "235.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 497.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "167.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 498.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "194.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 499.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "34.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 500.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "153.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 501.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "57.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 502.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "36.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 503.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "50.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\cards\\Group 504.png",
+      "mode": "RGBA",
+      "size": "752x969",
+      "file_size": "155.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105662.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "693.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105663.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "689.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105664.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "762.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105665.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "781.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105666.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "648.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105667.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "772.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105668.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "724.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105669.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "720.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105670.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "624.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105671.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "741.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105672.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "671.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105673.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "961.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105674.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "742.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105675.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "660.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105676.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "264.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105677.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "617.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105678.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "295.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105679.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "358.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105680.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "443.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105681.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "673.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105682.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "556.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105683.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "755.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105684.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "715.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105685.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "760.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105686.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "772.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105687.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "928.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105688.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "837.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105689.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "629.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105690.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "688.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105691.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "831.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105692.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "961.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105693.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "883.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105694.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "518.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105695.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "714.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105696.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "738.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\grid-36\\Frame 1430105697.png",
+      "mode": "RGBA",
+      "size": "1052x1052",
+      "file_size": "613.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\01\\Frame 1430105703.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1017.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\01\\Frame 1430105705.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "998.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\01\\Frame 1430105706.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1021.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105695.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "419.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105696.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "777.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105697.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "852.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105698.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "859.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105699.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "730.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105700.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "792.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105701.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "788.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\02\\Frame 1430105702.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "653.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\03\\Frame 1430105704.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1.07 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\03\\Frame 1430105707.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1.37 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\03\\Frame 1430105708.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1.24 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\groups\\03\\Frame 1430105709.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "1.19 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105683.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "529.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105684.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "514.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105685.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "521.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105686.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "533.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105687.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "395.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105688.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "540.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105689.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "527.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105690.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "500.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105691.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "533.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105692.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "519.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105693.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "388.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\square\\Frame 1430105694.png",
+      "mode": "RGBA",
+      "size": "1168x1168",
+      "file_size": "539.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip\\strip-01.png",
+      "mode": "RGBA",
+      "size": "644x1655",
+      "file_size": "486.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip\\strip-02.png",
+      "mode": "RGBA",
+      "size": "632x1655",
+      "file_size": "498.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip\\strip-03.png",
+      "mode": "RGBA",
+      "size": "656x1655",
+      "file_size": "511.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip\\strip-04.png",
+      "mode": "RGBA",
+      "size": "644x1655",
+      "file_size": "589.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip\\strip-05.png",
+      "mode": "RGBA",
+      "size": "638x1655",
+      "file_size": "478.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip-back\\Group 534.png",
+      "mode": "RGBA",
+      "size": "644x1655",
+      "file_size": "512.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip-back\\Group 535.png",
+      "mode": "RGBA",
+      "size": "638x1655",
+      "file_size": "367.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip-back\\Group 536.png",
+      "mode": "RGBA",
+      "size": "632x1655",
+      "file_size": "390.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip-back\\Group 537.png",
+      "mode": "RGBA",
+      "size": "644x1655",
+      "file_size": "398.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\strip-back\\Group 538.png",
+      "mode": "RGBA",
+      "size": "656x1655",
+      "file_size": "406.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-01.png",
+      "mode": "RGBA",
+      "size": "1440x1108",
+      "file_size": "697.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-02.png",
+      "mode": "RGBA",
+      "size": "820x1108",
+      "file_size": "459.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-03.png",
+      "mode": "RGBA",
+      "size": "1193x1108",
+      "file_size": "658.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-04.png",
+      "mode": "RGBA",
+      "size": "1113x1108",
+      "file_size": "537.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-05.png",
+      "mode": "RGBA",
+      "size": "982x1108",
+      "file_size": "787.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-06.png",
+      "mode": "RGBA",
+      "size": "1135x1108",
+      "file_size": "369.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\product\\wide\\fly-07.png",
+      "mode": "RGBA",
+      "size": "844x1108",
+      "file_size": "648.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\scene\\scene-01.png",
+      "mode": "RGBA",
+      "size": "1245x1975",
+      "file_size": "2.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\scene\\scene-02.png",
+      "mode": "RGBA",
+      "size": "1660x1788",
+      "file_size": "1.60 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\scene\\scene-03.png",
+      "mode": "RGBA",
+      "size": "1248x1882",
+      "file_size": "1.68 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 1.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.73 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 2.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "3.02 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 3.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "1.76 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 4.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.51 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 5.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "3.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 6.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.83 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 7.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.40 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 8.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.45 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-03\\slides\\Slide 16_9 - 9.png",
+      "mode": "RGBA",
+      "size": "1920x1080",
+      "file_size": "2.02 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\1-black\\Group 189.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "2.70 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\1-black\\Group 311.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "722.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\1-black\\Group 312.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "544.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\2-r15\\banner-RHYTHM 15 2.png",
+      "mode": "RGBA",
+      "size": "2180x1226",
+      "file_size": "2.31 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\2-r15\\Group 299.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "3.16 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\3-yellow\\banner 16.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "4.09 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\3-yellow\\Group 298.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "3.41 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\4-blue\\Group 308.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "2.78 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\1-banner\\4-blue\\Group 394.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "6.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\1-bag\\Nicotine Drops-1.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.20 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\1-bag\\Nicotine Drops-2.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.06 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\1-bag\\Nicotine Drops-3.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.11 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\1-bag\\Nicotine Drops-4.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.16 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\1-bag\\Nicotine Drops.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\24.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "814.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\25.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "887.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\26.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "800.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\Nicotine Drops-1.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.14 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\Nicotine Drops-2.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\2-plastic-box\\Nicotine Drops.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\3-tin-box\\Nicotine Drops-1.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.23 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\3-tin-box\\Nicotine Drops-2.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.29 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\3-tin-box\\Nicotine Drops-3.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.25 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\3-tin-box\\Nicotine Drops-4.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\3-tin-box\\Nicotine Drops.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.19 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\4-bullet-box\\Nicotine Drops-1.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "851.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\4-bullet-box\\Nicotine Drops-2.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "508.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\4-bullet-box\\Nicotine Drops-3.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "372.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\4-bullet-box\\Nicotine Drops-4.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\1-nicotine-drops\\4-bullet-box\\Nicotine Drops.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.19 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-1.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "263.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-10.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "950.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-2.png",
+      "mode": "RGBA",
+      "size": "1568x1244",
+      "file_size": "290.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-3.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "1.09 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-4.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "968.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-5.png",
+      "mode": "RGBA",
+      "size": "1568x1244",
+      "file_size": "1.07 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-6.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "1.07 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-7.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "1.03 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-8.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "1.10 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT-9.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "958.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\2-oil\\ICE FLOW NICSALT.png",
+      "mode": "RGBA",
+      "size": "1572x1244",
+      "file_size": "1004.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\51.png",
+      "mode": "RGBA",
+      "size": "675x1389",
+      "file_size": "510.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\52.png",
+      "mode": "RGBA",
+      "size": "658x1396",
+      "file_size": "596.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\53.png",
+      "mode": "RGBA",
+      "size": "659x1396",
+      "file_size": "591.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\54.png",
+      "mode": "RGBA",
+      "size": "653x1395",
+      "file_size": "600.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\55.png",
+      "mode": "RGBA",
+      "size": "663x1396",
+      "file_size": "546.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\56.png",
+      "mode": "RGBA",
+      "size": "660x1396",
+      "file_size": "607.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\57.png",
+      "mode": "RGBA",
+      "size": "664x1396",
+      "file_size": "509.4 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\58.png",
+      "mode": "RGBA",
+      "size": "660x1396",
+      "file_size": "608.5 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\59.png",
+      "mode": "RGBA",
+      "size": "661x1396",
+      "file_size": "701.6 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\60.png",
+      "mode": "RGBA",
+      "size": "665x1396",
+      "file_size": "603.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\61.png",
+      "mode": "RGBA",
+      "size": "660x1396",
+      "file_size": "548.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\3-nano\\62.png",
+      "mode": "RGBA",
+      "size": "654x1396",
+      "file_size": "488.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\63-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "738.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\63.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.02 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\64-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "663.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\64.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1016.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\65-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "761.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\65.png",
+      "mode": "RGBA",
+      "size": "1460x2333",
+      "file_size": "993.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\66-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "652.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\66.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.02 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\67-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "677.9 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\67.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "902.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\68-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "747.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\68.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1012.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\69-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "638.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\69.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.04 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\70-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "813.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\70.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.20 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\71-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "706.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\71.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.00 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\74-1.png",
+      "mode": "RGBA",
+      "size": "655x1421",
+      "file_size": "704.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\4-kiyomi\\74.png",
+      "mode": "RGBA",
+      "size": "1460x2333",
+      "file_size": "1.01 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105698.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.55 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105699.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.51 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105700.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.71 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105701.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.67 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105702.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.50 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105703.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.58 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105704.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.65 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105705.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.75 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105706.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.35 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\package\\Frame 1430105707.png",
+      "mode": "RGBA",
+      "size": "1276x2544",
+      "file_size": "2.49 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\75.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.28 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\76.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.37 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\77.png",
+      "mode": "RGBA",
+      "size": "1460x2333",
+      "file_size": "1.35 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\78.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.20 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\79.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.27 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\80.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\81.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.33 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\82.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.33 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\83.png",
+      "mode": "RGBA",
+      "size": "1466x2333",
+      "file_size": "1.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\5-spark\\product\\84.png",
+      "mode": "RGBA",
+      "size": "1460x2333",
+      "file_size": "1.29 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\6-mist flow\\13.png",
+      "mode": "RGBA",
+      "size": "2100x1612",
+      "file_size": "956.1 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\6-mist flow\\14.png",
+      "mode": "RGBA",
+      "size": "2100x1612",
+      "file_size": "933.8 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\package\\30.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.08 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\package\\31.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.04 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\package\\32.png",
+      "mode": "RGBA",
+      "size": "1571x1571",
+      "file_size": "1.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\product\\image 143.png",
+      "mode": "RGBA",
+      "size": "1151x2194",
+      "file_size": "1.55 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\product\\image 144.png",
+      "mode": "RGBA",
+      "size": "1151x2194",
+      "file_size": "1.58 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\product\\image 145.png",
+      "mode": "RGBA",
+      "size": "1151x2194",
+      "file_size": "1.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\product\\image 146.png",
+      "mode": "RGBA",
+      "size": "1151x2194",
+      "file_size": "1.28 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\7-addone\\product\\image 147.png",
+      "mode": "RGBA",
+      "size": "1151x2194",
+      "file_size": "1.27 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type1\\10.png",
+      "mode": "RGBA",
+      "size": "960x1572",
+      "file_size": "619.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type1\\11.png",
+      "mode": "RGBA",
+      "size": "960x1572",
+      "file_size": "771.0 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type1\\12.png",
+      "mode": "RGBA",
+      "size": "960x1572",
+      "file_size": "726.2 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type1\\4088173.png",
+      "mode": "RGBA",
+      "size": "960x1572",
+      "file_size": "672.7 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type1\\4088174.png",
+      "mode": "RGBA",
+      "size": "960x1572",
+      "file_size": "512.3 KB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type2\\image 148.png",
+      "mode": "RGBA",
+      "size": "2374x1678",
+      "file_size": "1.48 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type2\\image 149.png",
+      "mode": "RGBA",
+      "size": "2374x1677",
+      "file_size": "1.42 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type2\\image 150.png",
+      "mode": "RGBA",
+      "size": "2374x1676",
+      "file_size": "1.72 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type2\\image 151.png",
+      "mode": "RGBA",
+      "size": "2374x1673",
+      "file_size": "1.47 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\2-products\\8-mingcang\\type2\\image 152.png",
+      "mode": "RGBA",
+      "size": "2374x1682",
+      "file_size": "3.37 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-04\\cover\\hero.png",
+      "mode": "RGBA",
+      "size": "2182x1228",
+      "file_size": "2.70 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 13.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "8.01 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 14.png",
+      "mode": "RGBA",
+      "size": "2369x3352",
+      "file_size": "2.64 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 2.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.21 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 48.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.18 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 6.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.88 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\cube\\A4 - 92.png",
+      "mode": "RGBA",
+      "size": "2369x3352",
+      "file_size": "10.43 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\e-liquid\\A4 - 7.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.54 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\e-liquid\\A4 - 8.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.79 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\e-liquid\\A4 - 93.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.43 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\e-liquid\\A4 - 94.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.77 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 10.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.03 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 105.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "8.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 108.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.78 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 109.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "8.03 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 110.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "8.67 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-01\\A4 - 111.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.45 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-02\\A4 - 20.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.82 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-02\\A4 - 21.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-02\\A4 - 22.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-03\\A4 - 106.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.98 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-03\\A4 - 112.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.29 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-03\\A4 - 113.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.20 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-03\\A4 - 5.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.75 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-03\\A4 - 84.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.42 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-04\\A4 - 114.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.25 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-04\\A4 - 115.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.14 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-04\\A4 - 116.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-04\\A4 - 83.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.96 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 82.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 85.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.18 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 86.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.76 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 87.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.72 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 88.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.70 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 89.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.56 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-05\\A4 - 90.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.53 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-06\\A4 - 107.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "12.56 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-06\\A4 - 117.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "8.03 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\kiyomi\\group-06\\A4 - 12.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.41 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\m1\\A4 - 50.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.13 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\m1\\A4 - 51.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.39 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\m1\\A4 - 96.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "3.99 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\m1\\A4 - 97.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.81 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\motor\\A4 - 15.png",
+      "mode": "RGBA",
+      "size": "2364x3345",
+      "file_size": "7.93 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\motor\\A4 - 16.png",
+      "mode": "RGBA",
+      "size": "2365x3347",
+      "file_size": "10.57 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\motor\\A4 - 17.png",
+      "mode": "RGBA",
+      "size": "2364x3345",
+      "file_size": "8.55 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\motor\\A4 - 18.png",
+      "mode": "RGBA",
+      "size": "2364x3345",
+      "file_size": "10.56 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\motor\\A4 - 95.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "2.78 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-1\\A4 - 101.png",
+      "mode": "RGBA",
+      "size": "2381x3368",
+      "file_size": "9.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-1\\A4 - 43.png",
+      "mode": "RGBA",
+      "size": "2360x3340",
+      "file_size": "5.37 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-1\\A4 - 44.png",
+      "mode": "RGBA",
+      "size": "2361x3340",
+      "file_size": "12.08 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-1\\A4 - 55.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "9.31 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-1\\A4 - 56.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "9.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 103.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.46 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 104.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.95 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 42.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.64 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 47.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "6.00 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 60.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.96 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 61.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.84 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\nicotine-drops\\version-2\\A4 - 62.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\r15\\A4 - 100.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "9.31 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\r15\\A4 - 59.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "4.76 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\r15\\A4 - 98.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\r15\\A4 - 99.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "7.94 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\中东1.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.91 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\中东2.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.85 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\非洲1.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.01 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\非洲2.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.52 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\非洲3.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.51 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\kv\\spark\\非洲4.png",
+      "mode": "RGBA",
+      "size": "2380x3368",
+      "file_size": "5.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4088168f25a7f357327953c0baf794f2 1.png",
+      "mode": "RGBA",
+      "size": "1803x1049",
+      "file_size": "1.69 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4088168f25a7f357327953c0baf794f2 2.png",
+      "mode": "RGBA",
+      "size": "1803x1049",
+      "file_size": "2.48 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4088168f25a7f357327953c0baf794f2 4.png",
+      "mode": "RGBA",
+      "size": "1803x1049",
+      "file_size": "2.14 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4fe086c50cfa001b5fa8e0b117ec394b 1.png",
+      "mode": "RGBA",
+      "size": "1805x1049",
+      "file_size": "3.29 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4fe086c50cfa001b5fa8e0b117ec394b 2.png",
+      "mode": "RGBA",
+      "size": "1805x1049",
+      "file_size": "1.87 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4fe086c50cfa001b5fa8e0b117ec394b 3.png",
+      "mode": "RGBA",
+      "size": "1805x1049",
+      "file_size": "2.01 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\4fe086c50cfa001b5fa8e0b117ec394b 4.png",
+      "mode": "RGBA",
+      "size": "1805x1049",
+      "file_size": "2.85 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\Group 447.png",
+      "mode": "RGBA",
+      "size": "1803x1048",
+      "file_size": "2.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\Group 502.png",
+      "mode": "RGBA",
+      "size": "1803x1050",
+      "file_size": "2.44 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\mockups\\Group 535.png",
+      "mode": "RGBA",
+      "size": "1803x1049",
+      "file_size": "2.68 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q6_fcd6ca2a-8de7-4571-9989-03dffecb102g 1.png",
+      "mode": "RGBA",
+      "size": "1176x1180",
+      "file_size": "2.71 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q8_28810cc9-0b79-4a5e-9aa5-af73eb4089bg 1.png",
+      "mode": "RGBA",
+      "size": "1176x1184",
+      "file_size": "2.00 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q8_672f6ada-9467-4cb4-8518-d5873af73e5g 1.png",
+      "mode": "RGBA",
+      "size": "1176x1184",
+      "file_size": "2.16 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q8_a11be66c-7ec0-4ddd-be1a-15b9e8b08ccg 1.png",
+      "mode": "RGBA",
+      "size": "1176x1184",
+      "file_size": "1.57 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q8_ae0b77d3-dffa-4c51-8829-d1fa58db4bag 1.png",
+      "mode": "RGBA",
+      "size": "1176x1184",
+      "file_size": "2.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02q8_b78f8fc3-5af7-42d4-83f0-1b26701c699g 1.png",
+      "mode": "RGBA",
+      "size": "1176x1184",
+      "file_size": "2.16 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02r5_d5ce4b06-9c4c-411e-b2ce-cc054bc98dfg 1.png",
+      "mode": "RGBA",
+      "size": "1176x1180",
+      "file_size": "2.99 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02ro_4f31a9e6-c822-4391-9051-d160eb38464g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.99 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02ro_a4a383c1-7d84-4214-98ef-ebc4725b026g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.64 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02ro_d8bd7d3c-6181-4a21-a230-709379c6aecg 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "2.05 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02ro_da743e75-d630-42ac-8782-f5e3d22f378g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.97 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02rp_6eee99ff-19e9-4caa-9727-f6245b77fb7g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.83 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02rp_70494222-d9f1-4a78-a7f9-c32070f3f72g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.98 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02rp_aa03b8b6-7321-40d2-a501-a8a75872d54g 1.png",
+      "mode": "RGBA",
+      "size": "1180x1180",
+      "file_size": "1.98 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\cube\\img_v3_02rp_ac116a05-208c-4d7f-b8db-eb0e1644bbfg 1.png",
+      "mode": "RGBA",
+      "size": "1184x1184",
+      "file_size": "1.79 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\horizontal\\img_v3_02pg_4ee36845-3ed4-4742-99b6-139219c18e7g 1.png",
+      "mode": "RGBA",
+      "size": "1709x1223",
+      "file_size": "1.88 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\horizontal\\img_v3_02rv_1108cf29-6c1c-4a68-9c65-f267e396f78g 1.png",
+      "mode": "RGBA",
+      "size": "1709x1223",
+      "file_size": "3.22 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\horizontal\\img_v3_02s5_4fb3c0b2-72d2-4026-aaed-8f5906f3c55g 1.png",
+      "mode": "RGBA",
+      "size": "1709x1223",
+      "file_size": "3.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\horizontal\\img_v3_02tc_824d2d60-200c-4dbf-8636-8ef494e16ebg 1.png",
+      "mode": "RGBA",
+      "size": "1709x1223",
+      "file_size": "4.11 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02mu_4331f3f7-2aee-4f67-a9b4-b2cd1de2fa9g 1.png",
+      "mode": "RGBA",
+      "size": "2312x3108",
+      "file_size": "8.32 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02pr_403b4e36-8fe4-45ec-b2bc-a2a9d337142g 1.png",
+      "mode": "RGBA",
+      "size": "2312x3108",
+      "file_size": "7.23 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02ra_0e9ab48e-6a3d-4a61-b096-f2ee835fa86g 1.png",
+      "mode": "RGBA",
+      "size": "2312x3114",
+      "file_size": "10.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02ra_f545f6a7-7eb5-4557-8e43-bf61616e6b6g 1.png",
+      "mode": "RGBA",
+      "size": "2312x3108",
+      "file_size": "9.75 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02rb_b3e8dbb6-3cca-4b26-b488-ef8a06406c3g 1.png",
+      "mode": "RGBA",
+      "size": "2312x3114",
+      "file_size": "6.89 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02rb_d960bb1f-1eaf-4797-b4dc-9869548c03fg 1.png",
+      "mode": "RGBA",
+      "size": "2312x3114",
+      "file_size": "8.10 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02rv_2b6abf77-ccb6-42c9-96ac-a0ab4d77d1eg 1.png",
+      "mode": "RGBA",
+      "size": "2312x3108",
+      "file_size": "8.66 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\display-stand\\vertical\\img_v3_02t9_0809d7b1-823d-4b5e-b537-c8b82eb741cg 1.png",
+      "mode": "RGBA",
+      "size": "2312x3114",
+      "file_size": "6.82 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\expo\\56cd0386f2a6e96d2f94fc2743dfc9bb 1.png",
+      "mode": "RGBA",
+      "size": "1728x1118",
+      "file_size": "2.16 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\expo\\acc0dc973c3e4d2bd0de6423b74e2820 1.png",
+      "mode": "RGBA",
+      "size": "1729x1118",
+      "file_size": "2.47 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\expo\\img_v3_02li_0fbfdd72-72df-455f-988e-254b9ca515ag 1.png",
+      "mode": "RGBA",
+      "size": "1729x1119",
+      "file_size": "1.15 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_4716b1ff-ffc3-4b93-aac4-851ad292550g 1.png",
+      "mode": "RGBA",
+      "size": "1179x1179",
+      "file_size": "2.59 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_77b34125-e5a7-49fb-9ffb-7f7083f6c91g 1.png",
+      "mode": "RGBA",
+      "size": "1179x1179",
+      "file_size": "2.68 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_a9d4f672-a61d-4903-a0f9-84ebdb80f3dg 1.png",
+      "mode": "RGBA",
+      "size": "1187x1178",
+      "file_size": "2.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_d08101b0-f6d1-4117-8e5d-6b34519da7dg 1.png",
+      "mode": "RGBA",
+      "size": "1184x1184",
+      "file_size": "2.61 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_e622acd1-6dc2-400d-b040-4c0a5f1f09dg 1.png",
+      "mode": "RGBA",
+      "size": "1184x1184",
+      "file_size": "2.27 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\motor\\img_v3_02ro_ffd236b1-4fa1-4812-8e16-00e7906d726g 1.png",
+      "mode": "RGBA",
+      "size": "1179x1179",
+      "file_size": "2.89 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\IMG_20260126_103830_edit_292227773485616 1.png",
+      "mode": "RGBA",
+      "size": "1517x908",
+      "file_size": "1.92 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\IMG_20260126_104345_edit_292325401480914 1.png",
+      "mode": "RGBA",
+      "size": "1516x948",
+      "file_size": "2.42 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\IMG_20260126_104453_edit_292348157471535 1.png",
+      "mode": "RGBA",
+      "size": "1516x948",
+      "file_size": "2.19 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\IMG_20260126_104755_edit_292364704911116 1.png",
+      "mode": "RGBA",
+      "size": "1516x907",
+      "file_size": "1.85 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\IMG_20260126_112639_edit_293234890828171 1.png",
+      "mode": "RGBA",
+      "size": "1516x940",
+      "file_size": "1.34 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\img_v3_02sf_b4cca58e-abae-4a8c-b6c3-eb1af093ee7g 1.png",
+      "mode": "RGBA",
+      "size": "1516x940",
+      "file_size": "2.79 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\img_v3_02t1_7440c7b3-6e0b-4194-9bf8-4e057ca4980g 1.png",
+      "mode": "RGBA",
+      "size": "1516x940",
+      "file_size": "1.10 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\img_v3_02t1_e68a6bd0-d6bc-4e83-85ca-e136cb50125g 1.png",
+      "mode": "RGBA",
+      "size": "1516x948",
+      "file_size": "1.09 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\packaging\\img_v3_02tc_9df44ca7-60f7-4cc8-9c92-11730ecd457g 1.png",
+      "mode": "RGBA",
+      "size": "1516x940",
+      "file_size": "2.01 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02ok_96fee373-fd9a-4402-98d9-6f0fd6eda1eg 1.png",
+      "mode": "RGBA",
+      "size": "1702x1276",
+      "file_size": "2.93 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02ok_a6662106-718c-41b5-aa1e-c8d1a293e68g 1.png",
+      "mode": "RGBA",
+      "size": "1702x1276",
+      "file_size": "2.77 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02ok_c176f344-1da1-4be4-9825-9f3b8596cfeg 1.png",
+      "mode": "RGBA",
+      "size": "1710x1282",
+      "file_size": "2.66 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02ok_e9aa5c39-d41f-4c6c-b65a-9f74e97e2a6g 1.png",
+      "mode": "RGBA",
+      "size": "1702x1277",
+      "file_size": "2.88 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02p1_26bef36f-71d4-488b-975a-8eda613d31bg 1.png",
+      "mode": "RGBA",
+      "size": "1710x1283",
+      "file_size": "3.66 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02pp_88151d18-6e69-4bad-8a0f-2accc89711eg 1.png",
+      "mode": "RGBA",
+      "size": "1710x1282",
+      "file_size": "2.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02pp_d2e064f3-b87a-4cb1-98db-7f52f0187e9g 1.png",
+      "mode": "RGBA",
+      "size": "1710x1283",
+      "file_size": "2.26 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02pp_f294c519-962d-470a-b068-991af527261g 1.png",
+      "mode": "RGBA",
+      "size": "1710x1283",
+      "file_size": "2.30 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\horizontal\\img_v3_02pr_2653183e-c2b2-4082-b5c4-beb4f002d79g 1.png",
+      "mode": "RGBA",
+      "size": "1710x1283",
+      "file_size": "4.40 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\vertical\\img_v3_02pa_1a6cc14c-8b9f-4560-9331-874d4f86d55g 1.png",
+      "mode": "RGBA",
+      "size": "1200x2133",
+      "file_size": "3.37 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\vertical\\img_v3_02ps_e6c13de7-8bbf-44be-81cc-7ca3948ea06g 1.png",
+      "mode": "RGBA",
+      "size": "1199x2133",
+      "file_size": "3.03 MB",
+      "has_transparency": true,
+      "issue": null
+    },
+    {
+      "path": "images\\phase-05\\photo\\store\\vertical\\img_v3_02pv_53f650e4-7676-4c4a-9e99-5a47160095dg 1.png",
+      "mode": "RGBA",
+      "size": "1199x2133",
+      "file_size": "1.85 MB",
+      "has_transparency": true,
+      "issue": null
+    }
+  ],
+  "error_files": []
+}

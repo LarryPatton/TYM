@@ -1,9 +1,11 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { Link } from 'react-router-dom';
+import LoadingScreen from '../components/LoadingScreen';
 
 // 倾斜切割背景组件 - 使用 clip-path 实现真正的斜切效果
 const SlicedBackground = ({ phases, isDark }) => {
@@ -114,6 +116,189 @@ const Work = () => {
   const isDark = theme === 'dark';
   useTitle(t('work.pageTitle'));
 
+  // ========== 图片预加载逻辑 ==========
+  
+  // 定义 phases 数据用于倾斜背景（深度案例研究）
+  const phases = [
+    {
+      id: 'phase-01',
+      titleEn: 'Brand Identity',
+      image: '/images/case-index/phase-01-cover.png',
+    },
+    {
+      id: 'phase-02',
+      titleEn: 'Product A',
+      image: '/images/case-index/phase-02-cover.png',
+    },
+    {
+      id: 'phase-03',
+      titleEn: 'Product B',
+      image: '/images/case-index/phase-03-cover.png',
+    },
+    {
+      id: 'phase-04',
+      titleEn: 'Packaging',
+      image: '/images/case-index/phase-04-cover.png',
+    },
+    {
+      id: 'phase-05',
+      titleEn: 'Retail & Experience Expansion',
+      image: '/images/case-index/phase-05-cover.png',
+    },
+    {
+      id: 'phase-06',
+      titleEn: 'Coming Soon',
+      image: null, // Phase 06 未来可能有封面，保留适应性
+    }
+  ];
+
+  // 🚀 提取 the-case 页面的封面图片用于预加载（动态读取，适应未来扩展）
+  const caseIndexCoverImages = useMemo(() => {
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizeUrl = (path) => {
+      if (!path || typeof path !== 'string') return null;
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return baseUrl + cleanPath;
+    };
+    
+    // 从 phases 配置中提取封面图片（过滤掉 null）
+    const coverUrls = phases
+      .filter(phase => phase.image) // 过滤掉没有图片的 phase
+      .map(phase => normalizeUrl(phase.image))
+      .filter(url => url && url.trim() !== ''); // 过滤空值
+    
+    console.log('[Work] 🎯 提取 the-case 封面图片:', coverUrls.length, coverUrls);
+    
+    return coverUrls;
+  }, []);
+
+  // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
+  const galleryItems = [
+    {
+      id: 'gallery-01',
+      titleEn: 'Artwork 01',
+      image: '/images/gallery/placeholder-01.svg',
+    },
+    {
+      id: 'gallery-02',
+      titleEn: 'Artwork 02',
+      image: '/images/gallery/placeholder-02.svg',
+    },
+    {
+      id: 'gallery-03',
+      titleEn: 'Artwork 03',
+      image: '/images/gallery/placeholder-03.svg',
+    },
+    {
+      id: 'gallery-04',
+      titleEn: 'Artwork 04',
+      image: '/images/gallery/placeholder-04.svg',
+    },
+    {
+      id: 'gallery-05',
+      titleEn: 'Artwork 05',
+      image: '/images/gallery/placeholder-05.svg',
+    },
+  ];
+
+  // 收集所有需要预加载的图片 URL
+  const imageUrls = useMemo(() => {
+    const urls = [];
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizeUrl = (path) => {
+      if (!path || typeof path !== 'string') return null;
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return baseUrl + cleanPath;
+    };
+    
+    // 收集 phases 图片
+    phases.forEach(phase => {
+      if (phase.image) {
+        urls.push(normalizeUrl(phase.image));
+      }
+    });
+    
+    // 收集 gallery 图片
+    galleryItems.forEach(item => {
+      if (item.image) {
+        urls.push(normalizeUrl(item.image));
+      }
+    });
+    
+    // 去重并过滤空值
+    const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
+    
+    console.log('[Work] Collected image URLs:', uniqueUrls.length, uniqueUrls);
+    
+    return uniqueUrls;
+  }, []);
+  
+  // 添加标志位，确保只加载一次
+  const [hasPreloaded, setHasPreloaded] = useState(false);
+  // 添加 canEnter 状态，由动画完成回调控制
+  const [canEnter, setCanEnter] = useState(false);
+  
+  // 使用图片预加载 Hook（30% 阈值策略，因为图片较少）
+  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+    enabled: !hasPreloaded,
+    threshold: 30, // 加载 30% 后即可进入页面（资源少，降低阈值）
+    onThresholdReached: (info) => {
+      console.log('[Work] ✅ 30% threshold reached!', info);
+    },
+    onComplete: (stats) => {
+      console.log('[Work] ✅ 100% loading complete!', stats);
+      setHasPreloaded(true);
+    },
+    onProgress: (info) => {
+      console.log('[Work] Progress update:', info);
+    }
+  });
+
+  // 🚀 并行预加载 the-case 页面的封面图片（后台静默加载）
+  const { 
+    progress: prefetchProgress, 
+    loadedCount: prefetchLoaded, 
+    totalCount: prefetchTotal 
+  } = useImagePreloader(caseIndexCoverImages, {
+    enabled: true, // 立即开始预加载
+    threshold: 100, // 后台任务，不设置阈值
+    onComplete: (stats) => {
+      console.log('[Work] 🚀 Prefetch complete! The-case covers are ready:', stats);
+      console.log('[Work] 📊 Prefetch stats:', {
+        total: prefetchTotal,
+        loaded: prefetchLoaded,
+        progress: `${prefetchProgress}%`
+      });
+    },
+    onProgress: (info) => {
+      // 静默预加载，仅记录日志
+      if (info.loadedCount % 2 === 0 || info.loadedCount === info.totalCount) {
+        console.log('[Work] 🔄 Prefetching covers:', `${info.loadedCount}/${info.totalCount} (${Math.round(info.realProgress)}%)`);
+      }
+    }
+  });
+  
+  // 动画完成回调：只有动画播放完毕且真实加载 >= 30% 时才允许进入
+  const handleAnimationComplete = useCallback(() => {
+    if (progress >= 30) {
+      console.log('[Work] ✅ Animation complete! User can enter page.');
+      setCanEnter(true);
+    }
+  }, [progress]);
+  
+  // 调试输出
+  useEffect(() => {
+    console.log('[Work] Loading state:', { 
+      isLoading, 
+      canEnter, 
+      progress, 
+      loadedCount, 
+      totalCount, 
+      hasPreloaded,
+      displayProgress: `真实 ${progress}% → 显示 ${progress >= 30 ? 100 : Math.round((progress / 30) * 100)}%`
+    });
+  }, [isLoading, canEnter, progress, loadedCount, totalCount, hasPreloaded]);
+
   // ========== 动画变体定义 ==========
   
   // 页面容器 - 控制整体交错
@@ -123,7 +308,7 @@ const Work = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0
+        delayChildren: 0.6 // 延迟 0.6 秒开始动画（等待加载屏幕完全退出）
       }
     }
   };
@@ -290,69 +475,6 @@ const Work = () => {
 
   // ========== 样式定义 ==========
 
-  // 定义 phases 数据用于倾斜背景（深度案例研究）
-  const phases = [
-    {
-      id: 'phase-01',
-      titleEn: 'Brand Identity',
-      image: '/images/case-index/phase-01-cover.png',
-    },
-    {
-      id: 'phase-02',
-      titleEn: 'Product A',
-      image: '/images/case-index/phase-02-cover.png',
-    },
-    {
-      id: 'phase-03',
-      titleEn: 'Product B',
-      image: '/images/case-index/phase-03-cover.png',
-    },
-    {
-      id: 'phase-04',
-      titleEn: 'Packaging',
-      image: '/images/case-index/phase-04-cover.png',
-    },
-    {
-      id: 'phase-05',
-      titleEn: 'Retail & Experience Expansion',
-      image: '/images/case-index/phase-05-cover.png',
-    },
-    {
-      id: 'phase-06',
-      titleEn: 'Coming Soon',
-      image: null,
-    }
-  ];
-
-  // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
-  const galleryItems = [
-    {
-      id: 'gallery-01',
-      titleEn: 'Artwork 01',
-      image: '/images/gallery/placeholder-01.svg',
-    },
-    {
-      id: 'gallery-02',
-      titleEn: 'Artwork 02',
-      image: '/images/gallery/placeholder-02.svg',
-    },
-    {
-      id: 'gallery-03',
-      titleEn: 'Artwork 03',
-      image: '/images/gallery/placeholder-03.svg',
-    },
-    {
-      id: 'gallery-04',
-      titleEn: 'Artwork 04',
-      image: '/images/gallery/placeholder-04.svg',
-    },
-    {
-      id: 'gallery-05',
-      titleEn: 'Artwork 05',
-      image: '/images/gallery/placeholder-05.svg',
-    },
-  ];
-
   // 暗色模式样式
   const darkStyles = {
     page: {
@@ -423,17 +545,32 @@ const Work = () => {
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
 
   return (
-    <motion.div 
-      key={theme}
-      initial="hidden"
-      animate="visible"
-      variants={pageContainer}
-      style={{ 
-        minHeight: '100vh',
-        position: 'relative',
-        ...styles.page
-      }}
-    >
+    <>
+      {/* 加载屏幕 - 使用 !canEnter 控制显示，动画至少 1 秒 */}
+      <LoadingScreen 
+        isVisible={!canEnter}
+        realProgress={progress}
+        loadedCount={loadedCount}
+        totalCount={totalCount}
+        phaseNumber="" // Work 页面不显示 Phase 编号
+        threshold={30}
+        minDuration={1000} // 最小动画时长 1 秒
+        onAnimationComplete={handleAnimationComplete}
+      />
+      
+      <AnimatePresence mode="wait">
+        {canEnter && (
+          <motion.div 
+            key={`work-content-${canEnter}`} // 使用 canEnter 作为 key 的一部分，确保重新挂载
+            initial="hidden"
+            animate="visible"
+            variants={pageContainer}
+            style={{ 
+              minHeight: '100vh',
+              position: 'relative',
+              ...styles.page
+            }}
+          >
       {/* 滚动提示 */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -672,7 +809,10 @@ const Work = () => {
           </div>
         </motion.div>
       </Link>
-    </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

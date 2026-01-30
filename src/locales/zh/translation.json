@@ -1,7 +1,7 @@
 {
   "about": {
     "pageTitle": "关于",
-    "title": "About Me.",
+    "title": "关于我",
     "sectionIntro": "简介",
     "sectionExpertise": "专业能力",
     "sectionJourney": "旅程",
@@ -18,7 +18,7 @@
     "introLine4": "对我而言，设计不仅是形式的选择，而是一种基于判断、经验与长期视角的持续实践。",
     "downloadResume": "下载简历",
     "contactMe": "联系我",
-    "letsTalk": "Let's Talk.",
+    "letsTalk": "联系我吧",
     "contactIntro": "准备好开始下一个项目了吗？",
     "contactIntro2": "无论是全新的构想还是正在进行的项目，我都乐意倾听。",
     "copy": "复制",
@@ -649,6 +649,13 @@
         ]
       }
     }
+  },
+  "loading": {
+    "loadingAssets": "正在加载资源...",
+    "preparingExperience": "准备体验中...",
+    "almostReady": "即将就绪...",
+    "welcome": "欢迎！",
+    "loadingExperience": "加载体验中..."
   },
   "work": {
     "pageTitle": "作品",

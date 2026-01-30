@@ -59,18 +59,19 @@ def compress_image(file_path: Path, jpg_quality: int, png_quality: int) -> Tuple
         # 打开图片
         img = Image.open(file_path)
         
-        # 转换 RGBA 为 RGB (如果是 PNG)
-        if img.mode == 'RGBA':
-            background = Image.new('RGB', img.size, (255, 255, 255))
-            background.paste(img, mask=img.split()[3])
-            img = background
-        elif img.mode not in ('RGB', 'L'):
-            img = img.convert('RGB')
-        
         # 根据格式选择压缩参数
         ext = file_path.suffix.lower()
         
         if ext in ['.jpg', '.jpeg']:
+            # JPG 需要 RGB 模式
+            if img.mode == 'RGBA':
+                # JPG 不支持透明通道，使用白色背景
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                background.paste(img, mask=img.split()[3])
+                img = background
+            elif img.mode not in ('RGB', 'L'):
+                img = img.convert('RGB')
+            
             # JPG 压缩
             img.save(
                 file_path,
@@ -80,14 +81,13 @@ def compress_image(file_path: Path, jpg_quality: int, png_quality: int) -> Tuple
                 progressive=True
             )
         elif ext == '.png':
-            # PNG 压缩（根据质量参数调整颜色数量）
-            # 质量 100% = 256色, 50% = 128色, 以此类推
-            colors = max(8, int(256 * (png_quality / 100)))  # 最少8色
-            img = img.convert('P', palette=Image.ADAPTIVE, colors=colors)
+            # PNG 压缩 - 保留透明通道！
+            # 不转换模式，保持原始的 RGBA、RGB、P 等模式
             img.save(
                 file_path,
                 'PNG',
-                optimize=True
+                optimize=True,
+                compress_level=9  # 最高压缩级别
             )
         
         # 获取压缩后大小

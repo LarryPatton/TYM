@@ -13,11 +13,6 @@
     "i18n:watch": "node scripts/build-i18n.cjs --watch",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "**/*.{jpg,jpeg,png,gif,svg}": [
-      "node scripts/compress-images.js"
-    ]
-  },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
