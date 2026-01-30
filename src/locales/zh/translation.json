@@ -370,6 +370,11 @@
     }
   },
   "gallery": {
+    "pageTitle": "画廊",
+    "label": "Art Practice · Visual Exploration",
+    "title": "艺术画廊",
+    "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
+    "exploreWorks": "探索作品",
     "modules": {
       "form-structure": {
         "number": "01",
@@ -491,9 +496,6 @@
         "title": "未知模块"
       }
     },
-    "pageTitle": "画廊",
-    "title": "艺术画廊",
-    "subtitle": "以视觉作品为主的个人创作集合，探索造型与光影的无限可能。",
     "categories": "分类",
     "allWorks": "全部作品",
     "backToGallery": "← 返回画廊首页",

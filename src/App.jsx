@@ -6,6 +6,7 @@ import { LenisProvider } from './contexts/LenisContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Work from './pages/Work';
+import Gallery from './pages/Gallery';
 import About from './pages/About';
 import CaseStudiesList from './pages/CaseStudiesList';
 import CaseStudyDetail from './pages/CaseStudyDetail';
@@ -80,10 +81,11 @@ function App() {
             <Route path="showcase-demos/color-reveal" element={<ColorRevealDemo />} />
 
             {/* New Gallery Routes */}
-            <Route path="gallery" element={<GalleryHome />} />
-            <Route path="gallery/:module" element={<GalleryModule />} />
-            <Route path="gallery/:module/:submodule" element={<GallerySubmodule />} />
-            <Route path="gallery/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="gallery-old" element={<GalleryHome />} />
+            <Route path="gallery-old/:module" element={<GalleryModule />} />
+            <Route path="gallery-old/:module/:submodule" element={<GallerySubmodule />} />
+            <Route path="gallery-old/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
 
             <Route path="about" element={<About />} />
           </Route>

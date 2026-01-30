@@ -214,7 +214,7 @@ const Layout = () => {
   }, [location.pathname]);
 
   const isFullWidthPage = true; 
-  const hideFooter = false;
+  const hideFooter = location.pathname === '/work' || location.pathname === '/gallery';
   const hideHeader = location.pathname.includes('/work/the-case/');
   
   const isActive = (path) => {
@@ -224,6 +224,7 @@ const Layout = () => {
   const navLinks = [
     { path: '/', label: t('nav.home') },
     { path: '/work', label: t('nav.work') },
+    { path: '/gallery', label: t('nav.gallery') },
     { path: '/about', label: t('nav.about') },
   ];
 

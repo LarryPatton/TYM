@@ -370,6 +370,11 @@
     }
   },
   "gallery": {
+    "pageTitle": "Gallery",
+    "label": "Art Practice · Visual Exploration",
+    "title": "Art Gallery",
+    "desc": "As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, which in turn nourish my judgment in brand and product design.",
+    "exploreWorks": "Explore Works",
     "modules": {
       "form-structure": {
         "number": "01",
