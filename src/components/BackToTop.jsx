@@ -23,7 +23,8 @@ const BackToTop = () => {
   // 平滑滚动到顶部
   const scrollToTop = () => {
     // 触发全局滚动锁定，防止其他组件的 onViewportEnter 干扰
-    lockScroll(1500);
+    // 延长锁定时间以适应更长的页面（如移动端 ScrollParallaxShowcase 有 600vh）
+    lockScroll(3000);
     
     window.scrollTo({
       top: 0,

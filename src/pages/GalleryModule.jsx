@@ -192,7 +192,7 @@ const GalleryModule = () => {
       <div style={{ ...styles.page, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
           <h2>Module Not Found</h2>
-          <Link to="/gallery" style={{ color: isDark ? '#888' : '#666' }}>← Back to Gallery</Link>
+          <Link to="/gallery/list" style={{ color: isDark ? '#888' : '#666' }}>← Back to Gallery</Link>
         </div>
       </div>
     );
@@ -207,7 +207,7 @@ const GalleryModule = () => {
     >
       {/* Header Section */}
       <header style={styles.header}>
-        <Link to="/gallery" style={styles.backLink}>
+        <Link to="/gallery/list" style={styles.backLink}>
           ← {t('gallery.backToGallery')}
         </Link>
         

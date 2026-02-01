@@ -144,7 +144,7 @@ const Home = () => {
   // 全屏容器样式
   const fullscreenSection = {
     width: '100%',
-    padding: '0 clamp(40px, 8vw, 120px)',
+    padding: isMobile ? '0 var(--space-page-x)' : '0 clamp(40px, 8vw, 120px)',
   };
 
   // Mock Data - 精选作品案例
@@ -281,11 +281,13 @@ const Home = () => {
         animate="visible"
         variants={staggerContainer}
         style={{ 
-          minHeight: 'calc(100vh - 80px)',
+          minHeight: isMobile ? 'calc(100vh - var(--nav-height))' : 'calc(100vh - 80px)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
+          padding: isMobile 
+            ? 'var(--space-2xl) var(--space-page-x) var(--space-3xl)'
+            : 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
           background: 'var(--color-bg-subtle)',
           position: 'relative',
           boxSizing: 'border-box',
@@ -436,53 +438,61 @@ const Home = () => {
 
       </motion.section>
 
-      {/* Hero 到作品展示的百叶窗过渡 - Junni 风格 */}
-      <BlindsTransition 
-        fromColor="#f5f5f5"
-        toColor="#0a0a0a"
-        blindsCount={13}
-        height="80vh"
-      >
-        {/* 底层内容预览 */}
-        <div style={{
-          fontSize: 'clamp(4rem, 15vw, 12rem)',
-          fontWeight: '800',
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(255,255,255,0.15)',
-          letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
-        }}>
-          WORKS
-        </div>
-      </BlindsTransition>
+      {/* Hero 到作品展示的百叶窗过渡 - 移动端隐藏 */}
+      {!isMobile && (
+        <BlindsTransition 
+          fromColor="#f5f5f5"
+          toColor="#0a0a0a"
+          blindsCount={13}
+          height="80vh"
+        >
+          <div style={{
+            fontSize: 'clamp(4rem, 15vw, 12rem)',
+            fontWeight: '800',
+            color: 'transparent',
+            WebkitTextStroke: '1px rgba(255,255,255,0.15)',
+            letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+          }}>
+            WORKS
+          </div>
+        </BlindsTransition>
+      )}
 
       {/* 2. Featured Cases - 滚动视差展示 */}
-      <div id="featured-projects">
+      <div 
+        id="featured-projects"
+        style={isMobile ? {
+          scrollSnapAlign: 'start',
+          scrollSnapStop: 'always',
+        } : {}}
+      >
         <ScrollParallaxShowcase 
           projects={featuredCases} 
           sectionTitle={t('home.featuredTitle')}
         />
       </div>
 
-      {/* Work 到 Service 的百叶窗过渡 */}
-      <BlindsTransition 
-        fromColor="#fff"
-        toColor="#111"
-        blindsCount={13}
-        height="80vh"
-      >
-        {/* 底层内容预览 - 深色背景上的浅色文字 */}
-        <div style={{
-          fontSize: 'clamp(4rem, 15vw, 12rem)',
-          fontWeight: '800',
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(255,255,255,0.2)', // 修正：在黑底上使用白色描边
-          letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
-        }}>
-          SERVICES
-        </div>
-      </BlindsTransition>
+      {/* Work 到 Service 的百叶窗过渡 - 移动端隐藏 */}
+      {!isMobile && (
+        <BlindsTransition 
+          fromColor="#fff"
+          toColor="#111"
+          blindsCount={13}
+          height="80vh"
+        >
+          <div style={{
+            fontSize: 'clamp(4rem, 15vw, 12rem)',
+            fontWeight: '800',
+            color: 'transparent',
+            WebkitTextStroke: '1px rgba(255,255,255,0.2)',
+            letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+          }}>
+            SERVICES
+          </div>
+        </BlindsTransition>
+      )}
 
       {/* 3. Services Section - 专业能力 */}
       <div id="services">
@@ -566,12 +576,14 @@ const Home = () => {
       <section 
         id="contact-cta"
         style={{ 
-          minHeight: '80vh',
+          minHeight: isMobile ? '70vh' : '80vh',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
+          padding: isMobile 
+            ? 'var(--space-3xl) var(--space-page-x)'
+            : 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
           textAlign: 'center', 
           background: '#111', 
           color: '#fff',

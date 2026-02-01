@@ -34,6 +34,8 @@ const ThemeToggle = ({ size = 18 }) => {
   );
 
   const handleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     toggleTheme(event);
   };
   
@@ -43,8 +45,10 @@ const ThemeToggle = ({ size = 18 }) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       style={{
-        width: '40px',
-        height: '40px',
+        width: '44px',
+        height: '44px',
+        minWidth: '44px', // 确保最小触摸区域
+        minHeight: '44px',
         borderRadius: '50%',
         border: '1px solid var(--color-border)',
         background: 'transparent',
@@ -54,6 +58,8 @@ const ThemeToggle = ({ size = 18 }) => {
         justifyContent: 'center',
         color: 'var(--color-text-main)',
         transition: 'all 0.3s ease',
+        WebkitTapHighlightColor: 'transparent', // 移除移动端点击高亮
+        touchAction: 'manipulation', // 优化触摸响应
       }}
       title={theme === 'dark' ? t('theme.switchToLight') : t('theme.switchToDark')}
     >
@@ -179,12 +185,28 @@ const MobileDrawer = ({ isOpen, onClose, navLinks, isActive, t }) => {
               transition={{ delay: 0.3 }}
               style={{
                 padding: 'var(--space-xl) var(--space-lg)', borderTop: '1px solid var(--color-border)',
-                display: 'flex', flexDirection: 'column', gap: 'var(--space-md)',
+                display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', justifyContent: 'space-between' }}>
-                <LanguageSwitcher variant="toggle" />
-                <ThemeToggle />
+              {/* 语言和主题切换 - 增大触摸区域 */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 'var(--space-lg)', 
+                justifyContent: 'center',
+              }}>
+                <div style={{ 
+                  transform: 'scale(1.15)', 
+                  transformOrigin: 'center',
+                }}>
+                  <LanguageSwitcher variant="toggle" />
+                </div>
+                <div style={{ 
+                  transform: 'scale(1.15)', 
+                  transformOrigin: 'center',
+                }}>
+                  <ThemeToggle size={20} />
+                </div>
               </div>
               <Link to="/about" state={{ scrollTo: 'contact' }} onClick={onClose} style={{ textDecoration: 'none' }}>
                 <button style={{

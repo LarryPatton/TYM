@@ -1,9 +1,11 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
 import { useImagePreloader } from '../hooks/useImagePreloader';
+import { useIsMobile } from '../hooks/useMediaQuery';
 import LoadingScreen from '../components/LoadingScreen';
 
 // 倾斜切割背景组件 - 使用 clip-path 实现真正的斜切效果，带层叠进入动画
@@ -141,10 +143,197 @@ const SlicedBackground = ({ phases, isDark }) => {
   );
 };
 
+// 移动端网格组件 - 全屏飞入 → 收束到容器内网格
+// Gallery 有 5 个项目，使用 2列布局：上面2行各2个，最下面1行1个居中
+// containerHeight: 容器在整个页面中的高度比例（用于计算全屏飞入时的高度）
+const MobileGridBackground = ({ phases, isDark, containerHeight = 65 }) => {
+  const itemCount = phases.length; // 5 个项目
+  
+  // 计算每个卡片在网格中的最终位置（相对于容器 100%）
+  const getGridPosition = (index) => {
+    // 5 个项目布局：
+    // [0] [1]  -> 第一行
+    // [2] [3]  -> 第二行
+    // [4]      -> 第三行居中
+    
+    const cellWidth = 49;
+    const cellHeight = 32; // 每个卡片高度约 32%（100% / 3）
+    const gapX = 1;
+    const gapY = 0.5;
+    
+    if (index < 4) {
+      // 前 4 个：2列布局
+      const col = index % 2;
+      const row = Math.floor(index / 2);
+      return {
+        left: `${col * (cellWidth + gapX) + 0.5}%`,
+        top: `${row * (cellHeight + gapY) + 0.5}%`,
+        width: `${cellWidth}%`,
+        height: `${cellHeight}%`,
+      };
+    } else {
+      // 第 5 个：居中
+      return {
+        left: '25.5%',
+        top: `${2 * (cellHeight + gapY) + 0.5}%`,
+        width: `${cellWidth}%`,
+        height: `${cellHeight}%`,
+      };
+    }
+  };
+  
+  // 动画时间配置
+  const flyInDuration = 0.7;
+  const flyInDelay = 0.2;
+  const totalFlyInTime = flyInDuration + flyInDelay * (itemCount - 1);
+  const collapseDelay = totalFlyInTime + 0.4;
+  const collapseDuration = 0.8;
+  
+  // 计算全屏飞入时的高度（相对于容器，需要放大到覆盖整个页面）
+  const fullScreenHeight = `${(100 / containerHeight) * 100}%`;
+  
+  // 两阶段动画：全屏飞入 → 收束到容器内网格
+  const cardAnimation = {
+    hidden: { 
+      x: '100%',
+      top: '0%',
+      left: '0%',
+      width: '100%',
+      height: fullScreenHeight, // 超出容器覆盖整个页面
+      borderRadius: 0,
+    },
+    visible: (index) => {
+      const finalPos = getGridPosition(index);
+      return {
+        x: ['100%', '0%', '0%'],
+        top: ['0%', '0%', finalPos.top],
+        left: ['0%', '0%', finalPos.left],
+        width: ['100%', '100%', finalPos.width],
+        height: [fullScreenHeight, fullScreenHeight, finalPos.height], // 从全屏高度收缩
+        borderRadius: [0, 0, 8],
+        transition: {
+          x: {
+            duration: flyInDuration,
+            delay: index * flyInDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          top: {
+            duration: collapseDuration,
+            delay: collapseDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          left: {
+            duration: collapseDuration,
+            delay: collapseDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          width: {
+            duration: collapseDuration,
+            delay: collapseDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          height: {
+            duration: collapseDuration,
+            delay: collapseDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+          borderRadius: {
+            duration: collapseDuration,
+            delay: collapseDelay,
+            ease: [0.16, 1, 0.3, 1],
+          },
+        }
+      };
+    }
+  };
+  
+  return (
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      overflow: 'visible', // 允许内容溢出容器（飞入时覆盖整个页面）
+    }}>
+      {phases.map((phase, index) => (
+        <motion.div
+          key={phase.id}
+          custom={index}
+          initial="hidden"
+          animate="visible"
+          variants={cardAnimation}
+          style={{
+            position: 'absolute',
+            overflow: 'hidden',
+            zIndex: index + 1,
+          }}
+        >
+          {/* 图片或渐变背景 */}
+          {phase.image ? (
+            <img
+              src={`${import.meta.env.BASE_URL}${phase.image.replace(/^\//, '')}`}
+              alt={phase.titleEn}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+          ) : (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              background: isDark
+                ? `linear-gradient(135deg, 
+                    hsl(${180 + index * 20}, 30%, 25%) 0%, 
+                    hsl(${180 + index * 20}, 25%, 15%) 100%)`
+                : `linear-gradient(135deg, 
+                    hsl(${200 + index * 15}, 15%, 85%) 0%, 
+                    hsl(${200 + index * 15}, 20%, 75%) 100%)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <span style={{
+                fontSize: '1.5rem',
+                color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
+                fontWeight: '700',
+              }}>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+            </div>
+          )}
+          
+          {/* 序号标签 - 收束完成后显示 */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: collapseDelay + collapseDuration + 0.1, duration: 0.3 }}
+            style={{
+              position: 'absolute',
+              top: '6px',
+              left: '6px',
+              padding: '3px 8px',
+              background: 'rgba(0,0,0,0.6)',
+              borderRadius: '4px',
+              fontSize: '0.7rem',
+              color: '#fff',
+              fontWeight: '600',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            {String(index + 1).padStart(2, '0')}
+          </motion.div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 const Gallery = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const isMobile = useIsMobile();
   useTitle(t('gallery.pageTitle'));
 
   // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
@@ -426,91 +615,199 @@ const Gallery = () => {
               ...styles.page
             }}
           >
-            {/* 艺术画廊卡片 - 带斜切背景，单屏展示 */}
-            <motion.div 
-              variants={cardContainer}
-              style={{ 
-                ...styles.card,
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}
-            >
-              {/* 倾斜切割背景 - 画廊版本 */}
-              <SlicedBackground phases={galleryItems} isDark={isDark} />
-              
-              {/* 左侧渐变遮罩 - 自然过渡 */}
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: isDark
-                  ? 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)'
-                  : 'linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 45%, transparent 60%)',
-                pointerEvents: 'none',
-                zIndex: 1,
-              }} />
-              
-              {/* 前景内容 */}
-              <div style={{ 
-                maxWidth: '600px', 
-                position: 'relative', 
-                zIndex: 2,
-              }}>
-                {/* 标签 - 左侧滑入 */}
-                <AnimatedLabel text={t('gallery.label')} isPrimary={true} />
-                
-                {/* 标题 - 逐字淡入 */}
-                <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
-                  <AnimatedTitle 
-                    text={t('gallery.title')}
-                    style={{ 
-                      fontFamily: 'var(--font-serif)', 
-                      fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
-                      lineHeight: 1.1,
-                      ...styles.title
-                    }}
-                  />
-                </motion.div>
-                
-                {/* 描述 - 淡入上移 */}
-                <motion.p 
-                  variants={descReveal}
-                  style={{ 
-                    fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', 
-                    lineHeight: 1.8, 
-                    marginBottom: '50px', 
-                    maxWidth: '600px',
-                    ...styles.desc
-                  }}
-                >
-                  {t('gallery.desc')}
-                </motion.p>
-                
-                {/* CTA - 淡入 + 箭头动画 */}
+            {/* 艺术画廊卡片 */}
+            {isMobile ? (
+              // ========== 移动端：全屏飞入 → 收束到上部分区（flex 布局，区域不重叠）==========
+              <Link to="/gallery/list" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                 <motion.div 
-                  variants={ctaReveal}
+                  variants={cardContainer}
                   style={{ 
-                    fontSize: '1.1rem', 
-                    fontWeight: '500', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '12px',
-                    ...styles.cta
+                    height: 'calc(100vh - var(--nav-height))',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                    background: isDark ? '#0a0a0a' : '#fff',
                   }}
                 >
-                  {t('gallery.exploreWorks')} 
-                  <motion.span 
-                    style={{ fontSize: '1.3rem', display: 'inline-block' }}
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  {/* 上部：图片网格区 (65%) - 允许内容溢出以实现全屏飞入 */}
+                  <div style={{
+                    flex: '0 0 65%',
+                    position: 'relative',
+                    overflow: 'visible', // 允许卡片溢出覆盖文字区
+                    zIndex: 10,
+                  }}>
+                    <MobileGridBackground phases={galleryItems} isDark={isDark} containerHeight={65} />
+                  </div>
+                  
+                  {/* 下部：文字内容区 (35%) */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      delay: 2.9, // 等待卡片收束完成（5个项目）
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1]
+                    }}
+                    style={{
+                      flex: '0 0 35%',
+                      padding: 'var(--space-md) var(--space-page-x)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      background: isDark ? '#0a0a0a' : '#fff',
+                      borderTop: `1px solid ${isDark ? '#222' : '#eee'}`,
+                      zIndex: 1,
+                    }}
                   >
-                    →
-                  </motion.span>
+                    {/* 标签 */}
+                    <AnimatedLabel text={t('gallery.label')} isPrimary={true} />
+                    
+                    {/* 标题 */}
+                    <motion.div variants={fadeInUp} style={{ marginBottom: '8px' }}>
+                      <AnimatedTitle 
+                        text={t('gallery.title')}
+                        style={{ 
+                          fontFamily: 'var(--font-serif)', 
+                          fontSize: 'clamp(1.5rem, 6vw, 2rem)', 
+                          lineHeight: 1.1,
+                          ...styles.title
+                        }}
+                      />
+                    </motion.div>
+                    
+                    {/* 描述 */}
+                    <motion.p 
+                      variants={descReveal}
+                      style={{ 
+                        fontSize: '0.8rem', 
+                        lineHeight: 1.5, 
+                        marginBottom: '16px', 
+                        ...styles.desc
+                      }}
+                    >
+                      {t('gallery.desc')}
+                    </motion.p>
+                    
+                    {/* CTA 按钮 */}
+                    <motion.div 
+                      variants={ctaReveal}
+                      style={{ 
+                        fontSize: '0.9rem', 
+                        fontWeight: '600', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '8px',
+                        padding: '10px 18px',
+                        background: isDark ? '#fff' : '#111',
+                        color: isDark ? '#111' : '#fff',
+                        borderRadius: 'var(--radius-full)',
+                        width: 'fit-content',
+                      }}
+                    >
+                      {t('gallery.exploreWorks')} 
+                      <motion.span 
+                        style={{ fontSize: '1rem', display: 'inline-block' }}
+                        animate={{ x: [0, 4, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
-              </div>
-            </motion.div>
+              </Link>
+            ) : (
+              // ========== 桌面端：原有斜切布局 ==========
+              <Link to="/gallery/list" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+                <motion.div 
+                  variants={cardContainer}
+                  whileHover={{ backgroundColor: isDark ? '#151515' : '#f0f0f0' }}
+                  transition={{ duration: 0.3 }}
+                  style={{ 
+                    ...styles.card,
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {/* 倾斜切割背景 - 画廊版本 */}
+                  <SlicedBackground phases={galleryItems} isDark={isDark} />
+                  
+                  {/* 左侧渐变遮罩 - 自然过渡 */}
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: isDark
+                      ? 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)'
+                      : 'linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 45%, transparent 60%)',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }} />
+                  
+                  {/* 前景内容 */}
+                  <div style={{ 
+                    maxWidth: '600px', 
+                    position: 'relative', 
+                    zIndex: 2,
+                  }}>
+                    {/* 标签 - 左侧滑入 */}
+                    <AnimatedLabel text={t('gallery.label')} isPrimary={true} />
+                    
+                    {/* 标题 - 逐字淡入 */}
+                    <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
+                      <AnimatedTitle 
+                        text={t('gallery.title')}
+                        style={{ 
+                          fontFamily: 'var(--font-serif)', 
+                          fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
+                          lineHeight: 1.1,
+                          ...styles.title
+                        }}
+                      />
+                    </motion.div>
+                    
+                    {/* 描述 - 淡入上移 */}
+                    <motion.p 
+                      variants={descReveal}
+                      style={{ 
+                        fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', 
+                        lineHeight: 1.8, 
+                        marginBottom: '50px', 
+                        maxWidth: '600px',
+                        ...styles.desc
+                      }}
+                    >
+                      {t('gallery.desc')}
+                    </motion.p>
+                    
+                    {/* CTA - 淡入 + 箭头动画 */}
+                    <motion.div 
+                      variants={ctaReveal}
+                      style={{ 
+                        fontSize: '1.1rem', 
+                        fontWeight: '500', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '12px',
+                        ...styles.cta
+                      }}
+                    >
+                      {t('gallery.exploreWorks')} 
+                      <motion.span 
+                        style={{ fontSize: '1.3rem', display: 'inline-block' }}
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </Link>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { Link, useLocation } from 'react-router-dom';
 import { useClipboard } from '../hooks/useClipboard';
+import { useIsMobile, useIsTablet } from '../hooks/useMediaQuery';
 
-// 导航圆点组件 (适配自然滚动)
-const DotNavigation = ({ sections }) => {
+// 导航圆点组件 (适配自然滚动) - 移动端隐藏
+const DotNavigation = ({ sections, isMobile }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -39,6 +40,9 @@ const DotNavigation = ({ sections }) => {
       });
     }
   };
+
+  // 移动端隐藏导航圆点
+  if (isMobile) return null;
 
   return (
     <div style={{
@@ -81,6 +85,8 @@ const About = () => {
   const location = useLocation();
   const { copiedId, copy } = useClipboard();
   const [formStatus, setFormStatus] = useState('idle');
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
 
   // 处理从其他页面跳转过来时的滚动
   useEffect(() => {
@@ -209,41 +215,43 @@ const About = () => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <DotNavigation sections={sections} />
+      <DotNavigation sections={sections} isMobile={isMobile} />
 
-      {/* 滚动提示 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        style={{
-          opacity: scrollIndicatorOpacity,
-          position: 'fixed',
-          bottom: '50px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '10px',
-          color: 'var(--color-text-light)',
-          fontSize: '0.75rem',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          zIndex: 50,
-          pointerEvents: 'none',
-        }}
-      >
-        <span>{t('common.scroll')}</span>
+      {/* 滚动提示 - 移动端隐藏 */}
+      {!isMobile && (
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           style={{
-            width: '1px',
-            height: '50px',
-            background: 'linear-gradient(to bottom, var(--color-text-light), transparent)',
+            opacity: scrollIndicatorOpacity,
+            position: 'fixed',
+            bottom: '50px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px',
+            color: 'var(--color-text-light)',
+            fontSize: '0.75rem',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            zIndex: 50,
+            pointerEvents: 'none',
           }}
-        />
-      </motion.div>
+        >
+          <span>{t('common.scroll')}</span>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            style={{
+              width: '1px',
+              height: '50px',
+              background: 'linear-gradient(to bottom, var(--color-text-light), transparent)',
+            }}
+          />
+        </motion.div>
+      )}
 
       <motion.div 
         initial="hidden"
@@ -252,24 +260,40 @@ const About = () => {
         style={{ 
           maxWidth: '1200px', 
           margin: '0 auto', 
-          padding: 'clamp(60px, 8vh, 100px) clamp(40px, 5vw, 80px)',
+          padding: isMobile 
+            ? 'var(--space-lg) var(--space-page-x)' 
+            : 'clamp(60px, 8vh, 100px) clamp(40px, 5vw, 80px)',
           boxSizing: 'border-box'
         }}
       >
         
         {/* Section 1: Intro */}
-        <section id="intro" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', marginBottom: '100px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 380px) 1fr', gap: '60px', alignItems: 'start' }}>
-            {/* 左侧：个人形象照 */}
+        <section id="intro" style={{ 
+          minHeight: isMobile ? 'auto' : '80vh', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          marginBottom: isMobile ? '60px' : '100px',
+          paddingTop: isMobile ? 'var(--space-md)' : 0
+        }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(280px, 380px) 1fr', 
+            gap: isMobile ? '32px' : '60px', 
+            alignItems: 'start' 
+          }}>
+            {/* 左侧/上方：个人形象照 */}
             <motion.div 
               variants={fadeInUp}
-              style={{ position: 'sticky', top: '100px' }}
+              style={{ position: isMobile ? 'static' : 'sticky', top: '100px' }}
             >
               <div style={{
                 position: 'relative',
-                width: '100%',
+                width: isMobile ? '60%' : '100%',
+                maxWidth: isMobile ? '200px' : 'none',
+                margin: isMobile ? '0 auto' : 0,
                 aspectRatio: '3 / 4',
-                borderRadius: '16px',
+                borderRadius: isMobile ? '12px' : '16px',
                 overflow: 'hidden',
                 background: 'var(--color-bg-subtle)',
                 border: '1px solid var(--color-border)'
@@ -310,25 +334,26 @@ const About = () => {
               </div>
               {/* 形象照下方的装饰标签 */}
               <div style={{
-                marginTop: '16px',
+                marginTop: isMobile ? '12px' : '16px',
                 display: 'flex',
                 gap: '8px',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
+                justifyContent: isMobile ? 'center' : 'flex-start'
               }}>
                 <span style={{
-                  padding: '6px 12px',
+                  padding: isMobile ? '4px 10px' : '6px 12px',
                   background: 'var(--color-bg-subtle)',
                   borderRadius: '100px',
-                  fontSize: '0.8rem',
+                  fontSize: isMobile ? '0.75rem' : '0.8rem',
                   color: 'var(--color-text-muted)'
                 }}>
                   {t('about.expertise.design.title')}
                 </span>
                 <span style={{
-                  padding: '6px 12px',
+                  padding: isMobile ? '4px 10px' : '6px 12px',
                   background: 'var(--color-bg-subtle)',
                   borderRadius: '100px',
-                  fontSize: '0.8rem',
+                  fontSize: isMobile ? '0.75rem' : '0.8rem',
                   color: 'var(--color-text-muted)'
                 }}>
                   Brand Visual
@@ -336,36 +361,43 @@ const About = () => {
               </div>
             </motion.div>
 
-            {/* 右侧：文字介绍 */}
-            <motion.div variants={fadeInUp} style={{ paddingTop: '20px' }}>
+            {/* 右侧/下方：文字介绍 */}
+            <motion.div variants={fadeInUp} style={{ paddingTop: isMobile ? 0 : '20px' }}>
               <h1 style={{ 
                 fontFamily: 'var(--font-serif)', 
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
+                fontSize: isMobile ? 'clamp(1.8rem, 8vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.5rem)', 
                 fontWeight: '400', 
                 lineHeight: 1.1, 
-                marginBottom: '40px',
-                letterSpacing: '-0.03em'
+                marginBottom: isMobile ? '24px' : '40px',
+                letterSpacing: '-0.03em',
+                textAlign: isMobile ? 'center' : 'left'
               }}>
                 {t('about.title')}
               </h1>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--color-text-main)', marginBottom: '24px', fontWeight: '500' }}>
+              <p style={{ 
+                fontSize: isMobile ? '1rem' : '1.2rem', 
+                lineHeight: 1.6, 
+                color: 'var(--color-text-main)', 
+                marginBottom: isMobile ? '16px' : '24px', 
+                fontWeight: '500' 
+              }}>
                 {t('about.greeting')}<br/>
                 {t('about.introLine1')}
               </p>
-              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '20px' }}>
+              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '12px' : '20px' }}>
                 {t('about.introLine2')}
               </p>
-              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '20px' }}>
+              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '12px' : '20px' }}>
                 {t('about.introLine3')}
               </p>
-              <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: '40px' }}>
+              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px' }}>
                 {t('about.introLine4')}
               </p>
-              <div style={{ display: 'flex', gap: '20px' }}>
+              <div style={{ display: 'flex', gap: '20px', justifyContent: isMobile ? 'center' : 'flex-start' }}>
                 <button 
                   onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
                   style={{ 
-                    padding: '12px 30px', 
+                    padding: isMobile ? '10px 24px' : '12px 30px', 
                     background: 'var(--color-text-main)', 
                     color: 'var(--color-bg)', 
                     border: 'none', 
@@ -383,18 +415,24 @@ const About = () => {
         </section>
 
         {/* Section 2: Expertise */}
-        <section id="expertise" style={{ marginBottom: '160px' }}>
-          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '60px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
-            <motion.div variants={fadeInUp} style={{ gridColumn: '1 / -1', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)' }}>{t('about.expertiseTitle')}</h2>
+        <section id="expertise" style={{ marginBottom: isMobile ? '80px' : '160px' }}>
+          <div style={{ 
+            borderTop: '1px solid var(--color-border)', 
+            paddingTop: isMobile ? '32px' : '60px', 
+            display: 'grid', 
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))', 
+            gap: isMobile ? '28px' : '40px' 
+          }}>
+            <motion.div variants={fadeInUp} style={{ gridColumn: '1 / -1', marginBottom: isMobile ? '8px' : '20px' }}>
+              <h2 style={{ fontSize: isMobile ? '0.8rem' : '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)' }}>{t('about.expertiseTitle')}</h2>
             </motion.div>
             
             {capabilities.map((cap, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '20px', fontWeight: '400' }}>{cap.title}</h3>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: isMobile ? '1.2rem' : '1.5rem', marginBottom: isMobile ? '12px' : '20px', fontWeight: '400' }}>{cap.title}</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {cap.items.map((item, i) => (
-                    <li key={i} style={{ marginBottom: '10px', color: 'var(--color-text-muted)', fontSize: '0.95rem' }}>{item}</li>
+                    <li key={i} style={{ marginBottom: isMobile ? '6px' : '10px', color: 'var(--color-text-muted)', fontSize: isMobile ? '0.85rem' : '0.95rem' }}>{item}</li>
                   ))}
                 </ul>
               </motion.div>
@@ -403,29 +441,43 @@ const About = () => {
         </section>
 
         {/* Section 3: Journey */}
-        <section id="journey" style={{ marginBottom: '160px' }}>
-          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '60px', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '60px' }}>
+        <section id="journey" style={{ marginBottom: isMobile ? '80px' : '160px' }}>
+          <div style={{ 
+            borderTop: '1px solid var(--color-border)', 
+            paddingTop: isMobile ? '32px' : '60px', 
+            display: 'grid', 
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr', 
+            gap: isMobile ? '24px' : '60px' 
+          }}>
             <motion.div variants={fadeInUp}>
-              <h2 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', position: 'sticky', top: '100px' }}>{t('about.journeyTitle')}</h2>
+              <h2 style={{ 
+                fontSize: isMobile ? '0.8rem' : '0.9rem', 
+                textTransform: 'uppercase', 
+                letterSpacing: '2px', 
+                color: 'var(--color-text-muted)', 
+                position: isMobile ? 'static' : 'sticky', 
+                top: '100px',
+                marginBottom: isMobile ? '8px' : 0
+              }}>{t('about.journeyTitle')}</h2>
             </motion.div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '24px' : '40px' }}>
               {journey.map((item, index) => (
                 <motion.div 
                   key={index} 
                   variants={fadeInUp}
                   style={{ 
                     display: 'grid', 
-                    gridTemplateColumns: '48px 100px 1fr', 
-                    gap: '20px',
-                    alignItems: 'center'
+                    gridTemplateColumns: isMobile ? '40px 1fr' : '48px 100px 1fr', 
+                    gap: isMobile ? '12px' : '20px',
+                    alignItems: isMobile ? 'start' : 'center'
                   }}
                 >
                   {/* 公司 Logo */}
                   <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '12px',
+                    width: isMobile ? '40px' : '48px',
+                    height: isMobile ? '40px' : '48px',
+                    borderRadius: isMobile ? '10px' : '12px',
                     background: 'var(--color-bg-subtle)',
                     border: '1px solid var(--color-border)',
                     display: 'flex',
@@ -438,8 +490,8 @@ const About = () => {
                       src={item.logo} 
                       alt={item.company}
                       style={{
-                        width: '32px',
-                        height: '32px',
+                        width: isMobile ? '26px' : '32px',
+                        height: isMobile ? '26px' : '32px',
                         objectFit: 'contain'
                       }}
                       onError={(e) => {
@@ -451,7 +503,7 @@ const About = () => {
                     {/* Logo 占位符 - 显示公司名首字母 */}
                     <span style={{
                       display: 'none',
-                      fontSize: '1.2rem',
+                      fontSize: isMobile ? '1rem' : '1.2rem',
                       fontWeight: '600',
                       color: 'var(--color-text-muted)',
                       fontFamily: 'var(--font-serif)'
@@ -460,14 +512,25 @@ const About = () => {
                     </span>
                   </div>
                   
-                  {/* 年份 */}
-                  <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{item.year}</div>
-                  
-                  {/* 职位和公司 */}
-                  <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '4px' }}>{item.role}</div>
-                    <div style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>{item.company}</div>
-                  </div>
+                  {/* 移动端：年份和职位合并 */}
+                  {isMobile ? (
+                    <div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '4px' }}>{item.year}</div>
+                      <div style={{ fontSize: '1rem', fontWeight: '500', marginBottom: '2px' }}>{item.role}</div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{item.company}</div>
+                    </div>
+                  ) : (
+                    <>
+                      {/* 桌面端：年份单独一列 */}
+                      <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{item.year}</div>
+                      
+                      {/* 职位和公司 */}
+                      <div>
+                        <div style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '4px' }}>{item.role}</div>
+                        <div style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>{item.company}</div>
+                      </div>
+                    </>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -475,23 +538,29 @@ const About = () => {
         </section>
 
         {/* Section 4: Contact (Merged) */}
-        <section id="contact" style={{ marginBottom: '100px' }}>
-          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '60px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '80px' }}>
+        <section id="contact" style={{ marginBottom: isMobile ? '60px' : '100px' }}>
+          <div style={{ 
+            borderTop: '1px solid var(--color-border)', 
+            paddingTop: isMobile ? '32px' : '60px', 
+            display: 'grid', 
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))', 
+            gap: isMobile ? '40px' : '80px' 
+          }}>
             
             {/* Left Column: Info */}
             <div>
               <motion.div variants={fadeInUp}>
-                <h2 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: '40px' }}>{t('about.contactTitle')}</h2>
+                <h2 style={{ fontSize: isMobile ? '0.8rem' : '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px' }}>{t('about.contactTitle')}</h2>
               </motion.div>
               
               <motion.h1 
                 variants={fadeInUp}
                 style={{ 
                   fontFamily: 'var(--font-serif)', 
-                  fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
+                  fontSize: isMobile ? 'clamp(1.8rem, 8vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4rem)', 
                   fontWeight: '400', 
                   lineHeight: 1.1, 
-                  marginBottom: '40px',
+                  marginBottom: isMobile ? '20px' : '40px',
                   letterSpacing: '-0.03em',
                   color: 'var(--color-text-main)'
                 }}
@@ -499,17 +568,18 @@ const About = () => {
                 {t('about.letsTalk')}
               </motion.h1>
               
-              <motion.p variants={fadeInUp} style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)', marginBottom: '40px', lineHeight: 1.6, maxWidth: '450px' }}>
+              <motion.p variants={fadeInUp} style={{ fontSize: isMobile ? '0.95rem' : '1.1rem', color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px', lineHeight: 1.6, maxWidth: '450px' }}>
                 {t('about.contactIntro')}<br/>
                 {t('about.contactIntro2')}
               </motion.p>
 
-              {/* 个人签名装饰 */}
+              {/* 个人签名装饰 - 移动端隐藏或缩小 */}
               <motion.div 
                 variants={fadeInUp}
                 style={{ 
-                  marginBottom: '40px',
-                  position: 'relative'
+                  marginBottom: isMobile ? '24px' : '40px',
+                  position: 'relative',
+                  display: isMobile ? 'none' : 'block'
                 }}
               >
                 {/* 签名图片 - 替换为实际签名图片路径 */}
@@ -543,13 +613,13 @@ const About = () => {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeInUp} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+              <motion.div variants={fadeInUp} style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '20px' : '30px' }}>
                 
                 {/* Email Item */}
                 <div>
-                  <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: '10px' }}>{t('about.emailLabel')}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <a href="mailto:hello@example.com" style={{ fontSize: '1.2rem', color: 'var(--color-text-main)', textDecoration: 'none', fontFamily: 'var(--font-serif)' }}>
+                  <div style={{ fontSize: isMobile ? '0.75rem' : '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '6px' : '10px' }}>{t('about.emailLabel')}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '15px', flexWrap: 'wrap' }}>
+                    <a href="mailto:hello@example.com" style={{ fontSize: isMobile ? '1rem' : '1.2rem', color: 'var(--color-text-main)', textDecoration: 'none', fontFamily: 'var(--font-serif)' }}>
                       hello@example.com
                     </a>
                     <button 
@@ -558,8 +628,8 @@ const About = () => {
                         background: 'transparent', 
                         border: '1px solid var(--color-border)', 
                         borderRadius: '20px', 
-                        padding: '4px 12px', 
-                        fontSize: '0.75rem', 
+                        padding: isMobile ? '3px 10px' : '4px 12px', 
+                        fontSize: isMobile ? '0.7rem' : '0.75rem', 
                         cursor: 'pointer',
                         color: 'var(--color-text-muted)'
                       }}
@@ -571,9 +641,9 @@ const About = () => {
 
                 {/* WeChat Item */}
                 <div>
-                  <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: '10px' }}>{t('about.wechatLabel')}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <span style={{ fontSize: '1.2rem', color: 'var(--color-text-main)', fontFamily: 'var(--font-serif)' }}>
+                  <div style={{ fontSize: isMobile ? '0.75rem' : '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '6px' : '10px' }}>{t('about.wechatLabel')}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '15px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: isMobile ? '1rem' : '1.2rem', color: 'var(--color-text-main)', fontFamily: 'var(--font-serif)' }}>
                       wx_username
                     </span>
                     <button 
@@ -582,8 +652,8 @@ const About = () => {
                         background: 'transparent', 
                         border: '1px solid var(--color-border)', 
                         borderRadius: '20px', 
-                        padding: '4px 12px', 
-                        fontSize: '0.75rem', 
+                        padding: isMobile ? '3px 10px' : '4px 12px', 
+                        fontSize: isMobile ? '0.7rem' : '0.75rem', 
                         cursor: 'pointer',
                         color: 'var(--color-text-muted)'
                       }}
@@ -594,9 +664,9 @@ const About = () => {
                 </div>
 
                 {/* Social Links */}
-                <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
+                <div style={{ marginTop: isMobile ? '12px' : '20px', display: 'flex', gap: isMobile ? '16px' : '20px', flexWrap: 'wrap' }}>
                   {['LinkedIn', 'Twitter', 'Instagram'].map(social => (
-                    <a key={social} href="#" style={{ color: 'var(--color-text-main)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '500' }}>
+                    <a key={social} href="#" style={{ color: 'var(--color-text-main)', textDecoration: 'none', fontSize: isMobile ? '0.85rem' : '0.9rem', fontWeight: '500' }}>
                       {social}
                     </a>
                   ))}
@@ -609,43 +679,43 @@ const About = () => {
             <motion.div variants={fadeInUp}>
               <div style={{ 
                 background: 'var(--color-bg)', 
-                padding: '40px', 
-                borderRadius: '24px', 
+                padding: isMobile ? '24px' : '40px', 
+                borderRadius: isMobile ? '16px' : '24px', 
                 border: '1px solid var(--color-border)',
                 boxShadow: 'var(--shadow-sm)'
               }}>
-                <h3 style={{ fontSize: '1.2rem', fontFamily: 'var(--font-serif)', marginBottom: '30px', fontWeight: '400' }}>{t('about.projectConsultation')}</h3>
+                <h3 style={{ fontSize: isMobile ? '1.1rem' : '1.2rem', fontFamily: 'var(--font-serif)', marginBottom: isMobile ? '20px' : '30px', fontWeight: '400' }}>{t('about.projectConsultation')}</h3>
                 
                 {formStatus === 'success' ? (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    style={{ textAlign: 'center', padding: '40px 0' }}
+                    style={{ textAlign: 'center', padding: isMobile ? '24px 0' : '40px 0' }}
                   >
-                    <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✨</div>
-                    <h3 style={{ marginBottom: '10px' }}>{t('about.messageSent')}</h3>
-                    <p style={{ color: 'var(--color-text-muted)', marginBottom: '30px' }}>{t('about.thankYou')}</p>
+                    <div style={{ fontSize: isMobile ? '2.5rem' : '3rem', marginBottom: isMobile ? '12px' : '20px' }}>✨</div>
+                    <h3 style={{ marginBottom: '10px', fontSize: isMobile ? '1.1rem' : '1.25rem' }}>{t('about.messageSent')}</h3>
+                    <p style={{ color: 'var(--color-text-muted)', marginBottom: isMobile ? '20px' : '30px', fontSize: isMobile ? '0.9rem' : '1rem' }}>{t('about.thankYou')}</p>
                     <button 
                       onClick={() => setFormStatus('idle')}
-                      style={{ padding: '12px 30px', background: 'var(--color-text-main)', color: 'var(--color-bg)', border: 'none', borderRadius: '100px', cursor: 'pointer' }}
+                      style={{ padding: isMobile ? '10px 24px' : '12px 30px', background: 'var(--color-text-main)', color: 'var(--color-bg)', border: 'none', borderRadius: '100px', cursor: 'pointer', fontSize: isMobile ? '0.9rem' : '1rem' }}
                     >
                       {t('about.sendAnother')}
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '16px' : '20px' }}>
                     {/* 错误提示 */}
                     {formStatus === 'error' && (
                       <motion.div 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         style={{
-                          padding: '12px 16px',
+                          padding: isMobile ? '10px 12px' : '12px 16px',
                           background: 'rgba(239, 68, 68, 0.1)',
                           border: '1px solid rgba(239, 68, 68, 0.3)',
                           borderRadius: '8px',
                           color: '#ef4444',
-                          fontSize: '0.9rem',
+                          fontSize: isMobile ? '0.8rem' : '0.9rem',
                           display: 'flex',
                           alignItems: 'center',
                           gap: '8px'
@@ -656,20 +726,21 @@ const About = () => {
                       </motion.div>
                     )}
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    {/* 移动端：单列输入框 */}
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '16px' : '20px' }}>
                       <div>
-                        <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formName')}</label>
-                        <input name="name" required type="text" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formNamePlaceholder')} />
+                        <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formName')}</label>
+                        <input name="name" required type="text" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formNamePlaceholder')} />
                       </div>
                       <div>
-                        <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formEmail')}</label>
-                        <input name="email" required type="email" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formEmailPlaceholder')} />
+                        <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formEmail')}</label>
+                        <input name="email" required type="email" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formEmailPlaceholder')} />
                       </div>
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formProjectType')}</label>
-                      <select name="project_type" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none', color: 'var(--color-text-main)' }}>
+                      <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formProjectType')}</label>
+                      <select name="project_type" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none', color: 'var(--color-text-main)' }}>
                         <option>{t('about.formProjectTypeOptions.webDesign')}</option>
                         <option>{t('about.formProjectTypeOptions.mobileApp')}</option>
                         <option>{t('about.formProjectTypeOptions.branding')}</option>
@@ -679,22 +750,22 @@ const About = () => {
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formDetails')}</label>
-                      <textarea name="message" required rows="5" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: '0.95rem', fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} placeholder={t('about.formDetailsPlaceholder')}></textarea>
+                      <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formDetails')}</label>
+                      <textarea name="message" required rows={isMobile ? 4 : 5} style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} placeholder={t('about.formDetailsPlaceholder')}></textarea>
                     </div>
 
                     <button
                       type="submit" 
                       disabled={formStatus === 'submitting'}
                       style={{ 
-                        marginTop: '10px',
+                        marginTop: isMobile ? '8px' : '10px',
                         width: '100%', 
-                        padding: '16px', 
+                        padding: isMobile ? '14px' : '16px', 
                         background: 'var(--color-text-main)', 
                         color: 'var(--color-bg)', 
                         border: 'none', 
                         borderRadius: '100px', 
-                        fontSize: '0.95rem', 
+                        fontSize: isMobile ? '0.9rem' : '0.95rem', 
                         fontWeight: '500', 
                         cursor: formStatus === 'submitting' ? 'wait' : 'pointer', 
                         opacity: formStatus === 'submitting' ? 0.7 : 1,

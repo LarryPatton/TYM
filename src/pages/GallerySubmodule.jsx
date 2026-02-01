@@ -38,7 +38,7 @@ const GallerySubmodule = () => {
       
       {/* Breadcrumb */}
       <div style={{ marginBottom: '60px', fontSize: '0.9em', color: '#999' }}>
-        <Link to="/gallery" style={{ textDecoration: 'none', color: '#999' }}>{t('gallery.title')}</Link>
+        <Link to="/gallery/list" style={{ textDecoration: 'none', color: '#999' }}>{t('gallery.title')}</Link>
         <span style={{ margin: '0 10px' }}>/</span>
         <Link to={`/gallery/${module}`} style={{ textDecoration: 'none', color: '#999' }}>{t(`gallery.modules.${moduleKey}.titleShort`)}</Link>
         <span style={{ margin: '0 10px' }}>/</span>

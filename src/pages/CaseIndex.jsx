@@ -97,6 +97,12 @@ const CaseIndex = () => {
       flex-shrink: 0;
       position: relative;
     }
+    /* 桌面端：标题居中 */
+    .case-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .case-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -151,11 +157,39 @@ const CaseIndex = () => {
     }
     @media (max-width: 640px) {
       .case-index-container {
-        padding: 80px var(--space-md) var(--space-xl);
+        padding: var(--space-md) var(--space-page-x) var(--space-lg);
       }
       .case-header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-sm);
+        margin-bottom: var(--space-md);
+      }
+      /* 移动端：隐藏面包屑，显示返回按钮 */
+      .case-breadcrumb {
+        display: none !important;
+      }
+      .case-back-btn {
+        display: flex !important;
+      }
+      /* 移动端：标题正常流，不绝对定位 */
+      .case-title {
+        position: static;
+        transform: none;
+        font-size: clamp(1.3rem, 5vw, 1.6rem) !important;
+        margin: 0;
+      }
+      /* 移动端：隐藏右侧占位 */
+      .case-header-spacer {
+        display: none;
+      }
+      /* 移动端：压缩卡片内容区 */
+      .case-card-content {
+        padding: var(--space-sm) var(--space-md) !important;
+        gap: 2px !important;
+      }
+      .case-card-content h3 {
+        font-size: var(--text-sm) !important;
       }
     }
   `;
@@ -167,8 +201,30 @@ const CaseIndex = () => {
         
         {/* 1. 头部：面包屑导航 + 标题 */}
         <header className="case-header">
-          {/* 面包屑导航 */}
-          <nav style={{
+          {/* 返回按钮 - 仅移动端显示 */}
+          <Link 
+            to="/work" 
+            className="case-back-btn"
+            style={{
+              display: 'none', // 默认隐藏，移动端通过 CSS 显示
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '36px',
+              height: '36px',
+              borderRadius: 'var(--radius-full)',
+              background: 'var(--color-bg-alt)',
+              border: '1px solid var(--color-border)',
+              color: 'var(--color-text-main)',
+              textDecoration: 'none',
+              fontSize: '1.1rem',
+              flexShrink: 0,
+            }}
+          >
+            ←
+          </Link>
+          
+          {/* 面包屑导航 - 仅在桌面端显示 */}
+          <nav className="case-breadcrumb" style={{
             display: 'flex',
             alignItems: 'center',
             gap: 'var(--space-xs)',
@@ -192,22 +248,19 @@ const CaseIndex = () => {
             </span>
           </nav>
           
-          {/* 居中标题 - 支持中英文 */}
-          <h1 style={{
+          {/* 居中标题 - 桌面端绝对定位居中，移动端正常流 */}
+          <h1 className="case-title" style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
             fontWeight: '400',
             margin: 0,
             letterSpacing: '-0.02em',
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)'
           }}>
             {t('case.projectTitle')}
           </h1>
           
-          {/* 右侧留空，保持布局平衡 */}
-          <div style={{ width: '1px' }}></div>
+          {/* 右侧留空，保持布局平衡 - 仅桌面端 */}
+          <div className="case-header-spacer" style={{ width: '1px' }}></div>
         </header>
 
         {/* 2. Phase 卡片网格 - 2行3列 */}
@@ -282,39 +335,38 @@ const CaseIndex = () => {
                   )}
                 </div>
                 
-                {/* 底部：文字区 - 方案 D */}
+                {/* 底部：文字区 */}
                 <div className="case-card-content">
                   <div>
-                    <div style={{
-                      fontSize: 'var(--text-xs)',
-                      color: 'var(--color-text-light)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '2px',
-                      fontWeight: '600',
-                      marginBottom: 'var(--space-xs)'
+                    {/* 阶段信息和标题在同一行（移动端） */}
+                    <div className="case-card-title-row" style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: 'var(--space-sm)',
+                      flexWrap: 'wrap',
                     }}>
-                      {isZh ? `阶段 ${phase.number}` : `Phase ${phase.number}`}
-                    </div>
-                    {/* 主标题：根据语言切换 */}
-                    <h3 style={{
-                      fontSize: 'var(--text-body)',
-                      fontWeight: '500',
-                      lineHeight: 'var(--line-height-snug)',
-                      fontFamily: 'var(--font-serif)',
-                      marginBottom: isZh ? 'var(--space-xs)' : 0,
-                      color: 'var(--color-text-main)'
-                    }}>
-                      {isZh ? phase.titleZh : phase.titleEn}
-                    </h3>
-                    {/* 副标题：仅中文模式显示英文原名 */}
-                    {isZh && (
-                      <div style={{
-                        fontSize: 'var(--text-sm)',
-                        color: 'var(--color-text-muted)',
+                      <span style={{
+                        fontSize: 'var(--text-xs)',
+                        color: 'var(--color-text-light)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '2px',
+                        fontWeight: '600',
+                        flexShrink: 0,
                       }}>
-                        {phase.titleEn}
-                      </div>
-                    )}
+                        {isZh ? `阶段 ${phase.number}` : `Phase ${phase.number}`}
+                      </span>
+                      {/* 主标题：根据语言切换 */}
+                      <h3 style={{
+                        fontSize: 'var(--text-body)',
+                        fontWeight: '500',
+                        lineHeight: 'var(--line-height-snug)',
+                        fontFamily: 'var(--font-serif)',
+                        margin: 0,
+                        color: 'var(--color-text-main)'
+                      }}>
+                        {isZh ? phase.titleZh : phase.titleEn}
+                      </h3>
+                    </div>
                   </div>
                   
                   {!phase.isPlaceholder && (

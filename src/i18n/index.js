@@ -24,8 +24,8 @@ const resources = {
 
 // 语言检测配置选项
 const detectionOptions = {
-  // 检测顺序：localStorage -> navigator -> htmlTag
-  order: ['localStorage', 'navigator', 'htmlTag'],
+  // 检测顺序：优先使用 localStorage 缓存，忽略浏览器语言以默认中文
+  order: ['localStorage', 'htmlTag'],
   // 缓存用户语言偏好的 key
   lookupLocalStorage: 'i18nextLng',
   // 缓存到 localStorage
@@ -45,8 +45,8 @@ i18n
     resources,
     // 回退语言（当检测到的语言没有对应翻译时）
     fallbackLng: 'zh',
-    // 默认语言
-    lng: undefined, // 让 LanguageDetector 来检测
+    // 默认语言：如果 localStorage 没有缓存，则使用中文
+    lng: localStorage.getItem('i18nextLng') || 'zh',
     // 支持的语言列表
     supportedLngs: ['zh', 'en'],
     // 语言检测配置

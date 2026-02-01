@@ -51,7 +51,11 @@ export function LanguageSwitcher({
   if (variant === 'toggle') {
     return (
       <motion.button
-        onClick={toggleLanguage}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLanguage();
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         whileHover={{ scale: 1.05 }}
@@ -60,7 +64,8 @@ export function LanguageSwitcher({
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          padding: '8px 14px',
+          padding: '10px 16px', // 增大触摸区域
+          minHeight: '40px', // 确保最小高度
           borderRadius: 'var(--radius-full)',
           border: '1px solid var(--color-border)',
           background: 'transparent',
@@ -70,6 +75,8 @@ export function LanguageSwitcher({
           cursor: 'pointer',
           transition: 'all 0.2s ease',
           fontFamily: 'var(--font-sans)',
+          WebkitTapHighlightColor: 'transparent', // 移除移动端点击高亮
+          touchAction: 'manipulation', // 优化触摸响应
         }}
         aria-label={t('language.switchTo')}
       >

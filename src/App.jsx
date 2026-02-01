@@ -80,12 +80,12 @@ function App() {
             <Route path="demo/interactive-background" element={<InteractiveBackgroundDemo />} />
             <Route path="showcase-demos/color-reveal" element={<ColorRevealDemo />} />
 
-            {/* New Gallery Routes */}
+            {/* Gallery Routes - Nested Structure */}
             <Route path="gallery" element={<Gallery />} />
-            <Route path="gallery-old" element={<GalleryHome />} />
-            <Route path="gallery-old/:module" element={<GalleryModule />} />
-            <Route path="gallery-old/:module/:submodule" element={<GallerySubmodule />} />
-            <Route path="gallery-old/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
+            <Route path="gallery/list" element={<GalleryHome />} />
+            <Route path="gallery/:module" element={<GalleryModule />} />
+            <Route path="gallery/:module/:submodule" element={<GallerySubmodule />} />
+            <Route path="gallery/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
 
             <Route path="about" element={<About />} />
           </Route>
