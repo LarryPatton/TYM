@@ -354,8 +354,8 @@ const Work = () => {
     },
     {
       id: 'phase-06',
-      titleEn: 'Coming Soon',
-      image: null, // Phase 06 未来可能有封面，保留适应性
+      titleEn: 'Copywriting Visualization',
+      image: '/images/case-index/phase-06-cover.png',
     }
   ];
 

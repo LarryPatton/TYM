@@ -11,13 +11,11 @@ const GalleryHome = () => {
   const isDark = theme === 'dark';
   useTitle(t('gallery.title'));
 
-  // 5 个模块的 key
+  // 只显示前 3 个模块
   const moduleKeys = [
     'form-structure',
     'material-texture', 
-    'narrative-imagery',
-    'light-atmosphere',
-    'observation-reality'
+    'narrative-imagery'
   ];
 
   // 动画配置

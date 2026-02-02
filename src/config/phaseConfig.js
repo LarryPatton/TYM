@@ -1097,7 +1097,7 @@ export const phase05Config = {
   titleEn: 'Retail & Experience Expansion',
   titleKey: 'case.phases.phase-05.title',
   prev: 'phase-04',
-  next: null,
+  next: 'phase-06',
   totalScreens: 13, // 15 - 3 + 1 = 13 (合并 Screen 04/05/06 为 kv-mixed-grid)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
@@ -1492,13 +1492,65 @@ export const phase05Config = {
   ]
 };
 
+const PHASE06_BASE = '/images/phase-06';
+
+// Phase 06: 文案可视化 (3屏)
+export const phase06Config = {
+  id: 'phase-06',
+  number: '06',
+  titleEn: 'Copywriting Visualization',
+  titleKey: 'case.phases.phase-06.title',
+  prev: 'phase-05',
+  next: null, // 最后一个 Phase
+  totalScreens: 3,
+  bgColor: '#0a0a0a', // 统一背景色 - 深黑
+  screens: [
+    // Screen 01: Intro - 引导屏
+    {
+      id: 'intro',
+      type: 'intro',
+      imageHint: 'Copywriting Visualization',
+      bgImage: `${PHASE06_BASE}/cover/hero.png`, // 需要准备封面图
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
+    },
+    // Screen 02: 文件夹 01 - Frame 1-5 (弹出序列)
+    {
+      id: 'folder-01',
+      type: 'popup-sequence',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE06_BASE}/01/Frame 1.png`, label: 'Frame 01' },
+        { src: `${PHASE06_BASE}/01/Frame 2.png`, label: 'Frame 02' },
+        { src: `${PHASE06_BASE}/01/Frame 3.png`, label: 'Frame 03' },
+        { src: `${PHASE06_BASE}/01/Frame 4.png`, label: 'Frame 04' },
+        { src: `${PHASE06_BASE}/01/Frame 5.png`, label: 'Frame 05' }
+      ]
+    },
+    // Screen 03: 文件夹 02 - Frame 6-11 (弹出序列)
+    {
+      id: 'folder-02',
+      type: 'popup-sequence',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE06_BASE}/02/Frame 6.png`, label: 'Frame 06' },
+        { src: `${PHASE06_BASE}/02/Frame 7.png`, label: 'Frame 07' },
+        { src: `${PHASE06_BASE}/02/Frame 8.png`, label: 'Frame 08' },
+        { src: `${PHASE06_BASE}/02/Frame 9.png`, label: 'Frame 09' },
+        { src: `${PHASE06_BASE}/02/Frame 10.png`, label: 'Frame 10' },
+        { src: `${PHASE06_BASE}/02/Frame 11.png`, label: 'Frame 11' }
+      ]
+    }
+  ]
+};
+
 // 汇总配置
 export const phasesConfig = {
   'phase-01': phase01Config,
   'phase-02': phase02Config,
   'phase-03': phase03Config,
   'phase-04': phase04Config,
-  'phase-05': phase05Config
+  'phase-05': phase05Config,
+  'phase-06': phase06Config
 };
 
 // 获取 Phase 配置的辅助函数

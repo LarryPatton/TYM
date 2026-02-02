@@ -64,16 +64,16 @@ const CaseIndex = () => {
       imagePlaceholder: '零售 · 场景 · 体验',
       isPlaceholder: false
     },
-    // 占位 Phase 06
+    // Phase 06
     {
       id: 'phase-06',
       number: '06',
-      titleEn: 'Coming Soon',
-      titleZh: '即将上线',
-      desc: '更多精彩内容正在准备中...',
-      image: null,
-      imagePlaceholder: '敬请期待',
-      isPlaceholder: true
+      titleEn: 'Copywriting Visualization',
+      titleZh: t('case.phases.phase-06.title'),
+      desc: t('case.phases.phase-06.desc'),
+      image: '/images/case-index/phase-06-cover.png',
+      imagePlaceholder: '文案 · 可视化',
+      isPlaceholder: false
     }
   ];
 
@@ -337,13 +337,19 @@ const CaseIndex = () => {
                 
                 {/* 底部：文字区 */}
                 <div className="case-card-content">
-                  <div>
-                    {/* 阶段信息和标题在同一行（移动端） */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 'var(--space-md)',
+                  }}>
+                    {/* 左侧：阶段信息和标题 */}
                     <div className="case-card-title-row" style={{
                       display: 'flex',
                       alignItems: 'baseline',
                       gap: 'var(--space-sm)',
                       flexWrap: 'wrap',
+                      flex: 1,
                     }}>
                       <span style={{
                         fontSize: 'var(--text-xs)',
@@ -367,17 +373,9 @@ const CaseIndex = () => {
                         {isZh ? phase.titleZh : phase.titleEn}
                       </h3>
                     </div>
-                  </div>
-                  
-                  {!phase.isPlaceholder && (
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                      alignItems: 'center',
-                      paddingTop: 'var(--space-sm)',
-                      borderTop: '1px solid var(--color-border)',
-                      marginTop: 'var(--space-sm)'
-                    }}>
+                    
+                    {/* 右侧：探索按钮 */}
+                    {!phase.isPlaceholder && (
                       <motion.span 
                         animate={{ x: hoveredPhase === phase.id ? 4 : 0 }}
                         style={{
@@ -386,14 +384,15 @@ const CaseIndex = () => {
                           fontSize: 'var(--text-sm)',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: 'var(--space-xs)'
+                          gap: 'var(--space-xs)',
+                          flexShrink: 0,
                         }}
                       >
                         {t('case.explore')}
                         <span>→</span>
                       </motion.span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </motion.article>
             </Link>

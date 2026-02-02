@@ -27,3 +27,8 @@ gallery.digitalPhotography,数码摄影,Digital Photography
 gallery.workDesc,这里是关于作品的简短描述。阐述创作动机、使用的技术或背后的故事。保持在 3-5 行以内。,"A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines."
 gallery.capabilityTags,能力标签,Capability Tags
 gallery.relatedWorks,同系列作品,Related Works
+gallery.filter.label,筛选媒介,Filter by Media
+gallery.filter.all,全部,All
+gallery.aspectType.portrait,长图,Portrait
+gallery.aspectType.landscape,宽图,Landscape
+

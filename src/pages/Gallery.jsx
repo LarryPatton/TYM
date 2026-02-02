@@ -337,33 +337,12 @@ const Gallery = () => {
   useTitle(t('gallery.pageTitle'));
 
   // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
-  const galleryItems = [
-    {
-      id: 'gallery-01',
-      titleEn: 'Artwork 01',
-      image: '/images/gallery/placeholder-01.svg',
-    },
-    {
-      id: 'gallery-02',
-      titleEn: 'Artwork 02',
-      image: '/images/gallery/placeholder-02.svg',
-    },
-    {
-      id: 'gallery-03',
-      titleEn: 'Artwork 03',
-      image: '/images/gallery/placeholder-03.svg',
-    },
-    {
-      id: 'gallery-04',
-      titleEn: 'Artwork 04',
-      image: '/images/gallery/placeholder-04.svg',
-    },
-    {
-      id: 'gallery-05',
-      titleEn: 'Artwork 05',
-      image: '/images/gallery/placeholder-05.svg',
-    },
-  ];
+  // 飞入素材配置 - 自动按数字顺序读取 fly-in 文件夹中的图片
+  const galleryItems = Array.from({ length: 6 }, (_, i) => ({
+    id: `gallery-${String(i + 1).padStart(2, '0')}`,
+    titleEn: `Artwork ${String(i + 1).padStart(2, '0')}`,
+    image: `/gallery/fly-in/${i + 1}.png`,
+  }));
 
   // 收集所有需要预加载的图片 URL
   const imageUrls = useMemo(() => {

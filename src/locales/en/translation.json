@@ -366,15 +366,40 @@
             "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
           }
         }
+      },
+      "phase-05": {
+        "title": "Retail & Experience Expansion",
+        "desc": "Extending the brand system to retail terminals and user experience.",
+        "screens": {
+          "intro": {
+            "content": "Complete brand presence in retail environments, demonstrating how the system maintains consistency in real scenarios."
+          },
+          "closing": {
+            "title": "Successful validation of the system in real environments",
+            "content": "Through complete terminal experience presentation, the brand system achieves a complete loop from theory to practice."
+          }
+        }
+      },
+      "phase-06": {
+        "title": "Copywriting Visualization",
+        "desc": "Presenting copywriting content in a visualized way, exploring the combination of text and visuals.",
+        "screens": {
+          "intro": {
+            "content": "Making copywriting content more expressive through visual design, establishing organic connection between text and imagery."
+          },
+          "folder-01": {
+            "title": "Series 01",
+            "content": "First set of copywriting visualization, exploring visual expression of text."
+          },
+          "folder-02": {
+            "title": "Series 02",
+            "content": "Second set of copywriting visualization, deepening the integration of text and design."
+          }
+        }
       }
     }
   },
   "gallery": {
-    "pageTitle": "Gallery",
-    "label": "Art Practice · Visual Exploration",
-    "title": "Art Gallery",
-    "desc": "As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, which in turn nourish my judgment in brand and product design.",
-    "exploreWorks": "Explore Works",
     "modules": {
       "form-structure": {
         "number": "01",
@@ -497,7 +522,10 @@
       }
     },
     "pageTitle": "Gallery",
+    "label": "Art Practice · Visual Exploration",
     "title": "Art Gallery",
+    "desc": "As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, which in turn nourish my judgment in brand and product design.",
+    "exploreWorks": "Explore Works",
     "subtitle": "A personal collection of visual works, exploring the infinite possibilities of form and light.",
     "categories": "Categories",
     "allWorks": "All Works",
@@ -520,7 +548,15 @@
     "digitalPhotography": "Digital Photography",
     "workDesc": "A brief description about the artwork. Explain the creative motivation, techniques used, or the story behind it. Keep it within 3-5 lines.",
     "capabilityTags": "Capability Tags",
-    "relatedWorks": "Related Works"
+    "relatedWorks": "Related Works",
+    "filter": {
+      "label": "Filter by Media",
+      "all": "All"
+    },
+    "aspectType": {
+      "portrait": "Portrait",
+      "landscape": "Landscape"
+    }
   },
   "home": {
     "pageTitle": "Home",
@@ -730,7 +766,8 @@
     "viewMore": "View More",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "swipeToExplore": "Swipe to explore"
   },
   "footer": {
     "email": "Email",

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import ScrollParallaxShowcase from '../components/ScrollParallaxShowcase';
 import ServiceSection from '../components/ServiceSection';
 import BlindsTransition from '../components/BlindsTransition';
+import MobileHome from '../components/MobileHome';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
@@ -269,6 +270,17 @@ const Home = () => {
     { id: 'contact-cta', name: t('home.sectionContact'), dark: true },
   ];
 
+  // ==================== 移动端：使用全新的分屏布局 ====================
+  if (isMobile) {
+    return (
+      <MobileHome 
+        featuredCases={featuredCases}
+        services={services}
+      />
+    );
+  }
+
+  // ==================== 桌面端：保持原有布局 ====================
   return (
     <div>
       {/* 导航圆点 - 移动端隐藏 */}

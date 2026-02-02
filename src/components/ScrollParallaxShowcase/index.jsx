@@ -180,77 +180,165 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile, projects, activeId, isScrollLocked]);
 
-  // ==================== 移动端布局 - 滚动切换内容 ====================
+  // ==================== 移动端布局 - 横向滑动卡片 ====================
   if (isMobile) {
-    // 计算总高度：每个项目对应一屏的滚动高度
-    const totalScrollHeight = `${projects.length * 100}vh`;
+    const carouselRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [showSwipeHint, setShowSwipeHint] = useState(true);
+    
+    // 滑动到指定项目
+    const scrollToProject = (index) => {
+      if (carouselRef.current) {
+        const cardWidth = carouselRef.current.offsetWidth;
+        carouselRef.current.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+      }
+    };
+    
+    // 监听滚动位置更新当前项目
+    useEffect(() => {
+      const carousel = carouselRef.current;
+      if (!carousel) return;
+      
+      const handleScroll = () => {
+        const cardWidth = carousel.offsetWidth;
+        const scrollLeft = carousel.scrollLeft;
+        const newIndex = Math.round(scrollLeft / cardWidth);
+        const newActiveId = projects[newIndex]?.id;
+        if (newActiveId && newActiveId !== activeId) {
+          setActiveId(newActiveId);
+        }
+        // 用户滑动后隐藏提示
+        if (showSwipeHint && scrollLeft > 20) {
+          setShowSwipeHint(false);
+        }
+      };
+      
+      carousel.addEventListener('scroll', handleScroll, { passive: true });
+      return () => carousel.removeEventListener('scroll', handleScroll);
+    }, [projects, activeId, showSwipeHint]);
+    
+    // 3秒后自动隐藏滑动提示
+    useEffect(() => {
+      const timer = setTimeout(() => setShowSwipeHint(false), 3000);
+      return () => clearTimeout(timer);
+    }, []);
     
     return (
-      <div 
+      <section
         ref={sectionRef}
         style={{
-          position: 'relative',
-          height: totalScrollHeight, // 创建滚动空间
+          minHeight: '100vh',
+          background: 'var(--color-bg)',
+          color: 'var(--color-text-main)',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 'var(--space-lg) 0 var(--space-xl)',
         }}
       >
-        {/* 固定在屏幕上的内容区 */}
-        <section
-          style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
-            background: 'var(--color-bg)',
-            color: 'var(--color-text-main)',
+        {/* Section Title + Progress */}
+        <div 
+          style={{ 
+            padding: '0 var(--space-page-x) var(--space-md)',
             display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
-          {/* 顶部图片区 - 占 45% 高度 */}
+          <span style={{
+            fontSize: '0.75rem', 
+            color: 'var(--color-text-muted)', 
+            textTransform: 'uppercase', 
+            letterSpacing: '2px',
+            fontWeight: '500',
+          }}>
+            {sectionTitle}
+          </span>
+          {/* 进度指示 */}
+          <span style={{
+            fontSize: '0.8rem',
+            fontFamily: 'var(--font-mono, monospace)',
+            color: 'var(--color-text-main)',
+            fontWeight: '600',
+          }}>
+            {String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+          </span>
+        </div>
+        
+        {/* 进度条 */}
+        <div style={{
+          margin: '0 var(--space-page-x) var(--space-md)',
+          height: '2px',
+          background: 'var(--color-border)',
+          borderRadius: '1px',
+          overflow: 'hidden',
+        }}>
+          <motion.div
+            animate={{ width: `${((activeIndex + 1) / projects.length) * 100}%` }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            style={{
+              height: '100%',
+              background: 'var(--color-text-main)',
+              borderRadius: '1px',
+            }}
+          />
+        </div>
+        
+        {/* 横向滑动卡片区 */}
         <div
+          ref={carouselRef}
           style={{
-            flex: '0 0 45%',
-            background: 'var(--color-bg-subtle)',
-            position: 'relative',
-            overflow: 'hidden',
+            flex: 1,
+            display: 'flex',
+            overflowX: 'auto',
+            overflowY: 'hidden',
+            scrollSnapType: 'x mandatory',
+            scrollBehavior: 'smooth',
+            WebkitOverflowScrolling: 'touch',
+            // 隐藏滚动条
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
           }}
+          className="hide-scrollbar"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.3 }}
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
               style={{
-                width: '100%',
-                height: '100%',
-                position: 'relative',
+                flex: '0 0 100%',
+                scrollSnapAlign: 'start',
+                scrollSnapStop: 'always',
+                padding: '0 var(--space-page-x)',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-md)',
               }}
             >
+              {/* 卡片图片区 */}
               <Link 
-                to={`/work/the-case/${activeProject.id}`}
-                style={{ 
-                  display: 'block',
-                  width: '100%', 
-                  height: '100%',
-                  textDecoration: 'none'
-                }}
+                to={`/work/the-case/${project.id}`}
+                style={{ textDecoration: 'none', flex: 1, minHeight: 0 }}
               >
-                <div
+                <motion.div
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     width: '100%',
                     height: '100%',
-                    background: activeProject.cover || '#eee',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    minHeight: '45vh',
+                    background: project.cover || '#eee',
+                    borderRadius: 'var(--radius-lg)',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    boxShadow: 'var(--shadow-lg)',
                   }}
                 >
-                  {activeProject.coverImage ? (
+                  {project.coverImage ? (
                     <img 
-                      src={activeProject.coverImage} 
-                      alt={activeProject.title}
+                      src={project.coverImage} 
+                      alt={project.title}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -259,203 +347,159 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                     />
                   ) : (
                     <div style={{ 
-                      color: 'rgba(255,255,255,0.5)', 
-                      fontSize: 'clamp(1.2rem, 5vw, 1.8rem)', 
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'rgba(255,255,255,0.4)', 
+                      fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', 
                       fontWeight: '600',
                       textAlign: 'center',
                       padding: '20px',
                       fontFamily: 'var(--font-serif)',
                     }}>
-                      {activeProject.title}
+                      {project.title}
                     </div>
                   )}
-                </div>
-
-                {/* 项目编号标识 */}
-                <div style={{
-                  position: 'absolute',
-                  top: '12px',
-                  right: '12px',
-                  padding: '5px 12px',
-                  background: 'rgba(0,0,0,0.6)',
-                  borderRadius: '100px',
-                  color: '#fff',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                  fontFamily: 'var(--font-mono, monospace)',
-                }}>
-                  {String(projects.findIndex(p => p.id === activeId) + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                </div>
-
-                {/* 点击查看提示 */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '12px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  padding: '8px 16px',
-                  background: 'rgba(255,255,255,0.95)',
-                  borderRadius: '100px',
-                  color: '#000',
-                  fontSize: '0.8rem',
-                  fontWeight: '600',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-                }}>
-                  {t('work.viewProject')}
-                </div>
+                  
+                  {/* 编号标签 */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '6px 12px',
+                    background: 'rgba(0,0,0,0.7)',
+                    borderRadius: '100px',
+                    color: '#fff',
+                    fontSize: '0.75rem',
+                    fontWeight: '600',
+                    fontFamily: 'var(--font-mono, monospace)',
+                  }}>
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  
+                  {/* 查看按钮 */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    right: '12px',
+                    padding: '8px 16px',
+                    background: 'rgba(255,255,255,0.95)',
+                    borderRadius: '100px',
+                    color: '#000',
+                    fontSize: '0.8rem',
+                    fontWeight: '600',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+                  }}>
+                    {t('work.viewProject')} →
+                  </div>
+                </motion.div>
               </Link>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* 底部列表区 - 占 55% 高度，内部可滚动 */}
-        <div
-          style={{
-            flex: '1',
-            display: 'flex',
-            flexDirection: 'column',
-            background: 'var(--color-bg)',
-            borderTop: '1px solid var(--color-border)',
-          }}
-        >
-          {/* Section Title - 固定 */}
-          <div 
-            style={{ 
-              padding: 'var(--space-md) var(--space-page-x)',
-              paddingBottom: 'var(--space-sm)',
-              fontSize: '0.75rem', 
-              color: 'var(--color-text-muted)', 
-              textTransform: 'uppercase', 
-              letterSpacing: '2px',
-              fontWeight: '500',
-              borderBottom: '1px solid var(--color-border)',
-              flexShrink: 0,
-            }}
-          >
-            {sectionTitle}
-          </div>
-
-          {/* Project List - 可滚动区域 */}
-          <div 
-            ref={listContainerRef}
-            style={{ 
-              flex: 1,
-              overflowY: 'auto',
-              padding: 'var(--space-sm) var(--space-page-x)',
-              WebkitOverflowScrolling: 'touch', // iOS 平滑滚动
-            }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              {projects.map((p, index) => {
-                const isActive = activeId === p.id;
-                return (
-                  <motion.div
-                    key={p.id}
-                    layout
-                    style={{ 
-                      cursor: 'pointer',
-                      position: 'relative',
-                      padding: 'var(--space-sm) var(--space-sm)',
-                      borderRadius: 'var(--radius-md)',
-                      background: isActive ? 'var(--color-bg-subtle)' : 'transparent',
-                      borderLeft: isActive ? '3px solid var(--color-text-main)' : '3px solid transparent',
-                      transition: 'background 0.2s ease, border-color 0.2s ease',
-                    }}
-                    onClick={() => setActiveId(p.id)}
-                  >
-                    {/* Title Row */}
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '10px', 
-                    }}>
-                      <span 
-                        style={{ 
-                          fontSize: '0.75rem', 
-                          fontFamily: 'var(--font-mono, monospace)', 
-                          color: isActive ? 'var(--color-text-main)' : 'var(--color-text-light)',
-                          fontWeight: '500',
-                          minWidth: '20px',
-                        }}
-                      >
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <h3 
-                        style={{ 
-                          margin: 0, 
-                          fontSize: isActive ? '1rem' : '0.95rem', 
-                          fontFamily: 'var(--font-serif)',
-                          fontWeight: isActive ? '600' : '400',
-                          lineHeight: 1.3,
-                          color: isActive ? 'var(--color-text-main)' : 'var(--color-text-muted)',
-                          flex: 1,
-                        }}
-                      >
-                        {p.title}
-                      </h3>
-                      {/* 激活指示器 */}
-                      {isActive && (
-                        <motion.span
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          style={{
-                            width: '6px',
-                            height: '6px',
-                            borderRadius: '50%',
-                            background: 'var(--color-text-main)',
-                          }}
-                        />
-                      )}
-                    </div>
-
-                    {/* Expanded Details */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          style={{ overflow: 'hidden' }}
-                        >
-                          <div style={{ paddingTop: '6px', paddingLeft: '30px' }}>
-                            <p style={{ 
-                              fontSize: '0.8rem', 
-                              color: 'var(--color-text-secondary)', 
-                              lineHeight: 1.5, 
-                              margin: '0 0 8px 0',
-                            }}>
-                              {p.subtitle}
-                            </p>
-
-                            <Link 
-                              to={`/work/the-case/${p.id}`}
-                              style={{ 
-                                textDecoration: 'none',
-                                display: 'inline-flex', 
-                                alignItems: 'center', 
-                                gap: '4px',
-                                fontSize: '0.75rem',
-                                fontWeight: '600',
-                                color: 'var(--color-text-main)',
-                                borderBottom: '1px solid var(--color-text-main)',
-                                paddingBottom: '1px',
-                              }}
-                            >
-                              {t('common.viewMore')} <span>→</span>
-                            </Link>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
+              
+              {/* 卡片文字区 */}
+              <div style={{ padding: '0 var(--space-xs)' }}>
+                <h3 style={{
+                  margin: '0 0 6px 0',
+                  fontSize: 'clamp(1.2rem, 5vw, 1.5rem)',
+                  fontFamily: 'var(--font-serif)',
+                  fontWeight: '500',
+                  lineHeight: 1.2,
+                  color: 'var(--color-text-main)',
+                }}>
+                  {project.title}
+                </h3>
+                <p style={{
+                  margin: 0,
+                  fontSize: '0.9rem',
+                  color: 'var(--color-text-muted)',
+                  lineHeight: 1.5,
+                }}>
+                  {project.subtitle}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-        </section>
-      </div>
+        
+        {/* 分页指示器 */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px',
+          padding: 'var(--space-md) var(--space-page-x)',
+        }}>
+          {projects.map((p, index) => (
+            <motion.button
+              key={p.id}
+              onClick={() => scrollToProject(index)}
+              whileTap={{ scale: 0.8 }}
+              style={{
+                width: activeIndex === index ? '24px' : '8px',
+                height: '8px',
+                borderRadius: '4px',
+                border: 'none',
+                background: activeIndex === index 
+                  ? 'var(--color-text-main)' 
+                  : 'var(--color-border)',
+                cursor: 'pointer',
+                padding: 0,
+                transition: 'all 0.3s ease',
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* 横向滑动提示 - 首次显示 */}
+        <AnimatePresence>
+          {showSwipeHint && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              style={{
+                position: 'fixed',
+                bottom: '100px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                background: 'rgba(0,0,0,0.8)',
+                borderRadius: '100px',
+                color: '#fff',
+                fontSize: '0.8rem',
+                fontWeight: '500',
+                zIndex: 50,
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+              }}
+            >
+              <motion.span
+                animate={{ x: [0, 8, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                ← 
+              </motion.span>
+              {t('common.swipeToExplore') || '左右滑动浏览'}
+              <motion.span
+                animate={{ x: [0, -8, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                 →
+              </motion.span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* 隐藏滚动条样式 */}
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+      </section>
     );
   }
 

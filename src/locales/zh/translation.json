@@ -366,15 +366,40 @@
             "content": "这一阶段的完成，也为后续品牌发展提供了稳定基础。"
           }
         }
+      },
+      "phase-05": {
+        "title": "零售与体验拓展",
+        "desc": "将品牌系统拓展到零售终端与用户体验。",
+        "screens": {
+          "intro": {
+            "content": "品牌在零售环境中的完整呈现，展示系统如何在真实场景中保持一致性。"
+          },
+          "closing": {
+            "title": "系统在真实环境中的成功验证",
+            "content": "通过终端体验的完整呈现，品牌系统实现了从理论到实践的完整闭环。"
+          }
+        }
+      },
+      "phase-06": {
+        "title": "文案可视化",
+        "desc": "将文案内容以可视化方式呈现，探索文字与视觉的结合。",
+        "screens": {
+          "intro": {
+            "content": "通过视觉设计让文案内容更具表现力，建立文字与图像的有机连接。"
+          },
+          "folder-01": {
+            "title": "系列一",
+            "content": "第一组文案可视化展示，探索文字的视觉表达。"
+          },
+          "folder-02": {
+            "title": "系列二",
+            "content": "第二组文案可视化展示，深化文字与设计的融合。"
+          }
+        }
       }
     }
   },
   "gallery": {
-    "pageTitle": "画廊",
-    "label": "Art Practice · Visual Exploration",
-    "title": "艺术画廊",
-    "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
-    "exploreWorks": "探索作品",
     "modules": {
       "form-structure": {
         "number": "01",
@@ -496,6 +521,12 @@
         "title": "未知模块"
       }
     },
+    "pageTitle": "画廊",
+    "label": "Art Practice · Visual Exploration",
+    "title": "艺术画廊",
+    "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
+    "exploreWorks": "探索作品",
+    "subtitle": "以视觉作品为主的个人创作集合，探索造型与光影的无限可能。",
     "categories": "分类",
     "allWorks": "全部作品",
     "backToGallery": "← 返回画廊首页",
@@ -517,7 +548,15 @@
     "digitalPhotography": "数码摄影",
     "workDesc": "这里是关于作品的简短描述。阐述创作动机、使用的技术或背后的故事。保持在 3-5 行以内。",
     "capabilityTags": "能力标签",
-    "relatedWorks": "同系列作品"
+    "relatedWorks": "同系列作品",
+    "filter": {
+      "label": "筛选媒介",
+      "all": "全部"
+    },
+    "aspectType": {
+      "portrait": "长图",
+      "landscape": "宽图"
+    }
   },
   "home": {
     "pageTitle": "首页",
@@ -727,7 +766,8 @@
     "viewMore": "查看更多",
     "viewAll": "查看全部",
     "learnMore": "了解更多",
-    "scroll": "滚动"
+    "scroll": "滚动",
+    "swipeToExplore": "左右滑动浏览"
   },
   "footer": {
     "email": "邮箱",
