@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
@@ -10,6 +10,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * 3. 每组有停顿时间（中间静止区域）
  * 4. 第三组强制横向 1×4 排列
  * 5. 当前组高亮，前后组淡出模糊
+ * 
+ * 移动端优化：
+ * - 改为垂直堆叠展示所有分组
+ * - 禁用横向切换动画
+ * - 简化为普通滚动
  * 
  * @param {Array} groups - 分组数组 [{label, images: [{src, label}]}]
  * @param {string} bgColor - 背景颜色
@@ -24,6 +29,18 @@ export const GroupedCarouselScreen = ({
   rowGap = '24px'  // 自定义行间距，默认 24px
 }) => {
   const containerRef = useRef(null);
+  
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // 滚动进度监听
   const { scrollYProgress } = useScroll({
@@ -46,6 +63,94 @@ export const GroupedCarouselScreen = ({
     return { start, enterEnd, holdEnd, end };
   };
 
+  // 移动端：简化为垂直堆叠布局
+  if (isMobile) {
+    return (
+      <section
+        ref={containerRef}
+        style={{
+          background: bgColor,
+          padding: '60px 20px 80px',
+          color: '#fff'
+        }}
+      >
+        {/* 屏幕标识 */}
+        {screenNumber && (
+          <div style={{
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.4)',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            textAlign: 'center',
+            marginBottom: '24px'
+          }}>
+            {screenNumber} / {screenLabel}
+          </div>
+        )}
+
+        {/* 分组垂直展示 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+          {groups.map((group, groupIndex) => (
+            <motion.div
+              key={`group-${groupIndex}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
+              viewport={{ once: true, margin: "-10%" }}
+            >
+              {/* 组标题 */}
+              {group.label && (
+                <h3 style={{
+                  fontSize: '1rem',
+                  fontWeight: 400,
+                  color: '#fff',
+                  marginBottom: '20px',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  textAlign: 'center'
+                }}>
+                  {group.label}
+                </h3>
+              )}
+              
+              {/* 图片网格 - 移动端 2 列 */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '12px'
+              }}>
+                {(group.images || []).map((img, imgIndex) => (
+                  <div
+                    key={`img-${groupIndex}-${imgIndex}`}
+                    style={{
+                      aspectRatio: '1 / 1',
+                      background: 'transparent',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <img
+                      src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                      alt={img.label || `Image ${imgIndex + 1}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain'
+                      }}
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // 桌面端：保持原有的滚动驱动横向切换效果
   return (
     <div 
       ref={containerRef}

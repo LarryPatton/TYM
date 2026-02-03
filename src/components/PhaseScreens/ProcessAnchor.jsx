@@ -3,6 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const ProcessAnchor = ({ screens, labels, phaseId }) => {
   const [activeStep, setActiveStep] = useState(-1); // -1 means hidden (out of range)
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 移动端检测
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   useEffect(() => {
     // 滚动监听
@@ -73,6 +84,70 @@ const ProcessAnchor = ({ screens, labels, phaseId }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [screens]);
 
+  // 移动端：简化为仅显示当前步骤指示器（圆点形式）
+  if (isMobile) {
+    return (
+      <AnimatePresence>
+        {activeStep !== -1 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              left: '50%',
+              top: '16px',
+              transform: 'translateX(-50%)',
+              zIndex: 90,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(10, 10, 10, 0.7)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              padding: '8px 12px',
+              borderRadius: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+            }}
+          >
+            {/* 步骤圆点 */}
+            {labels.map((_, index) => (
+              <motion.div
+                key={index}
+                animate={{
+                  scale: index === activeStep ? 1 : 0.6,
+                  opacity: index === activeStep ? 1 : 0.3,
+                }}
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: '#fff',
+                }}
+                onClick={() => {
+                  const el = document.getElementById(screens[index]);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              />
+            ))}
+            {/* 当前步骤标签 */}
+            <span style={{
+              color: '#fff',
+              fontSize: '11px',
+              fontWeight: 500,
+              marginLeft: '4px',
+              opacity: 0.9,
+            }}>
+              {labels[activeStep]}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  }
+
+  // 桌面端：完整的步骤导航
   return (
     <AnimatePresence>
       {activeStep !== -1 && (

@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
 import { useScreenTransition } from './TransitionContext';
 import FlashlightMask from './FlashlightMask';
@@ -8,8 +8,13 @@ import FlashlightMask from './FlashlightMask';
 // 优化版：幕布揭示效果 (Curtain Reveal) + 手电筒探索效果
 // 初始只能看到黑色背景和文字，鼠标可探索底层图片
 // 随着滚动，黑色幕布向上拉起，揭示底部的背景图
+// 
+// 移动端优化：
+// - 禁用手电筒效果
+// - 缩短滚动行程 (250vh -> 150vh)
+// - 简化动画效果
 // ============================================
-export const IntroScreen = ({ 
+export const IntroScreen = ({
   phaseNumber, 
   titleEn, 
   titleZh, 
@@ -22,6 +27,21 @@ export const IntroScreen = ({
   featherSize = 120 // 羽化边缘宽度
 }) => {
   const ref = useRef(null);
+  
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // 移动端自动禁用手电筒效果
+  const shouldEnableFlashlight = enableFlashlight && !isMobile;
   
   // ============================================
   // 【滚动监听配置】
@@ -182,7 +202,8 @@ export const IntroScreen = ({
 
   return (
     <section ref={ref} style={{
-      height: '250vh', // 足够的滚动行程
+      // 移动端缩短滚动行程：250vh -> 150vh
+      height: isMobile ? '150vh' : '250vh',
       width: '100%',
       position: 'relative',
       background: '#000'
@@ -232,7 +253,8 @@ export const IntroScreen = ({
         </motion.div>
 
         {/* Layer 2: 顶层幕布 (纯黑背景 + 文字) - 根据配置决定是否使用手电筒效果 */}
-        {enableFlashlight && fullBgImageUrl ? (
+        {/* 移动端自动禁用手电筒效果 (shouldEnableFlashlight) */}
+        {shouldEnableFlashlight && fullBgImageUrl ? (
           // 使用手电筒效果的幕布层
           <motion.div 
             style={{

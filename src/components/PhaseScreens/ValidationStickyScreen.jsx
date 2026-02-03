@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 
@@ -6,6 +6,11 @@ import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 // 屏幕: 验证阶段 Sticky 展示 (ValidationStickyScreen)
 // 布局: 左侧固定文案 (28%)，右侧滚动展示图片 (72%)
 // 效果: 滚动时左侧文案保持固定，右侧图片依次进入视口
+// 
+// 移动端优化:
+// - 改为垂直堆叠布局（文案在上，图片在下）
+// - 禁用 sticky 效果
+// - 缩短滚动行程
 // ============================================
 export const ValidationStickyScreen = ({
   screenNumber,
@@ -15,6 +20,18 @@ export const ValidationStickyScreen = ({
   images = null // 接受外部传入的 images 配置
 }) => {
   const containerRef = useRef(null);
+  
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // ============================================
   // 【图片资源配置】
@@ -52,6 +69,119 @@ export const ValidationStickyScreen = ({
   // 使用传入的 images 或默认配置
   const displayImages = images || defaultImages;
 
+  // 移动端：简化布局
+  if (isMobile) {
+    return (
+      <section 
+        ref={containerRef} 
+        style={{ 
+          position: 'relative', 
+          background: '#0a0a0a', 
+          color: '#fff',
+          padding: '60px 20px 80px' // 底部预留空间给导航
+        }}
+      >
+        {/* 文案区域（顶部） */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          style={{
+            marginBottom: '40px',
+            textAlign: 'center'
+          }}
+        >
+          <div style={{
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.5)',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            marginBottom: '16px'
+          }}>
+            {screenNumber} / {screenLabel}
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(1.75rem, 6vw, 2.5rem)',
+            fontWeight: '400',
+            marginBottom: '16px',
+            lineHeight: 1.3,
+            color: '#fff'
+          }}>
+            {title}
+          </h2>
+          {content && (
+            <p style={{
+              color: 'rgba(255,255,255,0.7)',
+              fontSize: '0.95rem',
+              lineHeight: 1.6,
+              maxWidth: '400px',
+              margin: '0 auto'
+            }}>
+              {content}
+            </p>
+          )}
+        </motion.div>
+
+        {/* 图片区域（垂直堆叠） */}
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '24px' 
+        }}>
+          {displayImages.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-10%" }}
+            >
+              {item.type === 'group' ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {item.items.map((subItem, subIndex) => (
+                    <div
+                      key={subIndex}
+                      style={{
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        background: '#1a1a1a'
+                      }}
+                    >
+                      <img 
+                        src={subItem.src} 
+                        alt={subItem.label}
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                        onError={(e) => e.target.style.display = 'none'}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    background: '#1a1a1a'
+                  }}
+                >
+                  <img 
+                    src={item.src} 
+                    alt={item.label}
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                    onError={(e) => e.target.style.display = 'none'}
+                  />
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // 桌面端：保持原有的 Sticky 布局
   return (
     <section 
       ref={containerRef} 

@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import ScrollParallaxShowcase from '../components/ScrollParallaxShowcase';
 import ServiceSection from '../components/ServiceSection';
 import BlindsTransition from '../components/BlindsTransition';
+import PartnersSection from '../components/PartnersSection';
 import MobileHome from '../components/MobileHome';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
+import { useTheme } from '../hooks/useTheme';
 
 // 首页专用导航圆点组件
 const HomeDotNavigation = ({ sections, isMobile }) => {
@@ -117,10 +119,50 @@ const HomeDotNavigation = ({ sections, isMobile }) => {
 const Home = () => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   useTitle(t('home.pageTitle'));
 
   const { scrollY } = useScroll();
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+
+  // ===== 百叶窗过渡统一配置 =====
+  const BLINDS_CONFIG = {
+    // 尺寸
+    height: "70vh",
+    blindsCount: 13,
+    // 统一颜色 token
+    colors: {
+      from: '#f5f5f5',      // 起始色（浅色）
+      to: '#0a0a0a',        // 结束色（深色）
+      textColor: 'rgba(255, 255, 255, 0.88)',  // 实心填充文字颜色
+    },
+    // 统一字体样式
+    textStyle: {
+      fontSize: 'clamp(4rem, 15vw, 12rem)',
+      fontWeight: '400',
+      letterSpacing: '-0.02em',
+      textTransform: 'uppercase',
+      fontFamily: 'var(--font-sans)',
+    },
+  };
+
+  // 主题相关颜色配置（仅用于 CTA 等区域）
+  const themeColors = {
+    // CTA 区域
+    ctaBg: isDark ? '#111' : '#f5f5f5',
+    ctaText: isDark ? '#fff' : '#111',
+    ctaTextMuted: isDark ? '#777' : '#666',
+    ctaButtonBg: isDark ? '#fff' : '#111',
+    ctaButtonText: isDark ? '#000' : '#fff',
+    ctaButtonBorder: isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)',
+    ctaGradientLine: isDark ? '#333' : '#ddd',
+    ctaDecoCircle: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.02)',
+    // Footer
+    footerGradient: isDark 
+      ? 'linear-gradient(to bottom, #111, #0a0a0a)'
+      : 'linear-gradient(to bottom, #f5f5f5, #eee)',
+  };
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -252,8 +294,14 @@ const Home = () => {
     },
   ];
 
-  // 合作品牌数据
-  const partners = ['Google', 'Spotify', 'Airbnb', 'Stripe', 'Nike'];
+  // 合作品牌数据 - 使用 id 关联 i18n
+  const partnersData = [
+    { id: 'google', image: '/images/partners/google.svg' },
+    { id: 'spotify', image: '/images/partners/spotify.svg' },
+    { id: 'airbnb', image: '/images/partners/airbnb.svg' },
+    { id: 'stripe', image: '/images/partners/stripe.svg' },
+    { id: 'nike', image: '/images/partners/nike.svg' },
+  ];
 
   const scrollToFeatured = () => {
     const element = document.getElementById('featured-projects');
@@ -453,20 +501,16 @@ const Home = () => {
       {/* Hero 到作品展示的百叶窗过渡 - 移动端隐藏 */}
       {!isMobile && (
         <BlindsTransition 
-          fromColor="#f5f5f5"
-          toColor="#0a0a0a"
-          blindsCount={13}
-          height="80vh"
+          fromColor={BLINDS_CONFIG.colors.from}
+          toColor={BLINDS_CONFIG.colors.to}
+          blindsCount={BLINDS_CONFIG.blindsCount}
+          height={BLINDS_CONFIG.height}
         >
           <div style={{
-            fontSize: 'clamp(4rem, 15vw, 12rem)',
-            fontWeight: '800',
-            color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.15)',
-            letterSpacing: '-0.02em',
-            textTransform: 'uppercase',
+            ...BLINDS_CONFIG.textStyle,
+            color: BLINDS_CONFIG.colors.textColor,
           }}>
-            WORKS
+            {t('home.blinds.works')}
           </div>
         </BlindsTransition>
       )}
@@ -488,20 +532,16 @@ const Home = () => {
       {/* Work 到 Service 的百叶窗过渡 - 移动端隐藏 */}
       {!isMobile && (
         <BlindsTransition 
-          fromColor="#fff"
-          toColor="#111"
-          blindsCount={13}
-          height="80vh"
+          fromColor={BLINDS_CONFIG.colors.from}
+          toColor={BLINDS_CONFIG.colors.to}
+          blindsCount={BLINDS_CONFIG.blindsCount}
+          height={BLINDS_CONFIG.height}
         >
           <div style={{
-            fontSize: 'clamp(4rem, 15vw, 12rem)',
-            fontWeight: '800',
-            color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.2)',
-            letterSpacing: '-0.02em',
-            textTransform: 'uppercase',
+            ...BLINDS_CONFIG.textStyle,
+            color: BLINDS_CONFIG.colors.textColor,
           }}>
-            SERVICES
+            {t('home.blinds.services')}
           </div>
         </BlindsTransition>
       )}
@@ -514,209 +554,194 @@ const Home = () => {
         />
       </div>
 
-      {/* 4. Trust Area - 合作品牌（与 ServiceSection 深色区域无缝连接） */}
-      <section style={{ 
-        padding: 'clamp(80px, 12vh, 140px) clamp(40px, 8vw, 120px)', 
-        textAlign: 'center',
-        background: '#111',
-        position: 'relative',
-      }}>
-        {/* 顶部装饰线 */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          height: '60px',
-          background: 'linear-gradient(to bottom, #333, transparent)',
-        }} />
-
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          style={{ 
-            color: '#555', 
-            marginBottom: '60px', 
-            fontSize: '0.85rem', 
-            textTransform: 'uppercase', 
-            letterSpacing: '4px' 
-          }}
+      {/* Service 到 Partners 的百叶窗过渡 - 移动端隐藏 */}
+      {!isMobile && (
+        <BlindsTransition 
+          fromColor={BLINDS_CONFIG.colors.from}
+          toColor={BLINDS_CONFIG.colors.to}
+          blindsCount={BLINDS_CONFIG.blindsCount}
+          height={BLINDS_CONFIG.height}
         >
-          {t('home.partnersTitle')}
-        </motion.p>
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: 'clamp(40px, 8vw, 100px)', 
-            flexWrap: 'wrap',
-            maxWidth: '1200px',
-            margin: '0 auto',
-          }}
-        >
-          {partners.map((brand, index) => (
-            <motion.span 
-              key={brand} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 0.4, y: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              style={{ 
-                fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', 
-                fontWeight: '700', 
-                color: '#fff',
-                letterSpacing: '0.05em',
-                cursor: 'default',
-                transition: 'opacity 0.3s ease',
-              }}
-            >
-              {brand}
-            </motion.span>
-          ))}
-        </motion.div>
-      </section>
+          <div style={{
+            ...BLINDS_CONFIG.textStyle,
+            color: BLINDS_CONFIG.colors.textColor,
+          }}>
+            {t('home.blinds.partners')}
+          </div>
+        </BlindsTransition>
+      )}
 
-      {/* 5. Contact CTA - 全屏沉浸式 */}
+      {/* 4. Trust Area - 合作品牌 - 全屏飞入+收束效果 */}
+      <PartnersSection partners={partnersData} />
+
+      {/* 5. Contact CTA - Sticky 全屏沉浸式 */}
       <section 
         id="contact-cta"
         style={{ 
-          minHeight: isMobile ? '70vh' : '80vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: isMobile 
-            ? 'var(--space-3xl) var(--space-page-x)'
-            : 'clamp(100px, 15vh, 160px) clamp(40px, 8vw, 120px)', 
-          textAlign: 'center', 
-          background: '#111', 
-          color: '#fff',
           position: 'relative',
-          overflow: 'hidden', // 防止背景装饰溢出
+          height: '200vh', // Sticky 滚动高度
+          background: themeColors.ctaBg,
         }}
       >
-        {/* 背景装饰圆 */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(350px, 55vw, 900px)',
-          height: 'clamp(350px, 55vw, 900px)',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%)',
-          pointerEvents: 'none',
-        }} />
+        {/* Sticky 容器 */}
+        <div
+          style={{
+            position: 'sticky',
+            top: '80px', // 导航栏高度
+            height: 'calc(100vh - 80px)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: isMobile 
+              ? 'var(--space-3xl) var(--space-page-x)'
+              : 'clamp(60px, 10vh, 100px) clamp(40px, 8vw, 120px)', 
+            textAlign: 'center', 
+            color: themeColors.ctaText,
+            overflow: 'hidden',
+            boxSizing: 'border-box',
+          }}
+        >
+          {/* 背景装饰圆 */}
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 'clamp(350px, 55vw, 900px)',
+            height: 'clamp(350px, 55vw, 900px)',
+            borderRadius: '50%',
+            background: `radial-gradient(circle, ${themeColors.ctaDecoCircle} 0%, transparent 60%)`,
+            pointerEvents: 'none',
+          }} />
 
-        {/* 顶部装饰线 */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          height: '80px',
-          background: 'linear-gradient(to bottom, #333, transparent)',
-        }} />
+          {/* 顶部装饰线 */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '1px',
+            height: '80px',
+            background: `linear-gradient(to bottom, ${themeColors.ctaGradientLine}, transparent)`,
+          }} />
 
-        <motion.h2 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          style={{ 
-            fontFamily: 'var(--font-serif)', 
-            fontSize: 'clamp(2.5rem, 8vw, 5.5rem)', 
-            fontWeight: '400', 
-            marginBottom: '30px',
-            position: 'relative',
-            zIndex: 1,
-            lineHeight: 1.1,
-          }}
-        >
-          {t('home.ctaTitle')}
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          viewport={{ once: true }}
-          style={{ 
-            fontSize: 'clamp(1rem, 2vw, 1.5rem)', 
-            color: '#777', 
-            marginBottom: '60px',
-            maxWidth: '600px',
-            lineHeight: 1.6,
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          {t('home.ctaDesc')}
-        </motion.p>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: '20px', 
-            flexWrap: 'wrap',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <a href="mailto:hello@example.com">
+          <motion.h2 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ 
+              fontFamily: 'var(--font-serif)', 
+              fontSize: 'clamp(2.5rem, 8vw, 5.5rem)', 
+              fontWeight: '400', 
+              marginBottom: '30px',
+              position: 'relative',
+              zIndex: 1,
+              lineHeight: 1.1,
+            }}
+          >
+            {t('home.ctaTitle')}
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={{ once: true }}
+            style={{ 
+              fontSize: 'clamp(1rem, 2vw, 1.5rem)', 
+              color: themeColors.ctaTextMuted, 
+              marginBottom: '60px',
+              maxWidth: '600px',
+              lineHeight: 1.6,
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            {t('home.ctaDesc')}
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: '20px', 
+              flexWrap: 'wrap',
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <a href="mailto:hello@example.com">
+              <motion.button 
+                whileHover={{ scale: 1.05, boxShadow: isDark ? '0 10px 40px -10px rgba(255,255,255,0.3)' : '0 10px 40px -10px rgba(0,0,0,0.2)' }}
+                whileTap={{ scale: 0.98 }}
+                style={{ 
+                  padding: '20px 60px', 
+                  background: themeColors.ctaButtonBg, 
+                  color: themeColors.ctaButtonText, 
+                  border: 'none', 
+                  borderRadius: '100px', 
+                  fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                  cursor: 'pointer', 
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                {t('home.emailMe')}
+              </motion.button>
+            </a>
             <motion.button 
-              whileHover={{ scale: 1.05, boxShadow: '0 10px 40px -10px rgba(255,255,255,0.3)' }}
+              whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.3)' }}
               whileTap={{ scale: 0.98 }}
               style={{ 
                 padding: '20px 60px', 
-                background: '#fff', 
-                color: '#000', 
-                border: 'none', 
+                background: 'transparent', 
+                color: themeColors.ctaText, 
+                border: `1px solid ${themeColors.ctaButtonBorder}`, 
                 borderRadius: '100px', 
                 fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-                cursor: 'pointer', 
-                fontWeight: '600',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
               }}
             >
-              {t('home.emailMe')}
+              {t('home.wechatContact')}
             </motion.button>
-          </a>
-          <motion.button 
-            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.5)' }}
-            whileTap={{ scale: 0.98 }}
-            style={{ 
-              padding: '20px 60px', 
-              background: 'transparent', 
-              color: '#fff', 
-              border: '1px solid rgba(255,255,255,0.25)', 
-              borderRadius: '100px', 
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
+          </motion.div>
+
+          {/* 底部滚动提示 */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{
+              position: 'absolute',
+              bottom: 'clamp(30px, 5vh, 50px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: themeColors.ctaTextMuted,
+              fontSize: '0.8rem',
             }}
           >
-            {t('home.wechatContact')}
-          </motion.button>
-        </motion.div>
+            <span>Scroll</span>
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              ↓
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Footer 过渡区域 */}
       <div style={{
         height: '80px',
-        background: 'linear-gradient(to bottom, #111, #0a0a0a)',
+        background: themeColors.footerGradient,
       }} />
     </div>
   );

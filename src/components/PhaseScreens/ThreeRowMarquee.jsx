@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 /**
@@ -10,42 +10,69 @@ import { motion } from 'framer-motion';
  * - 速度交错: 第1行 60s(慢), 第2行 45s(中), 第3行 30s(快)
  * - 透明底 PNG 支持
  * 
+ * 移动端优化：
+ * - 两行模式（隐藏第三行）
+ * - 减慢动画速度
+ * - 缩小图片高度
+ * 
  * @param {Array} images - 图片数组 [{src, label}]
  * @param {string} bgColor - 背景颜色
  */
-export const ThreeRowMarquee = ({ 
+export const ThreeRowMarquee = ({
   images = [], 
   bgColor = '#000',
   isDense = false, // 新增 prop 控制密度
   showGradient = true // 新增 prop 控制渐变遮罩
 }) => {
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   // 动态计算每行图片数量，确保适应任意数量的图片 (如 10张, 14张等)
   const total = images.length;
-  const part1 = Math.floor(total / 3);
-  const part2 = Math.floor(total * 2 / 3);
+  
+  // 移动端：两行模式（图片平分到两行）
+  // 桌面端：三行模式
+  const part1 = isMobile ? Math.floor(total / 2) : Math.floor(total / 3);
+  const part2 = isMobile ? total : Math.floor(total * 2 / 3);
 
   const row1Images = images.slice(0, part1);
   const row2Images = images.slice(part1, part2);
-  const row3Images = images.slice(part2, total);
+  const row3Images = isMobile ? [] : images.slice(part2, total); // 移动端隐藏第三行
   
-  // 根据 isDense 调整参数
+  // 根据 isDense 和移动端调整参数
   // Dense 模式下：高度减小，间隙减小
+  // 移动端：高度进一步减小
   const defaultHeight1 = 220, defaultHeight2 = 200, defaultHeight3 = 220;
   const denseHeight1 = 160, denseHeight2 = 140, denseHeight3 = 160;
+  const mobileHeight = 120; // 移动端统一高度
   
   const defaultGap = 40;
   const denseGap = 20;
+  const mobileGap = 16; // 移动端间距
 
-  const h1 = isDense ? denseHeight1 : defaultHeight1;
-  const h2 = isDense ? denseHeight2 : defaultHeight2;
-  const h3 = isDense ? denseHeight3 : defaultHeight3;
-  const g = isDense ? denseGap : defaultGap;
+  const h1 = isMobile ? mobileHeight : (isDense ? denseHeight1 : defaultHeight1);
+  const h2 = isMobile ? mobileHeight : (isDense ? denseHeight2 : defaultHeight2);
+  const h3 = isMobile ? mobileHeight : (isDense ? denseHeight3 : defaultHeight3);
+  const g = isMobile ? mobileGap : (isDense ? denseGap : defaultGap);
+  
+  // 移动端动画速度减慢 1.5 倍
+  const mobileSpeedMultiplier = isMobile ? 1.5 : 1;
 
   // 配置 - 优化后的参数
   const rowConfigs = [
-    { images: row1Images, direction: 'left', duration: 50, gap: g, height: h1 },   // 慢
-    { images: row2Images, direction: 'right', duration: 38, gap: Math.round(g * 0.8), height: h2 },  // 中
-    { images: row3Images, direction: 'left', duration: 28, gap: g, height: h3 }    // 快
+    { images: row1Images, direction: 'left', duration: 50 * mobileSpeedMultiplier, gap: g, height: h1 },   // 慢
+    { images: row2Images, direction: 'right', duration: 38 * mobileSpeedMultiplier, gap: Math.round(g * 0.8), height: h2 },  // 中
+    // 第三行仅在桌面端显示
+    ...(isMobile ? [] : [{ images: row3Images, direction: 'left', duration: 28 * mobileSpeedMultiplier, gap: g, height: h3 }])
   ];
 
   return (

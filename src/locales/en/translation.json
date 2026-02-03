@@ -117,18 +117,6 @@
     "backToIndex": "Back to Index",
     "backToToc": "TOC",
     "nextPhase": "Next Phase",
-    "products": {
-      "label": "Products",
-      "cube": "Cube",
-      "nicotine-sugar": "Nicotine Sugar",
-      "motor": "Motor"
-    },
-    "productEndHint": {
-      "currentProductEnd": "{{productName}} showcase completed",
-      "switchPrompt": "Explore More Products",
-      "instruction": "Use the product tabs in the top-right corner",
-      "arrowText": "{{count}} more product(s)"
-    },
     "screenLabels": {
       "intro": "Introduction",
       "core-principles": "Core Principles",
@@ -162,6 +150,18 @@
       "color-reveal": "Color Reveal",
       "logo-exploration": "Logo Exploration",
       "phase-closing": "Phase Closing"
+    },
+    "products": {
+      "label": "Products",
+      "cube": "Cube Product",
+      "nicotine-sugar": "Nicotine Sugar",
+      "motor": "Motor Product"
+    },
+    "productEndHint": {
+      "currentProductEnd": "{{productName}} showcase completed",
+      "switchPrompt": "View More Products",
+      "instruction": "Use the product tabs in the top-right to switch",
+      "arrowText": "{{count}} more products available"
     },
     "phases": {
       "phase-01": {
@@ -379,6 +379,31 @@
           }
         }
       },
+      "phase-05": {
+        "title": "Retail & Experience Expansion",
+        "desc": "Applying the brand system to retail spaces and user experience scenarios, ensuring offline touchpoints align with the overall brand.",
+        "screens": {
+          "intro": {
+            "content": "As the brand extends from products to spaces, design needs to maintain system integrity and recognition in three-dimensional environments."
+          },
+          "retail-identity": {
+            "title": "Retail space as the physical carrier of the brand system",
+            "content": "Through unified visual language and spatial logic, retail environments become an important part of brand experience."
+          },
+          "touchpoint-system": {
+            "title": "Systematic touchpoint design ensures experience consistency",
+            "content": "From wayfinding and displays to service details, every touchpoint carries brand recognition."
+          },
+          "spatial-experience": {
+            "title": "Spatial experience is not just visual, but the embodiment of brand values",
+            "content": "Validating system applicability and flexibility in real scenarios."
+          },
+          "closing": {
+            "title": "Successful retail implementation marks brand system maturity",
+            "content": "The system is validated across multi-dimensional scenarios, laying the foundation for continuous brand development."
+          }
+        }
+      },
       "phase-06": {
         "title": "Copywriting Visualization",
         "desc": "Presenting copywriting content in a visualized way, exploring the combination of text and visuals.",
@@ -403,6 +428,7 @@
       "form-structure": {
         "number": "01",
         "title": "Form & Structure",
+        "titleShort": "Form & Structure",
         "subtitle": "Form & Structure Study",
         "desc": "A continuous exploration of form, proportion, and structural relationships, focusing on how order is established in composition and how form carries a sense of stability.",
         "media": [
@@ -421,6 +447,7 @@
       "material-texture": {
         "number": "02",
         "title": "Material & Texture",
+        "titleShort": "Material & Texture",
         "subtitle": "Material & Texture Experiments",
         "desc": "Through the juxtaposition and layering of different materials and media, studying how texture, grain, and tactile associations manifest visually.",
         "media": [
@@ -439,6 +466,7 @@
       "narrative-imagery": {
         "number": "03",
         "title": "Narrative & Imagery",
+        "titleShort": "Narrative & Imagery",
         "subtitle": "Imagery & Narrative Expression",
         "desc": "Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state.",
         "media": [
@@ -457,6 +485,7 @@
       "light-atmosphere": {
         "number": "04",
         "title": "Light & Atmosphere",
+        "titleShort": "Light & Atmosphere",
         "subtitle": "Light & Atmosphere Study",
         "desc": "Exploring the representation of light, shadow, and spatial layers, studying how atmosphere influences viewing emotions and overall perception.",
         "media": [
@@ -475,6 +504,7 @@
       "observation-reality": {
         "number": "05",
         "title": "Observation & Reality",
+        "titleShort": "Observation & Reality",
         "subtitle": "Observation & Reality Documentation",
         "desc": "Based on observation and documentation of the real world, focusing on structure, rhythm, and visual order in everyday scenes.",
         "media": [
@@ -580,6 +610,35 @@
     "ctaDesc": "Let's turn ideas into clear and lasting work.",
     "emailMe": "Email Me",
     "wechatContact": "WeChat Contact",
+    "blinds": {
+      "works": "WORKS",
+      "services": "SERVICES",
+      "partners": "PARTNERS"
+    },
+    "partnersSubtitle": "Trusted By",
+    "partnersViewCase": "View Case",
+    "partners": {
+      "google": {
+        "name": "Google",
+        "desc": "Brand Visual System Upgrade"
+      },
+      "spotify": {
+        "name": "Spotify",
+        "desc": "Marketing Campaign Design"
+      },
+      "airbnb": {
+        "name": "Airbnb",
+        "desc": "Product Packaging Design"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "desc": "Brand Identity System"
+      },
+      "nike": {
+        "name": "Nike",
+        "desc": "Offline Space Design"
+      }
+    },
     "cases": {
       "01-brand-identity": {
         "title": "Brand Visual Identity System",

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 /**
@@ -10,6 +10,12 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
  * 3. 奇偶列错落视差效果。
  * 4. 保持配件垂挂交互（如有）。
  * 5. 支持配件卡片翻转效果（正反面切换）。
+ * 
+ * 移动端优化：
+ * - 强制 2 列布局
+ * - 禁用视差效果
+ * - 缩短滚动行程
+ * - 禁用配件动画
  * 
  * @param {Array} images - 网格图片数组 [{src, label}]
  * @param {number} columns - 列数 (默认4)
@@ -40,19 +46,35 @@ export const SquareGridScreen = ({
 }) => {
   const containerRef = useRef(null);
   
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // 移动端优化：强制 2 列，禁用配件动画
+  const effectiveColumnCount = isMobile ? 2 : columnCount;
+  const effectiveHasAccessories = isMobile ? false : accessoryImages.length > 0;
+  
   // 滚动进度监听
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const hasAccessories = accessoryImages.length > 0;
-  const hasFlip = accessoryBackImages.length > 0;
+  const hasAccessories = effectiveHasAccessories;
+  const hasFlip = isMobile ? false : accessoryBackImages.length > 0;
   
-  // 预先计算行数（用于确定视差范围）
-  const tempColumns = Array.from({ length: columnCount }, () => []);
+  // 预先计算行数（用于确定视差范围）- 使用有效列数
+  const tempColumns = Array.from({ length: effectiveColumnCount }, () => []);
   images.forEach((img, index) => {
-    const colIndex = index % columnCount;
+    const colIndex = index % effectiveColumnCount;
     tempColumns[colIndex].push(img);
   });
   const rowCount = Math.max(...tempColumns.map(col => col.length), 1);
@@ -119,17 +141,22 @@ export const SquareGridScreen = ({
   );
   
   // 根据列数调整间距（支持自定义 gap 和独立的 rowGap/columnGap）
-  const defaultGap = columnCount >= 6 ? '12px' : '24px';
+  // 移动端使用更小的间距
+  const defaultGap = isMobile ? '12px' : (effectiveColumnCount >= 6 ? '12px' : '24px');
   const gapSize = gap || defaultGap;
   const finalRowGap = rowGap || gapSize;
   const finalColumnGap = columnGap || gapSize;
-  const paddingTop = columnCount >= 6 ? '30px' : '60px';
+  const paddingTop = isMobile ? '20px' : (effectiveColumnCount >= 6 ? '30px' : '60px');
+  
+  // 移动端缩短滚动行程
+  const mobileHeight = '150vh';
+  const desktopHeight = hasAccessories ? (hasFlip ? '500vh' : '400vh') : '300vh';
 
   return (
     <div 
       ref={containerRef}
       style={{
-        height: hasAccessories ? (hasFlip ? '500vh' : '400vh') : '300vh', 
+        height: isMobile ? mobileHeight : desktopHeight, 
         position: 'relative',
         background: bgColor
       }}
@@ -164,7 +191,7 @@ export const SquareGridScreen = ({
         </motion.div>
 
         {/* -------------------------------------------------- */}
-        {/* Layer 1: Background Grid (4 Columns Centered) */}
+        {/* Layer 1: Background Grid (响应式列数) */}
         {/* -------------------------------------------------- */}
         <motion.div style={{
           position: 'absolute',
@@ -173,12 +200,12 @@ export const SquareGridScreen = ({
           left: 0,
           right: 0,
           display: 'grid',
-          gridTemplateColumns: `repeat(${columnCount}, 1fr)`, // 动态列数
+          gridTemplateColumns: `repeat(${effectiveColumnCount}, 1fr)`, // 使用有效列数（移动端2列）
           rowGap: finalRowGap,
           columnGap: finalColumnGap,
-          maxWidth: columnCount >= 6 ? '1600px' : '1400px',
+          maxWidth: isMobile ? '100%' : (effectiveColumnCount >= 6 ? '1600px' : '1400px'),
           width: '100%',
-          padding: columnCount >= 6 ? '0 24px' : '0 48px',
+          padding: isMobile ? '0 16px' : (effectiveColumnCount >= 6 ? '0 24px' : '0 48px'),
           alignItems: 'center',
           scale: hasAccessories ? gridScale : 1,
           opacity: hasAccessories ? gridOpacity : 1,
@@ -188,8 +215,9 @@ export const SquareGridScreen = ({
           
           {columns.map((colImages, colIndex) => {
             // 奇偶列交替视差：0,2,4 快，1,3,5 慢
+            // 移动端禁用视差效果
             const isEvenCol = colIndex % 2 === 0;
-            const yMotion = isEvenCol ? yFast : ySlow;
+            const yMotion = isMobile ? 0 : (isEvenCol ? yFast : ySlow);
             
             return (
               <motion.div 
@@ -199,8 +227,8 @@ export const SquareGridScreen = ({
                   flexDirection: 'column', 
                   gap: finalRowGap, 
                   y: yMotion,
-                  // 奇数列添加顶部偏移，形成错落
-                  paddingTop: isEvenCol ? '0' : paddingTop
+                  // 奇数列添加顶部偏移，形成错落（移动端禁用）
+                  paddingTop: isMobile ? '0' : (isEvenCol ? '0' : paddingTop)
                 }}
               >
                 {colImages.map((img, i) => (

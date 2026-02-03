@@ -61,7 +61,7 @@ const ProductEndHint = ({ currentProduct, availableProducts = [] }) => {
           letterSpacing: '0.02em'
         }}
       >
-        {t('case.productEndHint.currentProductEnd', `${t(`case.products.${currentProduct}`)} 展示已结束`)}
+        {t('case.productEndHint.currentProductEnd', { productName: t(`case.products.${currentProduct}`) })}
       </motion.div>
       
       {/* 主提示文字 */}
@@ -121,7 +121,7 @@ const ProductEndHint = ({ currentProduct, availableProducts = [] }) => {
         }}
       >
         <span>↗</span>
-        <span>{t('case.productEndHint.arrowText', `还有 ${otherProductsCount} 个产品`)}</span>
+        <span>{t('case.productEndHint.arrowText', { count: otherProductsCount })}</span>
       </motion.div>
     </motion.div>
   );

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 // import { Leva } from 'leva'; // 已禁用：移除调试面板
 import { useTitle } from '../hooks/useTitle';
+import { useIsMobile } from '../hooks/useMediaQuery';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
 import LoadingScreen from '../components/LoadingScreen';
@@ -69,6 +70,7 @@ const PhaseDetail = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentScreen, setCurrentScreen] = useState(1);
+  const isMobile = useIsMobile();
   
   const phase = phasesConfig[phaseId];
   const nextPhaseConfig = getNextPhase(phaseId);
@@ -1018,51 +1020,152 @@ const PhaseDetail = () => {
         background: phaseBgColor,
         '--phase-bg-color': phaseBgColor 
       }}>
-        {/* 顶部导航 - 改造为左上角悬浮胶囊 */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ 
-            opacity: currentScreen > 1 ? 1 : 0, 
-            y: currentScreen > 1 ? 0 : -20,
-            pointerEvents: currentScreen > 1 ? 'auto' : 'none'
-          }}
-          transition={{ duration: 0.3 }}
-          style={{
-            position: 'fixed',
-            top: '24px',
-            left: '24px',
-            zIndex: 100,
-          }}
-        >
-          <Link 
-            to="/work/the-case" 
-            style={{ 
-              textDecoration: 'none', 
-              color: '#fff', 
-              fontSize: '0.85rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              transition: 'all 0.2s ease'
+        {/* 桌面端：左上角悬浮胶囊导航 */}
+        {!isMobile && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: currentScreen > 1 ? 1 : 0, 
+              y: currentScreen > 1 ? 0 : -20,
+              pointerEvents: currentScreen > 1 ? 'auto' : 'none'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              top: '24px',
+              left: '24px',
+              zIndex: 100,
             }}
           >
-            <span>←</span>
-            <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
-            <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
-            <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
-          </Link>
-        </motion.div>
+            <Link 
+              to="/work/the-case" 
+              style={{ 
+                textDecoration: 'none', 
+                color: '#fff', 
+                fontSize: '0.85rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <span>←</span>
+              <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
+              <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
+              <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
+            </Link>
+          </motion.div>
+        )}
+
+        {/* 移动端：底部固定导航栏 */}
+        {isMobile && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: currentScreen > 1 ? 1 : 0, 
+              y: currentScreen > 1 ? 0 : 20,
+              pointerEvents: currentScreen > 1 ? 'auto' : 'none'
+            }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '56px',
+              background: 'rgba(0, 0, 0, 0.9)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 16px',
+              zIndex: 100,
+            }}
+          >
+            {/* 返回按钮 */}
+            <Link 
+              to="/work/the-case" 
+              style={{ 
+                textDecoration: 'none', 
+                color: '#fff', 
+                fontSize: '0.85rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                minWidth: '44px',
+                minHeight: '44px',
+                justifyContent: 'center'
+              }}
+            >
+              <span>←</span>
+              <span>{t('case.backToToc')}</span>
+            </Link>
+
+            {/* 中间：Phase 信息和进度 */}
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <span style={{ 
+                color: '#fff', 
+                fontSize: '0.75rem',
+                opacity: 0.8,
+                fontWeight: 500
+              }}>
+                Phase {phase.number}
+              </span>
+              {/* 进度条 */}
+              <div style={{
+                width: '80px',
+                height: '3px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                borderRadius: '2px',
+                overflow: 'hidden'
+              }}>
+                <motion.div 
+                  style={{
+                    height: '100%',
+                    background: '#fff',
+                    borderRadius: '2px'
+                  }}
+                  animate={{
+                    width: `${(currentScreen / filteredScreens.length) * 100}%`
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </div>
+
+            {/* 右侧：屏幕计数 */}
+            <div style={{
+              color: '#fff',
+              fontSize: '0.75rem',
+              opacity: 0.6,
+              minWidth: '60px',
+              textAlign: 'right'
+            }}>
+              {currentScreen} / {filteredScreens.length}
+            </div>
+          </motion.div>
+        )}
         
         {/* 产品导航栏 - 仅在有产品分类时显示 */}
         {hasProductFilter && (

@@ -147,41 +147,59 @@ export const responsiveStyles = `
 
 // ============================================
 // 进度指示器组件
+// 移动端优化：隐藏右侧指示器（因为底部导航栏已显示进度）
 // ============================================
-export const ProgressIndicator = ({ currentScreen, totalScreens }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 0.5 }}
-    style={{
-      position: 'fixed',
-      right: 'var(--space-lg)',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      zIndex: 100,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px',
-      pointerEvents: 'none' // 防止遮挡点击
-    }}
-  >
-    {Array.from({ length: totalScreens }).map((_, index) => (
-      <motion.div
-        key={index}
-        animate={{
-          height: currentScreen === index + 1 ? '24px' : '6px',
-          background: currentScreen === index + 1 ? 'var(--color-text-main)' : 'var(--color-border)',
-          opacity: currentScreen === index + 1 ? 1 : 0.5
-        }}
-        style={{
-          width: '2px',
-          borderRadius: '1px',
-          transition: 'all 0.3s ease'
-        }}
-      />
-    ))}
-  </motion.div>
-);
+export const ProgressIndicator = ({ currentScreen, totalScreens }) => {
+  // 移动端检测
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // 移动端不显示右侧进度指示器（底部导航栏已有进度条）
+  if (isMobile) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+      style={{
+        position: 'fixed',
+        right: 'var(--space-lg)',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 100,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        pointerEvents: 'none' // 防止遮挡点击
+      }}
+    >
+      {Array.from({ length: totalScreens }).map((_, index) => (
+        <motion.div
+          key={index}
+          animate={{
+            height: currentScreen === index + 1 ? '24px' : '6px',
+            background: currentScreen === index + 1 ? 'var(--color-text-main)' : 'var(--color-border)',
+            opacity: currentScreen === index + 1 ? 1 : 0.5
+          }}
+          style={{
+            width: '2px',
+            borderRadius: '1px',
+            transition: 'all 0.3s ease'
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+};
 
 // ============================================
 // 通用屏幕组件 - 统一的屏幕结构

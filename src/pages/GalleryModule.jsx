@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
+import { useIsMobile } from '../hooks/useMediaQuery';
 import { Link, useParams } from 'react-router-dom';
 import { formStructureWorks, getAllMediaTypes as getAllMediaTypes1, filterWorks as filterWorks1 } from '../data/formStructureWorks';
 import { materialTextureWorks, getAllMediaTypes as getAllMediaTypes2, filterWorks as filterWorks2 } from '../data/materialTextureWorks';
@@ -15,6 +16,7 @@ const GalleryModule = () => {
   const { module } = useParams();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const isMobile = useIsMobile();
   
   // 筛选状态
   const [selectedMedia, setSelectedMedia] = useState('all'); // 默认选中"全部"（单选模式，使用key而非文本）
@@ -157,7 +159,9 @@ const GalleryModule = () => {
       color: isDark ? '#fff' : '#1a1a1a'
     },
     header: {
-      padding: 'clamp(80px, 10vw, 120px) clamp(40px, 8vw, 120px) clamp(40px, 6vw, 80px)',
+      padding: isMobile 
+        ? 'var(--space-xl) var(--space-page-x) var(--space-lg)'
+        : 'clamp(80px, 10vw, 120px) clamp(40px, 8vw, 120px) clamp(40px, 6vw, 80px)',
       maxWidth: '1800px',
       margin: '0 auto'
     },
@@ -167,8 +171,8 @@ const GalleryModule = () => {
       gap: '8px',
       color: isDark ? '#666' : '#888',
       textDecoration: 'none',
-      fontSize: '0.9rem',
-      marginBottom: '40px',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      marginBottom: isMobile ? '20px' : '40px',
       transition: 'color 0.2s ease'
     },
     moduleNumber: {
@@ -223,7 +227,9 @@ const GalleryModule = () => {
       fontFamily: 'var(--font-mono, monospace)'
     },
     worksSection: {
-      padding: '60px clamp(40px, 8vw, 120px) clamp(80px, 10vw, 120px)',
+      padding: isMobile
+        ? 'var(--space-lg) var(--space-page-x) calc(var(--space-3xl) + 80px)' // 底部留出 toggle 空间
+        : '60px clamp(40px, 8vw, 120px) clamp(80px, 10vw, 120px)',
       maxWidth: '1800px',
       margin: '0 auto'
     },
@@ -241,12 +247,15 @@ const GalleryModule = () => {
     },
     worksGrid: {
       display: 'grid',
-      gridTemplateColumns: aspectType === 'landscape' 
-        ? 'repeat(3, 1fr)' 
-        : `repeat(auto-fill, minmax(${config.aspectRatio === '16/9' ? '320px' : '300px'}, 1fr))`,
-      gap: aspectType === 'landscape' 
-        ? 'clamp(16px, 2vw, 24px)' 
-        : 'clamp(30px, 4vw, 60px)'
+      // 移动端：长图 3 列，宽图 2 列；桌面端：自适应
+      gridTemplateColumns: isMobile
+        ? (aspectType === 'landscape' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)')
+        : (aspectType === 'landscape' 
+            ? 'repeat(3, 1fr)' 
+            : `repeat(auto-fill, minmax(${config.aspectRatio === '16/9' ? '320px' : '300px'}, 1fr))`),
+      gap: isMobile
+        ? (aspectType === 'landscape' ? '8px' : '6px')
+        : (aspectType === 'landscape' ? 'clamp(16px, 2vw, 24px)' : 'clamp(30px, 4vw, 60px)')
     },
     workCard: {
       cursor: 'pointer'
@@ -272,30 +281,45 @@ const GalleryModule = () => {
       color: isDark ? '#666' : '#999'
     },
     filterSection: {
-      padding: '50px clamp(40px, 8vw, 120px) 50px',
+      padding: isMobile
+        ? 'var(--space-lg) var(--space-page-x)'
+        : '50px clamp(40px, 8vw, 120px) 50px',
       maxWidth: '1800px',
       margin: '0 auto',
-      borderBottom: `1px solid ${isDark ? '#222' : '#e5e5e5'}`
+      borderBottom: `1px solid ${isDark ? '#222' : '#e5e5e5'}`,
+      // 移动端筛选器横向滚动
+      ...(isMobile && {
+        overflowX: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      })
     },
     filterLabel: {
-      fontSize: '0.85rem',
+      fontSize: isMobile ? '0.75rem' : '0.85rem',
       color: isDark ? '#666' : '#999',
-      marginBottom: '16px',
+      marginBottom: isMobile ? '12px' : '16px',
       fontFamily: 'var(--font-mono, monospace)'
     },
     mediaFilters: {
       display: 'flex',
-      flexWrap: 'wrap',
-      gap: '12px'
+      flexWrap: isMobile ? 'nowrap' : 'wrap',
+      gap: isMobile ? '8px' : '12px',
+      // 移动端不换行，允许横滑
+      ...(isMobile && {
+        paddingBottom: '4px',
+      })
     },
     mediaPill: {
-      padding: '10px 24px',
-      fontSize: '0.9rem',
+      padding: isMobile ? '8px 16px' : '10px 24px',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
       borderRadius: '100px',
       border: `1px solid ${isDark ? '#333' : '#e0e0e0'}`,
       cursor: 'pointer',
       transition: 'all 0.2s ease',
-      fontWeight: '500'
+      fontWeight: '500',
+      whiteSpace: 'nowrap', // 防止文字换行
+      flexShrink: 0, // 移动端不压缩
     },
     mediaPillActive: {
       backgroundColor: isDark ? '#fff' : '#1a1a1a',
@@ -450,7 +474,7 @@ const GalleryModule = () => {
               <motion.div 
                 key={work.id}
                 variants={itemVariants}
-                whileHover={{ y: -5 }}
+                whileHover={isMobile ? {} : { y: -5 }}
                 style={{ ...styles.workCard, cursor: 'pointer' }}
                 onClick={() => openImageViewer(index)}
               >
@@ -461,7 +485,9 @@ const GalleryModule = () => {
                       ...styles.workImage,
                       width: '100%',
                       height: 'auto',
-                      objectFit: 'cover'
+                      objectFit: 'cover',
+                      borderRadius: isMobile ? '4px' : '8px',
+                      marginBottom: isMobile ? '4px' : '12px',
                     }}
                     onError={(e) => {
                       e.target.style.background = isDark ? '#1a1a1a' : '#f0f0f0';
@@ -471,7 +497,16 @@ const GalleryModule = () => {
                       e.target.textContent = work.category;
                     }}
                   />
-                <h3 style={styles.workTitle}>{work.title}</h3>
+                {/* 标题：移动端使用更小字号 */}
+                <h3 style={{
+                  ...styles.workTitle,
+                  fontSize: isMobile ? '0.7rem' : '1rem',
+                  marginBottom: isMobile ? '8px' : '4px',
+                  lineHeight: 1.3,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: isMobile ? 'nowrap' : 'normal',
+                }}>{work.title}</h3>
               </motion.div>
             ))}
           </motion.div>

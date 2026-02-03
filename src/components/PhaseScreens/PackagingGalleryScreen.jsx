@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 
@@ -13,6 +13,11 @@ import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
  * - 初始画面: 文案 + 包装系统宏观图
  * - 滚动中变化: 包装系统完整展示
  * - 滚动结束: 停留在"包装是品牌表达的延续"
+ * 
+ * 移动端优化:
+ * - 单列布局
+ * - 缩短滚动行程
+ * - 简化动画延迟
  * ============================================
  */
 export const PackagingGalleryScreen = ({
@@ -25,6 +30,18 @@ export const PackagingGalleryScreen = ({
   bgAlt = false
 }) => {
   const containerRef = useRef(null);
+  
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // 滚动进度追踪
   const { scrollYProgress } = useScroll({
@@ -39,10 +56,11 @@ export const PackagingGalleryScreen = ({
   const emphasisOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
   const emphasisY = useTransform(scrollYProgress, [0.55, 0.7], [30, 0]);
 
-  // 将图片分成3列（瀑布流布局）
-  const columns = [[], [], []];
+  // 根据设备决定列数：移动端1列，桌面端3列
+  const columnCount = isMobile ? 1 : 3;
+  const columns = Array.from({ length: columnCount }, () => []);
   images.forEach((image, index) => {
-    columns[index % 3].push({ ...image, originalIndex: index });
+    columns[index % columnCount].push({ ...image, originalIndex: index });
   });
 
   return (
@@ -108,12 +126,13 @@ export const PackagingGalleryScreen = ({
           </p>
         </motion.div>
 
-        {/* 瀑布流画廊 - 3列布局 */}
+        {/* 瀑布流画廊 - 响应式布局（桌面3列，移动端1列） */}
         <motion.div
           style={{
             opacity: galleryOpacity,
             display: 'flex',
-            gap: 'var(--space-lg)',
+            flexDirection: isMobile ? 'column' : 'row', // 移动端改为纵向
+            gap: isMobile ? 'var(--space-md)' : 'var(--space-lg)',
             marginBottom: 'var(--space-4xl)'
           }}
         >
@@ -124,22 +143,23 @@ export const PackagingGalleryScreen = ({
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--space-lg)',
-                // 交错起始位置
-                marginTop: colIndex === 1 ? 'var(--space-2xl)' : 0
+                gap: isMobile ? 'var(--space-md)' : 'var(--space-lg)',
+                // 交错起始位置（移动端禁用）
+                marginTop: (!isMobile && colIndex === 1) ? 'var(--space-2xl)' : 0
               }}
             >
               {column.map((image, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: isMobile ? 30 : 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.6, 
-                    delay: image.originalIndex * 0.08 
+                    duration: isMobile ? 0.4 : 0.6, 
+                    // 移动端减少延迟
+                    delay: isMobile ? index * 0.05 : image.originalIndex * 0.08 
                   }}
-                  viewport={{ once: true, margin: "-10%" }}
-                  whileHover={{ scale: 1.02 }}
+                  viewport={{ once: true, margin: isMobile ? "-5%" : "-10%" }}
+                  whileHover={isMobile ? {} : { scale: 1.02 }}
                   style={{
                     position: 'relative',
                     borderRadius: 'var(--radius-lg)',

@@ -52,3 +52,12 @@ case.screenLabels.closing,收尾,Closing
 case.screenLabels.color-reveal,色彩揭示,Color Reveal
 case.screenLabels.logo-exploration,标志探索,Logo Exploration
 case.screenLabels.phase-closing,阶段结束,Phase Closing
+case.products.label,产品,Products
+case.products.cube,立方体产品,Cube Product
+case.products.nicotine-sugar,尼古丁糖产品,Nicotine Sugar
+case.products.motor,马达产品,Motor Product
+case.productEndHint.currentProductEnd,{{productName}} 展示已结束,{{productName}} showcase completed
+case.productEndHint.switchPrompt,查看更多产品,View More Products
+case.productEndHint.instruction,使用右上角的产品标签切换,Use the product tabs in the top-right to switch
+case.productEndHint.arrowText,还有 {{count}} 个产品,{{count}} more products available
+

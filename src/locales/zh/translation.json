@@ -117,18 +117,6 @@
     "backToIndex": "返回目录",
     "backToToc": "目录",
     "nextPhase": "下一阶段",
-    "products": {
-      "label": "产品",
-      "cube": "Cube",
-      "nicotine-sugar": "尼古丁糖",
-      "motor": "Motor"
-    },
-    "productEndHint": {
-      "currentProductEnd": "{{productName}} 展示已结束",
-      "switchPrompt": "查看更多产品",
-      "instruction": "使用右上角的产品标签切换",
-      "arrowText": "还有 {{count}} 个产品"
-    },
     "screenLabels": {
       "intro": "阶段引导",
       "core-principles": "核心原则",
@@ -162,6 +150,18 @@
       "color-reveal": "色彩揭示",
       "logo-exploration": "标志探索",
       "phase-closing": "阶段结束"
+    },
+    "products": {
+      "label": "产品",
+      "cube": "立方体产品",
+      "nicotine-sugar": "尼古丁糖产品",
+      "motor": "马达产品"
+    },
+    "productEndHint": {
+      "currentProductEnd": "{{productName}} 展示已结束",
+      "switchPrompt": "查看更多产品",
+      "instruction": "使用右上角的产品标签切换",
+      "arrowText": "还有 {{count}} 个产品"
     },
     "phases": {
       "phase-01": {
@@ -379,6 +379,31 @@
           }
         }
       },
+      "phase-05": {
+        "title": "零售场景与体验扩展",
+        "desc": "将品牌系统应用到零售空间与用户体验场景中，确保线下触点与整体品牌保持一致。",
+        "screens": {
+          "intro": {
+            "content": "当品牌从产品延展到空间，设计需要在三维环境中继续保持系统的完整性与识别度。"
+          },
+          "retail-identity": {
+            "title": "零售空间作为品牌系统的物理载体",
+            "content": "通过统一的视觉语言与空间逻辑，零售环境成为品牌体验的重要组成部分。"
+          },
+          "touchpoint-system": {
+            "title": "系统化的触点设计确保体验一致性",
+            "content": "从导视、陈列到服务细节，每个触点都承载品牌识别。"
+          },
+          "spatial-experience": {
+            "title": "空间体验不仅是视觉，更是品牌价值的具象化",
+            "content": "在真实场景中验证系统的适用性与灵活性。"
+          },
+          "closing": {
+            "title": "零售空间的成功落地标志着品牌系统的成熟",
+            "content": "系统在多维度场景中得到验证，为品牌的持续发展奠定基础。"
+          }
+        }
+      },
       "phase-06": {
         "title": "文案可视化",
         "desc": "将文案内容以可视化方式呈现，探索文字与视觉的结合。",
@@ -403,6 +428,7 @@
       "form-structure": {
         "number": "01",
         "title": "Form & Structure",
+        "titleShort": "形态结构",
         "subtitle": "造型与结构研究",
         "desc": "围绕形体、比例与结构关系的持续探索，关注画面中秩序的建立方式，以及形式如何承载稳定感。",
         "media": [
@@ -421,6 +447,7 @@
       "material-texture": {
         "number": "02",
         "title": "Material & Texture",
+        "titleShort": "材料质感",
         "subtitle": "材料与质感实验",
         "desc": "通过不同材料与媒介的并置与叠加，研究质感、肌理与触觉联想在视觉中的呈现方式。",
         "media": [
@@ -439,6 +466,7 @@
       "narrative-imagery": {
         "number": "03",
         "title": "Narrative & Imagery",
+        "titleShort": "叙事图像",
         "subtitle": "图像与叙事表达",
         "desc": "以图像作为叙事载体，探索隐喻、情绪与观看路径，关注画面如何在非语言状态下传递信息。",
         "media": [
@@ -457,6 +485,7 @@
       "light-atmosphere": {
         "number": "04",
         "title": "Light & Atmosphere",
+        "titleShort": "光感氛围",
         "subtitle": "光感与氛围研究",
         "desc": "围绕光线、明暗与空间层次的表现，研究氛围如何影响观看情绪与整体感知。",
         "media": [
@@ -475,6 +504,7 @@
       "observation-reality": {
         "number": "05",
         "title": "Observation & Reality",
+        "titleShort": "观察现实",
         "subtitle": "观察与现实记录",
         "desc": "基于对现实世界的观察与记录，关注日常场景中的结构、节奏与视觉秩序。",
         "media": [
@@ -580,6 +610,35 @@
     "ctaDesc": "让我们把想法变成清晰而持久的作品。",
     "emailMe": "发邮件给我",
     "wechatContact": "微信联系",
+    "blinds": {
+      "works": "作品",
+      "services": "服务",
+      "partners": "合作"
+    },
+    "partnersSubtitle": "Trusted By",
+    "partnersViewCase": "查看合作案例",
+    "partners": {
+      "google": {
+        "name": "Google",
+        "desc": "品牌视觉系统升级"
+      },
+      "spotify": {
+        "name": "Spotify",
+        "desc": "营销活动视觉设计"
+      },
+      "airbnb": {
+        "name": "Airbnb",
+        "desc": "产品包装设计"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "desc": "品牌识别系统"
+      },
+      "nike": {
+        "name": "Nike",
+        "desc": "线下空间设计"
+      }
+    },
     "cases": {
       "01-brand-identity": {
         "title": "品牌视觉系统（VI）",

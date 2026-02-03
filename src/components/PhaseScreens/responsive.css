@@ -357,6 +357,45 @@
 }
 
 /* ========================================
+   MOBILE BOTTOM NAV - 移动端底部导航预留空间
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* 为底部导航栏预留空间 */
+  .phase-screen-wrapper:last-child {
+    padding-bottom: 80px !important;
+  }
+
+  /* 确保最后一个屏幕的内容不被遮挡 */
+  .phase-closing-screen,
+  .summary-screen {
+    padding-bottom: 80px !important;
+  }
+}
+
+/* ========================================
+   MOBILE INTRO SCREEN - 移动端开场优化
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* 移动端禁用手电筒光标效果 */
+  .flashlight-mask {
+    cursor: default !important;
+  }
+  
+  /* 移动端滚动提示更小 */
+  .scroll-hint {
+    font-size: 0.65rem !important;
+  }
+  
+  /* 移动端 Phase 标签 */
+  .phase-label {
+    font-size: 0.75rem !important;
+    letter-spacing: 2px !important;
+  }
+}
+
+/* ========================================
    PRINT STYLES - 打印样式
    ======================================== */
 

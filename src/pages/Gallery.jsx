@@ -144,42 +144,34 @@ const SlicedBackground = ({ phases, isDark }) => {
 };
 
 // 移动端网格组件 - 全屏飞入 → 收束到容器内网格
-// Gallery 有 5 个项目，使用 2列布局：上面2行各2个，最下面1行1个居中
+// Gallery 有 6 个项目，使用 2列×3行 网格布局
 // containerHeight: 容器在整个页面中的高度比例（用于计算全屏飞入时的高度）
 const MobileGridBackground = ({ phases, isDark, containerHeight = 65 }) => {
-  const itemCount = phases.length; // 5 个项目
+  const itemCount = phases.length; // 6 个项目
+  const columns = 2;
+  const rows = 3;
   
   // 计算每个卡片在网格中的最终位置（相对于容器 100%）
   const getGridPosition = (index) => {
-    // 5 个项目布局：
+    // 6 个项目布局（2×3 网格）：
     // [0] [1]  -> 第一行
     // [2] [3]  -> 第二行
-    // [4]      -> 第三行居中
+    // [4] [5]  -> 第三行
     
-    const cellWidth = 49;
+    const col = index % columns;
+    const row = Math.floor(index / columns);
+    
+    const cellWidth = 49; // 每个卡片宽度 49%
     const cellHeight = 32; // 每个卡片高度约 32%（100% / 3）
-    const gapX = 1;
-    const gapY = 0.5;
+    const gapX = 1; // 水平间距 1%
+    const gapY = 0.5; // 垂直间距 0.5%
     
-    if (index < 4) {
-      // 前 4 个：2列布局
-      const col = index % 2;
-      const row = Math.floor(index / 2);
-      return {
-        left: `${col * (cellWidth + gapX) + 0.5}%`,
-        top: `${row * (cellHeight + gapY) + 0.5}%`,
-        width: `${cellWidth}%`,
-        height: `${cellHeight}%`,
-      };
-    } else {
-      // 第 5 个：居中
-      return {
-        left: '25.5%',
-        top: `${2 * (cellHeight + gapY) + 0.5}%`,
-        width: `${cellWidth}%`,
-        height: `${cellHeight}%`,
-      };
-    }
+    return {
+      left: `${col * (cellWidth + gapX) + 0.5}%`,
+      top: `${row * (cellHeight + gapY) + 0.5}%`,
+      width: `${cellWidth}%`,
+      height: `${cellHeight}%`,
+    };
   };
   
   // 动画时间配置

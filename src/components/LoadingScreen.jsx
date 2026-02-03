@@ -212,27 +212,6 @@ const LoadingScreen = ({
                 {displayProgress >= 70 && displayProgress < 95 && t('loading.almostReady')}
                 {displayProgress >= 95 && t('loading.welcome')}
               </div>
-              
-              {/* 加载文本 */}
-              <motion.div
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-light)',
-                  fontFamily: 'var(--font-sans)',
-                  marginTop: 'var(--space-sm)',
-                  letterSpacing: '0.05em',
-                }}
-              >
-                {t('loading.loadingExperience')}
-              </motion.div>
             </motion.div>
           </motion.div>
           
