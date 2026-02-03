@@ -1,0 +1,322 @@
+{
+  "timestamp": "20260202_163235",
+  "dry_run": false,
+  "stats": {
+    "renamed": 39,
+    "unchanged": 0
+  },
+  "mappings": [
+    {
+      "old": "form-structure\\写意人物\\1980e311c0578010fba5f0cd698e27cc 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\1980e311c0578010fba5f0cd698e27cc 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-001.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\写意人物\\2839374d974dc66c01ccfe4ac1265326 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\2839374d974dc66c01ccfe4ac1265326 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-002.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\写意人物\\page_005_img_001 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\page_005_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-003.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\写意人物\\page_005_img_002 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-004.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\page_005_img_002 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-004.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\写意人物\\page_005_img_003 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-005.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\page_005_img_003 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-005.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\写意人物\\page_005_img_004 1.png",
+      "new": "form-structure\\写意人物\\xieyi-renwu-006.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\page_005_img_004 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\写意人物\\xieyi-renwu-006.png",
+      "module": "form-structure",
+      "subcategory": "写意人物"
+    },
+    {
+      "old": "form-structure\\小写意山水\\page_007_img_001 1.png",
+      "new": "form-structure\\小写意山水\\xiaoxieyi-shanshui-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\page_007_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\xiaoxieyi-shanshui-001.png",
+      "module": "form-structure",
+      "subcategory": "小写意山水"
+    },
+    {
+      "old": "form-structure\\小写意山水\\page_008_img_001 1.png",
+      "new": "form-structure\\小写意山水\\xiaoxieyi-shanshui-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\page_008_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\xiaoxieyi-shanshui-002.png",
+      "module": "form-structure",
+      "subcategory": "小写意山水"
+    },
+    {
+      "old": "form-structure\\小写意山水\\page_009_img_001 1.png",
+      "new": "form-structure\\小写意山水\\xiaoxieyi-shanshui-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\page_009_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意山水\\xiaoxieyi-shanshui-003.png",
+      "module": "form-structure",
+      "subcategory": "小写意山水"
+    },
+    {
+      "old": "form-structure\\小写意花鸟\\page_011_img_001 1.png",
+      "new": "form-structure\\小写意花鸟\\xiaoxieyi-huaniao-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\page_011_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\xiaoxieyi-huaniao-001.png",
+      "module": "form-structure",
+      "subcategory": "小写意花鸟"
+    },
+    {
+      "old": "form-structure\\小写意花鸟\\page_011_img_002 1.png",
+      "new": "form-structure\\小写意花鸟\\xiaoxieyi-huaniao-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\page_011_img_002 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\xiaoxieyi-huaniao-002.png",
+      "module": "form-structure",
+      "subcategory": "小写意花鸟"
+    },
+    {
+      "old": "form-structure\\小写意花鸟\\page_011_img_003 1.png",
+      "new": "form-structure\\小写意花鸟\\xiaoxieyi-huaniao-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\page_011_img_003 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\小写意花鸟\\xiaoxieyi-huaniao-003.png",
+      "module": "form-structure",
+      "subcategory": "小写意花鸟"
+    },
+    {
+      "old": "form-structure\\工笔\\page_003_img_001 1.png",
+      "new": "form-structure\\工笔\\gongbi-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\工笔\\page_003_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\工笔\\gongbi-001.png",
+      "module": "form-structure",
+      "subcategory": "工笔"
+    },
+    {
+      "old": "form-structure\\平面构成\\135963c693f7d1662291172b3c8a1dfb 1.png",
+      "new": "form-structure\\平面构成\\pingmian-goucheng-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\135963c693f7d1662291172b3c8a1dfb 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\pingmian-goucheng-001.png",
+      "module": "form-structure",
+      "subcategory": "平面构成"
+    },
+    {
+      "old": "form-structure\\平面构成\\69ccb39ffafd3e0d52da2177c788dc3b 1.png",
+      "new": "form-structure\\平面构成\\pingmian-goucheng-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\69ccb39ffafd3e0d52da2177c788dc3b 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\pingmian-goucheng-002.png",
+      "module": "form-structure",
+      "subcategory": "平面构成"
+    },
+    {
+      "old": "form-structure\\平面构成\\ead6b7945c750c541914e306b2a15985 1.png",
+      "new": "form-structure\\平面构成\\pingmian-goucheng-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\ead6b7945c750c541914e306b2a15985 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\平面构成\\pingmian-goucheng-003.png",
+      "module": "form-structure",
+      "subcategory": "平面构成"
+    },
+    {
+      "old": "form-structure\\材料探索\\47ca46a1900af65e8761ab875908cfd1 1.png",
+      "new": "form-structure\\材料探索\\cailiao-tansuo-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\47ca46a1900af65e8761ab875908cfd1 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\cailiao-tansuo-001.png",
+      "module": "form-structure",
+      "subcategory": "材料探索"
+    },
+    {
+      "old": "form-structure\\材料探索\\57d1dc58926d60180e63ed9a33e957b7 1.png",
+      "new": "form-structure\\材料探索\\cailiao-tansuo-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\57d1dc58926d60180e63ed9a33e957b7 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\cailiao-tansuo-002.png",
+      "module": "form-structure",
+      "subcategory": "材料探索"
+    },
+    {
+      "old": "form-structure\\材料探索\\8ad2b63747ce5744551d213df204dd51 1.png",
+      "new": "form-structure\\材料探索\\cailiao-tansuo-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\8ad2b63747ce5744551d213df204dd51 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\cailiao-tansuo-003.png",
+      "module": "form-structure",
+      "subcategory": "材料探索"
+    },
+    {
+      "old": "form-structure\\材料探索\\page_017_img_001 1.png",
+      "new": "form-structure\\材料探索\\cailiao-tansuo-004.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\page_017_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\cailiao-tansuo-004.png",
+      "module": "form-structure",
+      "subcategory": "材料探索"
+    },
+    {
+      "old": "form-structure\\材料探索\\page_018_img_001 1.png",
+      "new": "form-structure\\材料探索\\cailiao-tansuo-005.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\page_018_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\材料探索\\cailiao-tansuo-005.png",
+      "module": "form-structure",
+      "subcategory": "材料探索"
+    },
+    {
+      "old": "form-structure\\水彩\\747343f950453f98153db9ad6cd6de66 1.png",
+      "new": "form-structure\\水彩\\shuicai-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\水彩\\747343f950453f98153db9ad6cd6de66 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\水彩\\shuicai-001.png",
+      "module": "form-structure",
+      "subcategory": "水彩"
+    },
+    {
+      "old": "form-structure\\版画\\page_012_img_001 1.png",
+      "new": "form-structure\\版画\\banhua-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\版画\\page_012_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\版画\\banhua-001.png",
+      "module": "form-structure",
+      "subcategory": "版画"
+    },
+    {
+      "old": "form-structure\\版画\\page_014_img_001 1.png",
+      "new": "form-structure\\版画\\banhua-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\版画\\page_014_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\版画\\banhua-002.png",
+      "module": "form-structure",
+      "subcategory": "版画"
+    },
+    {
+      "old": "form-structure\\画面构成分析\\page_104_img_001 1.png",
+      "new": "form-structure\\画面构成分析\\huamian-goucheng-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\画面构成分析\\page_104_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\画面构成分析\\huamian-goucheng-001.png",
+      "module": "form-structure",
+      "subcategory": "画面构成分析"
+    },
+    {
+      "old": "form-structure\\画面构成分析\\page_105_img_001 1.png",
+      "new": "form-structure\\画面构成分析\\huamian-goucheng-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\画面构成分析\\page_105_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\画面构成分析\\huamian-goucheng-002.png",
+      "module": "form-structure",
+      "subcategory": "画面构成分析"
+    },
+    {
+      "old": "form-structure\\白描\\2eb15c89dbc51e94434371f1bc41c97d 1.png",
+      "new": "form-structure\\白描\\baimiao-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\2eb15c89dbc51e94434371f1bc41c97d 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\baimiao-001.png",
+      "module": "form-structure",
+      "subcategory": "白描"
+    },
+    {
+      "old": "form-structure\\白描\\7b193eda34e9bb3b41cef662fcc4c081 1.png",
+      "new": "form-structure\\白描\\baimiao-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\7b193eda34e9bb3b41cef662fcc4c081 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\baimiao-002.png",
+      "module": "form-structure",
+      "subcategory": "白描"
+    },
+    {
+      "old": "form-structure\\白描\\97aab837bf592b42b026d83fbb0079da 1.png",
+      "new": "form-structure\\白描\\baimiao-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\97aab837bf592b42b026d83fbb0079da 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描\\baimiao-003.png",
+      "module": "form-structure",
+      "subcategory": "白描"
+    },
+    {
+      "old": "form-structure\\白描风景\\b9c9922bde6c8d420ac69e1f8d7c89ff 1.png",
+      "new": "form-structure\\白描风景\\baimiao-fengjing-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描风景\\b9c9922bde6c8d420ac69e1f8d7c89ff 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\白描风景\\baimiao-fengjing-001.png",
+      "module": "form-structure",
+      "subcategory": "白描风景"
+    },
+    {
+      "old": "form-structure\\立体\\page_016_img_001 2.png",
+      "new": "form-structure\\立体\\liti-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\page_016_img_001 2.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\liti-001.png",
+      "module": "form-structure",
+      "subcategory": "立体"
+    },
+    {
+      "old": "form-structure\\立体\\page_016_img_002 2.png",
+      "new": "form-structure\\立体\\liti-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\page_016_img_002 2.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\liti-002.png",
+      "module": "form-structure",
+      "subcategory": "立体"
+    },
+    {
+      "old": "form-structure\\立体\\page_016_img_003 1.png",
+      "new": "form-structure\\立体\\liti-003.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\page_016_img_003 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\立体\\liti-003.png",
+      "module": "form-structure",
+      "subcategory": "立体"
+    },
+    {
+      "old": "form-structure\\素描\\1a06be171899cd5273652d74f381617d 1.png",
+      "new": "form-structure\\素描\\sumiao-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\素描\\1a06be171899cd5273652d74f381617d 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\素描\\sumiao-001.png",
+      "module": "form-structure",
+      "subcategory": "素描"
+    },
+    {
+      "old": "form-structure\\素描\\A4 - 1.png",
+      "new": "form-structure\\素描\\sumiao-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\素描\\A4 - 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\素描\\sumiao-002.png",
+      "module": "form-structure",
+      "subcategory": "素描"
+    },
+    {
+      "old": "form-structure\\绢本组图\\page_010_img_002 2.png",
+      "new": "form-structure\\绢本组图\\juanben-zutu-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\绢本组图\\page_010_img_002 2.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\绢本组图\\juanben-zutu-001.png",
+      "module": "form-structure",
+      "subcategory": "绢本组图"
+    },
+    {
+      "old": "form-structure\\综合材料\\page_015_img_001 1.png",
+      "new": "form-structure\\综合材料\\zonghe-cailiao-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\综合材料\\page_015_img_001 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\综合材料\\zonghe-cailiao-001.png",
+      "module": "form-structure",
+      "subcategory": "综合材料"
+    },
+    {
+      "old": "form-structure\\综合材料\\page_015_img_002 1.png",
+      "new": "form-structure\\综合材料\\zonghe-cailiao-002.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\综合材料\\page_015_img_002 1.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\综合材料\\zonghe-cailiao-002.png",
+      "module": "form-structure",
+      "subcategory": "综合材料"
+    },
+    {
+      "old": "form-structure\\雕塑\\page_059_img_001 2.png",
+      "new": "form-structure\\雕塑\\diaosu-001.png",
+      "old_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\雕塑\\page_059_img_001 2.png",
+      "new_abs": "e:\\ZPJ\\public\\gallery\\form-structure\\雕塑\\diaosu-001.png",
+      "module": "form-structure",
+      "subcategory": "雕塑"
+    }
+  ]
+}

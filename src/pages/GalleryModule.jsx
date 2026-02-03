@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { formStructureWorks, getAllMediaTypes as getAllMediaTypes1, filterWorks as filterWorks1 } from '../data/formStructureWorks';
 import { materialTextureWorks, getAllMediaTypes as getAllMediaTypes2, filterWorks as filterWorks2 } from '../data/materialTextureWorks';
 import { narrativeImageryWorks, getAllMediaTypes as getAllMediaTypes3, filterWorks as filterWorks3 } from '../data/narrativeImageryWorks';
+import { enrichWorks } from '../utils/workAdapter';
 import ImageViewer from '../components/ImageViewer';
 
 const GalleryModule = () => {
@@ -52,6 +53,10 @@ const GalleryModule = () => {
   
   useTitle(moduleData?.title || 'Gallery Module');
 
+  // 转换后的作品数据（包含实际图片路径）
+  const [enrichedWorks, setEnrichedWorks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   // 实际作品数据 - 根据模块加载
   const { allWorks, getAllMediaTypes, filterWorks } = useMemo(() => {
     if (module === 'form-structure') {
@@ -75,16 +80,40 @@ const GalleryModule = () => {
     }
     return { allWorks: [], getAllMediaTypes: () => [], filterWorks: () => [] };
   }, [module]);
+
+  // 使用 workAdapter 转换作品路径
+  useEffect(() => {
+    const loadWorks = async () => {
+      setLoading(true);
+      try {
+        const enriched = await enrichWorks(allWorks);
+        setEnrichedWorks(enriched);
+      } catch (error) {
+        console.error('加载作品失败:', error);
+        setEnrichedWorks(allWorks); // 失败时使用原始数据
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    if (allWorks.length > 0) {
+      loadWorks();
+    }
+  }, [allWorks]);
   
-  // 筛选后的作品
+  // 筛选后的作品（使用转换后的数据）
   const filteredWorks = useMemo(() => {
+    if (loading || enrichedWorks.length === 0) {
+      return [];
+    }
+    
     if (selectedMedia === 'all') {
       // 显示所有作品（只按比例筛选）
-      return filterWorks(allWorks, getAllMediaTypes(), aspectType);
+      return filterWorks(enrichedWorks, getAllMediaTypes(), aspectType);
     }
     // 显示选中媒介的作品
-    return filterWorks(allWorks, [selectedMedia], aspectType);
-  }, [allWorks, selectedMedia, aspectType, filterWorks, getAllMediaTypes]);
+    return filterWorks(enrichedWorks, [selectedMedia], aspectType);
+  }, [enrichedWorks, selectedMedia, aspectType, filterWorks, getAllMediaTypes, loading]);
 
   // 切换媒介选择（单选模式）
   const selectMedia = (media) => {

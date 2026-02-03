@@ -1,0 +1,213 @@
+{
+  "timestamp": "20260202_163235",
+  "dry_run": false,
+  "stats": {
+    "files_scanned": 134,
+    "files_modified": 1,
+    "paths_updated": 39,
+    "errors": 0
+  },
+  "updates": [
+    {
+      "file": "src\\data\\formStructureWorks.js",
+      "updates": [
+        {
+          "line": 43,
+          "old": "form-structure/写意人物/1980e311c0578010fba5f0cd698e27cc 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-001.png"
+        },
+        {
+          "line": 52,
+          "old": "form-structure/写意人物/2839374d974dc66c01ccfe4ac1265326 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-002.png"
+        },
+        {
+          "line": 61,
+          "old": "form-structure/写意人物/page_005_img_001 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-003.png"
+        },
+        {
+          "line": 70,
+          "old": "form-structure/写意人物/page_005_img_002 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-004.png"
+        },
+        {
+          "line": 79,
+          "old": "form-structure/写意人物/page_005_img_003 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-005.png"
+        },
+        {
+          "line": 88,
+          "old": "form-structure/写意人物/page_005_img_004 1.png",
+          "new": "form-structure/写意人物/xieyi-renwu-006.png"
+        },
+        {
+          "line": 99,
+          "old": "form-structure/小写意山水/page_007_img_001 1.png",
+          "new": "form-structure/小写意山水/xiaoxieyi-shanshui-001.png"
+        },
+        {
+          "line": 108,
+          "old": "form-structure/小写意山水/page_008_img_001 1.png",
+          "new": "form-structure/小写意山水/xiaoxieyi-shanshui-002.png"
+        },
+        {
+          "line": 117,
+          "old": "form-structure/小写意山水/page_009_img_001 1.png",
+          "new": "form-structure/小写意山水/xiaoxieyi-shanshui-003.png"
+        },
+        {
+          "line": 128,
+          "old": "form-structure/小写意花鸟/page_011_img_001 1.png",
+          "new": "form-structure/小写意花鸟/xiaoxieyi-huaniao-001.png"
+        },
+        {
+          "line": 137,
+          "old": "form-structure/小写意花鸟/page_011_img_002 1.png",
+          "new": "form-structure/小写意花鸟/xiaoxieyi-huaniao-002.png"
+        },
+        {
+          "line": 146,
+          "old": "form-structure/小写意花鸟/page_011_img_003 1.png",
+          "new": "form-structure/小写意花鸟/xiaoxieyi-huaniao-003.png"
+        },
+        {
+          "line": 157,
+          "old": "form-structure/工笔/page_003_img_001 1.png",
+          "new": "form-structure/工笔/gongbi-001.png"
+        },
+        {
+          "line": 177,
+          "old": "form-structure/平面构成/135963c693f7d1662291172b3c8a1dfb 1.png",
+          "new": "form-structure/平面构成/pingmian-goucheng-001.png"
+        },
+        {
+          "line": 168,
+          "old": "form-structure/平面构成/69ccb39ffafd3e0d52da2177c788dc3b 1.png",
+          "new": "form-structure/平面构成/pingmian-goucheng-002.png"
+        },
+        {
+          "line": 186,
+          "old": "form-structure/平面构成/ead6b7945c750c541914e306b2a15985 1.png",
+          "new": "form-structure/平面构成/pingmian-goucheng-003.png"
+        },
+        {
+          "line": 206,
+          "old": "form-structure/材料探索/47ca46a1900af65e8761ab875908cfd1 1.png",
+          "new": "form-structure/材料探索/cailiao-tansuo-001.png"
+        },
+        {
+          "line": 215,
+          "old": "form-structure/材料探索/57d1dc58926d60180e63ed9a33e957b7 1.png",
+          "new": "form-structure/材料探索/cailiao-tansuo-002.png"
+        },
+        {
+          "line": 197,
+          "old": "form-structure/材料探索/8ad2b63747ce5744551d213df204dd51 1.png",
+          "new": "form-structure/材料探索/cailiao-tansuo-003.png"
+        },
+        {
+          "line": 224,
+          "old": "form-structure/材料探索/page_017_img_001 1.png",
+          "new": "form-structure/材料探索/cailiao-tansuo-004.png"
+        },
+        {
+          "line": 233,
+          "old": "form-structure/材料探索/page_018_img_001 1.png",
+          "new": "form-structure/材料探索/cailiao-tansuo-005.png"
+        },
+        {
+          "line": 244,
+          "old": "form-structure/水彩/747343f950453f98153db9ad6cd6de66 1.png",
+          "new": "form-structure/水彩/shuicai-001.png"
+        },
+        {
+          "line": 255,
+          "old": "form-structure/版画/page_012_img_001 1.png",
+          "new": "form-structure/版画/banhua-001.png"
+        },
+        {
+          "line": 264,
+          "old": "form-structure/版画/page_014_img_001 1.png",
+          "new": "form-structure/版画/banhua-002.png"
+        },
+        {
+          "line": 275,
+          "old": "form-structure/画面构成分析/page_104_img_001 1.png",
+          "new": "form-structure/画面构成分析/huamian-goucheng-001.png"
+        },
+        {
+          "line": 284,
+          "old": "form-structure/画面构成分析/page_105_img_001 1.png",
+          "new": "form-structure/画面构成分析/huamian-goucheng-002.png"
+        },
+        {
+          "line": 295,
+          "old": "form-structure/白描/2eb15c89dbc51e94434371f1bc41c97d 1.png",
+          "new": "form-structure/白描/baimiao-001.png"
+        },
+        {
+          "line": 304,
+          "old": "form-structure/白描/7b193eda34e9bb3b41cef662fcc4c081 1.png",
+          "new": "form-structure/白描/baimiao-002.png"
+        },
+        {
+          "line": 313,
+          "old": "form-structure/白描/97aab837bf592b42b026d83fbb0079da 1.png",
+          "new": "form-structure/白描/baimiao-003.png"
+        },
+        {
+          "line": 324,
+          "old": "form-structure/白描风景/b9c9922bde6c8d420ac69e1f8d7c89ff 1.png",
+          "new": "form-structure/白描风景/baimiao-fengjing-001.png"
+        },
+        {
+          "line": 335,
+          "old": "form-structure/立体/page_016_img_001 2.png",
+          "new": "form-structure/立体/liti-001.png"
+        },
+        {
+          "line": 344,
+          "old": "form-structure/立体/page_016_img_002 2.png",
+          "new": "form-structure/立体/liti-002.png"
+        },
+        {
+          "line": 353,
+          "old": "form-structure/立体/page_016_img_003 1.png",
+          "new": "form-structure/立体/liti-003.png"
+        },
+        {
+          "line": 364,
+          "old": "form-structure/素描/1a06be171899cd5273652d74f381617d 1.png",
+          "new": "form-structure/素描/sumiao-001.png"
+        },
+        {
+          "line": 373,
+          "old": "form-structure/素描/A4 - 1.png",
+          "new": "form-structure/素描/sumiao-002.png"
+        },
+        {
+          "line": 384,
+          "old": "form-structure/绢本组图/page_010_img_002 2.png",
+          "new": "form-structure/绢本组图/juanben-zutu-001.png"
+        },
+        {
+          "line": 395,
+          "old": "form-structure/综合材料/page_015_img_001 1.png",
+          "new": "form-structure/综合材料/zonghe-cailiao-001.png"
+        },
+        {
+          "line": 404,
+          "old": "form-structure/综合材料/page_015_img_002 1.png",
+          "new": "form-structure/综合材料/zonghe-cailiao-002.png"
+        },
+        {
+          "line": 415,
+          "old": "form-structure/雕塑/page_059_img_001 2.png",
+          "new": "form-structure/雕塑/diaosu-001.png"
+        }
+      ],
+      "old_content": "// Form & Structure 模块作品数据配置\n// 艺术媒介分类映射\nexport const MEDIA_CATEGORIES = {\n  '国画': ['写意人物', '小写意山水', '小写意花鸟', '工笔', '白描', '白描风景', '绢本组图'],\n  '素描': ['素描'],\n  '水彩': ['水彩'],\n  '版画': ['版画'],\n  '雕塑': ['雕塑'],\n  '构成': ['平面构成', '立体', '画面构成分析', '材料探索', '综合材料']\n};\n\n// 反向映射：从细分类别获取主媒介\nexport const getCategoryMedia = (category) => {\n  for (const [media, categories] of Object.entries(MEDIA_CATEGORIES)) {\n    if (categories.includes(category)) {\n      return media;\n    }\n  }\n  return '其他';\n};\n\n// 判断图片比例类型\n// portrait: 长图 (height > width)\n// landscape: 宽图 (width > height)  \n// square: 正方形 (差异 < 10%)\nexport const getAspectType = (width, height) => {\n  const ratio = height / width;\n  if (ratio > 1.1) return 'portrait'; // 长图\n  if (ratio < 0.9) return 'landscape'; // 宽图\n  return 'square'; // 正方形\n};\n\n// 作品数据配置\n// 每个作品包含：id, title, category(细分类别), media(主媒介), year, image(路径), aspectType(比例类型)\nexport const formStructureWorks = [\n  // 写意人物 (6张)\n  {\n    id: 1,\n    title: '写意人物·01',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/1980e311c0578010fba5f0cd698e27cc 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 2,\n    title: '写意人物·02',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/2839374d974dc66c01ccfe4ac1265326 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 3,\n    title: '写意人物·03',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/page_005_img_001 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 4,\n    title: '写意人物·04',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/page_005_img_002 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 5,\n    title: '写意人物·05',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/page_005_img_003 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 6,\n    title: '写意人物·06',\n    category: '写意人物',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/写意人物/page_005_img_004 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 小写意山水 (3张)\n  {\n    id: 7,\n    title: '小写意山水·01',\n    category: '小写意山水',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意山水/page_007_img_001 1.png',\n    aspectType: 'portrait' // 679×1400 (2.06)\n  },\n  {\n    id: 8,\n    title: '小写意山水·02',\n    category: '小写意山水',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意山水/page_008_img_001 1.png',\n    aspectType: 'portrait' // 683×1400 (2.05)\n  },\n  {\n    id: 9,\n    title: '小写意山水·03',\n    category: '小写意山水',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意山水/page_009_img_001 1.png',\n    aspectType: 'square' // 1452×1400 (0.96)\n  },\n\n  // 小写意花鸟 (3张)\n  {\n    id: 10,\n    title: '小写意花鸟·01',\n    category: '小写意花鸟',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意花鸟/page_011_img_001 1.png',\n    aspectType: 'landscape' // 1470×1000 (0.68)\n  },\n  {\n    id: 11,\n    title: '小写意花鸟·02',\n    category: '小写意花鸟',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意花鸟/page_011_img_002 1.png',\n    aspectType: 'landscape' // 1508×1000 (0.66)\n  },\n  {\n    id: 12,\n    title: '小写意花鸟·03',\n    category: '小写意花鸟',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/小写意花鸟/page_011_img_003 1.png',\n    aspectType: 'landscape' // 1496×1000 (0.67)\n  },\n\n  // 工笔 (1张)\n  {\n    id: 13,\n    title: '工笔研究',\n    category: '工笔',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/工笔/page_003_img_001 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 平面构成 (3张)\n  {\n    id: 14,\n    title: '平面构成·01',\n    category: '平面构成',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/平面构成/69ccb39ffafd3e0d52da2177c788dc3b 1.png',\n    aspectType: 'landscape' // 1400×1000 (0.71)\n  },\n  {\n    id: 15,\n    title: '平面构成·02',\n    category: '平面构成',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/平面构成/135963c693f7d1662291172b3c8a1dfb 1.png',\n    aspectType: 'landscape' // 1335×1000 (0.75)\n  },\n  {\n    id: 16,\n    title: '平面构成·03',\n    category: '平面构成',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/平面构成/ead6b7945c750c541914e306b2a15985 1.png',\n    aspectType: 'landscape' // 1435×1000 (0.70)\n  },\n\n  // 材料探索 (5张)\n  {\n    id: 17,\n    title: '材料探索·01',\n    category: '材料探索',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/材料探索/8ad2b63747ce5744551d213df204dd51 1.png',\n    aspectType: 'portrait' // 971×1400 (1.44)\n  },\n  {\n    id: 18,\n    title: '材料探索·02',\n    category: '材料探索',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/材料探索/47ca46a1900af65e8761ab875908cfd1 1.png',\n    aspectType: 'portrait' // 998×1400 (1.40)\n  },\n  {\n    id: 19,\n    title: '材料探索·03',\n    category: '材料探索',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/材料探索/57d1dc58926d60180e63ed9a33e957b7 1.png',\n    aspectType: 'portrait' // 1184×1400 (1.18)\n  },\n  {\n    id: 20,\n    title: '材料探索·04',\n    category: '材料探索',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/材料探索/page_017_img_001 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 21,\n    title: '材料探索·05',\n    category: '材料探索',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/材料探索/page_018_img_001 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 水彩 (1张)\n  {\n    id: 22,\n    title: '水彩写生',\n    category: '水彩',\n    media: '水彩',\n    year: '2023',\n    image: '/gallery/form-structure/水彩/747343f950453f98153db9ad6cd6de66 1.png',\n    aspectType: 'landscape' // 1952×1400 (0.72)\n  },\n\n  // 版画 (2张)\n  {\n    id: 23,\n    title: '版画·01',\n    category: '版画',\n    media: '版画',\n    year: '2022',\n    image: '/gallery/form-structure/版画/page_012_img_001 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 24,\n    title: '版画·02',\n    category: '版画',\n    media: '版画',\n    year: '2022',\n    image: '/gallery/form-structure/版画/page_014_img_001 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 画面构成分析 (2张)\n  {\n    id: 25,\n    title: '画面构成分析·01',\n    category: '画面构成分析',\n    media: '构成',\n    year: '2023',\n    image: '/gallery/form-structure/画面构成分析/page_104_img_001 1.png',\n    aspectType: 'landscape'\n  },\n  {\n    id: 26,\n    title: '画面构成分析·02',\n    category: '画面构成分析',\n    media: '构成',\n    year: '2023',\n    image: '/gallery/form-structure/画面构成分析/page_105_img_001 1.png',\n    aspectType: 'landscape'\n  },\n\n  // 白描 (3张)\n  {\n    id: 27,\n    title: '白描·01',\n    category: '白描',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/白描/2eb15c89dbc51e94434371f1bc41c97d 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 28,\n    title: '白描·02',\n    category: '白描',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/白描/7b193eda34e9bb3b41cef662fcc4c081 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 29,\n    title: '白描·03',\n    category: '白描',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/白描/97aab837bf592b42b026d83fbb0079da 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 白描风景 (1张)\n  {\n    id: 30,\n    title: '白描风景',\n    category: '白描风景',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/白描风景/b9c9922bde6c8d420ac69e1f8d7c89ff 1.png',\n    aspectType: 'landscape'\n  },\n\n  // 立体 (3张)\n  {\n    id: 31,\n    title: '立体构成·01',\n    category: '立体',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/立体/page_016_img_001 2.png',\n    aspectType: 'square' // 1291×1400 (1.08)\n  },\n  {\n    id: 32,\n    title: '立体构成·02',\n    category: '立体',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/立体/page_016_img_002 2.png',\n    aspectType: 'portrait' // 912×1400 (1.54)\n  },\n  {\n    id: 33,\n    title: '立体构成·03',\n    category: '立体',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/立体/page_016_img_003 1.png',\n    aspectType: 'portrait' // 809×1400 (1.73)\n  },\n\n  // 素描 (2张)\n  {\n    id: 34,\n    title: '素描·01',\n    category: '素描',\n    media: '素描',\n    year: '2023',\n    image: '/gallery/form-structure/素描/1a06be171899cd5273652d74f381617d 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 35,\n    title: '素描·02',\n    category: '素描',\n    media: '素描',\n    year: '2023',\n    image: '/gallery/form-structure/素描/A4 - 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 绢本组图 (1张)\n  {\n    id: 36,\n    title: '绢本组图',\n    category: '绢本组图',\n    media: '国画',\n    year: '2023',\n    image: '/gallery/form-structure/绢本组图/page_010_img_002 2.png',\n    aspectType: 'landscape' // 1615×1400 (0.87)\n  },\n\n  // 综合材料 (2张)\n  {\n    id: 37,\n    title: '综合材料·01',\n    category: '综合材料',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/综合材料/page_015_img_001 1.png',\n    aspectType: 'portrait'\n  },\n  {\n    id: 38,\n    title: '综合材料·02',\n    category: '综合材料',\n    media: '构成',\n    year: '2022',\n    image: '/gallery/form-structure/综合材料/page_015_img_002 1.png',\n    aspectType: 'portrait'\n  },\n\n  // 雕塑 (1张)\n  {\n    id: 39,\n    title: '雕塑作品',\n    category: '雕塑',\n    media: '雕塑',\n    year: '2022',\n    image: '/gallery/form-structure/雕塑/page_059_img_001 2.png',\n    aspectType: 'landscape' // 1331×1000 (0.75)\n  }\n];\n\n// 获取所有媒介类别\nexport const getAllMediaTypes = () => Object.keys(MEDIA_CATEGORIES);\n\n// 根据媒介筛选作品\nexport const filterByMedia = (works, selectedMedia) => {\n  if (selectedMedia.length === 0 || selectedMedia.length === getAllMediaTypes().length) {\n    return works; // 全选或不选，返回所有\n  }\n  return works.filter(work => selectedMedia.includes(work.media));\n};\n\n// 根据比例类型筛选作品 (正方形会同时出现在两种模式中)\nexport const filterByAspectType = (works, aspectType) => {\n  if (aspectType === 'portrait') {\n    return works.filter(work => work.aspectType === 'portrait' || work.aspectType === 'square');\n  } else if (aspectType === 'landscape') {\n    return works.filter(work => work.aspectType === 'landscape' || work.aspectType === 'square');\n  }\n  return works;\n};\n\n// 组合筛选\nexport const filterWorks = (works, selectedMedia, aspectType) => {\n  let filtered = filterByMedia(works, selectedMedia);\n  filtered = filterByAspectType(filtered, aspectType);\n  return filtered;\n};\n"
+    }
+  ]
+}

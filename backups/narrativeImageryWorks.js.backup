@@ -1,0 +1,476 @@
+// Narrative & Imagery 模块作品数据配置
+
+// 艺术媒介分类映射
+export const MEDIA_CATEGORIES = {
+  '板绘': ['灰蓝横', '灰蓝竖', '蓝绿横', '蓝绿竖', '高级灰横', '高级灰竖', '黑'],
+  '综合材料': ['纹理', '线条', '色彩']
+};
+
+// 反向映射：从细分类别获取主媒介
+export const getCategoryMedia = (category) => {
+  for (const [media, categories] of Object.entries(MEDIA_CATEGORIES)) {
+    if (categories.includes(category)) {
+      return media;
+    }
+  }
+  return '其他';
+};
+
+// 获取所有媒介类型
+export const getAllMediaTypes = () => {
+  return Object.keys(MEDIA_CATEGORIES);
+};
+
+// 判断图片比例类型
+export const getAspectType = (width, height) => {
+  const ratio = height / width;
+  if (ratio > 1.1) return 'portrait'; // 长图
+  if (ratio < 0.9) return 'landscape'; // 宽图
+  return 'square'; // 正方形
+};
+
+// 筛选作品
+export const filterWorks = (works, mediaTypes, aspectType) => {
+  return works.filter(work => {
+    const mediaMatch = mediaTypes.includes(work.media);
+    const aspectMatch = work.aspectType === aspectType;
+    return mediaMatch && aspectMatch;
+  });
+};
+
+// 作品数据配置
+export const narrativeImageryWorks = [
+  // 灰蓝横 (2张)
+  {
+    id: 1,
+    title: '灰蓝·01',
+    category: '灰蓝横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/灰蓝横/huilan-heng-001.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 2,
+    title: '灰蓝·02',
+    category: '灰蓝横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/灰蓝横/huilan-heng-002.png',
+    aspectType: 'landscape'
+  },
+
+  // 灰蓝竖 (3张)
+  {
+    id: 3,
+    title: '灰蓝·03',
+    category: '灰蓝竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/灰蓝竖/huilan-shu-001.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 4,
+    title: '灰蓝·04',
+    category: '灰蓝竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/灰蓝竖/huilan-shu-002.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 5,
+    title: '灰蓝·05',
+    category: '灰蓝竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/灰蓝竖/huilan-shu-003.png',
+    aspectType: 'portrait'
+  },
+
+  // 纹理 (5张)
+  {
+    id: 6,
+    title: '纹理·01',
+    category: '纹理',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/纹理/wenli-003.png',
+    aspectType: 'square'
+  },
+  {
+    id: 7,
+    title: '纹理·02',
+    category: '纹理',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/纹理/wenli-001.png',
+    aspectType: 'square'
+  },
+  {
+    id: 8,
+    title: '纹理·03',
+    category: '纹理',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/纹理/wenli-002.png',
+    aspectType: 'square'
+  },
+  {
+    id: 9,
+    title: '纹理·04',
+    category: '纹理',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/纹理/wenli-004.png',
+    aspectType: 'square'
+  },
+  {
+    id: 10,
+    title: '纹理·05',
+    category: '纹理',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/纹理/wenli-005.png',
+    aspectType: 'square'
+  },
+
+  // 线条 (4张)
+  {
+    id: 11,
+    title: '线条·01',
+    category: '线条',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/线条/xiantiao-001.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 12,
+    title: '线条·02',
+    category: '线条',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/线条/xiantiao-002.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 13,
+    title: '线条·03',
+    category: '线条',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/线条/xiantiao-003.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 14,
+    title: '线条·04',
+    category: '线条',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/线条/xiantiao-004.png',
+    aspectType: 'landscape'
+  },
+
+  // 色彩 (7张)
+  {
+    id: 15,
+    title: '色彩·01',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-001.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 16,
+    title: '色彩·02',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-002.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 17,
+    title: '色彩·03',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-003.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 18,
+    title: '色彩·04',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-004.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 19,
+    title: '色彩·05',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-005.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 20,
+    title: '色彩·06',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-006.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 21,
+    title: '色彩·07',
+    category: '色彩',
+    media: '综合材料',
+    year: '2023',
+    image: '/gallery/narrative-imagery/色彩/secai-007.png',
+    aspectType: 'portrait'
+  },
+
+  // 蓝绿横 (3张)
+  {
+    id: 22,
+    title: '蓝绿·01',
+    category: '蓝绿横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿横/lanlv-heng-001.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 23,
+    title: '蓝绿·02',
+    category: '蓝绿横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿横/lanlv-heng-002.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 24,
+    title: '蓝绿·03',
+    category: '蓝绿横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿横/lanlv-heng-003.png',
+    aspectType: 'landscape'
+  },
+
+  // 蓝绿竖 (6张)
+  {
+    id: 25,
+    title: '蓝绿·04',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-001.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 26,
+    title: '蓝绿·05',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-003.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 27,
+    title: '蓝绿·06',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-002.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 28,
+    title: '蓝绿·07',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-004.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 29,
+    title: '蓝绿·08',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-005.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 30,
+    title: '蓝绿·09',
+    category: '蓝绿竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/蓝绿竖/lanlv-shu-006.png',
+    aspectType: 'portrait'
+  },
+
+  // 高级灰横 (4张)
+  {
+    id: 31,
+    title: '高级灰·01',
+    category: '高级灰横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰横/gaojihui-heng-002.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 32,
+    title: '高级灰·02',
+    category: '高级灰横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰横/gaojihui-heng-001.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 33,
+    title: '高级灰·03',
+    category: '高级灰横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰横/gaojihui-heng-003.png',
+    aspectType: 'landscape'
+  },
+  {
+    id: 34,
+    title: '高级灰·04',
+    category: '高级灰横',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰横/gaojihui-heng-004.png',
+    aspectType: 'landscape'
+  },
+
+  // 高级灰竖 (7张)
+  {
+    id: 35,
+    title: '高级灰·05',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-001.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 36,
+    title: '高级灰·06',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-002.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 37,
+    title: '高级灰·07',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-003.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 38,
+    title: '高级灰·08',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-004.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 39,
+    title: '高级灰·09',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-005.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 40,
+    title: '高级灰·10',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-006.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 41,
+    title: '高级灰·11',
+    category: '高级灰竖',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/高级灰竖/gaojihui-shu-007.png',
+    aspectType: 'portrait'
+  },
+
+  // 黑 (5张)
+  {
+    id: 42,
+    title: '黑·01',
+    category: '黑',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/黑/hei-001.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 43,
+    title: '黑·02',
+    category: '黑',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/黑/hei-002.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 44,
+    title: '黑·03',
+    category: '黑',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/黑/hei-003.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 45,
+    title: '黑·04',
+    category: '黑',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/黑/hei-004.png',
+    aspectType: 'portrait'
+  },
+  {
+    id: 46,
+    title: '黑·05',
+    category: '黑',
+    media: '板绘',
+    year: '2023',
+    image: '/gallery/narrative-imagery/黑/hei-005.png',
+    aspectType: 'portrait'
+  }
+];

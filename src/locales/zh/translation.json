@@ -117,6 +117,18 @@
     "backToIndex": "返回目录",
     "backToToc": "目录",
     "nextPhase": "下一阶段",
+    "products": {
+      "label": "产品",
+      "cube": "Cube",
+      "nicotine-sugar": "尼古丁糖",
+      "motor": "Motor"
+    },
+    "productEndHint": {
+      "currentProductEnd": "{{productName}} 展示已结束",
+      "switchPrompt": "查看更多产品",
+      "instruction": "使用右上角的产品标签切换",
+      "arrowText": "还有 {{count}} 个产品"
+    },
     "screenLabels": {
       "intro": "阶段引导",
       "core-principles": "核心原则",
@@ -364,19 +376,6 @@
           "closing": {
             "title": "随着系统逐步成熟，设计开始真正融入品牌的日常运作",
             "content": "这一阶段的完成，也为后续品牌发展提供了稳定基础。"
-          }
-        }
-      },
-      "phase-05": {
-        "title": "零售与体验拓展",
-        "desc": "将品牌系统拓展到零售终端与用户体验。",
-        "screens": {
-          "intro": {
-            "content": "品牌在零售环境中的完整呈现，展示系统如何在真实场景中保持一致性。"
-          },
-          "closing": {
-            "title": "系统在真实环境中的成功验证",
-            "content": "通过终端体验的完整呈现，品牌系统实现了从理论到实践的完整闭环。"
           }
         }
       },
@@ -766,8 +765,7 @@
     "viewMore": "查看更多",
     "viewAll": "查看全部",
     "learnMore": "了解更多",
-    "scroll": "滚动",
-    "swipeToExplore": "左右滑动浏览"
+    "scroll": "滚动"
   },
   "footer": {
     "email": "邮箱",

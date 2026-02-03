@@ -19,7 +19,7 @@ const CaseIndex = () => {
       titleEn: 'Brand Identity 0–1',
       titleZh: t('case.phases.phase-01.title'),
       desc: t('case.phases.phase-01.desc'),
-      image: '/images/case-index/phase-01-cover.png',
+      image: '/covers/work/phases/phase-01-cover.png',
       imagePlaceholder: 'Logo · VI · 色彩系统',
       isPlaceholder: false
     },
@@ -29,7 +29,7 @@ const CaseIndex = () => {
       titleEn: 'Product A · From Concept to Launch',
       titleZh: t('case.phases.phase-02.title'),
       desc: t('case.phases.phase-02.desc'),
-      image: '/images/case-index/phase-02-cover.png',
+      image: '/covers/work/phases/phase-02-cover.png',
       imagePlaceholder: '概念 · 设计 · 落地',
       isPlaceholder: false
     },
@@ -39,7 +39,7 @@ const CaseIndex = () => {
       titleEn: 'Product B · Consistency with Variation',
       titleZh: t('case.phases.phase-03.title'),
       desc: t('case.phases.phase-03.desc'),
-      image: '/images/case-index/phase-03-cover.png',
+      image: '/covers/work/phases/phase-03-cover.png',
       imagePlaceholder: '差异化 · 一致性',
       isPlaceholder: false
     },
@@ -49,7 +49,7 @@ const CaseIndex = () => {
       titleEn: 'Packaging & Marketing Extensions',
       titleZh: t('case.phases.phase-04.title'),
       desc: t('case.phases.phase-04.desc'),
-      image: '/images/case-index/phase-04-cover.png',
+      image: '/covers/work/phases/phase-04-cover.png',
       imagePlaceholder: '包装 · 营销 · 触点',
       isPlaceholder: false
     },
@@ -60,7 +60,7 @@ const CaseIndex = () => {
       titleEn: 'Retail & Experience Expansion',
       titleZh: t('case.phases.phase-05.title'),
       desc: t('case.phases.phase-05.desc'),
-      image: '/images/case-index/phase-05-cover.png',
+      image: '/covers/work/phases/phase-05-cover.png',
       imagePlaceholder: '零售 · 场景 · 体验',
       isPlaceholder: false
     },
@@ -71,7 +71,7 @@ const CaseIndex = () => {
       titleEn: 'Copywriting Visualization',
       titleZh: t('case.phases.phase-06.title'),
       desc: t('case.phases.phase-06.desc'),
-      image: '/images/case-index/phase-06-cover.png',
+      image: '/covers/work/phases/phase-06-cover.png',
       imagePlaceholder: '文案 · 可视化',
       isPlaceholder: false
     }

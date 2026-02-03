@@ -1,0 +1,77 @@
+{
+  "naming_rules": {
+    "format": "{category}-{subcategory}-{sequence}",
+    "sequence_digits": 3,
+    "separator": "-",
+    "preserve_original": ["fly-in"]
+  },
+  "category_mappings": {
+    "form-structure": {
+      "pinyin": "form",
+      "subcategories": {
+        "写意人物": "xieyi-renwu",
+        "小写意山水": "xiaoxieyi-shanshui",
+        "小写意花鸟": "xiaoxieyi-huaniao",
+        "工笔": "gongbi",
+        "平面构成": "pingmian-goucheng",
+        "材料探索": "cailiao-tansuo",
+        "水彩": "shuicai",
+        "版画": "banhua",
+        "画面构成分析": "huamian-goucheng",
+        "白描": "baimiao",
+        "白描风景": "baimiao-fengjing",
+        "立体": "liti",
+        "素描": "sumiao",
+        "绢本组图": "juanben-zutu",
+        "综合材料": "zonghe-cailiao",
+        "雕塑": "diaosu"
+      }
+    },
+    "material-texture": {
+      "pinyin": "material",
+      "subcategories": {
+        "板绘1": "banhua-01",
+        "板绘2": "banhua-02",
+        "板绘3": "banhua-03",
+        "板绘4": "banhua-04",
+        "板绘5": "banhua-05",
+        "水彩1": "shuicai-01",
+        "水彩2": "shuicai-02",
+        "色粉1": "sefen-01",
+        "色粉2": "sefen-02",
+        "色粉3": "sefen-03",
+        "色粉4": "sefen-04",
+        "色粉5": "sefen-05"
+      }
+    },
+    "narrative-imagery": {
+      "pinyin": "narrative",
+      "subcategories": {
+        "灰蓝横": "huilan-heng",
+        "灰蓝竖": "huilan-shu",
+        "纹理": "wenli",
+        "线条": "xiantiao",
+        "色彩": "secai",
+        "蓝绿横": "lanlv-heng",
+        "蓝绿竖": "lanlv-shu",
+        "高级灰横": "gaojihui-heng",
+        "高级灰竖": "gaojihui-shu",
+        "黑": "hei"
+      }
+    },
+    "fly-in": {
+      "pinyin": "fly-in",
+      "preserve_naming": true
+    }
+  },
+  "cleanup_rules": {
+    "remove_patterns": [
+      "\\s+\\d+$",
+      "^page_\\d+_img_",
+      "^[a-f0-9]{32}\\s*",
+      "^(Frame|Group)\\s+"
+    ],
+    "replace_spaces": true,
+    "lowercase": false
+  }
+}

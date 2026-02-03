@@ -330,32 +330,32 @@ const Work = () => {
     {
       id: 'phase-01',
       titleEn: 'Brand Identity',
-      image: '/images/case-index/phase-01-cover.png',
+      image: '/covers/work/phases/phase-01-cover.png',
     },
     {
       id: 'phase-02',
       titleEn: 'Product A',
-      image: '/images/case-index/phase-02-cover.png',
+      image: '/covers/work/phases/phase-02-cover.png',
     },
     {
       id: 'phase-03',
       titleEn: 'Product B',
-      image: '/images/case-index/phase-03-cover.png',
+      image: '/covers/work/phases/phase-03-cover.png',
     },
     {
       id: 'phase-04',
       titleEn: 'Packaging',
-      image: '/images/case-index/phase-04-cover.png',
+      image: '/covers/work/phases/phase-04-cover.png',
     },
     {
       id: 'phase-05',
       titleEn: 'Retail & Experience Expansion',
-      image: '/images/case-index/phase-05-cover.png',
+      image: '/covers/work/phases/phase-05-cover.png',
     },
     {
       id: 'phase-06',
       titleEn: 'Copywriting Visualization',
-      image: '/images/case-index/phase-06-cover.png',
+      image: '/covers/work/phases/phase-06-cover.png',
     }
   ];
 

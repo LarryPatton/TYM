@@ -117,6 +117,18 @@
     "backToIndex": "Back to Index",
     "backToToc": "TOC",
     "nextPhase": "Next Phase",
+    "products": {
+      "label": "Products",
+      "cube": "Cube",
+      "nicotine-sugar": "Nicotine Sugar",
+      "motor": "Motor"
+    },
+    "productEndHint": {
+      "currentProductEnd": "{{productName}} showcase completed",
+      "switchPrompt": "Explore More Products",
+      "instruction": "Use the product tabs in the top-right corner",
+      "arrowText": "{{count}} more product(s)"
+    },
     "screenLabels": {
       "intro": "Introduction",
       "core-principles": "Core Principles",
@@ -364,19 +376,6 @@
           "closing": {
             "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
             "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
-          }
-        }
-      },
-      "phase-05": {
-        "title": "Retail & Experience Expansion",
-        "desc": "Extending the brand system to retail terminals and user experience.",
-        "screens": {
-          "intro": {
-            "content": "Complete brand presence in retail environments, demonstrating how the system maintains consistency in real scenarios."
-          },
-          "closing": {
-            "title": "Successful validation of the system in real environments",
-            "content": "Through complete terminal experience presentation, the brand system achieves a complete loop from theory to practice."
           }
         }
       },
@@ -766,8 +765,7 @@
     "viewMore": "View More",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "scroll": "Scroll",
-    "swipeToExplore": "Swipe to explore"
+    "scroll": "Scroll"
   },
   "footer": {
     "email": "Email",

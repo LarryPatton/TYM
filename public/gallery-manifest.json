@@ -1,0 +1,2236 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-02-02T16:51:18.967731",
+  "modules": {
+    "form-structure": {
+      "displayName": "Form & Structure",
+      "description": "",
+      "subcategories": {
+        "写意人物": {
+          "displayName": "写意人物",
+          "files": [
+            {
+              "filename": "xieyi-renwu-001.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-001.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-001.png",
+              "fileSize": 1333970,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:42.904734",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xieyi-renwu-002.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-002.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-002.png",
+              "fileSize": 1309721,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:42.929302",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xieyi-renwu-003.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-003.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-003.png",
+              "fileSize": 339354,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:10.431964",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xieyi-renwu-004.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-004.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-004.png",
+              "fileSize": 369025,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:07.636401",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xieyi-renwu-005.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-005.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-005.png",
+              "fileSize": 310114,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:09.364898",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xieyi-renwu-006.png",
+              "path": "/gallery/form-structure/写意人物/xieyi-renwu-006.png",
+              "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-006.png",
+              "fileSize": 1568306,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:23:57.468491",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "小写意山水": {
+          "displayName": "小写意山水",
+          "files": [
+            {
+              "filename": "xiaoxieyi-shanshui-001.png",
+              "path": "/gallery/form-structure/小写意山水/xiaoxieyi-shanshui-001.png",
+              "relativePath": "gallery/form-structure/小写意山水/xiaoxieyi-shanshui-001.png",
+              "fileSize": 581177,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:00.079212",
+              "dimensions": {
+                "width": 679,
+                "height": 1400
+              },
+              "aspectRatio": "679:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xiaoxieyi-shanshui-002.png",
+              "path": "/gallery/form-structure/小写意山水/xiaoxieyi-shanshui-002.png",
+              "relativePath": "gallery/form-structure/小写意山水/xiaoxieyi-shanshui-002.png",
+              "fileSize": 546608,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:00.234868",
+              "dimensions": {
+                "width": 683,
+                "height": 1400
+              },
+              "aspectRatio": "683:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "xiaoxieyi-shanshui-003.png",
+              "path": "/gallery/form-structure/小写意山水/xiaoxieyi-shanshui-003.png",
+              "relativePath": "gallery/form-structure/小写意山水/xiaoxieyi-shanshui-003.png",
+              "fileSize": 864699,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:09.325384",
+              "dimensions": {
+                "width": 1452,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            }
+          ]
+        },
+        "小写意花鸟": {
+          "displayName": "小写意花鸟",
+          "files": [
+            {
+              "filename": "xiaoxieyi-huaniao-001.png",
+              "path": "/gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-001.png",
+              "relativePath": "gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-001.png",
+              "fileSize": 349350,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:08.724720",
+              "dimensions": {
+                "width": 1470,
+                "height": 1000
+              },
+              "aspectRatio": "1470:1000",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "xiaoxieyi-huaniao-002.png",
+              "path": "/gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-002.png",
+              "relativePath": "gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-002.png",
+              "fileSize": 519485,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:05.960220",
+              "dimensions": {
+                "width": 1508,
+                "height": 1000
+              },
+              "aspectRatio": "1508:1000",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "xiaoxieyi-huaniao-003.png",
+              "path": "/gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-003.png",
+              "relativePath": "gallery/form-structure/小写意花鸟/xiaoxieyi-huaniao-003.png",
+              "fileSize": 495439,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:05.384614",
+              "dimensions": {
+                "width": 1496,
+                "height": 1000
+              },
+              "aspectRatio": "1496:1000",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "工笔": {
+          "displayName": "工笔",
+          "files": [
+            {
+              "filename": "gongbi-001.png",
+              "path": "/gallery/form-structure/工笔/gongbi-001.png",
+              "relativePath": "gallery/form-structure/工笔/gongbi-001.png",
+              "fileSize": 403334,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:16.641624",
+              "dimensions": {
+                "width": 1208,
+                "height": 1400
+              },
+              "aspectRatio": "1208:1400",
+              "orientation": "square"
+            }
+          ]
+        },
+        "平面构成": {
+          "displayName": "平面构成",
+          "files": [
+            {
+              "filename": "pingmian-goucheng-001.png",
+              "path": "/gallery/form-structure/平面构成/pingmian-goucheng-001.png",
+              "relativePath": "gallery/form-structure/平面构成/pingmian-goucheng-001.png",
+              "fileSize": 656303,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:02.126128",
+              "dimensions": {
+                "width": 1335,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "pingmian-goucheng-002.png",
+              "path": "/gallery/form-structure/平面构成/pingmian-goucheng-002.png",
+              "relativePath": "gallery/form-structure/平面构成/pingmian-goucheng-002.png",
+              "fileSize": 531309,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:43.202638",
+              "dimensions": {
+                "width": 1400,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "pingmian-goucheng-003.png",
+              "path": "/gallery/form-structure/平面构成/pingmian-goucheng-003.png",
+              "relativePath": "gallery/form-structure/平面构成/pingmian-goucheng-003.png",
+              "fileSize": 481327,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:01.387978",
+              "dimensions": {
+                "width": 1435,
+                "height": 1000
+              },
+              "aspectRatio": "1435:1000",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "材料探索": {
+          "displayName": "材料探索",
+          "files": [
+            {
+              "filename": "cailiao-tansuo-001.png",
+              "path": "/gallery/form-structure/材料探索/cailiao-tansuo-001.png",
+              "relativePath": "gallery/form-structure/材料探索/cailiao-tansuo-001.png",
+              "fileSize": 532635,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:06.320847",
+              "dimensions": {
+                "width": 998,
+                "height": 1400
+              },
+              "aspectRatio": "998:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "cailiao-tansuo-002.png",
+              "path": "/gallery/form-structure/材料探索/cailiao-tansuo-002.png",
+              "relativePath": "gallery/form-structure/材料探索/cailiao-tansuo-002.png",
+              "fileSize": 666964,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:04.877231",
+              "dimensions": {
+                "width": 1184,
+                "height": 1400
+              },
+              "aspectRatio": "1184:1400",
+              "orientation": "square"
+            },
+            {
+              "filename": "cailiao-tansuo-003.png",
+              "path": "/gallery/form-structure/材料探索/cailiao-tansuo-003.png",
+              "relativePath": "gallery/form-structure/材料探索/cailiao-tansuo-003.png",
+              "fileSize": 420909,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:07.423516",
+              "dimensions": {
+                "width": 971,
+                "height": 1400
+              },
+              "aspectRatio": "971:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "cailiao-tansuo-004.png",
+              "path": "/gallery/form-structure/材料探索/cailiao-tansuo-004.png",
+              "relativePath": "gallery/form-structure/材料探索/cailiao-tansuo-004.png",
+              "fileSize": 664702,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:00.848674",
+              "dimensions": {
+                "width": 667,
+                "height": 1400
+              },
+              "aspectRatio": "667:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "cailiao-tansuo-005.png",
+              "path": "/gallery/form-structure/材料探索/cailiao-tansuo-005.png",
+              "relativePath": "gallery/form-structure/材料探索/cailiao-tansuo-005.png",
+              "fileSize": 425253,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:11.520374",
+              "dimensions": {
+                "width": 954,
+                "height": 1400
+              },
+              "aspectRatio": "954:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "水彩": {
+          "displayName": "水彩",
+          "files": [
+            {
+              "filename": "shuicai-001.png",
+              "path": "/gallery/form-structure/水彩/shuicai-001.png",
+              "relativePath": "gallery/form-structure/水彩/shuicai-001.png",
+              "fileSize": 795107,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:18.027384",
+              "dimensions": {
+                "width": 1952,
+                "height": 1400
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "版画": {
+          "displayName": "版画",
+          "files": [
+            {
+              "filename": "banhua-001.png",
+              "path": "/gallery/form-structure/版画/banhua-001.png",
+              "relativePath": "gallery/form-structure/版画/banhua-001.png",
+              "fileSize": 654415,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:08.083588",
+              "dimensions": {
+                "width": 855,
+                "height": 1400
+              },
+              "aspectRatio": "855:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-002.png",
+              "path": "/gallery/form-structure/版画/banhua-002.png",
+              "relativePath": "gallery/form-structure/版画/banhua-002.png",
+              "fileSize": 822790,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:08.112588",
+              "dimensions": {
+                "width": 973,
+                "height": 1400
+              },
+              "aspectRatio": "973:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "画面构成分析": {
+          "displayName": "画面构成分析",
+          "files": [
+            {
+              "filename": "huamian-goucheng-001.png",
+              "path": "/gallery/form-structure/画面构成分析/huamian-goucheng-001.png",
+              "relativePath": "gallery/form-structure/画面构成分析/huamian-goucheng-001.png",
+              "fileSize": 502646,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:10.628130",
+              "dimensions": {
+                "width": 1430,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "huamian-goucheng-002.png",
+              "path": "/gallery/form-structure/画面构成分析/huamian-goucheng-002.png",
+              "relativePath": "gallery/form-structure/画面构成分析/huamian-goucheng-002.png",
+              "fileSize": 700061,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:08.658202",
+              "dimensions": {
+                "width": 1430,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "白描": {
+          "displayName": "白描",
+          "files": [
+            {
+              "filename": "baimiao-001.png",
+              "path": "/gallery/form-structure/白描/baimiao-001.png",
+              "relativePath": "gallery/form-structure/白描/baimiao-001.png",
+              "fileSize": 1083877,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:43.288387",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "baimiao-002.png",
+              "path": "/gallery/form-structure/白描/baimiao-002.png",
+              "relativePath": "gallery/form-structure/白描/baimiao-002.png",
+              "fileSize": 952392,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:43.299913",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "baimiao-003.png",
+              "path": "/gallery/form-structure/白描/baimiao-003.png",
+              "relativePath": "gallery/form-structure/白描/baimiao-003.png",
+              "fileSize": 1413752,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:43.314930",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "白描风景": {
+          "displayName": "白描风景",
+          "files": [
+            {
+              "filename": "baimiao-fengjing-001.png",
+              "path": "/gallery/form-structure/白描风景/baimiao-fengjing-001.png",
+              "relativePath": "gallery/form-structure/白描风景/baimiao-fengjing-001.png",
+              "fileSize": 790781,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:15.392900",
+              "dimensions": {
+                "width": 2227,
+                "height": 1000
+              },
+              "aspectRatio": "2227:1000",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "立体": {
+          "displayName": "立体",
+          "files": [
+            {
+              "filename": "liti-001.png",
+              "path": "/gallery/form-structure/立体/liti-001.png",
+              "relativePath": "gallery/form-structure/立体/liti-001.png",
+              "fileSize": 1252473,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:43.646926",
+              "dimensions": {
+                "width": 1291,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "liti-002.png",
+              "path": "/gallery/form-structure/立体/liti-002.png",
+              "relativePath": "gallery/form-structure/立体/liti-002.png",
+              "fileSize": 733525,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:43.656952",
+              "dimensions": {
+                "width": 912,
+                "height": 1400
+              },
+              "aspectRatio": "912:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "liti-003.png",
+              "path": "/gallery/form-structure/立体/liti-003.png",
+              "relativePath": "gallery/form-structure/立体/liti-003.png",
+              "fileSize": 1503941,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:43.670968",
+              "dimensions": {
+                "width": 809,
+                "height": 1400
+              },
+              "aspectRatio": "809:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "素描": {
+          "displayName": "素描",
+          "files": [
+            {
+              "filename": "sumiao-001.png",
+              "path": "/gallery/form-structure/素描/sumiao-001.png",
+              "relativePath": "gallery/form-structure/素描/sumiao-001.png",
+              "fileSize": 1570259,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:43.378509",
+              "dimensions": {
+                "width": 932,
+                "height": 1400
+              },
+              "aspectRatio": "932:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sumiao-002.png",
+              "path": "/gallery/form-structure/素描/sumiao-002.png",
+              "relativePath": "gallery/form-structure/素描/sumiao-002.png",
+              "fileSize": 1077589,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:43.391029",
+              "dimensions": {
+                "width": 932,
+                "height": 1400
+              },
+              "aspectRatio": "932:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "绢本组图": {
+          "displayName": "绢本组图",
+          "files": [
+            {
+              "filename": "juanben-zutu-001.png",
+              "path": "/gallery/form-structure/绢本组图/juanben-zutu-001.png",
+              "relativePath": "gallery/form-structure/绢本组图/juanben-zutu-001.png",
+              "fileSize": 2377975,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:19.660666",
+              "dimensions": {
+                "width": 1615,
+                "height": 1400
+              },
+              "aspectRatio": "1615:1400",
+              "orientation": "square"
+            }
+          ]
+        },
+        "综合材料": {
+          "displayName": "综合材料",
+          "files": [
+            {
+              "filename": "zonghe-cailiao-001.png",
+              "path": "/gallery/form-structure/综合材料/zonghe-cailiao-001.png",
+              "relativePath": "gallery/form-structure/综合材料/zonghe-cailiao-001.png",
+              "fileSize": 651712,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:13.325993",
+              "dimensions": {
+                "width": 1084,
+                "height": 1400
+              },
+              "aspectRatio": "1084:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "zonghe-cailiao-002.png",
+              "path": "/gallery/form-structure/综合材料/zonghe-cailiao-002.png",
+              "relativePath": "gallery/form-structure/综合材料/zonghe-cailiao-002.png",
+              "fileSize": 1085825,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:11.226087",
+              "dimensions": {
+                "width": 1156,
+                "height": 1400
+              },
+              "aspectRatio": "1156:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "雕塑": {
+          "displayName": "雕塑",
+          "files": [
+            {
+              "filename": "diaosu-001.png",
+              "path": "/gallery/form-structure/雕塑/diaosu-001.png",
+              "relativePath": "gallery/form-structure/雕塑/diaosu-001.png",
+              "fileSize": 1459232,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:43.411428",
+              "dimensions": {
+                "width": 1331,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        }
+      },
+      "totalFiles": 39,
+      "lastModified": "2026-02-01T22:25:22.059750"
+    },
+    "material-texture": {
+      "displayName": "Material & Texture",
+      "description": "",
+      "subcategories": {
+        "板绘1": {
+          "displayName": "板绘1",
+          "files": [
+            {
+              "filename": "banhua-01-001.png",
+              "path": "/gallery/material-texture/板绘1/banhua-01-001.png",
+              "relativePath": "gallery/material-texture/板绘1/banhua-01-001.png",
+              "fileSize": 578289,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:14.768451",
+              "dimensions": {
+                "width": 1439,
+                "height": 1000
+              },
+              "aspectRatio": "1439:1000",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "banhua-01-002.png",
+              "path": "/gallery/material-texture/板绘1/banhua-01-002.png",
+              "relativePath": "gallery/material-texture/板绘1/banhua-01-002.png",
+              "fileSize": 754338,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:15.296858",
+              "dimensions": {
+                "width": 1439,
+                "height": 1000
+              },
+              "aspectRatio": "1439:1000",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "板绘2": {
+          "displayName": "板绘2",
+          "files": [
+            {
+              "filename": "banhua-02-001.png",
+              "path": "/gallery/material-texture/板绘2/banhua-02-001.png",
+              "relativePath": "gallery/material-texture/板绘2/banhua-02-001.png",
+              "fileSize": 576143,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:15.277346",
+              "dimensions": {
+                "width": 972,
+                "height": 1400
+              },
+              "aspectRatio": "972:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-02-002.png",
+              "path": "/gallery/material-texture/板绘2/banhua-02-002.png",
+              "relativePath": "gallery/material-texture/板绘2/banhua-02-002.png",
+              "fileSize": 466693,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:16.986233",
+              "dimensions": {
+                "width": 972,
+                "height": 1400
+              },
+              "aspectRatio": "972:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-02-003.png",
+              "path": "/gallery/material-texture/板绘2/banhua-02-003.png",
+              "relativePath": "gallery/material-texture/板绘2/banhua-02-003.png",
+              "fileSize": 625731,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:14.749450",
+              "dimensions": {
+                "width": 974,
+                "height": 1400
+              },
+              "aspectRatio": "974:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-02-004.png",
+              "path": "/gallery/material-texture/板绘2/banhua-02-004.png",
+              "relativePath": "gallery/material-texture/板绘2/banhua-02-004.png",
+              "fileSize": 562251,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:15.406892",
+              "dimensions": {
+                "width": 972,
+                "height": 1400
+              },
+              "aspectRatio": "972:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "板绘3": {
+          "displayName": "板绘3",
+          "files": [
+            {
+              "filename": "banhua-03-001.png",
+              "path": "/gallery/material-texture/板绘3/banhua-03-001.png",
+              "relativePath": "gallery/material-texture/板绘3/banhua-03-001.png",
+              "fileSize": 1126645,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:43.993342",
+              "dimensions": {
+                "width": 1400,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "banhua-03-002.png",
+              "path": "/gallery/material-texture/板绘3/banhua-03-002.png",
+              "relativePath": "gallery/material-texture/板绘3/banhua-03-002.png",
+              "fileSize": 1542248,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:44.010368",
+              "dimensions": {
+                "width": 1400,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "banhua-03-003.png",
+              "path": "/gallery/material-texture/板绘3/banhua-03-003.png",
+              "relativePath": "gallery/material-texture/板绘3/banhua-03-003.png",
+              "fileSize": 1502228,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:09.189415",
+              "dimensions": {
+                "width": 1400,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            }
+          ]
+        },
+        "板绘4": {
+          "displayName": "板绘4",
+          "files": [
+            {
+              "filename": "banhua-04-001.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-001.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-001.png",
+              "fileSize": 1114303,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:44.047657",
+              "dimensions": {
+                "width": 988,
+                "height": 1400
+              },
+              "aspectRatio": "988:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-04-002.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-002.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-002.png",
+              "fileSize": 1507016,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:44.062678",
+              "dimensions": {
+                "width": 973,
+                "height": 1400
+              },
+              "aspectRatio": "973:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-04-003.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-003.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-003.png",
+              "fileSize": 1551763,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:09.799481",
+              "dimensions": {
+                "width": 1169,
+                "height": 1400
+              },
+              "aspectRatio": "1169:1400",
+              "orientation": "square"
+            },
+            {
+              "filename": "banhua-04-004.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-004.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-004.png",
+              "fileSize": 389926,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:21.507757",
+              "dimensions": {
+                "width": 973,
+                "height": 1400
+              },
+              "aspectRatio": "973:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-04-005.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-005.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-005.png",
+              "fileSize": 1163177,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-01T21:26:44.111609",
+              "dimensions": {
+                "width": 727,
+                "height": 1400
+              },
+              "aspectRatio": "727:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-04-006.png",
+              "path": "/gallery/material-texture/板绘4/banhua-04-006.png",
+              "relativePath": "gallery/material-texture/板绘4/banhua-04-006.png",
+              "fileSize": 430678,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:28.712724",
+              "dimensions": {
+                "width": 1400,
+                "height": 1400
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            }
+          ]
+        },
+        "板绘5": {
+          "displayName": "板绘5",
+          "files": [
+            {
+              "filename": "banhua-05-001.png",
+              "path": "/gallery/material-texture/板绘5/banhua-05-001.png",
+              "relativePath": "gallery/material-texture/板绘5/banhua-05-001.png",
+              "fileSize": 2087066,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:17.153300",
+              "dimensions": {
+                "width": 2576,
+                "height": 1400
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "banhua-05-002.png",
+              "path": "/gallery/material-texture/板绘5/banhua-05-002.png",
+              "relativePath": "gallery/material-texture/板绘5/banhua-05-002.png",
+              "fileSize": 1551403,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:10.052053",
+              "dimensions": {
+                "width": 1067,
+                "height": 1400
+              },
+              "aspectRatio": "1067:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "banhua-05-003.png",
+              "path": "/gallery/material-texture/板绘5/banhua-05-003.png",
+              "relativePath": "gallery/material-texture/板绘5/banhua-05-003.png",
+              "fileSize": 1188912,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:44.196091",
+              "dimensions": {
+                "width": 808,
+                "height": 1400
+              },
+              "aspectRatio": "808:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "水彩1": {
+          "displayName": "水彩1",
+          "files": [
+            {
+              "filename": "shuicai-01-001.png",
+              "path": "/gallery/material-texture/水彩1/shuicai-01-001.png",
+              "relativePath": "gallery/material-texture/水彩1/shuicai-01-001.png",
+              "fileSize": 644755,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:16.655140",
+              "dimensions": {
+                "width": 1455,
+                "height": 1000
+              },
+              "aspectRatio": "1455:1000",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "shuicai-01-002.png",
+              "path": "/gallery/material-texture/水彩1/shuicai-01-002.png",
+              "relativePath": "gallery/material-texture/水彩1/shuicai-01-002.png",
+              "fileSize": 2765884,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:16.967227",
+              "dimensions": {
+                "width": 1404,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "shuicai-01-003.png",
+              "path": "/gallery/material-texture/水彩1/shuicai-01-003.png",
+              "relativePath": "gallery/material-texture/水彩1/shuicai-01-003.png",
+              "fileSize": 529664,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:20.579412",
+              "dimensions": {
+                "width": 1468,
+                "height": 1000
+              },
+              "aspectRatio": "1468:1000",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "水彩2": {
+          "displayName": "水彩2",
+          "files": [
+            {
+              "filename": "shuicai-02-001.png",
+              "path": "/gallery/material-texture/水彩2/shuicai-02-001.png",
+              "relativePath": "gallery/material-texture/水彩2/shuicai-02-001.png",
+              "fileSize": 637857,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:17.257461",
+              "dimensions": {
+                "width": 1399,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "shuicai-02-002.png",
+              "path": "/gallery/material-texture/水彩2/shuicai-02-002.png",
+              "relativePath": "gallery/material-texture/水彩2/shuicai-02-002.png",
+              "fileSize": 361620,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:25.235263",
+              "dimensions": {
+                "width": 1429,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "shuicai-02-003.png",
+              "path": "/gallery/material-texture/水彩2/shuicai-02-003.png",
+              "relativePath": "gallery/material-texture/水彩2/shuicai-02-003.png",
+              "fileSize": 591578,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:18.353684",
+              "dimensions": {
+                "width": 1442,
+                "height": 1000
+              },
+              "aspectRatio": "1442:1000",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "shuicai-02-004.png",
+              "path": "/gallery/material-texture/水彩2/shuicai-02-004.png",
+              "relativePath": "gallery/material-texture/水彩2/shuicai-02-004.png",
+              "fileSize": 644156,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:20.130870",
+              "dimensions": {
+                "width": 1430,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "色粉1": {
+          "displayName": "色粉1",
+          "files": [
+            {
+              "filename": "sefen-01-001.png",
+              "path": "/gallery/material-texture/色粉1/sefen-01-001.png",
+              "relativePath": "gallery/material-texture/色粉1/sefen-01-001.png",
+              "fileSize": 1465509,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:16.123972",
+              "dimensions": {
+                "width": 1421,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-01-002.png",
+              "path": "/gallery/material-texture/色粉1/sefen-01-002.png",
+              "relativePath": "gallery/material-texture/色粉1/sefen-01-002.png",
+              "fileSize": 306215,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:30.484749",
+              "dimensions": {
+                "width": 1423,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "色粉2": {
+          "displayName": "色粉2",
+          "files": [
+            {
+              "filename": "sefen-02-001.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-001.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-001.png",
+              "fileSize": 401629,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:23.763626",
+              "dimensions": {
+                "width": 952,
+                "height": 1400
+              },
+              "aspectRatio": "952:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-02-002.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-002.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-002.png",
+              "fileSize": 1531063,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:16.412291",
+              "dimensions": {
+                "width": 955,
+                "height": 1400
+              },
+              "aspectRatio": "955:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-02-003.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-003.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-003.png",
+              "fileSize": 348360,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:28.742239",
+              "dimensions": {
+                "width": 981,
+                "height": 1400
+              },
+              "aspectRatio": "981:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-02-004.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-004.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-004.png",
+              "fileSize": 414072,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:25.653109",
+              "dimensions": {
+                "width": 985,
+                "height": 1400
+              },
+              "aspectRatio": "985:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-02-005.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-005.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-005.png",
+              "fileSize": 347587,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:28.880273",
+              "dimensions": {
+                "width": 984,
+                "height": 1400
+              },
+              "aspectRatio": "984:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-02-006.png",
+              "path": "/gallery/material-texture/色粉2/sefen-02-006.png",
+              "relativePath": "gallery/material-texture/色粉2/sefen-02-006.png",
+              "fileSize": 341911,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:30.965811",
+              "dimensions": {
+                "width": 988,
+                "height": 1400
+              },
+              "aspectRatio": "988:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "色粉3": {
+          "displayName": "色粉3",
+          "files": [
+            {
+              "filename": "sefen-03-001.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-001.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-001.png",
+              "fileSize": 1544096,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:17.782298",
+              "dimensions": {
+                "width": 963,
+                "height": 1400
+              },
+              "aspectRatio": "963:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-03-002.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-002.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-002.png",
+              "fileSize": 530387,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:22.842946",
+              "dimensions": {
+                "width": 968,
+                "height": 1400
+              },
+              "aspectRatio": "968:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-03-003.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-003.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-003.png",
+              "fileSize": 374869,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:28.006906",
+              "dimensions": {
+                "width": 965,
+                "height": 1400
+              },
+              "aspectRatio": "965:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-03-004.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-004.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-004.png",
+              "fileSize": 356377,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:27.978382",
+              "dimensions": {
+                "width": 968,
+                "height": 1400
+              },
+              "aspectRatio": "968:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-03-005.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-005.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-005.png",
+              "fileSize": 402547,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:26.888439",
+              "dimensions": {
+                "width": 967,
+                "height": 1400
+              },
+              "aspectRatio": "967:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-03-006.png",
+              "path": "/gallery/material-texture/色粉3/sefen-03-006.png",
+              "relativePath": "gallery/material-texture/色粉3/sefen-03-006.png",
+              "fileSize": 384175,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:30.377706",
+              "dimensions": {
+                "width": 985,
+                "height": 1400
+              },
+              "aspectRatio": "985:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "色粉4": {
+          "displayName": "色粉4",
+          "files": [
+            {
+              "filename": "sefen-04-001.png",
+              "path": "/gallery/material-texture/色粉4/sefen-04-001.png",
+              "relativePath": "gallery/material-texture/色粉4/sefen-04-001.png",
+              "fileSize": 729113,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:25.893687",
+              "dimensions": {
+                "width": 1199,
+                "height": 1400
+              },
+              "aspectRatio": "1199:1400",
+              "orientation": "square"
+            },
+            {
+              "filename": "sefen-04-002.png",
+              "path": "/gallery/material-texture/色粉4/sefen-04-002.png",
+              "relativePath": "gallery/material-texture/色粉4/sefen-04-002.png",
+              "fileSize": 350025,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:32.379680",
+              "dimensions": {
+                "width": 998,
+                "height": 1400
+              },
+              "aspectRatio": "998:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-04-003.png",
+              "path": "/gallery/material-texture/色粉4/sefen-04-003.png",
+              "relativePath": "gallery/material-texture/色粉4/sefen-04-003.png",
+              "fileSize": 346222,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:31.534252",
+              "dimensions": {
+                "width": 980,
+                "height": 1400
+              },
+              "aspectRatio": "980:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "sefen-04-004.png",
+              "path": "/gallery/material-texture/色粉4/sefen-04-004.png",
+              "relativePath": "gallery/material-texture/色粉4/sefen-04-004.png",
+              "fileSize": 286535,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:35.064454",
+              "dimensions": {
+                "width": 959,
+                "height": 1400
+              },
+              "aspectRatio": "959:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "色粉5": {
+          "displayName": "色粉5",
+          "files": [
+            {
+              "filename": "sefen-05-001.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-001.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-001.png",
+              "fileSize": 460095,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:42.052017",
+              "dimensions": {
+                "width": 2397,
+                "height": 800
+              },
+              "aspectRatio": "2397:800",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-05-002.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-002.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-002.png",
+              "fileSize": 494451,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:43.420932",
+              "dimensions": {
+                "width": 2531,
+                "height": 800
+              },
+              "aspectRatio": "2531:800",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-05-003.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-003.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-003.png",
+              "fileSize": 427380,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:47.330674",
+              "dimensions": {
+                "width": 2544,
+                "height": 800
+              },
+              "aspectRatio": "2544:800",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-05-004.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-004.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-004.png",
+              "fileSize": 455329,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:43.156722",
+              "dimensions": {
+                "width": 2462,
+                "height": 800
+              },
+              "aspectRatio": "2462:800",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-05-005.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-005.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-005.png",
+              "fileSize": 269159,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:49.342571",
+              "dimensions": {
+                "width": 2270,
+                "height": 800
+              },
+              "aspectRatio": "2270:800",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "sefen-05-006.png",
+              "path": "/gallery/material-texture/色粉5/sefen-05-006.png",
+              "relativePath": "gallery/material-texture/色粉5/sefen-05-006.png",
+              "fileSize": 343755,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:51.029714",
+              "dimensions": {
+                "width": 2567,
+                "height": 800
+              },
+              "aspectRatio": "2567:800",
+              "orientation": "landscape"
+            }
+          ]
+        }
+      },
+      "totalFiles": 49,
+      "lastModified": "2026-02-01T21:45:49.080347"
+    },
+    "narrative-imagery": {
+      "displayName": "Narrative Imagery",
+      "description": "",
+      "subcategories": {
+        "灰蓝横": {
+          "displayName": "灰蓝横",
+          "files": [
+            {
+              "filename": "huilan-heng-001.png",
+              "path": "/gallery/narrative-imagery/灰蓝横/huilan-heng-001.png",
+              "relativePath": "gallery/narrative-imagery/灰蓝横/huilan-heng-001.png",
+              "fileSize": 1232915,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:44.932801",
+              "dimensions": {
+                "width": 1333,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "huilan-heng-002.png",
+              "path": "/gallery/narrative-imagery/灰蓝横/huilan-heng-002.png",
+              "relativePath": "gallery/narrative-imagery/灰蓝横/huilan-heng-002.png",
+              "fileSize": 357333,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:37.425169",
+              "dimensions": {
+                "width": 1777,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "灰蓝竖": {
+          "displayName": "灰蓝竖",
+          "files": [
+            {
+              "filename": "huilan-shu-001.png",
+              "path": "/gallery/narrative-imagery/灰蓝竖/huilan-shu-001.png",
+              "relativePath": "gallery/narrative-imagery/灰蓝竖/huilan-shu-001.png",
+              "fileSize": 507189,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:33.055826",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "huilan-shu-002.png",
+              "path": "/gallery/narrative-imagery/灰蓝竖/huilan-shu-002.png",
+              "relativePath": "gallery/narrative-imagery/灰蓝竖/huilan-shu-002.png",
+              "fileSize": 334483,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:36.492321",
+              "dimensions": {
+                "width": 933,
+                "height": 1400
+              },
+              "aspectRatio": "933:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "huilan-shu-003.png",
+              "path": "/gallery/narrative-imagery/灰蓝竖/huilan-shu-003.png",
+              "relativePath": "gallery/narrative-imagery/灰蓝竖/huilan-shu-003.png",
+              "fileSize": 784812,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:34.534835",
+              "dimensions": {
+                "width": 1050,
+                "height": 1400
+              },
+              "aspectRatio": "1050:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "纹理": {
+          "displayName": "纹理",
+          "files": [
+            {
+              "filename": "wenli-001.png",
+              "path": "/gallery/narrative-imagery/纹理/wenli-001.png",
+              "relativePath": "gallery/narrative-imagery/纹理/wenli-001.png",
+              "fileSize": 363275,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:32.873767",
+              "dimensions": {
+                "width": 1000,
+                "height": 1000
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "wenli-002.png",
+              "path": "/gallery/narrative-imagery/纹理/wenli-002.png",
+              "relativePath": "gallery/narrative-imagery/纹理/wenli-002.png",
+              "fileSize": 527488,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:33.393448",
+              "dimensions": {
+                "width": 1000,
+                "height": 1000
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "wenli-003.png",
+              "path": "/gallery/narrative-imagery/纹理/wenli-003.png",
+              "relativePath": "gallery/narrative-imagery/纹理/wenli-003.png",
+              "fileSize": 503303,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:32.625491",
+              "dimensions": {
+                "width": 1000,
+                "height": 1000
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "wenli-004.png",
+              "path": "/gallery/narrative-imagery/纹理/wenli-004.png",
+              "relativePath": "gallery/narrative-imagery/纹理/wenli-004.png",
+              "fileSize": 503769,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:33.326928",
+              "dimensions": {
+                "width": 1000,
+                "height": 1000
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            },
+            {
+              "filename": "wenli-005.png",
+              "path": "/gallery/narrative-imagery/纹理/wenli-005.png",
+              "relativePath": "gallery/narrative-imagery/纹理/wenli-005.png",
+              "fileSize": 337726,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:37.673889",
+              "dimensions": {
+                "width": 1000,
+                "height": 1000
+              },
+              "aspectRatio": "1:1",
+              "orientation": "square"
+            }
+          ]
+        },
+        "线条": {
+          "displayName": "线条",
+          "files": [
+            {
+              "filename": "xiantiao-001.png",
+              "path": "/gallery/narrative-imagery/线条/xiantiao-001.png",
+              "relativePath": "gallery/narrative-imagery/线条/xiantiao-001.png",
+              "fileSize": 231907,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:43.058693",
+              "dimensions": {
+                "width": 1777,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "xiantiao-002.png",
+              "path": "/gallery/narrative-imagery/线条/xiantiao-002.png",
+              "relativePath": "gallery/narrative-imagery/线条/xiantiao-002.png",
+              "fileSize": 376321,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:51.474997",
+              "dimensions": {
+                "width": 1778,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "xiantiao-003.png",
+              "path": "/gallery/narrative-imagery/线条/xiantiao-003.png",
+              "relativePath": "gallery/narrative-imagery/线条/xiantiao-003.png",
+              "fileSize": 967407,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:40.379559",
+              "dimensions": {
+                "width": 1778,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "xiantiao-004.png",
+              "path": "/gallery/narrative-imagery/线条/xiantiao-004.png",
+              "relativePath": "gallery/narrative-imagery/线条/xiantiao-004.png",
+              "fileSize": 390355,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:41.632987",
+              "dimensions": {
+                "width": 1333,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "色彩": {
+          "displayName": "色彩",
+          "files": [
+            {
+              "filename": "secai-001.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-001.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-001.png",
+              "fileSize": 787423,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-01T21:26:45.237587",
+              "dimensions": {
+                "width": 563,
+                "height": 1000
+              },
+              "aspectRatio": "563:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-002.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-002.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-002.png",
+              "fileSize": 1001759,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-01T21:26:45.249606",
+              "dimensions": {
+                "width": 562,
+                "height": 1000
+              },
+              "aspectRatio": "562:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-003.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-003.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-003.png",
+              "fileSize": 936911,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:45.260119",
+              "dimensions": {
+                "width": 563,
+                "height": 1000
+              },
+              "aspectRatio": "563:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-004.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-004.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-004.png",
+              "fileSize": 1368073,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-01T21:26:45.274218",
+              "dimensions": {
+                "width": 562,
+                "height": 1000
+              },
+              "aspectRatio": "562:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-005.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-005.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-005.png",
+              "fileSize": 1367267,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-01T21:26:45.289772",
+              "dimensions": {
+                "width": 563,
+                "height": 1000
+              },
+              "aspectRatio": "563:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-006.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-006.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-006.png",
+              "fileSize": 1053995,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-01T21:26:45.301789",
+              "dimensions": {
+                "width": 562,
+                "height": 1000
+              },
+              "aspectRatio": "562:1000",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "secai-007.png",
+              "path": "/gallery/narrative-imagery/色彩/secai-007.png",
+              "relativePath": "gallery/narrative-imagery/色彩/secai-007.png",
+              "fileSize": 938006,
+              "format": "png",
+              "index": 7,
+              "lastModified": "2026-02-01T21:26:45.314305",
+              "dimensions": {
+                "width": 563,
+                "height": 1000
+              },
+              "aspectRatio": "563:1000",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "蓝绿横": {
+          "displayName": "蓝绿横",
+          "files": [
+            {
+              "filename": "lanlv-heng-001.png",
+              "path": "/gallery/narrative-imagery/蓝绿横/lanlv-heng-001.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿横/lanlv-heng-001.png",
+              "fileSize": 863193,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:45.387686",
+              "dimensions": {
+                "width": 1778,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "lanlv-heng-002.png",
+              "path": "/gallery/narrative-imagery/蓝绿横/lanlv-heng-002.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿横/lanlv-heng-002.png",
+              "fileSize": 807630,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:38.960126",
+              "dimensions": {
+                "width": 1333,
+                "height": 1000
+              },
+              "aspectRatio": "4:3",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "lanlv-heng-003.png",
+              "path": "/gallery/narrative-imagery/蓝绿横/lanlv-heng-003.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿横/lanlv-heng-003.png",
+              "fileSize": 1170790,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:40.415076",
+              "dimensions": {
+                "width": 1777,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "蓝绿竖": {
+          "displayName": "蓝绿竖",
+          "files": [
+            {
+              "filename": "lanlv-shu-001.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-001.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-001.png",
+              "fileSize": 739047,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:37.345654",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "lanlv-shu-002.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-002.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-002.png",
+              "fileSize": 598649,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:38.967127",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "lanlv-shu-003.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-003.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-003.png",
+              "fileSize": 396818,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:40.633482",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "lanlv-shu-004.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-004.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-004.png",
+              "fileSize": 830167,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:38.907614",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "lanlv-shu-005.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-005.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-005.png",
+              "fileSize": 816991,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:40.334045",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "lanlv-shu-006.png",
+              "path": "/gallery/narrative-imagery/蓝绿竖/lanlv-shu-006.png",
+              "relativePath": "gallery/narrative-imagery/蓝绿竖/lanlv-shu-006.png",
+              "fileSize": 561625,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:46.569628",
+              "dimensions": {
+                "width": 1109,
+                "height": 1400
+              },
+              "aspectRatio": "1109:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "高级灰横": {
+          "displayName": "高级灰横",
+          "files": [
+            {
+              "filename": "gaojihui-heng-001.png",
+              "path": "/gallery/narrative-imagery/高级灰横/gaojihui-heng-001.png",
+              "relativePath": "gallery/narrative-imagery/高级灰横/gaojihui-heng-001.png",
+              "fileSize": 259886,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:57.567348",
+              "dimensions": {
+                "width": 1777,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "gaojihui-heng-002.png",
+              "path": "/gallery/narrative-imagery/高级灰横/gaojihui-heng-002.png",
+              "relativePath": "gallery/narrative-imagery/高级灰横/gaojihui-heng-002.png",
+              "fileSize": 480349,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:50.059167",
+              "dimensions": {
+                "width": 1778,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "gaojihui-heng-003.png",
+              "path": "/gallery/narrative-imagery/高级灰横/gaojihui-heng-003.png",
+              "relativePath": "gallery/narrative-imagery/高级灰横/gaojihui-heng-003.png",
+              "fileSize": 1309398,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:45.657447",
+              "dimensions": {
+                "width": 1778,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            },
+            {
+              "filename": "gaojihui-heng-004.png",
+              "path": "/gallery/narrative-imagery/高级灰横/gaojihui-heng-004.png",
+              "relativePath": "gallery/narrative-imagery/高级灰横/gaojihui-heng-004.png",
+              "fileSize": 650978,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:49.682858",
+              "dimensions": {
+                "width": 1779,
+                "height": 1000
+              },
+              "aspectRatio": "16:9",
+              "orientation": "landscape"
+            }
+          ]
+        },
+        "高级灰竖": {
+          "displayName": "高级灰竖",
+          "files": [
+            {
+              "filename": "gaojihui-shu-001.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-001.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-001.png",
+              "fileSize": 550665,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:44.085178",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-002.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-002.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-002.png",
+              "fileSize": 442160,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:45.907006",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-003.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-003.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-003.png",
+              "fileSize": 1543704,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-01T21:26:45.744963",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-004.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-004.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-004.png",
+              "fileSize": 898921,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-01T21:26:45.756608",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-005.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-005.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-005.png",
+              "fileSize": 1013848,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-01T21:26:45.769154",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-006.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-006.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-006.png",
+              "fileSize": 647192,
+              "format": "png",
+              "index": 6,
+              "lastModified": "2026-02-02T15:24:44.503757",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "gaojihui-shu-007.png",
+              "path": "/gallery/narrative-imagery/高级灰竖/gaojihui-shu-007.png",
+              "relativePath": "gallery/narrative-imagery/高级灰竖/gaojihui-shu-007.png",
+              "fileSize": 602825,
+              "format": "png",
+              "index": 7,
+              "lastModified": "2026-02-02T15:24:44.548917",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            }
+          ]
+        },
+        "黑": {
+          "displayName": "黑",
+          "files": [
+            {
+              "filename": "hei-001.png",
+              "path": "/gallery/narrative-imagery/黑/hei-001.png",
+              "relativePath": "gallery/narrative-imagery/黑/hei-001.png",
+              "fileSize": 830342,
+              "format": "png",
+              "index": 1,
+              "lastModified": "2026-02-02T15:24:44.353995",
+              "dimensions": {
+                "width": 788,
+                "height": 1400
+              },
+              "aspectRatio": "788:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "hei-002.png",
+              "path": "/gallery/narrative-imagery/黑/hei-002.png",
+              "relativePath": "gallery/narrative-imagery/黑/hei-002.png",
+              "fileSize": 435606,
+              "format": "png",
+              "index": 2,
+              "lastModified": "2026-02-02T15:24:47.372190",
+              "dimensions": {
+                "width": 787,
+                "height": 1400
+              },
+              "aspectRatio": "787:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "hei-003.png",
+              "path": "/gallery/narrative-imagery/黑/hei-003.png",
+              "relativePath": "gallery/narrative-imagery/黑/hei-003.png",
+              "fileSize": 383150,
+              "format": "png",
+              "index": 3,
+              "lastModified": "2026-02-02T15:24:55.573408",
+              "dimensions": {
+                "width": 1051,
+                "height": 1400
+              },
+              "aspectRatio": "1051:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "hei-004.png",
+              "path": "/gallery/narrative-imagery/黑/hei-004.png",
+              "relativePath": "gallery/narrative-imagery/黑/hei-004.png",
+              "fileSize": 471559,
+              "format": "png",
+              "index": 4,
+              "lastModified": "2026-02-02T15:24:52.423961",
+              "dimensions": {
+                "width": 1050,
+                "height": 1400
+              },
+              "aspectRatio": "1050:1400",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "hei-005.png",
+              "path": "/gallery/narrative-imagery/黑/hei-005.png",
+              "relativePath": "gallery/narrative-imagery/黑/hei-005.png",
+              "fileSize": 498310,
+              "format": "png",
+              "index": 5,
+              "lastModified": "2026-02-02T15:24:52.570176",
+              "dimensions": {
+                "width": 1049,
+                "height": 1400
+              },
+              "aspectRatio": "1049:1400",
+              "orientation": "portrait"
+            }
+          ]
+        }
+      },
+      "totalFiles": 46,
+      "lastModified": "2026-02-01T21:45:50.752032"
+    }
+  },
+  "statistics": {
+    "totalModules": 3,
+    "totalSubcategories": 38,
+    "totalFiles": 134,
+    "totalSize": 103279041
+  }
+}

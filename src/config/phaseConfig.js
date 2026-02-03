@@ -1494,7 +1494,8 @@ export const phase05Config = {
 
 const PHASE06_BASE = '/images/phase-06';
 
-// Phase 06: 文案可视化 (3屏)
+// Phase 06: 文案可视化 (21屏 = 1个intro + 20个产品展示屏)
+// 支持产品分类：cube, nicotine-sugar, motor
 export const phase06Config = {
   id: 'phase-06',
   number: '06',
@@ -1502,42 +1503,312 @@ export const phase06Config = {
   titleKey: 'case.phases.phase-06.title',
   prev: 'phase-05',
   next: null, // 最后一个 Phase
-  totalScreens: 3,
+  totalScreens: 21,
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
+  // 产品分类配置
+  products: ['cube', 'nicotine-sugar', 'motor'],
   screens: [
-    // Screen 01: Intro - 引导屏
+    // Screen 01: Intro - 引导屏（所有产品共用）
     {
       id: 'intro',
       type: 'intro',
+      product: null, // null表示不属于任何产品，所有产品都显示
       imageHint: 'Copywriting Visualization',
-      bgImage: `${PHASE06_BASE}/cover/hero.png`, // 需要准备封面图
+      bgImage: `${PHASE06_BASE}/cover/hero.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
-    // Screen 02: 文件夹 01 - Frame 1-5 (弹出序列)
+    
+    // ========== Cube 产品 (01-06) ==========
+    // Screen 02: 文件夹 01
     {
       id: 'folder-01',
-      type: 'popup-sequence',
-      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300,
+      duration: 0.6,
       images: [
-        { src: `${PHASE06_BASE}/01/Frame 1.png`, label: 'Frame 01' },
-        { src: `${PHASE06_BASE}/01/Frame 2.png`, label: 'Frame 02' },
-        { src: `${PHASE06_BASE}/01/Frame 3.png`, label: 'Frame 03' },
-        { src: `${PHASE06_BASE}/01/Frame 4.png`, label: 'Frame 04' },
-        { src: `${PHASE06_BASE}/01/Frame 5.png`, label: 'Frame 05' }
+        { src: `${PHASE06_BASE}/1/Frame 1.png`, label: 'Frame 01' },
+        { src: `${PHASE06_BASE}/1/Frame 2.png`, label: 'Frame 02' },
+        { src: `${PHASE06_BASE}/1/Frame 3.png`, label: 'Frame 03' },
+        { src: `${PHASE06_BASE}/1/Frame 4.png`, label: 'Frame 04' },
+        { src: `${PHASE06_BASE}/1/Frame 5.png`, label: 'Frame 05' }
       ]
     },
-    // Screen 03: 文件夹 02 - Frame 6-11 (弹出序列)
+    // Screen 03: 文件夹 02（测试自动弹出）
     {
       id: 'folder-02',
-      type: 'popup-sequence',
-      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300, // 弹出间隔300ms
+      duration: 0.6, // 动画持续时间0.6s
       images: [
-        { src: `${PHASE06_BASE}/02/Frame 6.png`, label: 'Frame 06' },
-        { src: `${PHASE06_BASE}/02/Frame 7.png`, label: 'Frame 07' },
-        { src: `${PHASE06_BASE}/02/Frame 8.png`, label: 'Frame 08' },
-        { src: `${PHASE06_BASE}/02/Frame 9.png`, label: 'Frame 09' },
-        { src: `${PHASE06_BASE}/02/Frame 10.png`, label: 'Frame 10' },
-        { src: `${PHASE06_BASE}/02/Frame 11.png`, label: 'Frame 11' }
+        { src: `${PHASE06_BASE}/2/Frame 6.png`, label: 'Frame 06' },
+        { src: `${PHASE06_BASE}/2/Frame 7.png`, label: 'Frame 07' },
+        { src: `${PHASE06_BASE}/2/Frame 8.png`, label: 'Frame 08' },
+        { src: `${PHASE06_BASE}/2/Frame 9.png`, label: 'Frame 09' },
+        { src: `${PHASE06_BASE}/2/Frame 10.png`, label: 'Frame 10' }
+      ]
+    },
+    // Screen 04: 文件夹 03
+    {
+      id: 'folder-03',
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/3/Frame 12.png`, label: 'Frame 12' },
+        { src: `${PHASE06_BASE}/3/Frame 13.png`, label: 'Frame 13' },
+        { src: `${PHASE06_BASE}/3/Frame 14.png`, label: 'Frame 14' }
+      ]
+    },
+    // Screen 05: 文件夹 04
+    {
+      id: 'folder-04',
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/4/Frame 15.png`, label: 'Frame 15' },
+        { src: `${PHASE06_BASE}/4/Frame 16.png`, label: 'Frame 16' },
+        { src: `${PHASE06_BASE}/4/Frame 17.png`, label: 'Frame 17' },
+        { src: `${PHASE06_BASE}/4/Frame 18.png`, label: 'Frame 18' },
+        { src: `${PHASE06_BASE}/4/Frame 19.png`, label: 'Frame 19' }
+      ]
+    },
+    // Screen 06: 文件夹 05
+    {
+      id: 'folder-05',
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/5/Frame 20.png`, label: 'Frame 20' },
+        { src: `${PHASE06_BASE}/5/Frame 21.png`, label: 'Frame 21' },
+        { src: `${PHASE06_BASE}/5/Frame 22.png`, label: 'Frame 22' },
+        { src: `${PHASE06_BASE}/5/Frame 23.png`, label: 'Frame 23' }
+      ]
+    },
+    // Screen 07: 文件夹 06
+    {
+      id: 'folder-06',
+      type: 'auto-sequence-popup',
+      product: 'cube',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/6/Frame 24.png`, label: 'Frame 24' },
+        { src: `${PHASE06_BASE}/6/Frame 25.png`, label: 'Frame 25' },
+        { src: `${PHASE06_BASE}/6/Frame 26.png`, label: 'Frame 26' }
+      ]
+    },
+    
+    // ========== 尼古丁糖产品 (07-12) ==========
+    // Screen 08: 文件夹 07
+    {
+      id: 'folder-07',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/7/Frame 27.png`, label: 'Frame 27' },
+        { src: `${PHASE06_BASE}/7/Frame 28.png`, label: 'Frame 28' },
+        { src: `${PHASE06_BASE}/7/Frame 29.png`, label: 'Frame 29' },
+        { src: `${PHASE06_BASE}/7/Frame 30.png`, label: 'Frame 30' },
+        { src: `${PHASE06_BASE}/7/Frame 31.png`, label: 'Frame 31' }
+      ]
+    },
+    // Screen 09: 文件夹 08
+    {
+      id: 'folder-08',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/8/Frame 32.png`, label: 'Frame 32' },
+        { src: `${PHASE06_BASE}/8/Frame 33.png`, label: 'Frame 33' },
+        { src: `${PHASE06_BASE}/8/Frame 34.png`, label: 'Frame 34' }
+      ]
+    },
+    // Screen 10: 文件夹 09
+    {
+      id: 'folder-09',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/9/Frame 35.png`, label: 'Frame 35' },
+        { src: `${PHASE06_BASE}/9/Frame 36.png`, label: 'Frame 36' },
+        { src: `${PHASE06_BASE}/9/Frame 37.png`, label: 'Frame 37' },
+        { src: `${PHASE06_BASE}/9/Frame 38.png`, label: 'Frame 38' },
+        { src: `${PHASE06_BASE}/9/Frame 39.png`, label: 'Frame 39' }
+      ]
+    },
+    // Screen 11: 文件夹 10
+    {
+      id: 'folder-10',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/10/Frame 40.png`, label: 'Frame 40' },
+        { src: `${PHASE06_BASE}/10/Frame 41.png`, label: 'Frame 41' },
+        { src: `${PHASE06_BASE}/10/Frame 42.png`, label: 'Frame 42' },
+        { src: `${PHASE06_BASE}/10/Frame 43.png`, label: 'Frame 43' },
+        { src: `${PHASE06_BASE}/10/Frame 44.png`, label: 'Frame 44' },
+        { src: `${PHASE06_BASE}/10/Frame 45.png`, label: 'Frame 45' }
+      ]
+    },
+    // Screen 12: 文件夹 11
+    {
+      id: 'folder-11',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/11/Frame 46.png`, label: 'Frame 46' },
+        { src: `${PHASE06_BASE}/11/Frame 47.png`, label: 'Frame 47' },
+        { src: `${PHASE06_BASE}/11/Frame 48.png`, label: 'Frame 48' },
+        { src: `${PHASE06_BASE}/11/Frame 49.png`, label: 'Frame 49' },
+        { src: `${PHASE06_BASE}/11/Frame 50.png`, label: 'Frame 50' },
+        { src: `${PHASE06_BASE}/11/Frame 51.png`, label: 'Frame 51' },
+        { src: `${PHASE06_BASE}/11/Frame 52.png`, label: 'Frame 52' },
+        { src: `${PHASE06_BASE}/11/Frame 53.png`, label: 'Frame 53' },
+        { src: `${PHASE06_BASE}/11/Frame 54.png`, label: 'Frame 54' }
+      ]
+    },
+    // Screen 13: 文件夹 12
+    {
+      id: 'folder-12',
+      type: 'auto-sequence-popup',
+      product: 'nicotine-sugar',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/12/Frame 55.png`, label: 'Frame 55' },
+        { src: `${PHASE06_BASE}/12/Frame 56.png`, label: 'Frame 56' },
+        { src: `${PHASE06_BASE}/12/Frame 57.png`, label: 'Frame 57' },
+        { src: `${PHASE06_BASE}/12/Frame 58.png`, label: 'Frame 58' }
+      ]
+    },
+    
+    // ========== Motor 产品 (13-20) ==========
+    // Screen 14: 文件夹 13
+    {
+      id: 'folder-13',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/13/Frame 59.png`, label: 'Frame 59' },
+        { src: `${PHASE06_BASE}/13/Frame 60.png`, label: 'Frame 60' },
+        { src: `${PHASE06_BASE}/13/Frame 61.png`, label: 'Frame 61' },
+        { src: `${PHASE06_BASE}/13/Frame 62.png`, label: 'Frame 62' },
+        { src: `${PHASE06_BASE}/13/Frame 63.png`, label: 'Frame 63' }
+      ]
+    },
+    // Screen 15: 文件夹 14
+    {
+      id: 'folder-14',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/14/Frame 64.png`, label: 'Frame 64' },
+        { src: `${PHASE06_BASE}/14/Frame 65.png`, label: 'Frame 65' },
+        { src: `${PHASE06_BASE}/14/Frame 66.png`, label: 'Frame 66' },
+        { src: `${PHASE06_BASE}/14/Frame 67.png`, label: 'Frame 67' },
+        { src: `${PHASE06_BASE}/14/Frame 68.png`, label: 'Frame 68' }
+      ]
+    },
+    // Screen 16: 文件夹 15
+    {
+      id: 'folder-15',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/15/Frame 69.png`, label: 'Frame 69' },
+        { src: `${PHASE06_BASE}/15/Frame 70.png`, label: 'Frame 70' },
+        { src: `${PHASE06_BASE}/15/Frame 71.png`, label: 'Frame 71' }
+      ]
+    },
+    // Screen 17: 文件夹 16
+    {
+      id: 'folder-16',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/16/Frame 72.png`, label: 'Frame 72' },
+        { src: `${PHASE06_BASE}/16/Frame 73.png`, label: 'Frame 73' },
+        { src: `${PHASE06_BASE}/16/Frame 74.png`, label: 'Frame 74' }
+      ]
+    },
+    // Screen 18: 文件夹 17
+    {
+      id: 'folder-17',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/17/Frame 75.png`, label: 'Frame 75' },
+        { src: `${PHASE06_BASE}/17/Frame 76.png`, label: 'Frame 76' },
+        { src: `${PHASE06_BASE}/17/Frame 77.png`, label: 'Frame 77' },
+        { src: `${PHASE06_BASE}/17/Frame 78.png`, label: 'Frame 78' }
+      ]
+    },
+    // Screen 19: 文件夹 18
+    {
+      id: 'folder-18',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/18/Frame 79.png`, label: 'Frame 79' },
+        { src: `${PHASE06_BASE}/18/Frame 80.png`, label: 'Frame 80' },
+        { src: `${PHASE06_BASE}/18/Frame 81.png`, label: 'Frame 81' },
+        { src: `${PHASE06_BASE}/18/Frame 82.png`, label: 'Frame 82' },
+        { src: `${PHASE06_BASE}/18/Frame 83.png`, label: 'Frame 83' }
+      ]
+    },
+    // Screen 20: 文件夹 19
+    {
+      id: 'folder-19',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/19/Frame 84.png`, label: 'Frame 84' },
+        { src: `${PHASE06_BASE}/19/Frame 85.png`, label: 'Frame 85' },
+        { src: `${PHASE06_BASE}/19/Frame 86.png`, label: 'Frame 86' },
+        { src: `${PHASE06_BASE}/19/Frame 87.png`, label: 'Frame 87' }
+      ]
+    },
+    // Screen 21: 文件夹 20
+    {
+      id: 'folder-20',
+      type: 'auto-sequence-popup',
+      product: 'motor',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE06_BASE}/20/Frame 88.png`, label: 'Frame 88' },
+        { src: `${PHASE06_BASE}/20/Frame 89.png`, label: 'Frame 89' }
       ]
     }
   ]

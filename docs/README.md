@@ -28,6 +28,7 @@
 |------|------|---------|
 | [IMAGE-COMPRESSION.md](./IMAGE-COMPRESSION.md) | ⭐ **图片压缩工具使用指南** | **所有处理图片的人员** |
 | [BEST-PRACTICES.md](./BEST-PRACTICES.md) | ⭐ **图片处理最佳实践** | **必读！避免踩坑** |
+| [**图片配置系统 →**](./image-config-system/) | 🆕 **Gallery 配置管理完整文档** | **添加作品、配置维护** |
 
 ---
 
@@ -62,12 +63,14 @@
 3. [COMPONENTS.md](./COMPONENTS.md) - 组件使用手册
 4. [I18N-GUIDE.md](./I18N-GUIDE.md) - 多语言支持
 5. [IMAGE-COMPRESSION.md](./IMAGE-COMPRESSION.md) - 图片资源处理
+6. [image-config-system/](./image-config-system/) - Gallery 配置系统
 
 ### 🎨 设计师
 
 1. [IMAGE-COMPRESSION.md](./IMAGE-COMPRESSION.md) - 导出图片后如何压缩
 2. [BEST-PRACTICES.md](./BEST-PRACTICES.md) - PNG 透明通道保护
-3. [COMPONENTS.md](./COMPONENTS.md) - 设计规范参考
+3. [image-config-system/adding-new-works.md](./image-config-system/adding-new-works.md) - 添加新作品
+4. [COMPONENTS.md](./COMPONENTS.md) - 设计规范参考
 
 ### 🚀 DevOps / 部署人员
 
@@ -87,6 +90,14 @@
 ---
 
 ## 🔧 常见任务快速导航
+
+### 任务：添加新的艺术作品
+
+1. 阅读 [添加新作品指南](./image-config-system/adding-new-works.md)
+2. 上传图片到 `public/gallery/{module}/{subcategory}/`
+3. 运行 `python scripts/scan-gallery.py`
+4. 编辑对应的配置文件（`src/data/*Works.js`）
+5. 测试浏览器显示
 
 ### 任务：压缩图片
 
@@ -126,6 +137,7 @@
 | I18N-GUIDE.md | 按需 | - |
 | IMAGE-COMPRESSION.md | ⭐ 已更新 | 2026-01-30 |
 | BEST-PRACTICES.md | ⭐ 新增 | 2026-01-30 |
+| **image-config-system/** | 🆕 **新增完整文档** | **2026-02-02** |
 | DEPLOYMENT.md | 按需 | - |
 | VERCEL-DEPLOYMENT.md | 按需 | - |
 
@@ -166,5 +178,5 @@
 ---
 
 **文档维护**: 项目团队  
-**最后更新**: 2026-01-30  
-**文档版本**: v2.0 - 新增图片处理最佳实践
+**最后更新**: 2026-02-02  
+**文档版本**: v2.1 - 新增图片配置系统完整文档

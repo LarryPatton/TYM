@@ -341,7 +341,7 @@ const Gallery = () => {
   const galleryItems = Array.from({ length: 6 }, (_, i) => ({
     id: `gallery-${String(i + 1).padStart(2, '0')}`,
     titleEn: `Artwork ${String(i + 1).padStart(2, '0')}`,
-    image: `/gallery/fly-in/${i + 1}.png`,
+    image: `/covers/gallery/fly-in/${i + 1}.png`,
   }));
 
   // 收集所有需要预加载的图片 URL

@@ -7,6 +7,8 @@ import { useTitle } from '../hooks/useTitle';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
 import LoadingScreen from '../components/LoadingScreen';
+import ProductNavigator from '../components/ProductNavigator';
+import ProductEndHint from '../components/ProductEndHint';
 import {
   IntroScreen,
   PrinciplesScreen,
@@ -55,6 +57,7 @@ import {
   ProductPairScrollScreen, // 配对滚动展示组件
   TwoRowStaticScreen, // 两行静态展示组件
   NaturalParallaxGrid, // 自然滚动视差网格组件
+  AutoSequencePopup, // 自动顺序弹出组件
   TransitionProvider,
   // TransitionDebugger, // 已禁用：移除调试工具
 } from '../components/PhaseScreens';
@@ -69,6 +72,44 @@ const PhaseDetail = () => {
   
   const phase = phasesConfig[phaseId];
   const nextPhaseConfig = getNextPhase(phaseId);
+  
+  // 产品切换状态（仅在phase-06中启用）
+  const hasProductFilter = phase?.products && phase.products.length > 0;
+  const [currentProduct, setCurrentProduct] = useState(
+    hasProductFilter ? phase.products[0] : null
+  );
+  
+  // 根据当前产品过滤screens
+  const filteredScreens = useMemo(() => {
+    if (!phase || !hasProductFilter) {
+      return phase?.screens || [];
+    }
+    
+    // 过滤：保留intro(product=null) + 当前产品的screens
+    return phase.screens.filter(screen => 
+      screen.product === null || screen.product === currentProduct
+    );
+  }, [phase, currentProduct, hasProductFilter]);
+  
+  // 产品切换处理：切换产品并滚动到该产品的第一屏
+  const handleProductChange = useCallback((newProduct) => {
+    setCurrentProduct(newProduct);
+    
+    // 延迟执行滚动，等待DOM更新
+    setTimeout(() => {
+      // 找到第一个属于新产品的screen的wrapper
+      const firstProductScreen = document.querySelector(
+        `.phase-screen-wrapper[data-product="${newProduct}"]`
+      );
+      
+      if (firstProductScreen) {
+        firstProductScreen.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    }, 100);
+  }, []);
   
   useTitle(t(`case.phases.${phaseId}.title`) + ' | ' + t('case.pageTitle'));
   
@@ -732,6 +773,17 @@ const PhaseDetail = () => {
           />
         );
 
+      case 'auto-sequence-popup':
+        return (
+          <AutoSequencePopup
+            key={screenConfig.id}
+            images={screenConfig.images || []}
+            interval={screenConfig.interval || 300}
+            duration={screenConfig.duration || 0.6}
+            bgColor={screenConfig.bgColor || phaseBgColor || '#000'}
+          />
+        );
+
       case 'row-by-row-popup':
         return (
           <RowByRowPopupGrid
@@ -1012,10 +1064,20 @@ const PhaseDetail = () => {
           </Link>
         </motion.div>
         
+        {/* 产品导航栏 - 仅在有产品分类时显示 */}
+        {hasProductFilter && (
+          <ProductNavigator
+            products={phase.products}
+            currentProduct={currentProduct}
+            onProductChange={handleProductChange}
+            visible={currentScreen > 1}
+          />
+        )}
+
         {/* 进度指示器 */}
         <ProgressIndicator 
           currentScreen={currentScreen} 
-          totalScreens={phase.totalScreens} 
+          totalScreens={filteredScreens.length} 
         />
 
         {/* Process Anchor Navigation */}
@@ -1027,17 +1089,34 @@ const PhaseDetail = () => {
           />
         )}
         
-        {/* 渲染所有屏幕 */}
-        {phase.screens.map((screenConfig, index) => (
-          <div 
-            key={screenConfig.id} 
-            id={screenConfig.id} 
-            className="phase-screen-wrapper"
-            style={{ width: '100%', position: 'relative' }}
-          >
-            {renderScreen(screenConfig, index)}
-          </div>
-        ))}
+        {/* 渲染所有屏幕（使用过滤后的screens） */}
+        {filteredScreens.map((screenConfig, index) => {
+          // 检测是否为当前产品的最后一屏
+          const isLastOfProduct = hasProductFilter && 
+            screenConfig.product === currentProduct && 
+            index === filteredScreens.length - 1;
+          
+          return (
+            <React.Fragment key={screenConfig.id}>
+              <div 
+                id={screenConfig.id} 
+                className="phase-screen-wrapper"
+                data-product={screenConfig.product || 'common'}
+                style={{ width: '100%', position: 'relative' }}
+              >
+                {renderScreen(screenConfig, index)}
+              </div>
+              
+              {/* 在每个产品的最后一屏后插入提示 */}
+              {isLastOfProduct && (
+                <ProductEndHint 
+                  currentProduct={currentProduct}
+                  availableProducts={phase.products}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
     </TransitionProvider>
     </>
