@@ -18,6 +18,11 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const listContainerRef = useRef(null);
+  
+  // 移动端专用 hooks - 必须在组件顶层声明
+  const carouselRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
 
   const handleViewportEnter = (projectId) => {
     // 如果滚动被锁定，不更新 activeId
@@ -180,52 +185,50 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile, projects, activeId, isScrollLocked]);
 
-  // ==================== 移动端布局 - 横向滑动卡片 ====================
-  if (isMobile) {
-    const carouselRef = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [showSwipeHint, setShowSwipeHint] = useState(true);
+  // 滑动到指定项目（移动端专用）
+  const scrollToProject = (index) => {
+    if (carouselRef.current) {
+      const cardWidth = carouselRef.current.offsetWidth;
+      carouselRef.current.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+  
+  // 移动端横向滑动监听
+  useEffect(() => {
+    if (!isMobile) return;
+    const carousel = carouselRef.current;
+    if (!carousel) return;
     
-    // 滑动到指定项目
-    const scrollToProject = (index) => {
-      if (carouselRef.current) {
-        const cardWidth = carouselRef.current.offsetWidth;
-        carouselRef.current.scrollTo({
-          left: index * cardWidth,
-          behavior: 'smooth'
-        });
+    const handleScroll = () => {
+      const cardWidth = carousel.offsetWidth;
+      const scrollLeft = carousel.scrollLeft;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      const newActiveId = projects[newIndex]?.id;
+      if (newActiveId && newActiveId !== activeId) {
+        setActiveId(newActiveId);
+      }
+      // 用户滑动后隐藏提示
+      if (showSwipeHint && scrollLeft > 20) {
+        setShowSwipeHint(false);
       }
     };
     
-    // 监听滚动位置更新当前项目
-    useEffect(() => {
-      const carousel = carouselRef.current;
-      if (!carousel) return;
-      
-      const handleScroll = () => {
-        const cardWidth = carousel.offsetWidth;
-        const scrollLeft = carousel.scrollLeft;
-        const newIndex = Math.round(scrollLeft / cardWidth);
-        const newActiveId = projects[newIndex]?.id;
-        if (newActiveId && newActiveId !== activeId) {
-          setActiveId(newActiveId);
-        }
-        // 用户滑动后隐藏提示
-        if (showSwipeHint && scrollLeft > 20) {
-          setShowSwipeHint(false);
-        }
-      };
-      
-      carousel.addEventListener('scroll', handleScroll, { passive: true });
-      return () => carousel.removeEventListener('scroll', handleScroll);
-    }, [projects, activeId, showSwipeHint]);
-    
-    // 3秒后自动隐藏滑动提示
-    useEffect(() => {
-      const timer = setTimeout(() => setShowSwipeHint(false), 3000);
-      return () => clearTimeout(timer);
-    }, []);
-    
+    carousel.addEventListener('scroll', handleScroll, { passive: true });
+    return () => carousel.removeEventListener('scroll', handleScroll);
+  }, [isMobile, projects, activeId, showSwipeHint]);
+  
+  // 3秒后自动隐藏滑动提示（移动端）
+  useEffect(() => {
+    if (!isMobile) return;
+    const timer = setTimeout(() => setShowSwipeHint(false), 3000);
+    return () => clearTimeout(timer);
+  }, [isMobile]);
+
+  // ==================== 移动端布局 - 横向滑动卡片 ====================
+  if (isMobile) {
     return (
       <section
         ref={sectionRef}

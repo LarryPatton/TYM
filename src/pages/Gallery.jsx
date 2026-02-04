@@ -143,28 +143,20 @@ const SlicedBackground = ({ phases, isDark }) => {
   );
 };
 
-// 移动端网格组件 - 全屏飞入 → 收束到容器内网格
-// Gallery 有 6 个项目，使用 2列×3行 网格布局
-// containerHeight: 容器在整个页面中的高度比例（用于计算全屏飞入时的高度）
-const MobileGridBackground = ({ phases, isDark, containerHeight = 65 }) => {
-  const itemCount = phases.length; // 6 个项目
+// 移动端网格组件 - 淡入 + 轻微上移动画
+// Gallery 有多个项目，使用 2列 网格布局
+const MobileGridBackground = ({ phases, isDark }) => {
   const columns = 2;
-  const rows = 3;
   
-  // 计算每个卡片在网格中的最终位置（相对于容器 100%）
+  // 计算每个卡片在网格中的位置
   const getGridPosition = (index) => {
-    // 6 个项目布局（2×3 网格）：
-    // [0] [1]  -> 第一行
-    // [2] [3]  -> 第二行
-    // [4] [5]  -> 第三行
-    
     const col = index % columns;
     const row = Math.floor(index / columns);
     
     const cellWidth = 49; // 每个卡片宽度 49%
-    const cellHeight = 32; // 每个卡片高度约 32%（100% / 3）
-    const gapX = 1; // 水平间距 1%
-    const gapY = 0.5; // 垂直间距 0.5%
+    const cellHeight = 32; // 每个卡片高度约 32%
+    const gapX = 1;
+    const gapY = 0.5;
     
     return {
       left: `${col * (cellWidth + gapX) + 0.5}%`,
@@ -174,149 +166,105 @@ const MobileGridBackground = ({ phases, isDark, containerHeight = 65 }) => {
     };
   };
   
-  // 动画时间配置
-  const flyInDuration = 0.7;
-  const flyInDelay = 0.2;
-  const totalFlyInTime = flyInDuration + flyInDelay * (itemCount - 1);
-  const collapseDelay = totalFlyInTime + 0.4;
-  const collapseDuration = 0.8;
-  
-  // 计算全屏飞入时的高度（相对于容器，需要放大到覆盖整个页面）
-  const fullScreenHeight = `${(100 / containerHeight) * 100}%`;
-  
-  // 两阶段动画：全屏飞入 → 收束到容器内网格
-  const cardAnimation = {
+  // 淡入 + 轻微上移动画
+  const fadeInUp = {
     hidden: { 
-      x: '100%',
-      top: '0%',
-      left: '0%',
-      width: '100%',
-      height: fullScreenHeight, // 超出容器覆盖整个页面
-      borderRadius: 0,
+      opacity: 0, 
+      y: 24, // 从下方 24px 开始
     },
-    visible: (index) => {
-      const finalPos = getGridPosition(index);
-      return {
-        x: ['100%', '0%', '0%'],
-        top: ['0%', '0%', finalPos.top],
-        left: ['0%', '0%', finalPos.left],
-        width: ['100%', '100%', finalPos.width],
-        height: [fullScreenHeight, fullScreenHeight, finalPos.height], // 从全屏高度收缩
-        borderRadius: [0, 0, 8],
-        transition: {
-          x: {
-            duration: flyInDuration,
-            delay: index * flyInDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-          top: {
-            duration: collapseDuration,
-            delay: collapseDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-          left: {
-            duration: collapseDuration,
-            delay: collapseDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-          width: {
-            duration: collapseDuration,
-            delay: collapseDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-          height: {
-            duration: collapseDuration,
-            delay: collapseDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-          borderRadius: {
-            duration: collapseDuration,
-            delay: collapseDelay,
-            ease: [0.16, 1, 0.3, 1],
-          },
-        }
-      };
-    }
+    visible: (index) => ({
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.7, // 较慢的淡入
+        delay: 0.5 + index * 0.15, // 延迟 0.5s 后开始，每张间隔 0.15s
+        ease: [0.25, 0.1, 0.25, 1], // 平缓的缓动曲线
+      }
+    })
   };
   
   return (
     <div style={{
       position: 'absolute',
       inset: 0,
-      overflow: 'visible', // 允许内容溢出容器（飞入时覆盖整个页面）
+      overflow: 'hidden',
     }}>
-      {phases.map((phase, index) => (
-        <motion.div
-          key={phase.id}
-          custom={index}
-          initial="hidden"
-          animate="visible"
-          variants={cardAnimation}
-          style={{
-            position: 'absolute',
-            overflow: 'hidden',
-            zIndex: index + 1,
-          }}
-        >
-          {/* 图片或渐变背景 */}
-          {phase.image ? (
-            <img
-              src={`${import.meta.env.BASE_URL}${phase.image.replace(/^\//, '')}`}
-              alt={phase.titleEn}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-            />
-          ) : (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              background: isDark
-                ? `linear-gradient(135deg, 
-                    hsl(${180 + index * 20}, 30%, 25%) 0%, 
-                    hsl(${180 + index * 20}, 25%, 15%) 100%)`
-                : `linear-gradient(135deg, 
-                    hsl(${200 + index * 15}, 15%, 85%) 0%, 
-                    hsl(${200 + index * 15}, 20%, 75%) 100%)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <span style={{
-                fontSize: '1.5rem',
-                color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
-                fontWeight: '700',
-              }}>
-                {String(index + 1).padStart(2, '0')}
-              </span>
-            </div>
-          )}
-          
-          {/* 序号标签 - 收束完成后显示 */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: collapseDelay + collapseDuration + 0.1, duration: 0.3 }}
+      {phases.map((phase, index) => {
+        const pos = getGridPosition(index);
+        return (
+          <motion.div
+            key={phase.id}
+            custom={index}
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
             style={{
               position: 'absolute',
-              top: '6px',
-              left: '6px',
-              padding: '3px 8px',
-              background: 'rgba(0,0,0,0.6)',
-              borderRadius: '4px',
-              fontSize: '0.7rem',
-              color: '#fff',
-              fontWeight: '600',
-              fontFamily: 'var(--font-mono, monospace)',
+              ...pos,
+              borderRadius: '8px',
+              overflow: 'hidden',
             }}
           >
-            {String(index + 1).padStart(2, '0')}
+            {/* 图片或渐变背景 */}
+            {phase.image ? (
+              <img
+                src={`${import.meta.env.BASE_URL}${phase.image.replace(/^\//, '')}`}
+                alt={phase.titleEn}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+              />
+            ) : (
+              <div style={{
+                width: '100%',
+                height: '100%',
+                background: isDark
+                  ? `linear-gradient(135deg, 
+                      hsl(${180 + index * 20}, 30%, 25%) 0%, 
+                      hsl(${180 + index * 20}, 25%, 15%) 100%)`
+                  : `linear-gradient(135deg, 
+                      hsl(${200 + index * 15}, 15%, 85%) 0%, 
+                      hsl(${200 + index * 15}, 20%, 75%) 100%)`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <span style={{
+                  fontSize: '1.5rem',
+                  color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
+                  fontWeight: '700',
+                }}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+            )}
+            
+            {/* 序号标签 */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 + index * 0.15 + 0.4, duration: 0.3 }}
+              style={{
+                position: 'absolute',
+                top: '6px',
+                left: '6px',
+                padding: '3px 8px',
+                background: 'rgba(0,0,0,0.6)',
+                borderRadius: '4px',
+                fontSize: '0.7rem',
+                color: '#fff',
+                fontWeight: '600',
+                fontFamily: 'var(--font-mono, monospace)',
+              }}
+            >
+              {String(index + 1).padStart(2, '0')}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -615,8 +563,8 @@ const Gallery = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ 
-                      delay: 2.9, // 等待卡片收束完成（5个项目）
-                      duration: 0.5,
+                      delay: 1.5, // 图片即将完成时开始（最后一张约 1.95s 完成，提前 0.4s 开始）
+                      duration: 0.4,
                       ease: [0.16, 1, 0.3, 1]
                     }}
                     style={{

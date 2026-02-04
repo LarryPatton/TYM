@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
  * 移动端首页 - 全屏分屏布局
  * 禁用垂直滚动，通过侧边悬浮胶囊切换屏幕
  */
-const MobileHome = ({ featuredCases, services }) => {
+const MobileHome = ({ featuredCases, services, partners }) => {
   const { t } = useTranslation();
   const [currentScreen, setCurrentScreen] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -17,6 +17,7 @@ const MobileHome = ({ featuredCases, services }) => {
     { id: 'hero', name: t('home.sectionHero'), dark: false },
     { id: 'works', name: t('home.sectionWorks'), dark: false },
     { id: 'services', name: t('home.sectionServices'), dark: true },
+    { id: 'partners', name: t('home.sectionPartners') || '合作品牌', dark: false },
     { id: 'contact', name: t('home.sectionContact'), dark: true },
   ];
   
@@ -82,6 +83,9 @@ const MobileHome = ({ featuredCases, services }) => {
             <ServicesScreen t={t} services={services} onNext={goNext} />
           )}
           {currentScreen === 3 && (
+            <PartnersScreen t={t} partners={partners} onNext={goNext} />
+          )}
+          {currentScreen === 4 && (
             <ContactScreen t={t} onBackToTop={() => goToScreen(0)} />
           )}
         </motion.div>
@@ -735,11 +739,21 @@ const WorksScreen = ({ t, projects, onNext }) => {
 };
 
 /**
- * Services 屏幕 - 横向滑动卡片
+ * Services 屏幕 - 横向滑动卡片（带图片容器）
  */
 const ServicesScreen = ({ t, services, onNext }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef(null);
+  
+  // 服务图片配置（与桌面端 ServiceSection 保持一致）
+  const serviceImages = {
+    'brand-foundation': '/images/services/brand-1.jpg',
+    'product-physical': '/images/services/product-1.jpg',
+    'visual-communication': '/images/services/visual-1.jpg',
+    'campaign-marketing': '/images/services/campaign-1.jpg',
+    'offline-applications': '/images/services/offline-1.jpg',
+    'creative-exploration': '/images/services/creative-1.jpg',
+  };
   
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -836,101 +850,140 @@ const ServicesScreen = ({ t, services, onNext }) => {
         }}
         className="hide-scrollbar"
       >
-        {services.map((service, index) => (
-          <div
-            key={service.id}
-            style={{
-              flex: '0 0 100%',
-              scrollSnapAlign: 'start',
-              scrollSnapStop: 'always',
-              padding: 'var(--space-sm) var(--space-page-x)',
-              boxSizing: 'border-box',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {/* Card */}
-            <div style={{
-              flex: 1,
-              background: 'rgba(255,255,255,0.05)',
-              borderRadius: 'var(--radius-lg)',
-              padding: 'var(--space-lg)',
-              display: 'flex',
-              flexDirection: 'column',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              {/* Background Image Placeholder */}
-              {service.backgroundImage && (
+        {services.map((service, index) => {
+          const serviceImage = serviceImages[service.id];
+          return (
+            <div
+              key={service.id}
+              style={{
+                flex: '0 0 100%',
+                scrollSnapAlign: 'start',
+                scrollSnapStop: 'always',
+                padding: 'var(--space-xs) var(--space-page-x)',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-xs)',
+                height: '100%',
+              }}
+            >
+              {/* 图片容器 - 占据主要空间 */}
+              <div style={{
+                width: '100%',
+                flex: 1,
+                minHeight: '45vh',
+                borderRadius: 'var(--radius-lg)',
+                overflow: 'hidden',
+                background: 'rgba(255,255,255,0.08)',
+                position: 'relative',
+              }}>
+                {serviceImage ? (
+                  <img
+                    src={serviceImage}
+                    alt={service.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.style.display = 'flex';
+                      e.target.parentElement.style.alignItems = 'center';
+                      e.target.parentElement.style.justifyContent = 'center';
+                    }}
+                  />
+                ) : null}
+                {/* 图片占位/标题叠加层 */}
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: `url(${service.backgroundImage}) center/cover`,
-                  opacity: 0.2,
-                }} />
-              )}
-              
-              {/* Content */}
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                {/* Number */}
-                <span style={{
-                  fontSize: '0.75rem',
-                  fontFamily: 'var(--font-mono, monospace)',
-                  color: 'rgba(255,255,255,0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: serviceImage ? 'transparent' : 'rgba(255,255,255,0.05)',
+                  color: 'rgba(255,255,255,0.25)',
+                  fontSize: 'clamp(1rem, 3vw, 1.2rem)',
                   fontWeight: '500',
+                  textAlign: 'center',
+                  padding: '20px',
+                  pointerEvents: 'none',
+                }}>
+                  {!serviceImage && service.title}
+                </div>
+                {/* 编号标签 */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  padding: '6px 12px',
+                  background: 'rgba(0,0,0,0.6)',
+                  borderRadius: '100px',
+                  color: '#fff',
+                  fontSize: '0.7rem',
+                  fontWeight: '600',
+                  fontFamily: 'var(--font-mono, monospace)',
                 }}>
                   {String(index + 1).padStart(2, '0')}
-                </span>
-                
+                </div>
+              </div>
+              
+              {/* 底部文字信息 - 紧凑布局 */}
+              <div style={{
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: 'var(--radius-md)',
+                padding: 'var(--space-sm)',
+                flexShrink: 0,
+              }}>
                 {/* Title */}
                 <h3 style={{
-                  fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
-                  fontWeight: '400',
+                  fontSize: 'clamp(1rem, 3.5vw, 1.2rem)',
+                  fontWeight: '500',
                   color: '#fff',
-                  margin: '8px 0 16px',
-                  lineHeight: 1.2,
+                  margin: '0 0 6px 0',
+                  lineHeight: 1.3,
                 }}>
                   {service.title}
                 </h3>
                 
-                {/* Problem */}
+                {/* Problem - 单行或两行 */}
                 {service.problem && (
                   <p style={{
-                    fontSize: '0.9rem',
+                    fontSize: '0.8rem',
                     color: 'rgba(255,255,255,0.6)',
-                    lineHeight: 1.5,
-                    marginBottom: '12px',
+                    lineHeight: 1.4,
+                    margin: '0 0 8px 0',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
                   }}>
                     {service.problem}
                   </p>
                 )}
                 
-                {/* Description */}
-                <p style={{
-                  fontSize: '0.85rem',
-                  color: 'rgba(255,255,255,0.5)',
-                  lineHeight: 1.5,
-                  marginBottom: '20px',
-                }}>
-                  {service.desc}
-                </p>
-                
-                {/* Tags */}
+                {/* Tags - 横向滚动 */}
                 {service.tags && (
                   <div style={{
                     display: 'flex',
-                    gap: '8px',
-                    flexWrap: 'wrap',
+                    gap: '6px',
+                    flexWrap: 'nowrap',
+                    overflowX: 'auto',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    paddingBottom: '2px',
                   }}>
                     {service.tags.map(tag => (
                       <span
                         key={tag}
                         style={{
-                          padding: '6px 12px',
+                          padding: '4px 10px',
                           border: '1px solid rgba(255,255,255,0.2)',
                           borderRadius: 'var(--radius-full)',
-                          fontSize: '0.75rem',
+                          fontSize: '0.65rem',
                           color: 'rgba(255,255,255,0.7)',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
                         }}
                       >
                         {tag}
@@ -940,14 +993,14 @@ const ServicesScreen = ({ t, services, onNext }) => {
                 )}
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       {/* 底部区域：指示条 或 滑动提示 */}
       {activeIndex === services.length - 1 ? (
         <SwipeToNextHint 
-          label={t('common.swipeToContact') || '上滑联系我'} 
+          label={t('common.swipeToPartners') || '上滑查看合作品牌'} 
           isDark={true} 
           onSwipe={onNext} 
         />
@@ -957,6 +1010,267 @@ const ServicesScreen = ({ t, services, onNext }) => {
           total={services.length}
           onScrollTo={scrollToService}
           isDark={true}
+        />
+      )}
+    </div>
+  );
+};
+
+/**
+ * Partners 屏幕 - 合作品牌展示
+ */
+const PartnersScreen = ({ t, partners = [], onNext }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
+  
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel || !partners.length) return;
+    
+    const handleScroll = () => {
+      const cardWidth = carousel.offsetWidth;
+      const scrollLeft = carousel.scrollLeft;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      if (newIndex !== activeIndex && newIndex >= 0 && newIndex < partners.length) {
+        setActiveIndex(newIndex);
+      }
+    };
+    
+    carousel.addEventListener('scroll', handleScroll, { passive: true });
+    return () => carousel.removeEventListener('scroll', handleScroll);
+  }, [partners.length, activeIndex]);
+  
+  const scrollToPartner = (index) => {
+    if (carouselRef.current) {
+      const cardWidth = carouselRef.current.offsetWidth;
+      carouselRef.current.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // 如果没有 partners 数据，直接跳到下一屏
+  if (!partners || partners.length === 0) {
+    return (
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 'var(--space-xl) var(--space-page-x)',
+      }}>
+        <p style={{ color: 'var(--color-text-muted)' }}>暂无合作品牌</p>
+        <SwipeToNextHint 
+          label={t('common.swipeToContact') || '上滑联系我'} 
+          isDark={false} 
+          onSwipe={onNext} 
+        />
+      </div>
+    );
+  }
+  
+  return (
+    <div style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      paddingTop: 'var(--space-md)',
+      paddingBottom: 'var(--space-lg)',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '0 var(--space-page-x) var(--space-sm)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <span style={{
+          fontSize: '0.7rem',
+          color: 'var(--color-text-muted)',
+          textTransform: 'uppercase',
+          letterSpacing: '2px',
+          fontWeight: '500',
+        }}>
+          {t('home.partnersTitle') || 'PARTNERS'}
+        </span>
+        <span style={{
+          fontSize: '0.8rem',
+          fontFamily: 'var(--font-mono, monospace)',
+          color: 'var(--color-text-main)',
+          fontWeight: '600',
+        }}>
+          {String(activeIndex + 1).padStart(2, '0')} / {String(partners.length).padStart(2, '0')}
+        </span>
+      </div>
+      
+      {/* Progress Bar */}
+      <div style={{
+        margin: '0 var(--space-page-x) var(--space-sm)',
+        height: '2px',
+        background: 'var(--color-border)',
+        borderRadius: '1px',
+        overflow: 'hidden',
+      }}>
+        <motion.div
+          animate={{ width: `${((activeIndex + 1) / partners.length) * 100}%` }}
+          transition={{ duration: 0.3 }}
+          style={{
+            height: '100%',
+            background: 'var(--color-text-main)',
+          }}
+        />
+      </div>
+      
+      {/* Carousel */}
+      <div
+        ref={carouselRef}
+        style={{
+          flex: 1,
+          display: 'flex',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          scrollSnapType: 'x mandatory',
+          scrollBehavior: 'smooth',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+        className="hide-scrollbar"
+      >
+        {partners.map((partner, index) => (
+          <div
+            key={partner.id}
+            style={{
+              flex: '0 0 100%',
+              scrollSnapAlign: 'start',
+              scrollSnapStop: 'always',
+              padding: 'var(--space-sm) var(--space-page-x)',
+              boxSizing: 'border-box',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-md)',
+            }}
+          >
+            {/* Partner Logo Card */}
+            <motion.div
+              whileTap={{ scale: 0.98 }}
+              style={{
+                flex: 1,
+                minHeight: '35vh',
+                background: 'var(--color-surface)',
+                borderRadius: 'var(--radius-lg)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 'var(--space-xl)',
+                boxShadow: 'var(--shadow-md)',
+                border: '1px solid var(--color-border)',
+              }}
+            >
+              {/* Logo */}
+              <div style={{
+                width: '100%',
+                maxWidth: '200px',
+                height: '80px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 'var(--space-lg)',
+              }}>
+                {partner.image ? (
+                  <img
+                    src={partner.image}
+                    alt={t(`home.partners.${partner.id}.name`) || partner.id}
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain',
+                      filter: 'grayscale(100%)',
+                      opacity: 0.8,
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    background: 'var(--color-border)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '2rem',
+                    fontWeight: '600',
+                    color: 'var(--color-text-muted)',
+                  }}>
+                    {(t(`home.partners.${partner.id}.name`) || partner.id).charAt(0)}
+                  </div>
+                )}
+              </div>
+              
+              {/* Partner Name */}
+              <h3 style={{
+                fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
+                fontWeight: '500',
+                color: 'var(--color-text-main)',
+                margin: '0 0 8px',
+                textAlign: 'center',
+              }}>
+                {t(`home.partners.${partner.id}.name`) || partner.id}
+              </h3>
+              
+              {/* Partner Description */}
+              <p style={{
+                fontSize: '0.9rem',
+                color: 'var(--color-text-muted)',
+                textAlign: 'center',
+                lineHeight: 1.5,
+                margin: 0,
+                maxWidth: '280px',
+              }}>
+                {t(`home.partners.${partner.id}.desc`) || '合作伙伴'}
+              </p>
+            </motion.div>
+            
+            {/* Number Badge */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+            }}>
+              <span style={{
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono, monospace)',
+                color: 'var(--color-text-muted)',
+              }}>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div style={{
+                flex: 1,
+                height: '1px',
+                background: 'var(--color-border)',
+              }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      {/* 底部区域：指示条 或 滑动提示 */}
+      {activeIndex === partners.length - 1 ? (
+        <SwipeToNextHint 
+          label={t('common.swipeToContact') || '上滑联系我'} 
+          isDark={false} 
+          onSwipe={onNext} 
+        />
+      ) : (
+        <SwipeIndicator
+          activeIndex={activeIndex}
+          total={partners.length}
+          onScrollTo={scrollToPartner}
+          isDark={false}
         />
       )}
     </div>

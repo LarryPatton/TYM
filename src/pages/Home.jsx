@@ -324,6 +324,7 @@ const Home = () => {
       <MobileHome 
         featuredCases={featuredCases}
         services={services}
+        partners={partnersData}
       />
     );
   }

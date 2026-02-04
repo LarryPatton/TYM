@@ -714,6 +714,7 @@
     "sectionHero": "Home",
     "sectionWorks": "Works",
     "sectionServices": "Services",
+    "sectionPartners": "Partners",
     "sectionContact": "Contact",
     "featuredTitle": "Portfolio Guide · Featured Works",
     "partnersTitle": "Partners",
@@ -799,6 +800,7 @@
     "services": {
       "brandFoundation": {
         "title": "Brand Foundation",
+        "subtitle": "VI / Brand Guidelines",
         "problem": "I help establish a clear and structured visual foundation for brands.",
         "desc": "By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication.",
         "chips": [
@@ -809,6 +811,7 @@
       },
       "productPhysical": {
         "title": "Product & Physical Experience",
+        "subtitle": "CMF / Packaging",
         "problem": "I shape cohesive product and packaging experiences through CMF design.",
         "desc": "By aligning color, material, and finish decisions, I strengthen brand perception at the physical level.",
         "chips": [
@@ -820,6 +823,7 @@
       },
       "visualCommunication": {
         "title": "Visual Communication System",
+        "subtitle": "Key Visual / Visual System",
         "problem": "I develop scalable visual communication systems for brands.",
         "desc": "Through key visuals and repeatable design rules, brand messages become clearer and more memorable.",
         "chips": [
@@ -830,6 +834,7 @@
       },
       "campaignMarketing": {
         "title": "Campaign & Regional Marketing",
+        "subtitle": "Campaign / Marketing",
         "problem": "I support brands in regional campaigns and market-specific communication.",
         "desc": "By aligning visual strategy with local contexts, campaigns remain consistent and effective.",
         "chips": [
@@ -840,6 +845,7 @@
       },
       "offlineApplications": {
         "title": "Offline & Real-world Applications",
+        "subtitle": "Offline / Space Design",
         "problem": "I translate brand systems into real-world environments.",
         "desc": "From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces.",
         "chips": [
@@ -850,6 +856,7 @@
       },
       "creativeExploration": {
         "title": "Creative & Art-driven Exploration",
+        "subtitle": "Art Direction / Exploration",
         "problem": "I explore visual expression beyond commercial boundaries.",
         "desc": "Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking.",
         "chips": [
@@ -940,6 +947,7 @@
     "swipeToExplore": "Swipe to Explore",
     "swipeToViewWorks": "Swipe Up for Works",
     "swipeToServices": "Swipe Up for Services",
+    "swipeToPartners": "Swipe Up for Partners",
     "swipeToContact": "Swipe Up to Contact"
   },
   "footer": {
