@@ -89,7 +89,7 @@ export const DocumentFocusLensScreen = ({
             textTransform: 'uppercase',
             letterSpacing: '2px'
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </span>
         </div>
 

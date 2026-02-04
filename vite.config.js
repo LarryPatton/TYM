@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 import { execSync } from 'child_process'
 import path from 'path'
 
+// 导入配置写入插件（开发环境直接保存布局参数到代码）
+import { configWriterPlugin } from './vite-plugins/configWriter.js'
+
 /**
  * Vite 插件：监听 CSV 文件变化并自动构建 i18n
  */
@@ -60,6 +63,7 @@ export default defineConfig({
   plugins: [
     react(),
     i18nAutoBuilder(), // 添加 i18n 自动构建插件
+    configWriterPlugin(), // 添加配置写入插件（开发环境）
   ],
   // Vercel 部署使用根路径
   // GitHub Pages 需要时改为: base: '/TYM/'

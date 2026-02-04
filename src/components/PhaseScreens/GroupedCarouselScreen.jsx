@@ -18,6 +18,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * 
  * @param {Array} groups - 分组数组 [{label, images: [{src, label}]}]
  * @param {string} bgColor - 背景颜色
+ * @param {boolean} showGroupLabel - 是否显示分组标题（默认 true）
+ * @param {boolean} showItemCount - 是否显示图片计数（默认 true）
  */
 export const GroupedCarouselScreen = ({
   screenNumber,
@@ -26,7 +28,10 @@ export const GroupedCarouselScreen = ({
   content,
   groups = [],
   bgColor = '#000',
-  rowGap = '24px'  // 自定义行间距，默认 24px
+  rowGap = '24px',           // 自定义行间距，默认 24px
+  showGroupLabel = true,     // 是否显示分组标题
+  showItemCount = true,      // 是否显示图片计数
+  showScreenLabel = false    // 是否显示顶部屏幕标识（默认隐藏，由胶囊导航显示）
 }) => {
   const containerRef = useRef(null);
   
@@ -43,9 +48,10 @@ export const GroupedCarouselScreen = ({
   }, []);
   
   // 滚动进度监听
+  // 调整 offset：容器顶部接近视口顶部时就开始（提前触发第一组动画）
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start 80%", "end end"]
   });
 
   const totalGroups = groups.length;
@@ -84,7 +90,7 @@ export const GroupedCarouselScreen = ({
             textAlign: 'center',
             marginBottom: '24px'
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </div>
         )}
 
@@ -136,7 +142,8 @@ export const GroupedCarouselScreen = ({
                       style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'contain'
+                        objectFit: 'contain',
+                        borderRadius: 'var(--radius-image, 12px)'
                       }}
                       onError={(e) => { e.target.style.display = 'none'; }}
                     />
@@ -173,8 +180,8 @@ export const GroupedCarouselScreen = ({
         overflow: 'hidden'
       }}>
         
-        {/* 屏幕标识 */}
-        {screenNumber && (
+        {/* 屏幕标识 - 由 showScreenLabel 控制（默认隐藏，改用胶囊导航显示） */}
+        {showScreenLabel && screenNumber && (
           <motion.div style={{
             position: 'absolute',
             top: '40px',
@@ -190,12 +197,13 @@ export const GroupedCarouselScreen = ({
           </motion.div>
         )}
 
-        {/* 分组指示器 */}
+        {/* 分组指示器 - 始终显示（包括标签文字） */}
         <GroupIndicator 
           groups={groups} 
           scrollYProgress={scrollYProgress} 
           totalGroups={totalGroups}
           getGroupRange={getGroupRange}
+          showLabel={true}
         />
 
         {/* 分组内容 */}
@@ -215,8 +223,10 @@ export const GroupedCarouselScreen = ({
               scrollYProgress={scrollYProgress}
               totalGroups={totalGroups}
               getGroupRange={getGroupRange}
-              isLastGroup={index === totalGroups - 1} // 标记最后一组
-              rowGap={rowGap}  // 传递行间距参数
+              isLastGroup={index === totalGroups - 1}
+              rowGap={rowGap}
+              showGroupLabel={showGroupLabel}
+              showItemCount={showItemCount}
             />
           ))}
         </div>
@@ -228,7 +238,7 @@ export const GroupedCarouselScreen = ({
 /**
  * 分组指示器
  */
-const GroupIndicator = ({ groups, scrollYProgress, totalGroups, getGroupRange }) => {
+const GroupIndicator = ({ groups, scrollYProgress, totalGroups, getGroupRange, showLabel = true }) => {
   return (
     <div style={{
       position: 'absolute',
@@ -251,6 +261,7 @@ const GroupIndicator = ({ groups, scrollYProgress, totalGroups, getGroupRange })
             scrollYProgress={scrollYProgress}
             range={range}
             center={center}
+            showLabel={showLabel}
           />
         );
       })}
@@ -261,7 +272,7 @@ const GroupIndicator = ({ groups, scrollYProgress, totalGroups, getGroupRange })
 /**
  * 单个指示器点
  */
-const IndicatorDot = ({ index, label, scrollYProgress, range, center }) => {
+const IndicatorDot = ({ index, label, scrollYProgress, range, center, showLabel = true }) => {
   // 计算当前点的激活程度
   const opacity = useTransform(
     scrollYProgress,
@@ -292,7 +303,8 @@ const IndicatorDot = ({ index, label, scrollYProgress, range, center }) => {
         borderRadius: '50%',
         background: '#fff'
       }} />
-      {label && (
+      {/* 标签文字 - 受 showLabel 控制 */}
+      {showLabel && label && (
         <span style={{
           fontSize: '0.7rem',
           color: '#fff',
@@ -308,7 +320,7 @@ const IndicatorDot = ({ index, label, scrollYProgress, range, center }) => {
 /**
  * 单组场景（横向切换版本）
  */
-const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px' }) => {
+const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true }) => {
   const range = getGroupRange(index);
   
   // 透明度：进入时渐显，停顿时保持，离开时渐隐
@@ -381,8 +393,8 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
         pointerEvents: 'none'
       }}
     >
-      {/* 组标题 */}
-      {group.label && (
+      {/* 组标题 - 可通过 showGroupLabel 控制 */}
+      {showGroupLabel && group.label && (
         <motion.h3 style={{
           fontSize: '1.5rem',
           fontWeight: 300,
@@ -398,68 +410,83 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
       {/* 图片网格 - 支持自定义分行布局 */}
       {customLayout ? (
         // 自定义布局：按行渲染，每行有不同的数量和尺寸
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: rowGap,  // 使用可配置的行间距参数（默认 24px）
-          width: '90%',  // 移除 maxWidth 限制，改为 90% 宽度
-          padding: '0 24px'
-        }}>
-          {customLayout.rows.map((rowConfig, rowIndex) => {
-            const rowImages = images.slice(
-              customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0),
-              customLayout.rows.slice(0, rowIndex + 1).reduce((sum, r) => sum + r.count, 0)
-            );
-            return (
-              <div
-                key={`row-${rowIndex}`}
-                style={{
-                  display: 'flex',
-                  gap: '16px',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                {rowImages.map((img, imgIndex) => {
-                  const globalIndex = customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0) + imgIndex;
-                  return (
-                    <motion.div
-                      key={`img-${index}-${globalIndex}`}
-                      style={{
-                        width: `${rowConfig.scale * 120}px`,
-                        height: `${rowConfig.scale * 120}px`,
-                        overflow: 'visible',
-                        background: 'transparent',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: globalIndex * 0.08, duration: 0.4 }}
-                    >
-                      <img
-                        src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
-                        alt={img.label || `Image ${globalIndex + 1}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'contain',
-                          display: 'block',
-                          filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))'
-                        }}
-                        onError={(e) => {
-                          console.error('GroupedCarousel image load error:', img.src);
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    </motion.div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
+        // 多行时缩小尺寸，避免遮挡指示器和标题
+        (() => {
+          const rowCount = customLayout.rows.length;
+          // 支持自定义多行缩放比例，默认 0.7
+          const multiRowScale = rowCount > 1 ? (customLayout.multiRowScale || 0.7) : 1;
+          // 支持自定义行间距，默认多行 12px
+          const customRowGap = customLayout.rowGap || (rowCount > 1 ? '8px' : rowGap);
+          return (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: customRowGap,
+              width: '90%',
+              padding: '0 24px',
+              maxHeight: rowCount > 1 ? '65vh' : 'auto' // 多行时限制最大高度
+            }}>
+              {customLayout.rows.map((rowConfig, rowIndex) => {
+                const rowImages = images.slice(
+                  customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0),
+                  customLayout.rows.slice(0, rowIndex + 1).reduce((sum, r) => sum + r.count, 0)
+                );
+                // 多行时缩小图片尺寸
+                const adjustedScale = rowConfig.scale * multiRowScale;
+                return (
+                  <div
+                    key={`row-${rowIndex}`}
+                    style={{
+                      display: 'flex',
+                      gap: rowCount > 1 ? '12px' : '16px',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {rowImages.map((img, imgIndex) => {
+                      const globalIndex = customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0) + imgIndex;
+                      return (
+                        <motion.div
+                          key={`img-${index}-${globalIndex}`}
+                          style={{
+                            width: `${adjustedScale * 120}px`,
+                            height: `${adjustedScale * 120}px`,
+                            overflow: 'hidden',
+                            background: 'transparent',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 'var(--radius-image, 12px)'
+                          }}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: globalIndex * 0.08, duration: 0.4 }}
+                        >
+                          <img
+                            src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                            alt={img.label || `Image ${globalIndex + 1}`}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'contain',
+                              display: 'block',
+                              borderRadius: 'var(--radius-image, 12px)',
+                              filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.5))'
+                            }}
+                            onError={(e) => {
+                              console.error('GroupedCarousel image load error:', img.src);
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()
       ) : (
         // 默认网格布局
         <div style={{
@@ -479,11 +506,12 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
                 key={`img-${index}-${imgIndex}`}
                 style={{
                   aspectRatio: '1 / 1',
-                  overflow: 'visible',
+                  overflow: 'hidden',
                   background: 'transparent',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  borderRadius: 'var(--radius-image, 12px)'
                 }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -497,6 +525,7 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
                     height: `${imageScale * 100}%`,
                     objectFit: 'contain',
                     display: 'block',
+                    borderRadius: 'var(--radius-image, 12px)',
                     filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))'
                   }}
                   onError={(e) => {
@@ -510,15 +539,17 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
         </div>
       )}
       
-      {/* 图片计数 */}
-      <motion.div style={{
-        marginTop: '24px',
-        fontSize: '0.8rem',
-        color: 'rgba(255,255,255,0.4)',
-        letterSpacing: '2px'
-      }}>
-        {imageCount} ITEMS
-      </motion.div>
+      {/* 图片计数 - 可通过 showItemCount 控制 */}
+      {showItemCount && (
+        <motion.div style={{
+          marginTop: '24px',
+          fontSize: '0.8rem',
+          color: 'rgba(255,255,255,0.4)',
+          letterSpacing: '2px'
+        }}>
+          {imageCount} ITEMS
+        </motion.div>
+      )}
     </motion.div>
   );
 };

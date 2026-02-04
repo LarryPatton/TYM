@@ -32,9 +32,15 @@ case.phases.phase-01.screens.logo-variations.title,标志变体探索,Logo Varia
 case.phases.phase-01.screens.logo-variations.content,"从线稿到成品的演变过程，记录设计探索与决策路径。","From wireframe to final form, documenting the design exploration and decision-making process."
 case.phases.phase-01.screens.color.title,色彩体系以长期使用为前提建立,The color system is established with long-term use as the premise
 case.phases.phase-01.screens.color.content,"通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。","Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
+case.phases.phase-01.screens.color-reveal.title,色彩揭示,Color Reveal
+case.phases.phase-01.screens.color-reveal.content,品牌色彩体系揭示展示。,Brand color system reveal showcase.
+case.phases.phase-01.screens.logo-exploration.title,Logo 探索,Logo Exploration
+case.phases.phase-01.screens.logo-exploration.content,Logo 变体探索展示。,Logo variations exploration showcase.
 case.phases.phase-01.screens.typography.title,"字体与版式用于支撑信息表达，而非强化风格","Typography supports information expression, not style reinforcement"
 case.phases.phase-01.screens.typography.content,清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。,Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities.
 case.phases.phase-01.screens.validation.title,"在系统建立完成后，通过最小应用进行验证","After the system is established, validate through minimum applications"
 case.phases.phase-01.screens.validation.content,"这些应用并非最终形态，而是用于确认系统在真实使用场景中的可行性。","These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
 case.phases.phase-01.screens.summary.title,"这一阶段的成果，并不是一个「完成态」的品牌",The outcome of this phase is not a 'complete' brand
 case.phases.phase-01.screens.summary.content,而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。,But a visual foundation that can support subsequent product design and continue to grow through change.
+case.phases.phase-01.screens.phase-closing.title,阶段收尾,Phase Closing
+case.phases.phase-01.screens.phase-closing.content,第一阶段完成，品牌视觉基础已建立。,Phase one complete. Brand visual foundation established.

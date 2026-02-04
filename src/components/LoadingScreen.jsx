@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { mapProgressWithEasing } from '../utils/easing';
@@ -6,6 +6,11 @@ import { mapProgressWithEasing } from '../utils/easing';
 /**
  * 加载屏幕组件 - 全屏遮罩 + 中心进度条
  * 符合网站视觉风格，支持亮色/暗色主题切换
+ * 
+ * 乐观加载策略：
+ * - 即使真实进度为 0%，也会缓慢推进显示进度（1, 2, 3...）
+ * - 乐观进度有上限（默认 15%），避免用户等待时看到虚假的高进度
+ * - 当真实进度追上来后，进度条会快速推进
  * 
  * @param {boolean} isVisible - 是否显示加载屏幕（由 !canEnter 控制）
  * @param {number} realProgress - 真实加载进度（0-100）
@@ -27,12 +32,21 @@ const LoadingScreen = ({
   const { t } = useTranslation();
   const [displayProgress, setDisplayProgress] = useState(0);
   const [startTime, setStartTime] = useState(null);
+  const [optimisticProgress, setOptimisticProgress] = useState(0);
+  const lastRealProgressRef = useRef(0);
+  
+  // 乐观加载配置
+  const OPTIMISTIC_MAX = 15; // 乐观进度上限（%）
+  const OPTIMISTIC_SPEED = 0.3; // 乐观进度增长速度（每50ms增加的%）
+  const CATCH_UP_SPEED = 3; // 真实进度追上后的加速速度
   
   // 独立的进度条动画控制器
   useEffect(() => {
     if (!isVisible) {
       setDisplayProgress(0);
       setStartTime(null);
+      setOptimisticProgress(0);
+      lastRealProgressRef.current = 0;
       return;
     }
     
@@ -51,14 +65,37 @@ const LoadingScreen = ({
       // 计算基于真实加载的进度（映射 0-50% → 0-100%）
       const mappedRealProgress = mapProgressWithEasing(realProgress, threshold);
       
-      // 取两者的最小值（确保不会超过真实加载进度）
-      // 但也不会太快（受时间限制）
-      const targetProgress = Math.min(timeBasedProgress, mappedRealProgress);
+      // 检测真实进度是否有增长
+      const realProgressIncreased = realProgress > lastRealProgressRef.current;
+      lastRealProgressRef.current = realProgress;
+      
+      setOptimisticProgress(prev => {
+        // 如果真实进度已经开始增长，乐观进度不再单独增长
+        if (realProgress > 5) {
+          return prev; // 冻结乐观进度
+        }
+        // 否则，缓慢增长乐观进度，但不超过上限
+        if (prev < OPTIMISTIC_MAX) {
+          return Math.min(prev + OPTIMISTIC_SPEED, OPTIMISTIC_MAX);
+        }
+        return prev;
+      });
+      
+      // 计算最终目标进度
+      // 取 乐观进度 和 真实进度 的较大值
+      const effectiveProgress = Math.max(optimisticProgress, mappedRealProgress);
+      
+      // 结合时间限制
+      const targetProgress = Math.min(timeBasedProgress, effectiveProgress);
       
       setDisplayProgress(prev => {
-        // 平滑增长，避免跳跃
+        // 如果真实进度大于当前显示，快速追赶
+        if (mappedRealProgress > prev && realProgressIncreased) {
+          return Math.min(prev + CATCH_UP_SPEED, mappedRealProgress);
+        }
+        // 平滑增长到目标
         if (targetProgress > prev) {
-          return Math.min(prev + 2, targetProgress); // 每次最多增加 2%
+          return Math.min(prev + 1, targetProgress);
         }
         return prev;
       });
@@ -73,7 +110,7 @@ const LoadingScreen = ({
     }, 50); // 每 50ms 更新一次
     
     return () => clearInterval(animationInterval);
-  }, [isVisible, realProgress, threshold, startTime, minDuration, displayProgress, onAnimationComplete]);
+  }, [isVisible, realProgress, threshold, startTime, minDuration, displayProgress, optimisticProgress, onAnimationComplete]);
 
   return (
     <AnimatePresence>
@@ -196,7 +233,7 @@ const LoadingScreen = ({
                   lineHeight: 1,
                 }}
               >
-                {displayProgress}%
+                {Math.round(displayProgress)}%
               </div>
               
               {/* 提示文本 - 根据进度变化 */}

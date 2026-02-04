@@ -253,7 +253,7 @@ export const ComparisonScreen = ({
                 letterSpacing: '2px',
                 marginBottom: '12px'
               }}>
-                {screenNumber} / {screenLabel}
+                {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
               </div>
               <h2 style={{
                 fontFamily: 'var(--font-serif)',

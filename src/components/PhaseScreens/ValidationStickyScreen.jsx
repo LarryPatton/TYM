@@ -92,15 +92,17 @@ export const ValidationStickyScreen = ({
             textAlign: 'center'
           }}
         >
-          <div style={{
-            fontSize: '0.75rem',
-            color: 'rgba(255,255,255,0.5)',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: '16px'
-          }}>
-            {screenNumber} / {screenLabel}
-          </div>
+          {(screenNumber || screenLabel) && (
+            <div style={{
+              fontSize: '0.75rem',
+              color: 'rgba(255,255,255,0.5)',
+              textTransform: 'uppercase',
+              letterSpacing: '2px',
+              marginBottom: '16px'
+            }}>
+              {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
+            </div>
+          )}
           <h2 style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(1.75rem, 6vw, 2.5rem)',
@@ -217,15 +219,17 @@ export const ValidationStickyScreen = ({
             viewport={{ once: true }}
             variants={itemVariants}
           >
-            <div style={{
-              fontSize: 'var(--text-xs)',
-              color: 'rgba(255,255,255,0.5)',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: 'var(--space-lg)'
-            }}>
-              {screenNumber} / {screenLabel}
-            </div>
+            {(screenNumber || screenLabel) && (
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: 'rgba(255,255,255,0.5)',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                marginBottom: 'var(--space-lg)'
+              }}>
+                {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
+              </div>
+            )}
             <h2 style={{
               fontFamily: 'var(--font-serif)',
               fontSize: '3rem',

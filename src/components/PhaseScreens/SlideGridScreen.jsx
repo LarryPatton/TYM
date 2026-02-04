@@ -81,7 +81,7 @@ export const SlideGridScreen = ({
             letterSpacing: '2px',
             zIndex: 10
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </motion.div>
         )}
 

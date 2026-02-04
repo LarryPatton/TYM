@@ -84,7 +84,7 @@ export const RowByRowPopupGrid = ({
           letterSpacing: '2px',
           zIndex: 10
         }}>
-          {screenNumber} / {screenLabel}
+          {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
         </motion.div>
 
         {/* 动态行数网格容器 */}

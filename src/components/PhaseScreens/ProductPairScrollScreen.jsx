@@ -21,7 +21,8 @@ export const ProductPairScrollScreen = ({
   title,
   content,
   pairs = [],
-  bgColor = '#000'
+  bgColor = '#000',
+  showLabel = true // 是否显示图片下方标签，默认显示
 }) => {
   const containerRef = useRef(null);
   
@@ -72,7 +73,7 @@ export const ProductPairScrollScreen = ({
             letterSpacing: '2px',
             zIndex: 10
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </motion.div>
         )}
 
@@ -107,6 +108,7 @@ export const ProductPairScrollScreen = ({
             pairs={row1Pairs} 
             scrollYProgress={scrollYProgress}
             rowIndex={0}
+            showLabel={showLabel}
           />
           
           {/* 第二行 */}
@@ -114,6 +116,7 @@ export const ProductPairScrollScreen = ({
             pairs={row2Pairs} 
             scrollYProgress={scrollYProgress}
             rowIndex={1}
+            showLabel={showLabel}
           />
         </div>
 
@@ -138,7 +141,7 @@ export const ProductPairScrollScreen = ({
 /**
  * PairRow - 单行配对展示
  */
-const PairRow = ({ pairs, scrollYProgress, rowIndex }) => {
+const PairRow = ({ pairs, scrollYProgress, rowIndex, showLabel = true }) => {
   // 横向位移：滚动驱动从右向左移动
   // 第一行和第二行反向移动，增加视差感
   const direction = rowIndex === 0 ? 1 : -1;
@@ -164,6 +167,7 @@ const PairRow = ({ pairs, scrollYProgress, rowIndex }) => {
           pair={pair}
           index={index}
           scrollYProgress={scrollYProgress}
+          showLabel={showLabel}
         />
       ))}
     </motion.div>
@@ -173,7 +177,7 @@ const PairRow = ({ pairs, scrollYProgress, rowIndex }) => {
 /**
  * PairCard - 单对卡片（主体图+变体图叠加）
  */
-const PairCard = ({ pair, index, scrollYProgress }) => {
+const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
   const { main, variant } = pair;
 
   // 检测文件名是否包含 -1
@@ -251,22 +255,24 @@ const PairCard = ({ pair, index, scrollYProgress }) => {
         />
       </motion.div>
 
-      {/* 标签 */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          bottom: '-30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          fontSize: '0.7rem',
-          color: 'rgba(255,255,255,0.5)',
-          letterSpacing: '1px',
-          whiteSpace: 'nowrap',
-          zIndex: 3
-        }}
-      >
-        {main.label}
-      </motion.div>
+      {/* 标签 - 仅在 showLabel 为 true 时显示 */}
+      {showLabel && (
+        <motion.div
+          style={{
+            position: 'absolute',
+            bottom: '-30px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '0.7rem',
+            color: 'rgba(255,255,255,0.5)',
+            letterSpacing: '1px',
+            whiteSpace: 'nowrap',
+            zIndex: 3
+          }}
+        >
+          {main.label}
+        </motion.div>
+      )}
     </motion.div>
   );
 };

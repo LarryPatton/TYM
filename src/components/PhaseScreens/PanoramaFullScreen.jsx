@@ -81,7 +81,7 @@ export const PanoramaFullScreen = ({
           zIndex: 20,
           opacity: labelOpacity
         }}>
-          {screenNumber} / {screenLabel}
+          {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
         </motion.div>
 
         {/* 核心展示区 */}

@@ -96,7 +96,7 @@ export const FactoryGalleryScreen = ({
             letterSpacing: '2px',
             marginBottom: 'var(--space-lg)'
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </div>
           
           <h2 style={{

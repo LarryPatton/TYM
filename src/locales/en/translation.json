@@ -229,6 +229,14 @@
             "title": "The color system is established with long-term use as the premise",
             "content": "Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
           },
+          "color-reveal": {
+            "title": "Color Reveal",
+            "content": "Brand color system reveal showcase."
+          },
+          "logo-exploration": {
+            "title": "Logo Exploration",
+            "content": "Logo variations exploration showcase."
+          },
           "typography": {
             "title": "Typography supports information expression, not style reinforcement",
             "content": "Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities."
@@ -240,6 +248,10 @@
           "summary": {
             "title": "The outcome of this phase is not a 'complete' brand",
             "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
+          },
+          "phase-closing": {
+            "title": "Phase Closing",
+            "content": "Phase one complete. Brand visual foundation established."
           }
         }
       },
@@ -251,15 +263,35 @@
             "content": "This is a complete product design practice from concept to launch. The project covers design decisions, execution verification, and final launch.",
             "emphasis": "This is a product that is truly used."
           },
+          "user-generation": {
+            "title": "Target User Generation Analysis",
+            "content": "Understanding the needs and preferences of different generations."
+          },
           "boundaries": {
             "title": "Design doesn't start with creativity, but with boundaries",
             "content": "Before resources, market, and goals are clear, no design can be established.",
             "emphasis": "Define the problem first, then find the solution."
           },
+          "cmf-main": {
+            "title": "CMF Main Exploration",
+            "content": "Product main CMF color material finish exploration."
+          },
+          "cmf-color": {
+            "title": "CMF Color Sequence",
+            "content": "Product color sequence systematic showcase."
+          },
           "cmf": {
             "title": "CMF is the key intermediary connecting brand long-term planning with product implementation",
             "content": "It must serve brand expression while also conforming to product function and manufacturing reality.",
             "emphasis": "Aesthetics is not the goal, but the result under constraints."
+          },
+          "factory-keycaps": {
+            "title": "Factory Keycap Manufacturing",
+            "content": "Keycap manufacturing process showcase."
+          },
+          "factory-backplate": {
+            "title": "Factory Backplate Manufacturing",
+            "content": "Backplate manufacturing process showcase."
           },
           "manufacturing": {
             "title": "Design decisions must be continuously validated in real manufacturing conditions",
@@ -280,6 +312,14 @@
             "title": "Consistency is the prerequisite for a brand to be remembered",
             "content": "Regardless of how usage scenarios change, recognition should remain stable.",
             "emphasis": "Recognition is not decoration, but a system result."
+          },
+          "component-assembly": {
+            "title": "Component Assembly Display",
+            "content": "Product component assembly process showcase."
+          },
+          "product-final": {
+            "title": "Product Final Shot",
+            "content": "Product final rendering showcase."
           },
           "closing": {
             "title": "This product validates the feasibility of the entire design system",
@@ -305,25 +345,45 @@
             "content": "From main structure to detail components, design follows the same visual logic and proportion principles.",
             "emphasis": "Consistency starts from the component level"
           },
-          "document-gallery": {
-            "title": "Systematic design delivery",
-            "content": "Complete design specifications and documentation ensure design intent can be accurately executed.",
-            "emphasis": "Design goes beyond images, it's about specifications"
+          "slide-grid": {
+            "title": "Slide Presentation",
+            "content": "Product design specification slide grid showcase."
           },
-          "sticky-upper": {
-            "title": "Product details and material expression",
-            "content": "Showcasing product craftsmanship details and texture treatment through different angles and close-ups.",
-            "emphasis": "Details determine quality perception"
+          "paired-document-grid": {
+            "title": "Paired Document Display",
+            "content": "Design document paired grid showcase."
           },
-          "sticky-lower": {
-            "title": "Complete visual presentation of the product",
-            "content": "From parts to whole, showing the complete visual logic of product design.",
-            "emphasis": "The overall sense comes from consistency in every part"
+          "fly-in-gallery": {
+            "title": "Product Gallery",
+            "content": "Product multi-angle fly-in showcase."
+          },
+          "grouped-carousel": {
+            "title": "Product Group Display",
+            "content": "Product series grouped carousel showcase."
+          },
+          "cards-marquee": {
+            "title": "Cards Marquee",
+            "content": "Product cards three-row marquee showcase."
+          },
+          "square-grid": {
+            "title": "Product Grid",
+            "content": "Square product grid scroll reveal showcase."
+          },
+          "panorama-full": {
+            "title": "Panorama Display",
+            "content": "Ultra-wide panorama product showcase."
           },
           "panorama-marquee": {
-            "title": "Product performance in multiple scenarios",
-            "content": "Products maintain consistent brand recognition across different usage scenarios and display methods.",
-            "emphasis": "Scenarios change, recognition remains"
+            "title": "Marquee Mixed Display",
+            "content": "Marquee, scene and carousel mixed showcase."
+          },
+          "product-grid-36": {
+            "title": "Product Matrix",
+            "content": "6×6 product grid matrix showcase."
+          },
+          "document-focus": {
+            "title": "Document Focus",
+            "content": "Design document focus lens showcase."
           },
           "gallery-upper": {
             "title": "Systematic documentation of design specifications",
@@ -348,30 +408,49 @@
           "intro": {
             "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
           },
-          "packaging-system": {
-            "title": "Packaging is viewed as an important component of the brand system",
-            "content": "As product numbers increase, through unified structure and visual logic, packaging maintains brand recognition across different specifications and information levels."
+          "packaging-bag-series": {
+            "title": "Bag Series Packaging",
+            "content": "Bag product packaging design showcase."
           },
-          "kv": {
-            "title": "Key visuals don't exist independently, but grow from the brand system",
-            "content": "Through unified visual motifs and rules, key visuals maintain consistent expression across different communication scenarios while having flexible extensibility."
+          "packaging-grid": {
+            "title": "Packaging Form System",
+            "content": "Plastic box, tin box, bullet box series packaging showcase."
           },
-          "regional": {
-            "title": "In different regions and communication contexts, visuals need moderate adjustment without losing core recognition",
-            "content": "The system's existence keeps these changes within controllable range."
+          "kv-marquee": {
+            "title": "Key Visual Marquee",
+            "content": "Brand key visual three-row marquee display."
           },
-          "offline": {
-            "title": "Real-world environments are often imperfect",
-            "content": "Under different lighting, materials, and spatial conditions, brand visuals maintain clarity and stability - an important test of system validity.",
-            "note": "This is the 'credibility anchor' of the entire case"
+          "kv-popup": {
+            "title": "Key Visual Fullscreen",
+            "content": "Brand key visual fullscreen sequence display."
           },
-          "online-offline": {
-            "title": "Online and offline are not two separate systems",
-            "content": "Through unified visual language, the brand forms a continuous experience across different touchpoints, rather than fragmented presentation."
+          "products-oil": {
+            "title": "E-Liquid Product Series",
+            "content": "E-Liquid product series grid showcase."
           },
-          "pressure": {
-            "title": "Under complex applications and real use, the brand system maintains stable structure and clear expression",
-            "content": "This marks the system as no longer just a design outcome, but sustainable brand infrastructure."
+          "products-nano": {
+            "title": "Nano Product Series",
+            "content": "Nano product series compact showcase."
+          },
+          "products-kiyomi": {
+            "title": "Kiyomi Product Series",
+            "content": "Kiyomi product pair scroll showcase."
+          },
+          "products-spark": {
+            "title": "Spark Product Series",
+            "content": "Spark product and packaging pair showcase."
+          },
+          "products-addone": {
+            "title": "Addone Product Series",
+            "content": "Addone product and packaging row showcase."
+          },
+          "products-mingcang": {
+            "title": "Mingcang Product Series",
+            "content": "Mingcang product series grid showcase."
+          },
+          "products-mistflow": {
+            "title": "Mist Flow Product Series",
+            "content": "Mist Flow product centered showcase."
           },
           "closing": {
             "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
@@ -386,17 +465,49 @@
           "intro": {
             "content": "As the brand extends from products to spaces, design needs to maintain system integrity and recognition in three-dimensional environments."
           },
-          "retail-identity": {
-            "title": "Retail space as the physical carrier of the brand system",
-            "content": "Through unified visual language and spatial logic, retail environments become an important part of brand experience."
+          "kv-kiyomi": {
+            "title": "KIYOMI Key Visual",
+            "content": "KIYOMI brand key visual design showcase."
           },
-          "touchpoint-system": {
-            "title": "Systematic touchpoint design ensures experience consistency",
-            "content": "From wayfinding and displays to service details, every touchpoint carries brand recognition."
+          "kv-nicotine-drops": {
+            "title": "Nicotine Drops Key Visual",
+            "content": "Nicotine drops product series key visual design."
           },
-          "spatial-experience": {
-            "title": "Spatial experience is not just visual, but the embodiment of brand values",
-            "content": "Validating system applicability and flexibility in real scenarios."
+          "kv-mixed-grid": {
+            "title": "Mixed Products Key Visual",
+            "content": "CUBE, SPARK, MOTOR series mixed key visual showcase."
+          },
+          "kv-marquee-mix": {
+            "title": "M1·R15·E-Liquid Key Visual",
+            "content": "M1, R15, E-Liquid series key visual design showcase."
+          },
+          "photo-cube": {
+            "title": "CUBE Product Photography",
+            "content": "CUBE series product photography showcase."
+          },
+          "photo-motor": {
+            "title": "MOTOR Product Photography",
+            "content": "MOTOR series product photography showcase."
+          },
+          "photo-display": {
+            "title": "Display Stand Photography",
+            "content": "Product display stand photography showcase."
+          },
+          "photo-store": {
+            "title": "Store Photography",
+            "content": "Retail store photography showcase."
+          },
+          "photo-packaging": {
+            "title": "Packaging Photography",
+            "content": "Product packaging photography showcase."
+          },
+          "photo-expo": {
+            "title": "Exhibition Photography",
+            "content": "Exhibition photography showcase."
+          },
+          "mockups": {
+            "title": "Mockups Showcase",
+            "content": "Product mockups and scene simulations."
           },
           "closing": {
             "title": "Successful retail implementation marks brand system maturity",
@@ -824,7 +935,12 @@
     "viewMore": "View More",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "backToTop": "Back to Top",
+    "swipeToExplore": "Swipe to Explore",
+    "swipeToViewWorks": "Swipe Up for Works",
+    "swipeToServices": "Swipe Up for Services",
+    "swipeToContact": "Swipe Up to Contact"
   },
   "footer": {
     "email": "Email",

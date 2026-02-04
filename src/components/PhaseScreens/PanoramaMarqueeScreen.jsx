@@ -60,7 +60,7 @@ export const PanoramaMarqueeScreen = ({
             letterSpacing: '2px',
             marginBottom: '1vh'
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </div>
           
           <h2 style={{

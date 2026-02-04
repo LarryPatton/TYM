@@ -35,7 +35,7 @@ export const PrinciplesScreen = ({
         letterSpacing: '2px',
         marginBottom: 'var(--space-lg)'
       }}>
-        {screenNumber} / {screenLabel}
+        {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
       </div>
       
       {/* 标题 */}

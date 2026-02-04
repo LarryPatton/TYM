@@ -16,46 +16,48 @@ export const phase01Config = {
     {
       id: 'intro',
       type: 'intro',
+      categoryLabel: '引言',
       imageHint: '品牌标志单独展示 / 标志 + 视觉关键词',
-      // 使用 encodeURI 处理路径中的特殊字符
       bgImage: '/images/phase-01/cover.png'
     },
     {
       id: 'core-principles',
-      type: 'core-principles'
+      type: 'core-principles',
+      categoryLabel: '核心理念'
     },
     {
       id: 'stability-message',
-      type: 'stability-message'
+      type: 'stability-message',
+      categoryLabel: '稳定性宣言'
     },
-    // Logo 结构展示 (image 3.png)
     {
       id: 'logo-structure',
-      type: 'logo-structure', // 修改类型为专用组件
+      type: 'logo-structure',
+      categoryLabel: 'Logo / 结构',
       imageHint: 'Logo 结构示意 / 网格 / 比例 / 核心构成',
     },
-    // Logo 变体 Focus Lens 展示
     {
       id: 'logo-focus-lens',
       type: 'logo-focus-lens',
+      categoryLabel: 'Logo / 聚焦',
       imageHint: 'Logo 变体 Focus Lens 展示'
     },
-    // Logo 变体展示 (image 2 & 18)
     {
-      id: 'logo-variations', // ID 变更以反映内容
-      type: 'logo-marquee', // 使用新的跑马灯类型
+      id: 'logo-variations',
+      type: 'logo-marquee',
+      categoryLabel: 'Logo / 变体',
       imageHint: 'Logo 变体展示',
     },
-    // 色彩揭示 (Color Reveal) - 插入在 Logo Exploration 之前
     {
       id: 'color-reveal',
-      type: 'color-reveal'
+      type: 'color-reveal',
+      categoryLabel: '色彩揭示'
     },
-    // Logo 变体探索 (image 9 & 10) - 修改为并列展示
     {
       id: 'logo-exploration',
-      type: 'gallery', // 使用 gallery 类型
-      columns: 2, // 两列并排
+      type: 'gallery',
+      categoryLabel: 'Logo / 探索',
+      columns: 2,
       images: [
         { 
           src: '/images/phase-01/logo-explore-01.png',
@@ -68,17 +70,19 @@ export const phase01Config = {
           label: 'Variation B' 
         }
       ],
-      bgAlt: true // 使用交替背景色
+      bgAlt: true
     },
     {
       id: 'typography',
       type: 'content',
+      categoryLabel: '字体系统',
       imageHint: '字体层级示例 / 标题正文 / 版式示意',
       reverse: false
     },
     {
       id: 'validation',
       type: 'gallery',
+      categoryLabel: '应用验证',
       columns: 2,
       images: [
         { hint: '最小应用场景 1: 包装 seme质', label: '包装验证' },
@@ -86,16 +90,18 @@ export const phase01Config = {
       ],
       bgAlt: true
     },
-    // 倒数第二屏：品牌手册目录概览
     {
       id: 'summary',
       type: 'summary',
+      categoryLabel: '总览',
       imageHint: '系统元素总览 / 产品方向暗示'
     },
-    // 最后一屏：封底 + 导航按钮
     {
       id: 'phase-closing',
       type: 'phase-closing',
+      categoryLabel: '收尾',
+      sticky: true,
+      stickyHeight: 200,
       bgImage: '/images/phase-01/closing.png'
     }
   ]
@@ -124,6 +130,7 @@ export const phase02Config = {
     {
       id: 'intro',
       type: 'intro',
+      categoryLabel: '引言',
       imageHint: 'Concept to Launch',
       bgImage: `${PHASE02_BASE}/cover/hero.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
@@ -132,6 +139,7 @@ export const phase02Config = {
     {
       id: 'toc',
       type: 'phase-toc',
+      categoryLabel: '目录',
       images: [
         `${PHASE02_BASE}/toc/toc-01.png`,
         `${PHASE02_BASE}/toc/toc-02.png`,
@@ -143,6 +151,7 @@ export const phase02Config = {
     {
       id: 'user-generation',
       type: 'popup-sequence',
+      categoryLabel: '用户代际',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE02_BASE}/popup/popup-01.png`, label: 'Gen Z' },
@@ -154,7 +163,8 @@ export const phase02Config = {
     // Screen 03: Boundaries - 提出张力
     {
       id: 'boundaries',
-      type: 'boundaries', // 新组件类型
+      type: 'boundaries',
+      categoryLabel: '边界张力',
       images: [
         { src: `${PHASE02_BASE}/boundaries/boundary-01.png`, label: '资源边界' },
         { src: `${PHASE02_BASE}/boundaries/boundary-02.png`, label: '市场边界' },
@@ -167,7 +177,8 @@ export const phase02Config = {
     // Screen 03a: CMF Main - 主体探索 (2行网格，透明正方形)
     {
       id: 'cmf-main',
-      type: 'square-grid', // 2行网格展示，无边框
+      type: 'square-grid',
+      categoryLabel: 'CMF / 主体探索',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 6, // 每行5-6张
       noBorder: true, // 无边框样式
@@ -189,6 +200,7 @@ export const phase02Config = {
     {
       id: 'cmf-color',
       type: 'gallery',
+      categoryLabel: 'CMF / 色彩序列',
       columns: 4,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       bgAlt: true,
@@ -211,6 +223,7 @@ export const phase02Config = {
     {
       id: 'factory-keycaps',
       type: 'factory-gallery',
+      categoryLabel: '工厂 / 按键',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 4,
       images: [
@@ -232,6 +245,7 @@ export const phase02Config = {
     {
       id: 'factory-backplate',
       type: 'factory-gallery',
+      categoryLabel: '工厂 / 背板',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 4,
       bgAlt: true,
@@ -253,6 +267,9 @@ export const phase02Config = {
     {
       id: 'priority',
       type: 'grouped-carousel',
+      categoryLabel: '产品优先级',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       groups: [
         {
@@ -285,8 +302,9 @@ export const phase02Config = {
     // Screen 06: Packaging - 系统扩展 (两行5列正方形)
     {
       id: 'packaging',
-      type: 'square-grid', // 正方形网格
-      columns: 5, // 5列布局
+      type: 'square-grid',
+      categoryLabel: '包装系统',
+      columns: 5,
       scrollBehavior: { sticky: true, length: 'medium', intensity: 'medium' },
       images: [
         { src: `${PHASE02_BASE}/packaging/pkg-01.png`, label: 'Package Design 1' },
@@ -304,7 +322,8 @@ export const phase02Config = {
     // Screen 07: Consistency - 方法论内化
     {
       id: 'consistency',
-      type: 'consistency-mosaic', // 新组件类型
+      type: 'consistency-mosaic',
+      categoryLabel: '一致性应用',
       scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
       images: [
         { src: `${PHASE02_BASE}/consistency/app-01.png`, label: 'Application 1' },
@@ -340,12 +359,14 @@ export const phase02Config = {
     {
       id: 'component-assembly',
       type: 'component-assembly',
+      categoryLabel: '组件拼装',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' }
     },
     // Screen 09: Product Final - 产品终图展示
     {
       id: 'product-final',
       type: 'fullscreen-image',
+      categoryLabel: '产品终图',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       bgImage: `${PHASE02_BASE}/closing/product-final.png`
     },
@@ -353,7 +374,10 @@ export const phase02Config = {
     {
       id: 'closing',
       type: 'phase-closing',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'none' },
+      categoryLabel: '收尾',
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'none' },
       images: [
         { src: `${PHASE02_BASE}/closing/closing-01.png`, label: 'Final Overview' },
         { src: `${PHASE02_BASE}/closing/product-final.png`, label: 'Product Shot' }
@@ -381,6 +405,7 @@ export const phase03Config = {
     {
       id: 'intro',
       type: 'intro',
+      categoryLabel: '引言',
       imageHint: 'Product B Hero Shot',
       bgImage: `${PHASE03_BASE}/cover/hero.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
@@ -389,6 +414,7 @@ export const phase03Config = {
     {
       id: 'concept-comparison',
       type: 'comparison',
+      categoryLabel: '概念对比',
       leftHint: 'Concept A',
       rightHint: 'Concept B',
       leftLabel: 'Approach A',
@@ -404,6 +430,7 @@ export const phase03Config = {
     {
       id: 'component-showcase',
       type: 'component-showcase',
+      categoryLabel: '组件展示',
       scrollBehavior: { sticky: false, length: 'medium', intensity: 'medium' },
       // 主图组 - 横向大图 1955×1404
       mainImages: [
@@ -424,6 +451,7 @@ export const phase03Config = {
     {
       id: 'slide-grid',
       type: 'slide-grid',
+      categoryLabel: '幻灯片展示',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/slides/Slide 16_9 - 1.png`, label: 'Slide 1' },
@@ -441,6 +469,7 @@ export const phase03Config = {
     {
       id: 'paired-document-grid',
       type: 'paired-document-grid',
+      categoryLabel: '配对文档',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       imageGroups: [
         { images: [
@@ -485,6 +514,7 @@ export const phase03Config = {
     {
       id: 'fly-in-gallery',
       type: 'fly-in-gallery',
+      categoryLabel: '产品画廊',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       imageHeight: '55vh', // 统一高度
       images: [
@@ -501,6 +531,9 @@ export const phase03Config = {
     {
       id: 'grouped-carousel',
       type: 'grouped-carousel',
+      categoryLabel: '产品分组',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       groups: [
         {
@@ -539,6 +572,7 @@ export const phase03Config = {
     {
       id: 'cards-marquee',
       type: 'three-row-marquee',
+      categoryLabel: '卡片跑马灯',
       scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
       showGradient: false,
       images: [
@@ -572,6 +606,7 @@ export const phase03Config = {
     {
       id: 'square-grid',
       type: 'square-grid',
+      categoryLabel: '产品网格',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/product/square/Frame 1430105683.png`, label: 'Product 1' },
@@ -609,6 +644,7 @@ export const phase03Config = {
     {
       id: 'panorama-full',
       type: 'panorama-full',
+      categoryLabel: '全景展示',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       image: { src: `${PHASE03_BASE}/panorama/panorama-01.png`, label: 'Panorama View' }
     },
@@ -616,6 +652,7 @@ export const phase03Config = {
     {
       id: 'panorama-marquee',
       type: 'panorama-marquee',
+      categoryLabel: '跑马灯混合',
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       // 横条跑马灯
       marqueeImages: [
@@ -648,7 +685,8 @@ export const phase03Config = {
     {
       id: 'product-grid-36',
       type: 'square-grid',
-      columns: 6, // 6列布局
+      categoryLabel: '产品矩阵',
+      columns: 6,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/product/grid-36/Frame 1430105662.png`, label: 'Grid 1' },
@@ -693,6 +731,7 @@ export const phase03Config = {
     {
       id: 'document-focus',
       type: 'document-focus-lens',
+      categoryLabel: '文档聚焦',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/document-focus/focus-01.png`, label: 'Document Focus 1' },
@@ -704,6 +743,7 @@ export const phase03Config = {
     {
       id: 'gallery-upper',
       type: 'packaging-gallery',
+      categoryLabel: '瀑布流画廊',
       scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
       images: [
         { src: `${PHASE03_BASE}/gallery-a/page-01.png`, label: 'Page 1' },
@@ -721,6 +761,7 @@ export const phase03Config = {
     {
       id: 'gallery-lower',
       type: 'packaging-gallery',
+      categoryLabel: '海报画廊',
       scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
       images: [
         { src: `${PHASE03_BASE}/gallery-b/poster-01.png`, label: 'Poster 1' },
@@ -738,7 +779,10 @@ export const phase03Config = {
     {
       id: 'closing',
       type: 'phase-closing',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'none' },
+      categoryLabel: '收尾',
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'none' },
       bgImage: `${PHASE03_BASE}/cover/hero.png`
     }
   ]
@@ -762,6 +806,7 @@ export const phase04Config = {
     {
       id: 'intro',
       type: 'intro',
+      categoryLabel: '引言',
       imageHint: '包装与营销系统化扩展',
       bgImage: `${PHASE04_BASE}/cover/hero.png`,
       enableFlashlight: true,
@@ -772,6 +817,7 @@ export const phase04Config = {
     {
       id: 'packaging-bag-series',
       type: 'square-grid',
+      categoryLabel: '包装 / 袋装系列',
       columns: 3,
       noBorder: false,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
@@ -789,6 +835,7 @@ export const phase04Config = {
     {
       id: 'packaging-grid',
       type: 'square-grid',
+      categoryLabel: '包装 / 形态系统',
       columns: 5,
       noBorder: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
@@ -816,11 +863,13 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 04: 主视觉跑马灯 - 三行流动
+    // Screen 04: 主视觉跑马灯 - 三行流动 (sticky效果)
     {
       id: 'kv-marquee',
       type: 'three-row-marquee',
-      scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
+      categoryLabel: 'KV / 跑马灯',
+      scrollBehavior: { sticky: true, length: 'medium', intensity: 'low' },
+      stickyHeight: 200, // sticky 停留的滚动高度 (vh)
       showGradient: false,
       images: [
         // Row 1: 黑色系列
@@ -844,6 +893,7 @@ export const phase04Config = {
     {
       id: 'kv-popup',
       type: 'popup-sequence',
+      categoryLabel: 'KV / 全屏展示',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE04_BASE}/1-banner/1-black/Group 189.png`, label: '黑色系统' },
@@ -857,6 +907,7 @@ export const phase04Config = {
     {
       id: 'products-oil',
       type: 'square-grid',
+      categoryLabel: '产品 / 烟油',
       columns: 4,
       noBorder: true,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
@@ -879,6 +930,7 @@ export const phase04Config = {
     {
       id: 'products-nano',
       type: 'square-grid',
+      categoryLabel: '产品 / Nano',
       columns: 6,
       imageScale: 0.75,
       gap: '0.3rem',
@@ -903,7 +955,9 @@ export const phase04Config = {
     {
       id: 'products-kiyomi',
       type: 'product-pair-scroll',
+      categoryLabel: '产品 / Kiyomi',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      showLabel: false, // 隐藏图片下方标签
       pairs: [
         // Pair 1: K-63
         {
@@ -962,7 +1016,9 @@ export const phase04Config = {
     {
       id: 'products-spark',
       type: 'product-pair-scroll',
+      categoryLabel: '产品 / Spark',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      showLabel: false, // 隐藏图片下方标签
       pairs: [
         // Pair 1: Spark-75
         {
@@ -1021,12 +1077,15 @@ export const phase04Config = {
     {
       id: 'products-addone',
       type: 'two-row-static',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      categoryLabel: '产品 / Addone',
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'medium' },
       title: 'ADDONE SERIES',
       layout: {
         rows: [
-          { count: 5, scale: 1.8 },    // 上行：5张 product（放大1.8倍 = 252px）
-          { count: 3, scale: 2.3 }     // 下行：3张 package（放大2.3倍 = 322px）
+          { count: 5, scale: 1.8, aspectRatio: 0.6 },  // 上行：5张竖版 product（容器宽高比 0.6，确保纵向完整显示）
+          { count: 3, scale: 2.3, aspectRatio: 0.75 } // 下行：3张 package（稍宽一点）
         ]
       },
       images: [
@@ -1047,6 +1106,7 @@ export const phase04Config = {
     {
       id: 'products-mingcang',
       type: 'square-grid',
+      categoryLabel: '产品 / Mingcang',
       columns: 5,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
       images: [
@@ -1069,6 +1129,7 @@ export const phase04Config = {
     {
       id: 'products-mistflow',
       type: 'square-grid',
+      categoryLabel: '产品 / Mist Flow',
       columns: 2,
       scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
       images: [
@@ -1081,7 +1142,10 @@ export const phase04Config = {
     {
       id: 'closing',
       type: 'phase-closing',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'none' },
+      categoryLabel: '收尾',
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'none' },
       bgImage: `${PHASE04_BASE}/1-banner/1-black/Group 312.png`
     }
   ]
@@ -1105,6 +1169,7 @@ export const phase05Config = {
     {
       id: 'intro',
       type: 'intro',
+      categoryLabel: '引言',
       imageHint: '零售场景与体验拓展',
       bgImage: `${PHASE05_BASE}/cover/hero.png`,
       enableFlashlight: true,
@@ -1115,6 +1180,9 @@ export const phase05Config = {
     {
       id: 'kv-kiyomi',
       type: 'grouped-carousel',
+      categoryLabel: 'KV / KIYOMI',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1188,12 +1256,17 @@ export const phase05Config = {
     {
       id: 'kv-nicotine-drops',
       type: 'two-row-static',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      categoryLabel: 'KV / 尼古丁糖',
+      sticky: true,
+      stickyHeight: 200,
+      sequentialPopup: true,
+      showItemCount: false,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'medium' },
       title: '尼古丁糖系列',
       layout: {
         rows: [
-          { count: 5, scale: 1.6 },  // 上行：第一版（5张）
-          { count: 7, scale: 1.4 }   // 下行：第二版（7张，稍小）
+          { count: 5, scale: 1.4, aspectRatio: 0.71 },  // 上行：第一版（5张），A4竖版比例
+          { count: 7, scale: 1.4, aspectRatio: 0.71 }   // 下行：第二版（7张），同等高度
         ]
       },
       images: [
@@ -1218,10 +1291,12 @@ export const phase05Config = {
     {
       id: 'kv-mixed-grid',
       type: 'natural-parallax-grid',
+      categoryLabel: 'KV / 混合系列',
+      maxWidth: '1400px',
       columns: 3,
       gap: '24px',
       paddingTop: 60,
-      parallaxIntensity: 0.3,
+      parallaxIntensity: 1,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1263,6 +1338,9 @@ export const phase05Config = {
     {
       id: 'kv-marquee-mix',
       type: 'grouped-carousel',
+      categoryLabel: 'KV / M1·R15·烟油',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1302,6 +1380,7 @@ export const phase05Config = {
     {
       id: 'photo-cube',
       type: 'square-grid',
+      categoryLabel: '实拍 / CUBE',
       columns: 5,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       images: [
@@ -1327,6 +1406,7 @@ export const phase05Config = {
     {
       id: 'photo-motor',
       type: 'square-grid',
+      categoryLabel: '实拍 / MOTOR',
       columns: 3,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
       images: [
@@ -1343,6 +1423,9 @@ export const phase05Config = {
     {
       id: 'photo-display',
       type: 'grouped-carousel',
+      categoryLabel: '实拍 / 展架',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1381,6 +1464,9 @@ export const phase05Config = {
     {
       id: 'photo-store',
       type: 'grouped-carousel',
+      categoryLabel: '实拍 / 店面',
+      showGroupLabel: false,
+      showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       rowGap: '11px',  // 自定义行间距：11px (45% of default 24px)
       groups: [
@@ -1390,7 +1476,9 @@ export const phase05Config = {
             rows: [
               { count: 5, scale: 3.2 },  // 上行5张，放大3.2倍
               { count: 4, scale: 3.2 }   // 下行4张，放大3.2倍
-            ] 
+            ],
+            rowGap: '4px',        // 两行间距减小到 4px
+            multiRowScale: 0.85   // 图片放大到 85%（默认 70%）
           },
           images: [
             { src: `${PHASE05_BASE}/photo/store/horizontal/img_v3_02ok_96fee373-fd9a-4402-98d9-6f0fd6eda1eg 1.png`, label: 'Store-H1' },
@@ -1420,10 +1508,13 @@ export const phase05Config = {
     {
       id: 'photo-packaging',
       type: 'natural-parallax-grid',
+      categoryLabel: '实拍 / 包装',
       columns: 3,
-      gap: '8px',
-      paddingTop: 60,
+      gap: '24px',
+      rowGap: '4px',
+      paddingTop: 30,
       parallaxIntensity: 0.3,
+      compactMode: true,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1447,6 +1538,7 @@ export const phase05Config = {
     {
       id: 'photo-expo',
       type: 'popup-sequence',
+      categoryLabel: '实拍 / 展会',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE05_BASE}/photo/expo/56cd0386f2a6e96d2f94fc2743dfc9bb 1.png`, label: 'Expo-1' },
@@ -1459,10 +1551,13 @@ export const phase05Config = {
     {
       id: 'mockups',
       type: 'natural-parallax-grid',
+      categoryLabel: '效果图',
       columns: 3,
-      gap: '8px',
-      paddingTop: 60,
+      gap: '24px',
+      rowGap: '4px',
+      paddingTop: 30,
       parallaxIntensity: 0.3,
+      compactMode: true,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
@@ -1486,7 +1581,10 @@ export const phase05Config = {
     {
       id: 'closing',
       type: 'phase-closing',
-      scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
+      categoryLabel: '收尾',
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'low' },
       bgImage: `${PHASE05_BASE}/cover/hero.png`
     }
   ]
@@ -1512,7 +1610,8 @@ export const phase06Config = {
     {
       id: 'intro',
       type: 'intro',
-      product: null, // null表示不属于任何产品，所有产品都显示
+      categoryLabel: '引言',
+      product: null,
       imageHint: 'Copywriting Visualization',
       bgImage: `${PHASE06_BASE}/cover/hero.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
@@ -1523,6 +1622,7 @@ export const phase06Config = {
     {
       id: 'folder-01',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 01',
       product: 'cube',
       interval: 300,
       duration: 0.6,
@@ -1538,9 +1638,10 @@ export const phase06Config = {
     {
       id: 'folder-02',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 02',
       product: 'cube',
-      interval: 300, // 弹出间隔300ms
-      duration: 0.6, // 动画持续时间0.6s
+      interval: 300,
+      duration: 0.6,
       images: [
         { src: `${PHASE06_BASE}/2/Frame 6.png`, label: 'Frame 06' },
         { src: `${PHASE06_BASE}/2/Frame 7.png`, label: 'Frame 07' },
@@ -1553,6 +1654,7 @@ export const phase06Config = {
     {
       id: 'folder-03',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 03',
       product: 'cube',
       interval: 300,
       duration: 0.6,
@@ -1566,6 +1668,7 @@ export const phase06Config = {
     {
       id: 'folder-04',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 04',
       product: 'cube',
       interval: 300,
       duration: 0.6,
@@ -1581,6 +1684,7 @@ export const phase06Config = {
     {
       id: 'folder-05',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 05',
       product: 'cube',
       interval: 300,
       duration: 0.6,
@@ -1595,6 +1699,7 @@ export const phase06Config = {
     {
       id: 'folder-06',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Cube / 06',
       product: 'cube',
       interval: 300,
       duration: 0.6,
@@ -1610,6 +1715,7 @@ export const phase06Config = {
     {
       id: 'folder-07',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 01',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1625,6 +1731,7 @@ export const phase06Config = {
     {
       id: 'folder-08',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 02',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1638,6 +1745,7 @@ export const phase06Config = {
     {
       id: 'folder-09',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 03',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1653,6 +1761,7 @@ export const phase06Config = {
     {
       id: 'folder-10',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 04',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1669,6 +1778,7 @@ export const phase06Config = {
     {
       id: 'folder-11',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 05',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1688,6 +1798,7 @@ export const phase06Config = {
     {
       id: 'folder-12',
       type: 'auto-sequence-popup',
+      categoryLabel: '尼古丁糖 / 06',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1704,6 +1815,7 @@ export const phase06Config = {
     {
       id: 'folder-13',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 01',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1719,6 +1831,7 @@ export const phase06Config = {
     {
       id: 'folder-14',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 02',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1734,6 +1847,7 @@ export const phase06Config = {
     {
       id: 'folder-15',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 03',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1747,6 +1861,7 @@ export const phase06Config = {
     {
       id: 'folder-16',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 04',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1760,6 +1875,7 @@ export const phase06Config = {
     {
       id: 'folder-17',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 05',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1774,6 +1890,7 @@ export const phase06Config = {
     {
       id: 'folder-18',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 06',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1789,6 +1906,7 @@ export const phase06Config = {
     {
       id: 'folder-19',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 07',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1803,6 +1921,7 @@ export const phase06Config = {
     {
       id: 'folder-20',
       type: 'auto-sequence-popup',
+      categoryLabel: 'Motor / 08',
       product: 'motor',
       interval: 300,
       duration: 0.6,

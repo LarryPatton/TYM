@@ -171,7 +171,7 @@ export const LogoStructureScreen = ({
               letterSpacing: '2px',
               marginBottom: '12px'
             }}>
-              {screenNumber} / {screenLabel}
+              {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
             </div>
             <h2 style={{ 
               fontSize: '2rem', 

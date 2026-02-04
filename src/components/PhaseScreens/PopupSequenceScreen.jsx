@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
@@ -9,6 +9,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * - 多张透明图片在同一位置依次弹出
  * - 滚动驱动的序列动画
  * - 全屏尺寸展示，保持图片比例
+ * 
+ * 移动端优化:
+ * - 改为垂直堆叠展示
+ * - 禁用滚动驱动动画
+ * - 简化为普通滚动浏览
  * ============================================
  */
 
@@ -18,6 +23,120 @@ export const PopupSequenceScreen = ({
   images = [],
   bgColor = '#000'
 }) => {
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const imageCount = images.length;
+  if (imageCount === 0) return null;
+
+  // 移动端：简化为垂直堆叠展示
+  if (isMobile) {
+    return (
+      <MobilePopupSequence 
+        screenNumber={screenNumber}
+        screenLabel={screenLabel}
+        images={images}
+        bgColor={bgColor}
+      />
+    );
+  }
+
+  // 桌面端：滚动驱动的弹出动画
+  return (
+    <DesktopPopupSequence
+      screenNumber={screenNumber}
+      screenLabel={screenLabel}
+      images={images}
+      bgColor={bgColor}
+    />
+  );
+};
+
+/**
+ * 移动端：垂直堆叠展示
+ */
+const MobilePopupSequence = ({ screenNumber, screenLabel, images, bgColor }) => {
+  return (
+    <section
+      style={{
+        background: bgColor,
+        padding: '60px 16px 80px',
+        color: '#fff'
+      }}
+    >
+      {/* 屏幕标识 */}
+      {(screenNumber || screenLabel) && (
+        <div style={{
+          fontSize: '0.75rem',
+          color: 'rgba(255,255,255,0.4)',
+          textTransform: 'uppercase',
+          letterSpacing: '2px',
+          textAlign: 'center',
+          marginBottom: '24px'
+        }}>
+          {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
+        </div>
+      )}
+
+      {/* 垂直堆叠图片 */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        maxWidth: '100%'
+      }}>
+        {images.map((image, index) => (
+          <motion.div
+            key={`mobile-popup-${index}`}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+              borderRadius: 'var(--radius-image, 8px)'
+            }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ 
+              duration: 0.5, 
+              delay: index * 0.1,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+            viewport={{ once: true, margin: '-10%' }}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
+              alt={image.label || `Image ${index + 1}`}
+              style={{
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                display: 'block',
+                borderRadius: 'var(--radius-image, 8px)'
+              }}
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+/**
+ * 桌面端：滚动驱动的弹出动画
+ */
+const DesktopPopupSequence = ({ screenNumber, screenLabel, images, bgColor }) => {
   const containerRef = useRef(null);
   const imageCount = images.length;
   
@@ -27,44 +146,11 @@ export const PopupSequenceScreen = ({
     offset: ["start start", "end end"]
   });
 
-  if (imageCount === 0) return null;
-
-  // 计算每张图片的显示区间
-  // 图片依次弹出并保持显示
-  const getImageAnimations = (index) => {
-    const segmentSize = 1 / imageCount;
-    const start = index * segmentSize;
-    const showPoint = start + segmentSize * 0.3; // 30% 处开始显示
-    
-    // 缩放动画：从 0.3 弹出到 1
-    const scale = useTransform(
-      scrollYProgress,
-      [start, showPoint],
-      [0.3, 1]
-    );
-    
-    // 透明度动画：从 0 到 1
-    const opacity = useTransform(
-      scrollYProgress,
-      [start, showPoint],
-      [0, 1]
-    );
-    
-    // Y 轴位移：从下方弹入
-    const y = useTransform(
-      scrollYProgress,
-      [start, showPoint],
-      [100, 0]
-    );
-    
-    return { scale, opacity, y };
-  };
-
   return (
     <div 
       ref={containerRef}
       style={{
-        height: `${Math.max(imageCount * 100, 300)}vh`, // 每张图片 100vh 滚动空间
+        height: `${Math.max(imageCount * 100, 300)}vh`,
         position: 'relative',
         background: bgColor
       }}
@@ -82,7 +168,7 @@ export const PopupSequenceScreen = ({
       }}>
         
         {/* 屏幕标识 */}
-        {screenNumber && (
+        {(screenNumber || screenLabel) && (
           <motion.div style={{
             position: 'absolute',
             top: '40px',
@@ -94,7 +180,7 @@ export const PopupSequenceScreen = ({
             letterSpacing: '2px',
             zIndex: 10
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </motion.div>
         )}
 
@@ -107,40 +193,76 @@ export const PopupSequenceScreen = ({
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          {images.map((image, index) => {
-            const { scale, opacity, y } = getImageAnimations(index);
-            
-            return (
-              <motion.div
-                key={`popup-${index}`}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  scale,
-                  opacity,
-                  y,
-                  zIndex: index + 1 // 后面的图片层级更高
-                }}
-              >
-                <img 
-                  src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
-                  alt={image.label || `Popup ${index + 1}`}
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.5))'
-                  }} 
-                />
-              </motion.div>
-            );
-          })}
+          {images.map((image, index) => (
+            <PopupImage
+              key={`popup-${index}`}
+              image={image}
+              index={index}
+              imageCount={imageCount}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
         </div>
       </div>
     </div>
+  );
+};
+
+/**
+ * 单张弹出图片（带动画）
+ */
+const PopupImage = ({ image, index, imageCount, scrollYProgress }) => {
+  const segmentSize = 1 / imageCount;
+  const start = index * segmentSize;
+  const showPoint = start + segmentSize * 0.3;
+  
+  // 缩放动画
+  const scale = useTransform(
+    scrollYProgress,
+    [start, showPoint],
+    [0.3, 1]
+  );
+  
+  // 透明度动画
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, showPoint],
+    [0, 1]
+  );
+  
+  // Y 轴位移
+  const y = useTransform(
+    scrollYProgress,
+    [start, showPoint],
+    [100, 0]
+  );
+
+  return (
+    <motion.div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        scale,
+        opacity,
+        y,
+        zIndex: index + 1
+      }}
+    >
+      <img 
+        src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
+        alt={image.label || `Popup ${index + 1}`}
+        style={{
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain',
+          borderRadius: 'var(--radius-image, 12px)',
+          filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.5))'
+        }} 
+      />
+    </motion.div>
   );
 };
 

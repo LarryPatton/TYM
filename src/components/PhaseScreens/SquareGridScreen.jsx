@@ -142,21 +142,92 @@ export const SquareGridScreen = ({
   
   // 根据列数调整间距（支持自定义 gap 和独立的 rowGap/columnGap）
   // 移动端使用更小的间距
-  const defaultGap = isMobile ? '12px' : (effectiveColumnCount >= 6 ? '12px' : '24px');
+  const defaultGap = isMobile ? '10px' : (effectiveColumnCount >= 6 ? '12px' : '24px');
   const gapSize = gap || defaultGap;
   const finalRowGap = rowGap || gapSize;
   const finalColumnGap = columnGap || gapSize;
-  const paddingTop = isMobile ? '20px' : (effectiveColumnCount >= 6 ? '30px' : '60px');
+  const paddingTop = isMobile ? '0' : (effectiveColumnCount >= 6 ? '30px' : '60px');
   
-  // 移动端缩短滚动行程
-  const mobileHeight = '150vh';
+  // 移动端：禁用 sticky，使用自然滚动
   const desktopHeight = hasAccessories ? (hasFlip ? '500vh' : '400vh') : '300vh';
 
+  // ============ 移动端：简化为垂直网格布局 ============
+  if (isMobile) {
+    return (
+      <section
+        ref={containerRef}
+        style={{
+          background: bgColor,
+          padding: '60px 16px 80px',
+          color: '#fff'
+        }}
+      >
+        {/* 屏幕标识 */}
+        {(screenNumber || screenLabel) && (
+          <div style={{
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.4)',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            textAlign: 'center',
+            marginBottom: '20px'
+          }}>
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
+          </div>
+        )}
+
+        {/* 移动端 2 列网格 */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '10px',
+          maxWidth: '100%'
+        }}>
+          {images.map((img, index) => (
+            <motion.div
+              key={`mobile-grid-${index}`}
+              style={{
+                aspectRatio: '1 / 1',
+                background: 'transparent',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                borderRadius: 'var(--radius-image, 8px)'
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: Math.min(index * 0.03, 0.3)
+              }}
+              viewport={{ once: true, margin: '-5%' }}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                alt={img.label || `Image ${index + 1}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  display: 'block',
+                  borderRadius: 'var(--radius-image, 8px)'
+                }}
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // ============ 桌面端：滚动视差网格 ============
   return (
     <div 
       ref={containerRef}
       style={{
-        height: isMobile ? mobileHeight : desktopHeight, 
+        height: desktopHeight, 
         position: 'relative',
         background: bgColor
       }}
@@ -176,19 +247,22 @@ export const SquareGridScreen = ({
       }}>
         
         {/* 屏幕标识 */}
-        <motion.div style={{
-          position: 'absolute',
-          top: '40px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          fontSize: '0.75rem',
-          color: 'rgba(255,255,255,0.4)',
-          textTransform: 'uppercase',
-          letterSpacing: '2px',
-          zIndex: 10
-        }}>
-          {screenNumber} / {screenLabel}
-        </motion.div>
+        {/* 屏幕标识 - 仅当两者都存在时显示 */}
+        {(screenNumber || screenLabel) && (
+          <motion.div style={{
+            position: 'absolute',
+            top: '40px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.4)',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            zIndex: 10
+          }}>
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
+          </motion.div>
+        )}
 
         {/* -------------------------------------------------- */}
         {/* Layer 1: Background Grid (响应式列数) */}
@@ -406,6 +480,7 @@ const GridItem = ({ image, index, isCenter, scale = 1 }) => {
           objectFit: 'contain', 
           display: 'block',
           background: 'transparent',
+          borderRadius: 'var(--radius-image, 12px)',
           filter: isCenter 
             ? 'drop-shadow(0 20px 25px rgba(0,0,0,0.5))' 
             : 'drop-shadow(0 12px 18px rgba(0,0,0,0.3))',

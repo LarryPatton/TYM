@@ -72,7 +72,7 @@ export const LogoScrollScreen = ({
             letterSpacing: '2px',
             marginBottom: 'var(--space-lg)'
           }}>
-            {screenNumber} / {screenLabel}
+            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </div>
           <h2 style={{
             fontFamily: 'var(--font-serif)',

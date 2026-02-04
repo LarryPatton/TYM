@@ -229,6 +229,14 @@
             "title": "色彩体系以长期使用为前提建立",
             "content": "通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。"
           },
+          "color-reveal": {
+            "title": "色彩揭示",
+            "content": "品牌色彩体系揭示展示。"
+          },
+          "logo-exploration": {
+            "title": "Logo 探索",
+            "content": "Logo 变体探索展示。"
+          },
           "typography": {
             "title": "字体与版式用于支撑信息表达，而非强化风格",
             "content": "清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。"
@@ -240,6 +248,10 @@
           "summary": {
             "title": "这一阶段的成果，并不是一个「完成态」的品牌",
             "content": "而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。"
+          },
+          "phase-closing": {
+            "title": "阶段收尾",
+            "content": "第一阶段完成，品牌视觉基础已建立。"
           }
         }
       },
@@ -251,15 +263,35 @@
             "content": "这是一次从概念到落地的完整产品设计实践。项目覆盖设计决策、执行验证与最终上线。",
             "emphasis": "这是一个被真正使用的产品。"
           },
+          "user-generation": {
+            "title": "目标用户代际分析",
+            "content": "了解不同代际用户的需求与偏好。"
+          },
           "boundaries": {
             "title": "设计并不是从创意开始，而是从边界开始",
             "content": "在资源、市场与目标明确前，任何设计都不可成立。",
             "emphasis": "先限定问题，才有解法。"
           },
+          "cmf-main": {
+            "title": "CMF 主体探索",
+            "content": "产品主体 CMF 色彩材质工艺探索。"
+          },
+          "cmf-color": {
+            "title": "CMF 色彩序列",
+            "content": "产品色彩序列系统化展示。"
+          },
           "cmf": {
             "title": "CMF 是连接品牌长期规划与产品落地的关键中介",
             "content": "它既要服务品牌表达，也必须服从产品功能与制造现实。",
             "emphasis": "美学不是目的，是约束下的结果。"
+          },
+          "factory-keycaps": {
+            "title": "工厂按键制造",
+            "content": "按键制造过程展示。"
+          },
+          "factory-backplate": {
+            "title": "工厂背板制造",
+            "content": "背板制造过程展示。"
           },
           "manufacturing": {
             "title": "设计决策必须在真实制造条件中被持续校验",
@@ -280,6 +312,14 @@
             "title": "一致性，是品牌被记住的前提",
             "content": "无论使用场景如何变化，识别应保持稳定。",
             "emphasis": "识别感不是装饰，是系统结果。"
+          },
+          "component-assembly": {
+            "title": "组件拼装展示",
+            "content": "产品组件拼装过程展示。"
+          },
+          "product-final": {
+            "title": "产品终图",
+            "content": "产品最终效果图展示。"
           },
           "closing": {
             "title": "这个产品验证了整套设计系统的可行性",
@@ -305,25 +345,45 @@
             "content": "从主体结构到细节配件，设计遵循同一套视觉逻辑与比例原则。",
             "emphasis": "一致性从组件层面开始建立"
           },
-          "document-gallery": {
-            "title": "系统化的设计交付",
-            "content": "完整的设计规范与文档确保设计意图能够被准确执行。",
-            "emphasis": "设计不止于图像，更在于规范"
+          "slide-grid": {
+            "title": "幻灯片展示",
+            "content": "产品设计规范幻灯片网格展示。"
           },
-          "sticky-upper": {
-            "title": "产品细节与材质表现",
-            "content": "通过不同角度与特写展示产品的工艺细节与质感处理。",
-            "emphasis": "细节决定品质感知"
+          "paired-document-grid": {
+            "title": "配对文档展示",
+            "content": "设计文档配对网格展示。"
           },
-          "sticky-lower": {
-            "title": "产品视觉的完整呈现",
-            "content": "从局部到整体，展示产品设计的完整视觉逻辑。",
-            "emphasis": "整体感来自每个局部的一致"
+          "fly-in-gallery": {
+            "title": "产品画廊",
+            "content": "产品多角度飞入展示。"
+          },
+          "grouped-carousel": {
+            "title": "产品分组展示",
+            "content": "产品系列分组轮播展示。"
+          },
+          "cards-marquee": {
+            "title": "卡片跑马灯",
+            "content": "产品卡片三行跑马灯展示。"
+          },
+          "square-grid": {
+            "title": "产品网格",
+            "content": "方形产品网格滚动渐现展示。"
+          },
+          "panorama-full": {
+            "title": "全景展示",
+            "content": "超宽全景产品图展示。"
           },
           "panorama-marquee": {
-            "title": "多场景下的产品表现",
-            "content": "产品在不同使用场景与展示方式下保持一致的品牌识别。",
-            "emphasis": "场景变化，识别不变"
+            "title": "跑马灯混合展示",
+            "content": "横条跑马灯、场景图与轮播混合展示。"
+          },
+          "product-grid-36": {
+            "title": "产品矩阵",
+            "content": "6×6 产品网格矩阵展示。"
+          },
+          "document-focus": {
+            "title": "文档聚焦",
+            "content": "设计文档聚焦放大展示。"
           },
           "gallery-upper": {
             "title": "设计规范的系统化文档",
@@ -348,30 +408,49 @@
           "intro": {
             "content": "当产品逐步进入市场，品牌视觉不再只存在于理想条件下，而需要在真实环境与多样场景中持续保持清晰与一致。"
           },
-          "packaging-system": {
-            "title": "包装被视为品牌系统的重要组成部分",
-            "content": "在产品数量增加的情况下，通过统一的结构与视觉逻辑，确保包装在不同规格与信息层级中依然保持品牌识别。"
+          "packaging-bag-series": {
+            "title": "袋装系列包装",
+            "content": "袋装产品包装设计展示。"
           },
-          "kv": {
-            "title": "主视觉并非独立存在，而是从品牌系统中生长",
-            "content": "通过统一的视觉母题与规则，主视觉能够在不同传播场景中保持一致表达，同时具备灵活延展性。"
+          "packaging-grid": {
+            "title": "包装形态系统",
+            "content": "胶盒装、铁盒装、子弹盒系列包装展示。"
           },
-          "regional": {
-            "title": "在不同区域与传播语境中，视觉需要适度调整，但不失核心识别",
-            "content": "系统的存在，使这些变化始终处于可控范围之内。"
+          "kv-marquee": {
+            "title": "主视觉跑马灯",
+            "content": "品牌主视觉三行流动展示。"
           },
-          "offline": {
-            "title": "真实环境往往是不理想的",
-            "content": "在不同光线、材质与空间条件下，品牌视觉仍能保持清晰与稳定，这是系统是否成立的重要检验。",
-            "note": "这是整个案例的「可信度锚点」"
+          "kv-popup": {
+            "title": "主视觉全屏展示",
+            "content": "品牌主视觉全屏切换展示。"
           },
-          "online-offline": {
-            "title": "线上与线下并非割裂的两个系统",
-            "content": "通过统一的视觉语言，品牌在不同触点中形成连续体验，而非碎片化呈现。"
+          "products-oil": {
+            "title": "烟油产品系列",
+            "content": "烟油产品系列网格展示。"
           },
-          "pressure": {
-            "title": "在复杂应用与真实使用中，品牌系统保持了稳定结构与清晰表达",
-            "content": "这标志着系统不再只是设计成果，而成为可被持续使用的品牌基础设施。"
+          "products-nano": {
+            "title": "Nano 产品系列",
+            "content": "Nano 产品系列密集展示。"
+          },
+          "products-kiyomi": {
+            "title": "Kiyomi 产品系列",
+            "content": "Kiyomi 产品配对滚动展示。"
+          },
+          "products-spark": {
+            "title": "Spark 产品系列",
+            "content": "Spark 产品与包装配对展示。"
+          },
+          "products-addone": {
+            "title": "Addone 产品系列",
+            "content": "Addone 产品与包装分行展示。"
+          },
+          "products-mingcang": {
+            "title": "Mingcang 产品系列",
+            "content": "Mingcang 产品系列网格展示。"
+          },
+          "products-mistflow": {
+            "title": "Mist Flow 产品系列",
+            "content": "Mist Flow 产品居中展示。"
           },
           "closing": {
             "title": "随着系统逐步成熟，设计开始真正融入品牌的日常运作",
@@ -386,17 +465,49 @@
           "intro": {
             "content": "当品牌从产品延展到空间，设计需要在三维环境中继续保持系统的完整性与识别度。"
           },
-          "retail-identity": {
-            "title": "零售空间作为品牌系统的物理载体",
-            "content": "通过统一的视觉语言与空间逻辑，零售环境成为品牌体验的重要组成部分。"
+          "kv-kiyomi": {
+            "title": "KIYOMI 主视觉",
+            "content": "KIYOMI 品牌主视觉设计展示。"
           },
-          "touchpoint-system": {
-            "title": "系统化的触点设计确保体验一致性",
-            "content": "从导视、陈列到服务细节，每个触点都承载品牌识别。"
+          "kv-nicotine-drops": {
+            "title": "尼古丁糖主视觉",
+            "content": "尼古丁糖产品系列主视觉设计。"
           },
-          "spatial-experience": {
-            "title": "空间体验不仅是视觉，更是品牌价值的具象化",
-            "content": "在真实场景中验证系统的适用性与灵活性。"
+          "kv-mixed-grid": {
+            "title": "混合产品主视觉",
+            "content": "CUBE、SPARK、MOTOR 系列混合主视觉展示。"
+          },
+          "kv-marquee-mix": {
+            "title": "M1·R15·烟油 主视觉",
+            "content": "M1、R15、烟油系列主视觉设计展示。"
+          },
+          "photo-cube": {
+            "title": "CUBE 产品实拍",
+            "content": "CUBE 系列产品实拍展示。"
+          },
+          "photo-motor": {
+            "title": "MOTOR 产品实拍",
+            "content": "MOTOR 系列产品实拍展示。"
+          },
+          "photo-display": {
+            "title": "展架实拍",
+            "content": "产品展架实拍展示。"
+          },
+          "photo-store": {
+            "title": "店面实拍",
+            "content": "零售店面实拍展示。"
+          },
+          "photo-packaging": {
+            "title": "包装实拍",
+            "content": "产品包装实拍展示。"
+          },
+          "photo-expo": {
+            "title": "展会实拍",
+            "content": "展会现场实拍展示。"
+          },
+          "mockups": {
+            "title": "效果图展示",
+            "content": "产品效果图与场景模拟。"
           },
           "closing": {
             "title": "零售空间的成功落地标志着品牌系统的成熟",
@@ -824,7 +935,12 @@
     "viewMore": "查看更多",
     "viewAll": "查看全部",
     "learnMore": "了解更多",
-    "scroll": "滚动"
+    "scroll": "滚动",
+    "backToTop": "回到顶部",
+    "swipeToExplore": "左右滑动浏览",
+    "swipeToViewWorks": "上滑查看作品",
+    "swipeToServices": "上滑查看服务",
+    "swipeToContact": "上滑联系我"
   },
   "footer": {
     "email": "邮箱",

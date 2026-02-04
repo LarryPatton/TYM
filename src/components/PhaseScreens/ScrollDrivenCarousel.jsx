@@ -96,7 +96,7 @@ export const ScrollDrivenCarousel = ({
                 letterSpacing: '2px',
                 marginBottom: '1rem'
               }}>
-                {screenNumber} / {screenLabel}
+                {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
               </div>
             )}
             {title && (

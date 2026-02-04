@@ -94,7 +94,7 @@ export const ComponentShowcaseScreen = ({
           letterSpacing: '2px',
           marginBottom: '24px'
         }}>
-          {screenNumber} / {screenLabel}
+          {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
         </div>
 
         <div style={{ maxWidth: '700px' }}>

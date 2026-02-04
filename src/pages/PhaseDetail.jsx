@@ -60,6 +60,7 @@ import {
   NaturalParallaxGrid, // 自然滚动视差网格组件
   AutoSequencePopup, // 自动顺序弹出组件
   TransitionProvider,
+  LayoutDebugPanel, // 布局调试面板
   // TransitionDebugger, // 已禁用：移除调试工具
 } from '../components/PhaseScreens';
 // import { ExportConfigButton } from '../components/PhaseScreens/ExportConfigButton'; // 已禁用：移除调试工具
@@ -72,6 +73,12 @@ const PhaseDetail = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
   const isMobile = useIsMobile();
   
+  // 开发环境启用调试模式
+  const isDev = import.meta.env.DEV;
+  
+  // 调试参数状态 - 用于实时预览
+  const [debugParams, setDebugParams] = useState({});
+  
   const phase = phasesConfig[phaseId];
   const nextPhaseConfig = getNextPhase(phaseId);
   
@@ -83,15 +90,50 @@ const PhaseDetail = () => {
   
   // 根据当前产品过滤screens
   const filteredScreens = useMemo(() => {
-    if (!phase || !hasProductFilter) {
-      return phase?.screens || [];
+    if (!phase) return [];
+    
+    let screens = phase.screens || [];
+    
+    // 产品过滤：保留intro(product=null) + 当前产品的screens
+    if (hasProductFilter) {
+      screens = screens.filter(screen => 
+        screen.product === null || screen.product === currentProduct
+      );
     }
     
-    // 过滤：保留intro(product=null) + 当前产品的screens
-    return phase.screens.filter(screen => 
-      screen.product === null || screen.product === currentProduct
-    );
-  }, [phase, currentProduct, hasProductFilter]);
+    // 移动端优化：将相邻的 auto-sequence-popup 屏幕两两合并
+    if (isMobile && phaseId === 'phase-06') {
+      const mergedScreens = [];
+      let i = 0;
+      
+      while (i < screens.length) {
+        const current = screens[i];
+        const next = screens[i + 1];
+        
+        // 检查当前和下一个是否都是 auto-sequence-popup 类型
+        if (current.type === 'auto-sequence-popup' && 
+            next && next.type === 'auto-sequence-popup') {
+          // 合并两个屏幕：添加 dualMode 和 images2 属性
+          mergedScreens.push({
+            ...current,
+            dualMode: true,
+            images2: next.images || [],
+            // 合并后的 ID 包含两个屏幕
+            mergedId: `${current.id}-${next.id}`
+          });
+          i += 2; // 跳过下一个屏幕
+        } else {
+          // 不合并，正常添加
+          mergedScreens.push(current);
+          i += 1;
+        }
+      }
+      
+      return mergedScreens;
+    }
+    
+    return screens;
+  }, [phase, currentProduct, hasProductFilter, isMobile, phaseId]);
   
   // 产品切换处理：切换产品并滚动到该产品的第一屏
   const handleProductChange = useCallback((newProduct) => {
@@ -105,12 +147,13 @@ const PhaseDetail = () => {
       );
       
       if (firstProductScreen) {
+        // 使用瞬时滚动（instant），避免在平滑滚动期间触发途经屏幕的动画
         firstProductScreen.scrollIntoView({ 
-          behavior: 'smooth', 
+          behavior: 'instant', 
           block: 'start' 
         });
       }
-    }, 100);
+    }, 150);
   }, []);
   
   useTitle(t(`case.phases.${phaseId}.title`) + ' | ' + t('case.pageTitle'));
@@ -339,11 +382,27 @@ const PhaseDetail = () => {
   // 获取 phase 统一背景色，默认深黑
   const phaseBgColor = phase.bgColor || '#0a0a0a';
 
+  // 合并调试参数到屏幕配置（用于实时预览）
+  const mergeDebugParams = useCallback((config) => {
+    if (!isDev || !debugParams || Object.keys(debugParams).length === 0) {
+      return config;
+    }
+    // 只有当前屏幕才应用调试参数
+    const currentConfig = filteredScreens[currentScreen - 1];
+    if (currentConfig && currentConfig.id === config.id) {
+      return { ...config, ...debugParams };
+    }
+    return config;
+  }, [isDev, debugParams, currentScreen, filteredScreens]);
+
   // 渲染单个屏幕
   const renderScreen = (screenConfig, index) => {
-    const screenNumber = String(index + 1).padStart(2, '0');
-    const screenLabel = t(`case.screenLabels.${screenConfig.id}`, { defaultValue: screenConfig.id });
-    const screenData = t(`case.phases.${phase.id}.screens.${screenConfig.id}`, { returnObjects: true });
+    // 合并调试参数（实时预览）
+    const config = mergeDebugParams(screenConfig);
+    // 顶部屏幕标识已移至胶囊导航，组件内不再显示
+    const screenNumber = null;
+    const screenLabel = null;
+    const screenData = t(`case.phases.${phase.id}.screens.${config.id}`, { returnObjects: true });
     
     // 特殊处理 Logo 屏幕 (旧逻辑，现在通过 type 判断)
     if (screenConfig.id === 'logo' && phase.id === 'phase-01') {
@@ -402,17 +461,17 @@ const PhaseDetail = () => {
       );
     }
 
-    switch (screenConfig.type) {
+    switch (config.type) {
       case 'intro':
         return (
           <IntroScreen
-            key={screenConfig.id}
+            key={config.id}
             phaseNumber={phase.number}
             titleEn={phase.titleEn}
             titleZh={t(`case.phases.${phase.id}.title`)}
             content={screenData?.content || ''}
-            imageHint={screenConfig.imageHint}
-            bgImage={screenConfig.bgImage}
+            imageHint={config.imageHint}
+            bgImage={config.bgImage}
           />
         );
 
@@ -571,6 +630,44 @@ const PhaseDetail = () => {
         );
 
       case 'three-row-marquee':
+        // 检查是否需要 sticky 效果
+        const isSticky = screenConfig.scrollBehavior?.sticky === true;
+        const stickyHeight = screenConfig.stickyHeight || 150; // 默认 150vh 滚动高度
+        
+        if (isSticky) {
+          // Sticky 模式：跑马灯固定在屏幕，用户需要滚动一段距离才能离开
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${stickyHeight}vh`, // 滚动高度
+                position: 'relative',
+                background: '#000',
+              }}
+            >
+              {/* Sticky 容器 */}
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                padding: 'var(--space-4xl) 0',
+              }}>
+                <ThreeRowMarquee
+                  images={screenConfig.images || []}
+                  bgColor="#000"
+                  showGradient={screenConfig.showGradient !== false}
+                />
+              </div>
+            </div>
+          );
+        }
+        
+        // 非 Sticky 模式：普通渲染
         return (
           <section
             key={screenConfig.id}
@@ -613,17 +710,19 @@ const PhaseDetail = () => {
       case 'natural-parallax-grid':
         return (
           <NaturalParallaxGrid
-            key={screenConfig.id}
+            key={config.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenConfig.title || ''}
-            groups={screenConfig.groups || []}
-            images={screenConfig.images || []}
-            columns={screenConfig.columns || 3}
-            gap={screenConfig.gap || '24px'}
-            paddingTop={screenConfig.paddingTop || 60}
-            bgColor={screenConfig.bgColor || '#000'}
-            parallaxIntensity={screenConfig.parallaxIntensity || 0.3}
+            title={config.title || ''}
+            groups={config.groups || []}
+            images={config.images || []}
+            columns={config.columns || 3}
+            gap={config.gap || '24px'}
+            rowGap={config.rowGap}
+            paddingTop={config.paddingTop || 60}
+            bgColor={config.bgColor || '#000'}
+            parallaxIntensity={config.parallaxIntensity || 0.3}
+            compactMode={config.compactMode || false}
           />
         );
 
@@ -713,13 +812,16 @@ const PhaseDetail = () => {
       case 'grouped-carousel':
         return (
           <GroupedCarouselScreen
-            key={screenConfig.id}
+            key={config.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={screenData?.title || ''}
             content={screenData?.content || ''}
-            groups={screenConfig.groups || []}
+            groups={config.groups || []}
             bgColor="#000"
+            rowGap={config.rowGap || '24px'}
+            showGroupLabel={config.showGroupLabel !== false}
+            showItemCount={config.showItemCount !== false}
           />
         );
 
@@ -733,19 +835,24 @@ const PhaseDetail = () => {
             content={screenData?.content || ''}
             pairs={screenConfig.pairs || []}
             bgColor="#000"
+            showLabel={screenConfig.showLabel !== false} // 默认显示标签，配置为 false 时隐藏
           />
         );
 
       case 'two-row-static':
         return (
           <TwoRowStaticScreen
-            key={screenConfig.id}
+            key={config.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenConfig.title || screenData?.title || ''}
-            layout={screenConfig.layout}
-            images={screenConfig.images || []}
+            title={config.title || screenData?.title || ''}
+            layout={config.layout}
+            images={config.images || []}
             bgColor="#000"
+            sticky={config.sticky || false}
+            stickyHeight={config.stickyHeight || 150}
+            showItemCount={config.showItemCount !== false}
+            sequentialPopup={config.sequentialPopup || false}
           />
         );
 
@@ -778,11 +885,13 @@ const PhaseDetail = () => {
       case 'auto-sequence-popup':
         return (
           <AutoSequencePopup
-            key={screenConfig.id}
+            key={screenConfig.mergedId || screenConfig.id}
             images={screenConfig.images || []}
+            images2={screenConfig.images2 || []} // 第二组图片（移动端双区域）
             interval={screenConfig.interval || 300}
             duration={screenConfig.duration || 0.6}
             bgColor={screenConfig.bgColor || phaseBgColor || '#000'}
+            dualMode={screenConfig.dualMode || false} // 双区域模式
           />
         );
 
@@ -924,8 +1033,8 @@ const PhaseDetail = () => {
       case 'phase-closing':
         return (
           <PhaseClosingScreen
-            key={screenConfig.id}
-            bgImage={screenConfig.bgImage}
+            key={config.id}
+            bgImage={config.bgImage}
             nextPhase={nextPhaseConfig ? {
               id: nextPhaseConfig.id,
               titleZh: t(`case.phases.${nextPhaseConfig.id}.title`)
@@ -933,6 +1042,8 @@ const PhaseDetail = () => {
             backLabel={t('case.backToIndex')}
             nextLabel={t('case.nextPhase')}
             onNavigate={navigate}
+            sticky={config.sticky || false}
+            stickyHeight={config.stickyHeight || 150}
           />
         );
       
@@ -959,9 +1070,6 @@ const PhaseDetail = () => {
         return null;
     }
   };
-
-  // 开发环境启用调试模式
-  const isDev = import.meta.env.DEV;
 
   return (
     <>
@@ -1064,6 +1172,20 @@ const PhaseDetail = () => {
               <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
               <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
               <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
+              {/* 当前屏幕标题 */}
+              {(() => {
+                const currentScreenConfig = phase.screens?.[currentScreen - 1];
+                const screenTitle = currentScreenConfig?.categoryLabel;
+                if (screenTitle) {
+                  return (
+                    <>
+                      <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
+                      <span style={{ opacity: 0.7 }}>{screenTitle}</span>
+                    </>
+                  );
+                }
+                return null;
+              })()}
             </Link>
           </motion.div>
         )}
@@ -1183,6 +1305,16 @@ const PhaseDetail = () => {
           totalScreens={filteredScreens.length} 
         />
 
+        {/* 布局调试面板 - 仅开发环境显示 */}
+        {isDev && !isMobile && (
+          <LayoutDebugPanel
+            currentScreenConfig={filteredScreens[currentScreen - 1]}
+            phaseId={phase.id}
+            visible={currentScreen > 0}
+            onParamsChange={setDebugParams}
+          />
+        )}
+
         {/* Process Anchor Navigation */}
         {phase.processFlow && (
           <ProcessAnchor 
@@ -1199,8 +1331,13 @@ const PhaseDetail = () => {
             screenConfig.product === currentProduct && 
             index === filteredScreens.length - 1;
           
+          // key 包含 currentProduct，确保切换产品时组件重新挂载，动画状态重置
+          const screenKey = hasProductFilter 
+            ? `${screenConfig.id}-${currentProduct}` 
+            : screenConfig.id;
+          
           return (
-            <React.Fragment key={screenConfig.id}>
+            <React.Fragment key={screenKey}>
               <div 
                 id={screenConfig.id} 
                 className="phase-screen-wrapper"
@@ -1215,6 +1352,7 @@ const PhaseDetail = () => {
                 <ProductEndHint 
                   currentProduct={currentProduct}
                   availableProducts={phase.products}
+                  onSwitchProduct={handleProductChange}
                 />
               )}
             </React.Fragment>

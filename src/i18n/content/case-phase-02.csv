@@ -3,12 +3,22 @@ case.phases.phase-02.title,产品 A：从概念到落地,Product A: From Concept
 case.phases.phase-02.desc,"首款产品的完整设计过程，从概念探索到最终上市。","The complete design process of the first product, from concept exploration to final launch."
 case.phases.phase-02.screens.intro.content,"这是一次从概念到落地的完整产品设计实践。项目覆盖设计决策、执行验证与最终上线。","This is a complete product design practice from concept to launch. The project covers design decisions, execution verification, and final launch."
 case.phases.phase-02.screens.intro.emphasis,这是一个被真正使用的产品。,This is a product that is truly used.
+case.phases.phase-02.screens.user-generation.title,目标用户代际分析,Target User Generation Analysis
+case.phases.phase-02.screens.user-generation.content,了解不同代际用户的需求与偏好。,Understanding the needs and preferences of different generations.
 case.phases.phase-02.screens.boundaries.title,"设计并不是从创意开始，而是从边界开始","Design doesn't start with creativity, but with boundaries"
 case.phases.phase-02.screens.boundaries.content,"在资源、市场与目标明确前，任何设计都不可成立。","Before resources, market, and goals are clear, no design can be established."
 case.phases.phase-02.screens.boundaries.emphasis,"先限定问题，才有解法。","Define the problem first, then find the solution."
+case.phases.phase-02.screens.cmf-main.title,CMF 主体探索,CMF Main Exploration
+case.phases.phase-02.screens.cmf-main.content,产品主体 CMF 色彩材质工艺探索。,Product main CMF color material finish exploration.
+case.phases.phase-02.screens.cmf-color.title,CMF 色彩序列,CMF Color Sequence
+case.phases.phase-02.screens.cmf-color.content,产品色彩序列系统化展示。,Product color sequence systematic showcase.
 case.phases.phase-02.screens.cmf.title,CMF 是连接品牌长期规划与产品落地的关键中介,CMF is the key intermediary connecting brand long-term planning with product implementation
 case.phases.phase-02.screens.cmf.content,"它既要服务品牌表达，也必须服从产品功能与制造现实。","It must serve brand expression while also conforming to product function and manufacturing reality."
 case.phases.phase-02.screens.cmf.emphasis,"美学不是目的，是约束下的结果。","Aesthetics is not the goal, but the result under constraints."
+case.phases.phase-02.screens.factory-keycaps.title,工厂按键制造,Factory Keycap Manufacturing
+case.phases.phase-02.screens.factory-keycaps.content,按键制造过程展示。,Keycap manufacturing process showcase.
+case.phases.phase-02.screens.factory-backplate.title,工厂背板制造,Factory Backplate Manufacturing
+case.phases.phase-02.screens.factory-backplate.content,背板制造过程展示。,Backplate manufacturing process showcase.
 case.phases.phase-02.screens.manufacturing.title,设计决策必须在真实制造条件中被持续校验,Design decisions must be continuously validated in real manufacturing conditions
 case.phases.phase-02.screens.manufacturing.content,"从物料、配件到工厂样品，设计始终处于反馈回路中。","From materials, components to factory samples, design is always in the feedback loop."
 case.phases.phase-02.screens.manufacturing.emphasis,设计不是在图里完成的。,Design is not completed in drawings.
@@ -21,6 +31,10 @@ case.phases.phase-02.screens.packaging.emphasis,"第一触点，决定第一判�
 case.phases.phase-02.screens.consistency.title,"一致性，是品牌被记住的前提","Consistency is the prerequisite for a brand to be remembered"
 case.phases.phase-02.screens.consistency.content,"无论使用场景如何变化，识别应保持稳定。","Regardless of how usage scenarios change, recognition should remain stable."
 case.phases.phase-02.screens.consistency.emphasis,"识别感不是装饰，是系统结果。","Recognition is not decoration, but a system result."
+case.phases.phase-02.screens.component-assembly.title,组件拼装展示,Component Assembly Display
+case.phases.phase-02.screens.component-assembly.content,产品组件拼装过程展示。,Product component assembly process showcase.
+case.phases.phase-02.screens.product-final.title,产品终图,Product Final Shot
+case.phases.phase-02.screens.product-final.content,产品最终效果图展示。,Product final rendering showcase.
 case.phases.phase-02.screens.closing.title,这个产品验证了整套设计系统的可行性,This product validates the feasibility of the entire design system
 case.phases.phase-02.screens.closing.content,它为后续产品与设计决策提供了可复用的参考模型。,It provides a reusable reference model for subsequent products and design decisions.
 case.phases.phase-02.screens.closing.emphasis,"这不是一个案例，而是一个样本。","This is not a case, but a sample."

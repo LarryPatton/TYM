@@ -8,18 +8,26 @@ case.phases.phase-03.screens.concept-comparison.emphasis,差异化是被系统�
 case.phases.phase-03.screens.component-showcase.title,核心组件保持一致的设计语言,Core components maintain consistent design language
 case.phases.phase-03.screens.component-showcase.content,"从主体结构到细节配件，设计遵循同一套视觉逻辑与比例原则。","From main structure to detail components, design follows the same visual logic and proportion principles."
 case.phases.phase-03.screens.component-showcase.emphasis,一致性从组件层面开始建立,Consistency starts from the component level
-case.phases.phase-03.screens.document-gallery.title,系统化的设计交付,Systematic design delivery
-case.phases.phase-03.screens.document-gallery.content,完整的设计规范与文档确保设计意图能够被准确执行。,Complete design specifications and documentation ensure design intent can be accurately executed.
-case.phases.phase-03.screens.document-gallery.emphasis,"设计不止于图像，更在于规范","Design goes beyond images, it's about specifications"
-case.phases.phase-03.screens.sticky-upper.title,产品细节与材质表现,Product details and material expression
-case.phases.phase-03.screens.sticky-upper.content,通过不同角度与特写展示产品的工艺细节与质感处理。,Showcasing product craftsmanship details and texture treatment through different angles and close-ups.
-case.phases.phase-03.screens.sticky-upper.emphasis,细节决定品质感知,Details determine quality perception
-case.phases.phase-03.screens.sticky-lower.title,产品视觉的完整呈现,Complete visual presentation of the product
-case.phases.phase-03.screens.sticky-lower.content,"从局部到整体，展示产品设计的完整视觉逻辑。","From parts to whole, showing the complete visual logic of product design."
-case.phases.phase-03.screens.sticky-lower.emphasis,整体感来自每个局部的一致,The overall sense comes from consistency in every part
-case.phases.phase-03.screens.panorama-marquee.title,多场景下的产品表现,Product performance in multiple scenarios
-case.phases.phase-03.screens.panorama-marquee.content,产品在不同使用场景与展示方式下保持一致的品牌识别。,Products maintain consistent brand recognition across different usage scenarios and display methods.
-case.phases.phase-03.screens.panorama-marquee.emphasis,"场景变化，识别不变","Scenarios change, recognition remains"
+case.phases.phase-03.screens.slide-grid.title,幻灯片展示,Slide Presentation
+case.phases.phase-03.screens.slide-grid.content,产品设计规范幻灯片网格展示。,Product design specification slide grid showcase.
+case.phases.phase-03.screens.paired-document-grid.title,配对文档展示,Paired Document Display
+case.phases.phase-03.screens.paired-document-grid.content,设计文档配对网格展示。,Design document paired grid showcase.
+case.phases.phase-03.screens.fly-in-gallery.title,产品画廊,Product Gallery
+case.phases.phase-03.screens.fly-in-gallery.content,产品多角度飞入展示。,Product multi-angle fly-in showcase.
+case.phases.phase-03.screens.grouped-carousel.title,产品分组展示,Product Group Display
+case.phases.phase-03.screens.grouped-carousel.content,产品系列分组轮播展示。,Product series grouped carousel showcase.
+case.phases.phase-03.screens.cards-marquee.title,卡片跑马灯,Cards Marquee
+case.phases.phase-03.screens.cards-marquee.content,产品卡片三行跑马灯展示。,Product cards three-row marquee showcase.
+case.phases.phase-03.screens.square-grid.title,产品网格,Product Grid
+case.phases.phase-03.screens.square-grid.content,方形产品网格滚动渐现展示。,Square product grid scroll reveal showcase.
+case.phases.phase-03.screens.panorama-full.title,全景展示,Panorama Display
+case.phases.phase-03.screens.panorama-full.content,超宽全景产品图展示。,Ultra-wide panorama product showcase.
+case.phases.phase-03.screens.panorama-marquee.title,跑马灯混合展示,Marquee Mixed Display
+case.phases.phase-03.screens.panorama-marquee.content,"横条跑马灯、场景图与轮播混合展示。","Marquee, scene and carousel mixed showcase."
+case.phases.phase-03.screens.product-grid-36.title,产品矩阵,Product Matrix
+case.phases.phase-03.screens.product-grid-36.content,6×6 产品网格矩阵展示。,6×6 product grid matrix showcase.
+case.phases.phase-03.screens.document-focus.title,文档聚焦,Document Focus
+case.phases.phase-03.screens.document-focus.content,设计文档聚焦放大展示。,Design document focus lens showcase.
 case.phases.phase-03.screens.gallery-upper.title,设计规范的系统化文档,Systematic documentation of design specifications
 case.phases.phase-03.screens.gallery-upper.content,完整的设计指南确保品牌在任何触点都能被一致表达。,Complete design guidelines ensure the brand can be consistently expressed at any touchpoint.
 case.phases.phase-03.screens.gallery-upper.emphasis,规范是一致性的保障,Specifications are the guarantee of consistency
