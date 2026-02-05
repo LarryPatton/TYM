@@ -1,14 +1,12 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * 斜切图片展示组件
+ * 斜切图片展示组件 - 每张图片独立完整显示
  * 
  * @param {Array} images - 图片数组，每项包含 { id, image?, title?, hueStart? }
  * @param {boolean} isDark - 是否暗色模式
- * @param {number} slantOffset - 倾斜偏移量（百分比），默认 15
- * @param {number} leftShift - 整体左移量（百分比），默认 -8
+ * @param {number} slantOffset - 倾斜偏移量（百分比），默认 8
  * @param {boolean} animated - 是否启用动画，默认 true
  * @param {string} height - 容器高度，默认 '100%'
  * @param {number} animationDelay - 动画开始延迟（秒），默认 0
@@ -17,8 +15,7 @@ import { motion } from 'framer-motion';
 const SlicedImageDisplay = ({ 
   images = [], 
   isDark = false,
-  slantOffset = 15,
-  leftShift = -8,
+  slantOffset = 8,
   animated = true,
   height = '100%',
   animationDelay = 0,
@@ -38,60 +35,93 @@ const SlicedImageDisplay = ({
     );
   }
   
-  // 计算每个切片的 clip-path（斜线从右上向左下）
-  const getClipPath = (index) => {
-    const totalSlices = sliceCount;
-    const sliceWidth = 100 / totalSlices;
+  // 计算每个切片的宽度（考虑斜切重叠）
+  // 为了让所有切片都在 0-100% 范围内，需要调整计算方式
+  const effectiveWidth = 100 - slantOffset; // 有效宽度（减去斜切偏移）
+  const sliceWidth = effectiveWidth / sliceCount;
+  
+  // 计算每个切片的位置和裁切路径
+  const getSliceStyle = (index) => {
+    // 每个切片的基础位置
+    const baseLeft = index * sliceWidth;
     
-    // 计算左右边界位置 - 顶部向右偏移，底部不偏移，整体向左移动
-    const leftTop = index * sliceWidth + slantOffset + leftShift;
-    const leftBottom = index * sliceWidth + leftShift;
-    const rightTop = (index + 1) * sliceWidth + slantOffset + leftShift;
-    const rightBottom = (index + 1) * sliceWidth + leftShift;
+    // 左边界（底部在 baseLeft，顶部向右偏移 slantOffset）
+    const leftBottom = baseLeft;
+    const leftTop = baseLeft + slantOffset;
     
-    // 第一个和最后一个切片需要特殊处理边界
+    // 右边界
+    const rightBottom = baseLeft + sliceWidth;
+    const rightTop = baseLeft + sliceWidth + slantOffset;
+    
+    // 实际容器的位置和宽度
+    let startX, endX;
+    
     if (index === 0) {
-      return `polygon(0% 0%, ${rightTop}% 0%, ${rightBottom}% 100%, 0% 100%)`;
+      // 第一个切片：从 0 开始
+      startX = 0;
+      endX = rightTop;
+    } else if (index === sliceCount - 1) {
+      // 最后一个切片：到 100 结束
+      startX = leftBottom;
+      endX = 100;
+    } else {
+      // 中间切片
+      startX = leftBottom;
+      endX = rightTop;
     }
-    if (index === totalSlices - 1) {
-      return `polygon(${leftTop}% 0%, 100% 0%, 100% 100%, ${leftBottom}% 100%)`;
+    
+    const width = endX - startX;
+    
+    // 计算相对于切片容器的 clip-path
+    let clipPath;
+    if (index === 0) {
+      // 第一个切片：左边是直线
+      const relRightTop = ((rightTop - startX) / width) * 100;
+      const relRightBottom = ((rightBottom - startX) / width) * 100;
+      clipPath = `polygon(0% 0%, ${relRightTop}% 0%, ${relRightBottom}% 100%, 0% 100%)`;
+    } else if (index === sliceCount - 1) {
+      // 最后一个切片：右边是直线
+      const relLeftTop = ((leftTop - startX) / width) * 100;
+      const relLeftBottom = ((leftBottom - startX) / width) * 100;
+      clipPath = `polygon(${relLeftTop}% 0%, 100% 0%, 100% 100%, ${relLeftBottom}% 100%)`;
+    } else {
+      // 中间切片：两边都是斜线
+      const relLeftTop = ((leftTop - startX) / width) * 100;
+      const relLeftBottom = ((leftBottom - startX) / width) * 100;
+      const relRightTop = ((rightTop - startX) / width) * 100;
+      const relRightBottom = ((rightBottom - startX) / width) * 100;
+      clipPath = `polygon(${relLeftTop}% 0%, ${relRightTop}% 0%, ${relRightBottom}% 100%, ${relLeftBottom}% 100%)`;
     }
-    return `polygon(${leftTop}% 0%, ${rightTop}% 0%, ${rightBottom}% 100%, ${leftBottom}% 100%)`;
+    
+    return {
+      left: `${startX}%`,
+      width: `${width}%`,
+      clipPath,
+      // 用于分隔线
+      lineTopX: rightTop,
+      lineBottomX: rightBottom,
+    };
   };
   
-  // 动画变体：滑入 + 斜切
-  const imageSlideIn = {
+  // 动画变体
+  const sliceAnimation = {
     hidden: { 
-      x: '100%',
-      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      opacity: 0,
+      x: 50,
     },
     visible: (index) => ({ 
-      x: '0%',
-      clipPath: [
-        'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        getClipPath(index),
-      ],
+      opacity: 1,
+      x: 0,
       transition: { 
-        x: {
-          duration: 1.2,
-          delay: animationDelay + index * 0.25,
-          ease: [0.16, 1, 0.3, 1]
-        },
-        clipPath: {
-          times: [0, 0.7, 1],
-          duration: 1.2 + 0.25 * (sliceCount - 1) + 0.6,
-          delay: animationDelay + index * 0.25,
-          ease: [0.16, 1, 0.3, 1]
-        }
+        duration: 0.8,
+        delay: animationDelay + index * 0.15,
+        ease: [0.16, 1, 0.3, 1]
       }
     })
   };
   
-  // 静态版本（无动画）
-  const staticStyle = (index) => ({
-    clipPath: getClipPath(index),
-  });
+  // 预计算所有切片样式（用于分隔线）
+  const sliceStyles = images.map((_, index) => getSliceStyle(index));
   
   return (
     <div style={{
@@ -101,127 +131,124 @@ const SlicedImageDisplay = ({
       height: '100%',
       overflow: 'hidden',
     }}>
-      {images.map((item, index) => (
-        animated ? (
+      {images.map((item, index) => {
+        const sliceStyle = sliceStyles[index];
+        const hue = hueStart + index * 12;
+        const hasImage = item.image && typeof item.image === 'string';
+        
+        const content = hasImage ? (
+          <img
+            src={item.image.startsWith('http') 
+              ? item.image 
+              : `${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`
+            }
+            alt={item.title || `Image ${index + 1}`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+            }}
+          />
+        ) : (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: isDark
+              ? `linear-gradient(135deg, 
+                  hsl(${hue}, 35%, 22%) 0%, 
+                  hsl(${hue + 10}, 30%, 15%) 100%)`
+              : `linear-gradient(135deg, 
+                  hsl(${hue}, 20%, 82%) 0%, 
+                  hsl(${hue + 10}, 25%, 72%) 100%)`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <span style={{
+              fontSize: '1.2rem',
+              fontWeight: '600',
+              color: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}>
+              {String(index + 1).padStart(2, '0')}
+            </span>
+          </div>
+        );
+        
+        return animated ? (
           <motion.div
             key={item.id || index}
             custom={index}
             initial="hidden"
             animate="visible"
-            variants={imageSlideIn}
+            variants={sliceAnimation}
             style={{
               position: 'absolute',
-              inset: 0,
+              top: 0,
+              bottom: 0,
+              left: sliceStyle.left,
+              width: sliceStyle.width,
+              clipPath: sliceStyle.clipPath,
               zIndex: index + 1,
+              overflow: 'hidden',
             }}
           >
-            <ImageContent item={item} index={index} isDark={isDark} totalCount={sliceCount} hueStart={hueStart} />
+            {content}
           </motion.div>
         ) : (
           <div
             key={item.id || index}
             style={{
               position: 'absolute',
-              inset: 0,
+              top: 0,
+              bottom: 0,
+              left: sliceStyle.left,
+              width: sliceStyle.width,
+              clipPath: sliceStyle.clipPath,
               zIndex: index + 1,
-              ...staticStyle(index),
+              overflow: 'hidden',
             }}
           >
-            <ImageContent item={item} index={index} isDark={isDark} totalCount={sliceCount} hueStart={hueStart} />
+            {content}
           </div>
-        )
-      ))}
-      
-      {/* 斜线分隔线 */}
-      {images.slice(0, -1).map((_, index) => {
-        const sliceWidth = 100 / sliceCount;
-        const lineTopX = (index + 1) * sliceWidth + slantOffset + leftShift;
-        const lineBottomX = (index + 1) * sliceWidth + leftShift;
-        
-        return (
-          <svg
-            key={`line-${index}`}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none',
-              zIndex: sliceCount + 1,
-            }}
-          >
-            <line
-              x1={`${lineTopX}%`}
-              y1="0%"
-              x2={`${lineBottomX}%`}
-              y2="100%"
-              stroke={isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)"}
-              strokeWidth="1"
-            />
-          </svg>
         );
       })}
-    </div>
-  );
-};
-
-// 图片内容子组件
-const ImageContent = ({ item, index, isDark, totalCount, hueStart = 200 }) => {
-  const hasImage = item.image && typeof item.image === 'string';
-  // 使用传入的 hueStart，每张图片 hue 偏移 12
-  const hue = hueStart + index * 12;
-  
-  // 容器样式 - 确保占满整个空间
-  const containerStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: '100%',
-    height: '100%',
-  };
-  
-  return (
-    <>
-      {hasImage ? (
-        <img
-          src={item.image.startsWith('http') 
-            ? item.image 
-            : `${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`
-          }
-          alt={item.title || `Image ${index + 1}`}
+      
+      {/* 斜线分隔线 - 深浅模式适配 */}
+      {sliceStyles.slice(0, -1).map((style, index) => (
+        <svg
+          key={`line-${index}`}
           style={{
-            ...containerStyle,
-            objectFit: 'cover',
-            objectPosition: 'center',
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: sliceCount + 10,
           }}
-        />
-      ) : (
-        <div style={{
-          ...containerStyle,
-          background: isDark
-            ? `linear-gradient(135deg, 
-                hsl(${hue}, 35%, 22%) 0%, 
-                hsl(${hue + 10}, 30%, 15%) 100%)`
-            : `linear-gradient(135deg, 
-                hsl(${hue}, 20%, 82%) 0%, 
-                hsl(${hue + 10}, 25%, 72%) 100%)`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <span style={{
-            fontSize: '1.2rem',
-            fontWeight: '600',
-            color: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)',
-            fontFamily: 'var(--font-mono, monospace)',
-          }}>
-            {String(index + 1).padStart(2, '0')}
-          </span>
-        </div>
-      )}
-    </>
+        >
+          {/* 主分隔线 - 深色模式用亮色，浅色模式用白色 */}
+          <line
+            x1={`${style.lineTopX}%`}
+            y1="0%"
+            x2={`${style.lineBottomX}%`}
+            y2="100%"
+            stroke={isDark ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.95)"}
+            strokeWidth="2"
+          />
+          {/* 阴影线（增强立体感） - 深色模式用深色阴影，浅色模式用浅色阴影 */}
+          <line
+            x1={`${style.lineTopX + 0.2}%`}
+            y1="0%"
+            x2={`${style.lineBottomX + 0.2}%`}
+            y2="100%"
+            stroke={isDark ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.1)"}
+            strokeWidth="1"
+          />
+        </svg>
+      ))}
+    </div>
   );
 };
 

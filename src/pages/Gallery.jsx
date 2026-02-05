@@ -458,7 +458,8 @@ const Gallery = () => {
         paddingLeft: '12px',
         borderLeft: `2px solid ${styles.label.borderColor}`,
         fontWeight: '500',
-        letterSpacing: '0.02em'
+        letterSpacing: '0.02em',
+        textShadow: styles.label.textShadow || 'none', // 添加阴影支持
       }}
     >
       {text}
@@ -486,26 +487,46 @@ const Gallery = () => {
     cta: { color: '#fff', fontWeight: '600' },
   };
 
-  // 亮色模式样式
-  const lightStyles = {
+  // 亮色模式样式 - PC端：文字使用白色+阴影，确保在彩色背景上可读（与 Work 页面一致）
+  const lightStylesDesktop = {
     page: {
       backgroundColor: '#f8f8f8',
       color: '#1a1a1a'
     },
     card: {
-      height: 'calc(100vh - var(--nav-height))', // 单屏展示，扣除导航栏高度
+      height: 'calc(100vh - var(--nav-height))',
       padding: 'clamp(60px, 10vw, 120px)',
       backgroundColor: '#ffffff',
-      boxSizing: 'border-box', // 确保 padding 包含在高度内
-      overflow: 'hidden' // 防止内容溢出
+      boxSizing: 'border-box',
+      overflow: 'hidden'
     },
-    label: { color: '#333', borderColor: '#999' },
-    title: { color: '#111', fontWeight: '500' },
-    desc: { color: '#333' },
-    cta: { color: '#111', fontWeight: '600' },
+    label: { color: '#fff', borderColor: 'rgba(255,255,255,0.6)', textShadow: '0 2px 8px rgba(0,0,0,0.5)' },
+    title: { color: '#fff', fontWeight: '500', textShadow: '0 2px 12px rgba(0,0,0,0.6)' },
+    desc: { color: 'rgba(255,255,255,0.9)', textShadow: '0 1px 6px rgba(0,0,0,0.5)' },
+    cta: { color: '#fff', fontWeight: '600' },
   };
 
-  const styles = isDark ? darkStyles : lightStyles;
+  // 亮色模式样式 - 移动端：文字区域有白色背景，使用深色文字（与 Work 页面一致）
+  const lightStylesMobile = {
+    page: {
+      backgroundColor: '#f8f8f8',
+      color: '#1a1a1a'
+    },
+    card: {
+      height: 'calc(100vh - var(--nav-height))',
+      padding: 'clamp(60px, 10vw, 120px)',
+      backgroundColor: '#ffffff',
+      boxSizing: 'border-box',
+      overflow: 'hidden'
+    },
+    label: { color: '#666', borderColor: '#ccc' },
+    title: { color: '#111', fontWeight: '500' },
+    desc: { color: '#444' },
+    cta: { color: '#fff', fontWeight: '600' },
+  };
+
+  // 根据设备和主题选择样式（与 Work 页面一致）
+  const styles = isDark ? darkStyles : (isMobile ? lightStylesMobile : lightStylesDesktop);
 
   return (
     <>
@@ -655,16 +676,16 @@ const Gallery = () => {
                   {/* 倾斜切割背景 - 画廊版本 */}
                   <SlicedBackground phases={galleryItems} isDark={isDark} />
                   
-                  {/* 左侧渐变遮罩 - 自然过渡 */}
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: isDark
-                      ? 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)'
-                      : 'linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 45%, transparent 60%)',
-                    pointerEvents: 'none',
-                    zIndex: 1,
-                  }} />
+                  {/* 左侧渐变遮罩 - 仅深色模式显示 */}
+                  {isDark && (
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
+                      pointerEvents: 'none',
+                      zIndex: 1,
+                    }} />
+                  )}
                   
                   {/* 前景内容 */}
                   <div style={{ 

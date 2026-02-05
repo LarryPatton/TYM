@@ -547,8 +547,35 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
           {sectionTitle}
         </div>
 
-        {/* Project List (Accordion) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {/* Project List (Accordion) - 带左侧竖线进度指示 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative' }}>
+          {/* 左侧进度竖线轨道 */}
+          <div style={{
+            position: 'absolute',
+            left: '-20px',
+            top: 0,
+            bottom: 0,
+            width: '2px',
+            background: 'var(--color-border)',
+            borderRadius: '1px',
+          }}>
+            {/* 活跃状态指示器 */}
+            <motion.div
+              animate={{
+                top: `${(activeIndex / projects.length) * 100}%`,
+                height: `${(1 / projects.length) * 100}%`,
+              }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'absolute',
+                left: 0,
+                width: '2px',
+                background: 'var(--color-text-main)',
+                borderRadius: '1px',
+              }}
+            />
+          </div>
+          
           {projects.map((p, index) => {
             const isActive = activeId === p.id;
             return (
@@ -721,42 +748,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
             ))}
           </AnimatePresence>
           
-          {/* 右侧进度指示器 */}
-          <div style={{
-            position: 'absolute',
-            right: '24px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-            zIndex: 10,
-          }}>
-            {projects.map((p, index) => (
-              <motion.div
-                key={p.id}
-                animate={{
-                  scale: activeId === p.id ? 1.2 : 1,
-                  opacity: activeId === p.id ? 1 : 0.4,
-                }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: '#fff',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                }}
-                onClick={() => {
-                  const element = document.getElementById(`project-${p.id}`);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              />
-            ))}
-          </div>
+          {/* 右侧进度指示器已移除，改用左侧竖线显示进度 */}
         </div>
       </div>
     </section>

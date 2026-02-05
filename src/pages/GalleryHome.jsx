@@ -14,31 +14,34 @@ const GalleryHome = () => {
   const isMobile = useIsMobile();
   useTitle(t('gallery.title'));
 
-  // 模块配置 - 使用占位素材（每个模块 4 张斜切图片，每张颜色递增）
+  // 模块配置 - 使用真实素材（每个模块 4 张斜切图片）
   const moduleConfigs = {
     'form-structure': {
-      // 蓝绿色系，hue 从 190 递增到 230
-      hueStart: 190,
-      images: Array.from({ length: 4 }, (_, i) => ({
-        id: `fs-${i}`,
-        image: null,
-      }))
+      hueStart: 190, // 备用色系
+      images: [
+        { id: 'fs-1', image: '/images/gallery/module-1/1.png' },
+        { id: 'fs-2', image: '/images/gallery/module-1/2.png' },
+        { id: 'fs-3', image: '/images/gallery/module-1/3.png' },
+        { id: 'fs-4', image: '/images/gallery/module-1/4.png' },
+      ]
     },
     'material-texture': {
-      // 紫色系，hue 从 250 递增到 290
-      hueStart: 250,
-      images: Array.from({ length: 4 }, (_, i) => ({
-        id: `mt-${i}`,
-        image: null,
-      }))
+      hueStart: 250, // 备用色系
+      images: [
+        { id: 'mt-1', image: '/images/gallery/module-2/1.png' },
+        { id: 'mt-2', image: '/images/gallery/module-2/2.png' },
+        { id: 'mt-3', image: '/images/gallery/module-2/3.png' },
+        { id: 'mt-4', image: '/images/gallery/module-2/4.png' },
+      ]
     },
     'narrative-imagery': {
-      // 粉色系，hue 从 310 递增到 350
-      hueStart: 310,
-      images: Array.from({ length: 4 }, (_, i) => ({
-        id: `ni-${i}`,
-        image: null,
-      }))
+      hueStart: 310, // 备用色系
+      images: [
+        { id: 'ni-1', image: '/images/gallery/module-3/1.png' },
+        { id: 'ni-2', image: '/images/gallery/module-3/2.png' },
+        { id: 'ni-3', image: '/images/gallery/module-3/3.png' },
+        { id: 'ni-4', image: '/images/gallery/module-3/4.png' },
+      ]
     }
   };
 
@@ -91,10 +94,10 @@ const GalleryHome = () => {
       justifyContent: 'center',
     },
     breadcrumb: {
-      display: 'flex',
+      display: isMobile ? 'none' : 'flex', // 移动端隐藏面包屑
       alignItems: 'center',
       gap: '8px',
-      fontSize: isMobile ? '0.7rem' : '0.75rem',
+      fontSize: '0.75rem',
       color: isDark ? '#555' : '#999',
       marginBottom: '8px',
     },
@@ -125,8 +128,8 @@ const GalleryHome = () => {
     modulesGrid: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1px',
-      backgroundColor: isDark ? '#222' : '#e5e5e5'
+      gap: '2px', // 与斜切分隔线同样宽度 (strokeWidth="2")
+      backgroundColor: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.9)' // 与分隔线颜色一致
     },
     moduleCard: {
       backgroundColor: isDark ? '#0a0a0a' : '#fff',
@@ -138,27 +141,26 @@ const GalleryHome = () => {
     moduleCardHover: {
       backgroundColor: isDark ? '#151515' : '#f5f5f5'
     },
-    // 全宽布局：桌面端左右 35%:65%，移动端上下 30%:70%
+    // 全宽布局：桌面端左右 35%:65%，移动端上下堆叠
     moduleInner: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : '35% 65%',
-      gridTemplateRows: isMobile ? '30% 70%' : 'auto',
-      gap: 0,
+      display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
       alignItems: 'stretch',
-      minHeight: isMobile ? '320px' : '280px', // 移动端固定高度以便分配比例
+      minHeight: isMobile ? 'auto' : '280px',
     },
     // 文字内容区
     leftSection: {
       display: 'flex',
-      flexDirection: isMobile ? 'row' : 'column', // 移动端横向布局
-      flexWrap: isMobile ? 'wrap' : 'nowrap',
-      alignItems: isMobile ? 'flex-start' : 'stretch',
-      gap: isMobile ? '4px 12px' : '12px',
+      flexDirection: 'column',
+      gap: isMobile ? '8px' : '12px',
       justifyContent: 'center',
       padding: isMobile 
-        ? 'var(--space-sm) var(--space-page-x)'
+        ? 'var(--space-md) var(--space-page-x)'
         : 'clamp(50px, 6vw, 80px) clamp(30px, 3vw, 50px) clamp(50px, 6vw, 80px) clamp(60px, 8vw, 150px)',
       maxWidth: isMobile ? 'none' : '600px',
+      width: isMobile ? '100%' : '35%',
+      flexShrink: 0,
+      order: isMobile ? 2 : 1, // 移动端文字在下
     },
     // 移动端：序号和标题放在一行
     mobileHeader: {
@@ -169,39 +171,35 @@ const GalleryHome = () => {
     },
     moduleNumber: {
       fontFamily: 'var(--font-mono, monospace)',
-      fontSize: isMobile ? '0.9rem' : 'clamp(2rem, 4vw, 3rem)',
+      fontSize: isMobile ? '0.75rem' : 'clamp(2rem, 4vw, 3rem)',
       fontWeight: '300',
-      color: isDark ? '#555' : '#bbb',
+      color: isDark ? '#555' : '#999',
       lineHeight: 1,
     },
     moduleTitle: {
       fontFamily: 'var(--font-serif)',
-      fontSize: isMobile ? '1rem' : 'clamp(1.5rem, 2.5vw, 2rem)',
+      fontSize: isMobile ? '1.1rem' : 'clamp(1.5rem, 2.5vw, 2rem)',
       fontWeight: '500',
       marginBottom: 0,
       lineHeight: 1.2
     },
     moduleDesc: {
-      fontSize: isMobile ? '0.7rem' : 'clamp(0.9rem, 1.1vw, 1rem)',
-      color: isDark ? '#666' : '#888',
-      lineHeight: 1.5,
+      fontSize: isMobile ? '0.8rem' : 'clamp(0.9rem, 1.1vw, 1rem)',
+      color: isDark ? '#666' : '#666',
+      lineHeight: 1.6,
       marginBottom: 0,
       width: '100%',
-      display: '-webkit-box',
-      WebkitLineClamp: isMobile ? 2 : 3,
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
     },
     tagsRow: {
       display: 'flex',
       flexWrap: 'wrap',
-      gap: isMobile ? '4px' : '8px',
+      gap: isMobile ? '6px' : '8px',
       width: '100%',
-      marginTop: isMobile ? '2px' : '8px',
+      marginTop: isMobile ? '4px' : '8px',
     },
     mediaTag: {
-      padding: isMobile ? '2px 6px' : '4px 12px',
-      fontSize: isMobile ? '0.6rem' : '0.8rem',
+      padding: isMobile ? '4px 10px' : '4px 12px',
+      fontSize: isMobile ? '0.7rem' : '0.8rem',
       borderRadius: '100px',
       backgroundColor: isDark ? '#1a1a1a' : '#f0f0f0',
       color: isDark ? '#888' : '#666',
@@ -211,7 +209,9 @@ const GalleryHome = () => {
     rightSection: {
       position: 'relative',
       overflow: 'hidden',
-      minHeight: isMobile ? '120px' : '200px',
+      minHeight: isMobile ? '180px' : '200px',
+      width: isMobile ? '100%' : '65%',
+      order: isMobile ? 1 : 2, // 移动端图片在上
     },
     // 浮动箭头（位于图片右侧）
     floatingArrow: {
@@ -282,8 +282,18 @@ const GalleryHome = () => {
                 <div style={styles.moduleInner}>
                   {/* 左侧：文字内容 */}
                   <div style={styles.leftSection}>
-                    <div style={styles.moduleNumber}>{module.number}</div>
-                    <h2 style={styles.moduleTitle}>{module.title}</h2>
+                    {/* 移动端：编号和标题在一行 */}
+                    {isMobile ? (
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
+                        <span style={styles.moduleNumber}>{module.number}</span>
+                        <h2 style={styles.moduleTitle}>{module.title}</h2>
+                      </div>
+                    ) : (
+                      <>
+                        <div style={styles.moduleNumber}>{module.number}</div>
+                        <h2 style={styles.moduleTitle}>{module.title}</h2>
+                      </>
+                    )}
                     <p style={styles.moduleDesc}>{module.desc}</p>
                     <div style={styles.tagsRow}>
                       {module.media?.map((m, i) => (
@@ -299,8 +309,7 @@ const GalleryHome = () => {
                       <SlicedImageDisplay
                         images={config.images}
                         isDark={isDark}
-                        slantOffset={12}
-                        leftShift={-5}
+                        slantOffset={6}
                         animated={!isMobile}
                         animationDelay={0.3 + moduleIndex * 0.2}
                         height="100%"

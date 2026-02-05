@@ -633,8 +633,8 @@ const Work = () => {
     tag: { border: '1px solid #555', color: '#ccc', backgroundColor: 'rgba(255,255,255,0.05)' }
   };
 
-  // 亮色模式样式 - 文字使用白色+阴影，确保在彩色背景上可读
-  const lightStyles = {
+  // 亮色模式样式 - PC端：文字使用白色+阴影，确保在彩色背景上可读
+  const lightStylesDesktop = {
     page: {
       backgroundColor: '#f8f8f8',
       color: '#1a1a1a'
@@ -666,7 +666,42 @@ const Work = () => {
     tag: { border: '1px solid rgba(255,255,255,0.5)', color: '#fff', backgroundColor: 'rgba(0,0,0,0.2)', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }
   };
 
-  const styles = isDark ? darkStyles : lightStyles;
+  // 亮色模式样式 - 移动端：文字区域有白色背景，使用深色文字
+  const lightStylesMobile = {
+    page: {
+      backgroundColor: '#f8f8f8',
+      color: '#1a1a1a'
+    },
+    primary: {
+      height: 'calc(100vh - var(--nav-height))',
+      padding: 'clamp(60px, 10vw, 120px)',
+      backgroundColor: '#ffffff',
+      cursor: 'pointer',
+      boxSizing: 'border-box',
+      overflow: 'hidden'
+    },
+    primaryHover: { backgroundColor: '#f0f0f0' },
+    secondary: {
+      minHeight: '40vh',
+      padding: 'clamp(40px, 6vw, 80px)',
+      backgroundColor: '#ffffff',
+      cursor: 'pointer'
+    },
+    secondaryHover: { backgroundColor: '#f0f0f0' },
+    dividerBg: '#f8f8f8',
+    dividerLine: '#e5e5e5',
+    dividerText: '#999',
+    // 移动端使用深色文字（白色背景）
+    label: { color: '#666', borderColor: '#ccc' },
+    title: { color: '#111', fontWeight: '500' },
+    desc: { color: '#444' },
+    quote: { color: '#666' },
+    cta: { color: '#fff', fontWeight: '600' },
+    tag: { border: '1px solid #ddd', color: '#555', backgroundColor: 'rgba(0,0,0,0.03)' }
+  };
+
+  // 根据设备和主题选择样式
+  const styles = isDark ? darkStyles : (isMobile ? lightStylesMobile : lightStylesDesktop);
 
   // 滚动提示透明度控制
   const { scrollY } = useScroll();
