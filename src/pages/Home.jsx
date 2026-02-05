@@ -8,6 +8,7 @@ import ServiceSection from '../components/ServiceSection';
 import BlindsTransition from '../components/BlindsTransition';
 import PartnersSection from '../components/PartnersSection';
 import MobileHome from '../components/MobileHome';
+import WechatModal from '../components/WechatModal';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
@@ -125,6 +126,9 @@ const Home = () => {
 
   const { scrollY } = useScroll();
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+  
+  // 微信弹窗状态
+  const [wechatModalOpen, setWechatModalOpen] = useState(false);
 
   // ===== 百叶窗过渡统一配置 =====
   const BLINDS_CONFIG = {
@@ -190,49 +194,49 @@ const Home = () => {
     padding: isMobile ? '0 var(--space-page-x)' : '0 clamp(40px, 8vw, 120px)',
   };
 
-  // Mock Data - 精选作品案例
+  // 精选作品案例
   const featuredCases = [
     { 
       id: '01-brand-identity', 
       title: t('home.cases.01-brand-identity.title'), 
       subtitle: t('home.cases.01-brand-identity.subtitle'),
       subtitle2: t('home.cases.01-brand-identity.subtitle2'),
-      cover: '#333333' 
+      coverImage: '/images/works/work-01.png' 
     },
     { 
       id: '02-cmf-packaging', 
       title: t('home.cases.02-cmf-packaging.title'), 
       subtitle: t('home.cases.02-cmf-packaging.subtitle'),
       subtitle2: t('home.cases.02-cmf-packaging.subtitle2'),
-      cover: '#444444' 
+      coverImage: '/images/works/work-02.png' 
     },
     { 
       id: '03-key-visual', 
       title: t('home.cases.03-key-visual.title'), 
       subtitle: t('home.cases.03-key-visual.subtitle'),
       subtitle2: t('home.cases.03-key-visual.subtitle2'),
-      cover: '#555555' 
+      coverImage: '/images/works/work-03.png' 
     },
     { 
       id: '04-regional-marketing', 
       title: t('home.cases.04-regional-marketing.title'), 
       subtitle: t('home.cases.04-regional-marketing.subtitle'),
       subtitle2: t('home.cases.04-regional-marketing.subtitle2'),
-      cover: '#666666' 
+      coverImage: '/images/works/work-04.png' 
     },
     { 
       id: '05-offline-space', 
       title: t('home.cases.05-offline-space.title'), 
       subtitle: t('home.cases.05-offline-space.subtitle'),
       subtitle2: t('home.cases.05-offline-space.subtitle2'),
-      cover: '#777777' 
+      coverImage: '/images/works/work-05.png' 
     },
     { 
       id: '06-art-gallery', 
       title: t('home.cases.06-art-gallery.title'), 
       subtitle: t('home.cases.06-art-gallery.subtitle'),
       subtitle2: t('home.cases.06-art-gallery.subtitle2'),
-      cover: '#888888' 
+      coverImage: '/images/works/work-06.png' 
     },
   ];
 
@@ -251,6 +255,11 @@ const Home = () => {
       problem: t('home.services.brandFoundation.problem'),
       desc: t('home.services.brandFoundation.desc'),
       tags: t('home.services.brandFoundation.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-01-main.png',
+        sub1: '/images/services/service-01-sub1.png',
+        sub2: '/images/services/service-01-sub2.png',
+      },
     },
     { 
       id: 'product-physical',
@@ -259,6 +268,11 @@ const Home = () => {
       problem: t('home.services.productPhysical.problem'),
       desc: t('home.services.productPhysical.desc'),
       tags: t('home.services.productPhysical.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-02-main.png',
+        sub1: '/images/services/service-02-sub1.png',
+        sub2: '/images/services/service-02-sub2.png',
+      },
     },
     { 
       id: 'visual-communication',
@@ -267,6 +281,11 @@ const Home = () => {
       problem: t('home.services.visualCommunication.problem'),
       desc: t('home.services.visualCommunication.desc'),
       tags: t('home.services.visualCommunication.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-03-main.png',
+        sub1: '/images/services/service-03-sub1.png',
+        sub2: '/images/services/service-03-sub2.png',
+      },
     },
     { 
       id: 'campaign-marketing',
@@ -275,6 +294,11 @@ const Home = () => {
       problem: t('home.services.campaignMarketing.problem'),
       desc: t('home.services.campaignMarketing.desc'),
       tags: t('home.services.campaignMarketing.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-04-main.png',
+        sub1: '/images/services/service-04-sub1.png',
+        sub2: '/images/services/service-04-sub2.png',
+      },
     },
     { 
       id: 'offline-applications',
@@ -283,6 +307,11 @@ const Home = () => {
       problem: t('home.services.offlineApplications.problem'),
       desc: t('home.services.offlineApplications.desc'),
       tags: t('home.services.offlineApplications.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-05-main.png',
+        sub1: '/images/services/service-05-sub1.png',
+        sub2: '/images/services/service-05-sub2.png',
+      },
     },
     { 
       id: 'creative-exploration',
@@ -291,16 +320,22 @@ const Home = () => {
       problem: t('home.services.creativeExploration.problem'),
       desc: t('home.services.creativeExploration.desc'),
       tags: t('home.services.creativeExploration.chips', { returnObjects: true }),
+      images: {
+        main: '/images/services/service-06-main.png',
+        sub1: '/images/services/service-06-sub1.png',
+        sub2: '/images/services/service-06-sub2.png',
+      },
     },
   ];
 
-  // 合作品牌数据 - 使用 id 关联 i18n
+  // 合作品牌数据
   const partnersData = [
-    { id: 'google', image: '/images/partners/google.svg' },
-    { id: 'spotify', image: '/images/partners/spotify.svg' },
-    { id: 'airbnb', image: '/images/partners/airbnb.svg' },
-    { id: 'stripe', image: '/images/partners/stripe.svg' },
-    { id: 'nike', image: '/images/partners/nike.svg' },
+    { id: 'partner-01', image: '/images/partners/partner-01.png' },
+    { id: 'partner-02', image: '/images/partners/partner-02.png' },
+    { id: 'partner-03', image: '/images/partners/partner-03.png' },
+    { id: 'partner-04', image: '/images/partners/partner-04.png' },
+    { id: 'partner-05', image: '/images/partners/partner-05.png' },
+    { id: 'partner-06', image: '/images/partners/partner-06.png' },
   ];
 
   const scrollToFeatured = () => {
@@ -695,6 +730,7 @@ const Home = () => {
               </motion.button>
             </a>
             <motion.button 
+              onClick={() => setWechatModalOpen(true)}
               whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.3)' }}
               whileTap={{ scale: 0.98 }}
               style={{ 
@@ -744,6 +780,12 @@ const Home = () => {
         height: '80px',
         background: themeColors.footerGradient,
       }} />
+
+      {/* 微信二维码弹窗 */}
+      <WechatModal 
+        isOpen={wechatModalOpen} 
+        onClose={() => setWechatModalOpen(false)} 
+      />
     </div>
   );
 };

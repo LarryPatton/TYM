@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
@@ -103,19 +103,12 @@ const GalleryModule = () => {
     }
   }, [allWorks]);
   
-  // 筛选后的作品（使用转换后的数据）
-  const filteredWorks = useMemo(() => {
-    if (loading || enrichedWorks.length === 0) {
-      return [];
-    }
-    
-    if (selectedMedia === 'all') {
-      // 显示所有作品（只按比例筛选）
-      return filterWorks(enrichedWorks, getAllMediaTypes(), aspectType);
-    }
-    // 显示选中媒介的作品
-    return filterWorks(enrichedWorks, [selectedMedia], aspectType);
-  }, [enrichedWorks, selectedMedia, aspectType, filterWorks, getAllMediaTypes, loading]);
+  // 筛选后的作品（直接计算，不使用 useMemo 避免更新问题）
+  let filteredWorks = [];
+  if (!loading && enrichedWorks.length > 0) {
+    const mediaTypes = selectedMedia === 'all' ? getAllMediaTypes() : [selectedMedia];
+    filteredWorks = filterWorks(enrichedWorks, mediaTypes, aspectType);
+  }
 
   // 切换媒介选择（单选模式）
   const selectMedia = (media) => {
@@ -397,10 +390,6 @@ const GalleryModule = () => {
           {moduleData.title}
         </motion.h1>
         
-        <motion.div variants={itemVariants} style={styles.subtitle}>
-          {moduleData.subtitle}
-        </motion.div>
-        
         <motion.p variants={itemVariants} style={styles.desc}>
           {moduleData.desc}
         </motion.p>
@@ -409,13 +398,6 @@ const GalleryModule = () => {
         <motion.div variants={itemVariants} style={styles.tagsRow}>
           {moduleData.media?.map((m, i) => (
             <span key={i} style={styles.mediaTag}>{m}</span>
-          ))}
-        </motion.div>
-        
-        {/* Keywords */}
-        <motion.div variants={itemVariants} style={styles.keywordsRow}>
-          {moduleData.keywords?.map((k, i) => (
-            <span key={i} style={styles.keyword}>{k}</span>
           ))}
         </motion.div>
       </header>
@@ -461,16 +443,14 @@ const GalleryModule = () => {
       {/* Works Section */}
       <section style={styles.worksSection}>
         {/* Works Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={`${selectedMedia}-${aspectType}`}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            style={styles.worksGrid}
-          >
-            {filteredWorks.map((work, index) => (
+        <motion.div 
+          key={`${selectedMedia}-${aspectType}-${loading}`}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          style={styles.worksGrid}
+        >
+          {filteredWorks.map((work, index) => (
               <motion.div 
                 key={work.id}
                 variants={itemVariants}
@@ -481,20 +461,15 @@ const GalleryModule = () => {
                   <img 
                     src={work.image} 
                     alt={work.title}
+                    loading="lazy"
                     style={{ 
-                      ...styles.workImage,
                       width: '100%',
-                      height: 'auto',
+                      aspectRatio: config.aspectRatio,
                       objectFit: 'cover',
                       borderRadius: isMobile ? '4px' : '8px',
                       marginBottom: isMobile ? '4px' : '12px',
-                    }}
-                    onError={(e) => {
-                      e.target.style.background = isDark ? '#1a1a1a' : '#f0f0f0';
-                      e.target.style.display = 'flex';
-                      e.target.style.alignItems = 'center';
-                      e.target.style.justifyContent = 'center';
-                      e.target.textContent = work.category;
+                      backgroundColor: isDark ? '#1a1a1a' : '#f0f0f0',
+                      display: 'block',
                     }}
                   />
                 {/* 标题：移动端使用更小字号 */}
@@ -510,13 +485,15 @@ const GalleryModule = () => {
               </motion.div>
             ))}
           </motion.div>
-        </AnimatePresence>
       </section>
 
       {/* Floating Aspect Ratio Toggle */}
       <div style={styles.floatingToggle}>
         <button
-          onClick={() => setAspectType('portrait')}
+          onClick={() => {
+            setAspectType('portrait');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           style={{
             ...styles.toggleButton,
             ...(aspectType === 'portrait' ? styles.toggleButtonActive : {})
@@ -525,7 +502,10 @@ const GalleryModule = () => {
           {t('gallery.aspectType.portrait')}
         </button>
         <button
-          onClick={() => setAspectType('landscape')}
+          onClick={() => {
+            setAspectType('landscape');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           style={{
             ...styles.toggleButton,
             ...(aspectType === 'landscape' ? styles.toggleButtonActive : {})

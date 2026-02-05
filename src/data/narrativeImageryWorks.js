@@ -611,7 +611,8 @@ export const getAllMediaTypes = () => {
 export const filterWorks = (works, mediaTypes, aspectType) => {
   return works.filter(work => {
     const mediaMatch = mediaTypes.includes(work.media);
-    const aspectMatch = work.aspectType === aspectType;
+    // 如果 aspectType 未定义，默认显示（兼容加载中的情况）
+    const aspectMatch = !work.aspectType || work.aspectType === aspectType || work.aspectType === 'square';
     return mediaMatch && aspectMatch;
   });
 };

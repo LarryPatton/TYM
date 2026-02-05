@@ -20,7 +20,11 @@ export async function loadManifest() {
   }
   
   try {
-    const response = await fetch('/gallery-manifest.json');
+    // 使用 BASE_URL 确保在不同环境下路径正确
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const manifestUrl = `${baseUrl}gallery-manifest.json`.replace(/\/\//g, '/');
+    
+    const response = await fetch(manifestUrl);
     if (!response.ok) {
       throw new Error(`Failed to load manifest: ${response.status}`);
     }

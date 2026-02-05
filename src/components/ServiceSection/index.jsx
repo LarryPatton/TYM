@@ -111,7 +111,11 @@ const ServiceSection = ({
 
   // 获取当前服务的图片
   const currentService = services[activeIndex];
-  const currentImages = currentService?.images || serviceImages[currentService?.id] || [];
+  // 支持新的对象格式 {main, sub1, sub2} 或旧的数组格式
+  const rawImages = currentService?.images || serviceImages[currentService?.id] || [];
+  const currentImages = Array.isArray(rawImages) 
+    ? rawImages 
+    : [rawImages.main, rawImages.sub1, rawImages.sub2].filter(Boolean);
 
   return (
     <section

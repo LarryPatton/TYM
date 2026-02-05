@@ -550,9 +550,10 @@ export const filterByMedia = (works, selectedMedia) => {
 // 根据比例类型筛选作品
 export const filterByAspectType = (works, aspectType) => {
   if (aspectType === 'portrait') {
-    return works.filter(work => work.aspectType === 'portrait' || work.aspectType === 'square');
+    // 如果 aspectType 未定义，默认显示（兼容加载中的情况）
+    return works.filter(work => !work.aspectType || work.aspectType === 'portrait' || work.aspectType === 'square');
   } else if (aspectType === 'landscape') {
-    return works.filter(work => work.aspectType === 'landscape' || work.aspectType === 'square');
+    return works.filter(work => !work.aspectType || work.aspectType === 'landscape' || work.aspectType === 'square');
   }
   return works;
 };

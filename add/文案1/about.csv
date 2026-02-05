@@ -1,0 +1,69 @@
+﻿key,zh,en
+about.pageTitle,关于,About
+about.title,关于我,About Me.
+about.sectionIntro,简介,Intro
+about.sectionExpertise,专业能力,Expertise
+about.sectionJourney,旅程,Journey
+about.sectionContact,联系,Contact
+about.expertiseTitle,专业能力,Expertise
+about.journeyTitle,职业历程,Journey
+about.contactTitle,联系方式,Contact
+about.emailLabel,邮箱,Email
+about.wechatLabel,微信,WeChat
+about.greeting,你好，我是甜羊。,"Hi, I'm Tian Yangmin."
+about.introLine1,我是一名专注品牌视觉与产品设计的设计师。,A brand-focused designer working at the intersection of visual identity and product design.
+about.introLine2,我的工作聚焦品牌从 0–1 的构建：视觉识别系统、产品 CMF、包装与营销视觉的整体设计。在秩序与感性之间，我更在意清晰、可持续的表达。,"My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability."
+about.introLine3,过去一年里，我在初创品牌环境中深度参与从体系搭建到多款产品落地的全链路过程。相比单点输出，我更关注系统在真实场景中的反复使用、验证与演进。,"Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions."
+about.introLine4,对我而言，设计不是形式的选择，而是一种基于判断、经验与长期视角的持续实践。,"To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking."
+about.downloadResume,下载简历,Download Resume
+about.contactMe,联系我,Get in Touch
+about.letsTalk,我们聊聊,Let's Talk.
+about.contactIntro,准备好开启下一个项目了吗？,Ready to start your next project?
+about.contactIntro2,无论是全新的构想，还是正在推进的项目，我都愿意先听你讲。,"Whether it's a brand new idea or an ongoing project, I'd love to hear about it."
+about.copy,复制,Copy
+about.copied,已复制,Copied
+about.projectConsultation,项目咨询,Project Consultation
+about.messageSent,消息已发送,Message Sent!
+about.thankYou,感谢你的来信。我会在 24 小时内回复。,Thank you for reaching out. I'll get back to you within 24 hours.
+about.sendAnother,再发一条,Send Another
+about.formName,姓名,Name
+about.formNamePlaceholder,你的姓名,Your name
+about.formEmail,邮箱,Email
+about.formEmailPlaceholder,tian_yangmin@163.com,your@email.com
+about.formProjectType,项目类型,Project Type
+about.formProjectTypeOptions.webDesign,网页设计与开发,Web Design & Development
+about.formProjectTypeOptions.mobileApp,移动应用设计,Mobile App Design
+about.formProjectTypeOptions.branding,品牌设计,Branding
+about.formProjectTypeOptions.consulting,咨询,Consulting
+about.formProjectTypeOptions.other,其他,Other
+about.formDetails,项目详情,Project Details
+about.formDetailsPlaceholder,请告诉我你的目标、时间表，以及任何具体要求…,"Please tell me about your goals, timeline, and any specific requirements..."
+about.submitting,发送中…,Sending...
+about.submit,发送消息,Send Message
+about.expertise.strategy.title,品牌与视觉设计能力,Strategy
+about.expertise.strategy.items[0],品牌视觉识别系统,Product Strategy
+about.expertise.strategy.items[1],平面视觉设计,User Research
+about.expertise.strategy.items[2],包装设计&CMF,Data Analysis
+about.expertise.strategy.items[3],插画与视觉风格表达,Market Positioning
+about.expertise.design.title,品牌策略与视觉策划能力,Design
+about.expertise.design.items[0],品牌视觉策划,UI/UX Design
+about.expertise.design.items[1],品牌营销方案设计,Design Systems
+about.expertise.design.items[2],创意方案策划与拆解,Prototyping
+about.expertise.design.items[3],方案陈述与专业讲解,Interaction Design
+about.expertise.development.title,数字工具与AI设计能力,Development
+about.expertise.development.items[0],AI工具流程化应用,React / Next.js
+about.expertise.development.items[1],模型与素材处理能力,Creative Coding
+about.expertise.development.items[2],多工具协同工作应用,WebGL / Three.js
+about.expertise.development.items[3],复杂需求视觉实现能力,Frontend Architecture
+about.journey.item1.year,2024 – 至今,2021 - Present
+about.journey.item1.role,高级品牌设计师,Senior Product Designer
+about.journey.item1.company,深圳市摩赞科技有限公司,Tech Innovators Inc.
+about.journey.item2.year,2023 – 2024,2019 - 2021
+about.journey.item2.role,视觉设计师,UI/UX Designer
+about.journey.item2.company,深圳市合天源有限公司,Creative Studio
+about.journey.item3.year,2022 – 2023,2017 - 2019
+about.journey.item3.role,美术教师,Frontend Developer
+about.journey.item3.company,呼和浩特第二中学初中部,StartUp Alpha
+about.journey.item4.year,2018 – 2022,2013 - 2017
+about.journey.item4.role,艺术学学士,Bachelor of Design
+about.journey.item4.company,西南大学美术学院,Academy of Arts

@@ -11,16 +11,16 @@
     "contactTitle": "Contact",
     "emailLabel": "Email",
     "wechatLabel": "WeChat",
-    "greeting": "Hi, I'm Tian Yangmin.",
-    "introLine1": "A brand-focused designer working at the intersection of visual identity and product design.",
-    "introLine2": "My practice centers on building brands from the ground up — from visual identity systems to product CMF, packaging, and marketing visuals — with a strong emphasis on clarity, consistency, and long-term usability.",
-    "introLine3": "Over the past year, I've worked closely with an early-stage brand, taking part in the complete 0–1 process: establishing the brand system, and carrying it through multiple products from concept to real-world launch. Rather than creating isolated visuals, I focus on how systems perform when they are repeatedly applied, tested, and evolved in real conditions.",
-    "introLine4": "To me, design is not just about form, but a continuous practice of judgment, structure, and long-term thinking.",
+    "greeting": "Hi, I'm Tian Yang.",
+    "introLine1": "A designer specializing in brand visual and product design.",
+    "introLine2": "My work focuses on building brands from 0–1: visual identity systems, product CMF, packaging, and marketing visuals. Between order and sensibility, I value clear, sustainable expression.",
+    "introLine3": "Over the past year, I've been deeply involved in the full process from system building to product launch in a startup brand environment. Rather than isolated outputs, I focus on how systems are repeatedly used, validated, and evolved in real scenarios.",
+    "introLine4": "For me, design is not about choosing forms, but a continuous practice based on judgment, experience, and long-term perspective.",
     "downloadResume": "Download Resume",
     "contactMe": "Get in Touch",
     "letsTalk": "Let's Talk.",
     "contactIntro": "Ready to start your next project?",
-    "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it.",
+    "contactIntro2": "Whether it's a brand new idea or an ongoing project, I'd love to hear about it first.",
     "copy": "Copy",
     "copied": "Copied",
     "projectConsultation": "Project Consultation",
@@ -45,53 +45,53 @@
     "submit": "Send Message",
     "expertise": {
       "strategy": {
-        "title": "Strategy",
+        "title": "Brand & Visual Design",
         "items": [
-          "Product Strategy",
-          "User Research",
-          "Data Analysis",
-          "Market Positioning"
+          "Brand Visual Identity System",
+          "Graphic Visual Design",
+          "Packaging Design & CMF",
+          "Illustration & Visual Style"
         ]
       },
       "design": {
-        "title": "Design",
+        "title": "Brand Strategy & Visual Planning",
         "items": [
-          "UI/UX Design",
-          "Design Systems",
-          "Prototyping",
-          "Interaction Design"
+          "Brand Visual Planning",
+          "Brand Marketing Design",
+          "Creative Planning & Breakdown",
+          "Presentation & Professional Communication"
         ]
       },
       "development": {
-        "title": "Development",
+        "title": "Digital Tools & AI Design",
         "items": [
-          "React / Next.js",
-          "Creative Coding",
-          "WebGL / Three.js",
-          "Frontend Architecture"
+          "AI Tools Workflow Application",
+          "Model & Asset Processing",
+          "Multi-tool Collaboration",
+          "Complex Visual Implementation"
         ]
       }
     },
     "journey": {
       "item1": {
-        "year": "2021 - Present",
-        "role": "Senior Product Designer",
-        "company": "Tech Innovators Inc."
+        "year": "2024 - Present",
+        "role": "Senior Brand Designer",
+        "company": "Mozan Technology Co. Ltd."
       },
       "item2": {
-        "year": "2019 - 2021",
-        "role": "UI/UX Designer",
-        "company": "Creative Studio"
+        "year": "2023 - 2024",
+        "role": "Visual Designer",
+        "company": "Hetianyuan Co. Ltd."
       },
       "item3": {
-        "year": "2017 - 2019",
-        "role": "Frontend Developer",
-        "company": "StartUp Alpha"
+        "year": "2022 - 2023",
+        "role": "Art Teacher",
+        "company": "Hohhot No.2 Middle School"
       },
       "item4": {
-        "year": "2013 - 2017",
-        "role": "Bachelor of Design",
-        "company": "Academy of Arts"
+        "year": "2018 - 2022",
+        "role": "Bachelor of Arts",
+        "company": "Southwest University School of Fine Arts"
       }
     }
   },
@@ -534,6 +534,15 @@
       }
     }
   },
+  "contact": {
+    "wechat": {
+      "title": "Contact via WeChat",
+      "desc": "Scan QR code to connect",
+      "id": "WeChat ID",
+      "copy": "Copy",
+      "copied": "WeChat ID copied"
+    }
+  },
   "gallery": {
     "modules": {
       "form-structure": {
@@ -714,7 +723,6 @@
     "sectionHero": "Home",
     "sectionWorks": "Works",
     "sectionServices": "Services",
-    "sectionPartners": "Partners",
     "sectionContact": "Contact",
     "featuredTitle": "Portfolio Guide · Featured Works",
     "partnersTitle": "Partners",
@@ -730,25 +738,29 @@
     "partnersSubtitle": "Trusted By",
     "partnersViewCase": "View Case",
     "partners": {
-      "google": {
-        "name": "Google",
-        "desc": "Brand Visual System Upgrade"
+      "partner-01": {
+        "name": "MORE",
+        "desc": "Brand Visual System"
       },
-      "spotify": {
-        "name": "Spotify",
-        "desc": "Marketing Campaign Design"
+      "partner-02": {
+        "name": "ZMR",
+        "desc": "Brand Identity Design"
       },
-      "airbnb": {
-        "name": "Airbnb",
+      "partner-03": {
+        "name": "LANSWE",
         "desc": "Product Packaging Design"
       },
-      "stripe": {
-        "name": "Stripe",
-        "desc": "Brand Identity System"
+      "partner-04": {
+        "name": "SKYWORTH",
+        "desc": "Brand Visual Upgrade"
       },
-      "nike": {
-        "name": "Nike",
-        "desc": "Offline Space Design"
+      "partner-05": {
+        "name": "ScaleAlpha.Ai",
+        "desc": "Brand Visual System"
+      },
+      "partner-06": {
+        "name": "PUENLIGHT",
+        "desc": "Brand Identity Design"
       }
     },
     "cases": {
@@ -800,7 +812,6 @@
     "services": {
       "brandFoundation": {
         "title": "Brand Foundation",
-        "subtitle": "VI / Brand Guidelines",
         "problem": "I help establish a clear and structured visual foundation for brands.",
         "desc": "By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication.",
         "chips": [
@@ -811,7 +822,6 @@
       },
       "productPhysical": {
         "title": "Product & Physical Experience",
-        "subtitle": "CMF / Packaging",
         "problem": "I shape cohesive product and packaging experiences through CMF design.",
         "desc": "By aligning color, material, and finish decisions, I strengthen brand perception at the physical level.",
         "chips": [
@@ -823,7 +833,6 @@
       },
       "visualCommunication": {
         "title": "Visual Communication System",
-        "subtitle": "Key Visual / Visual System",
         "problem": "I develop scalable visual communication systems for brands.",
         "desc": "Through key visuals and repeatable design rules, brand messages become clearer and more memorable.",
         "chips": [
@@ -834,7 +843,6 @@
       },
       "campaignMarketing": {
         "title": "Campaign & Regional Marketing",
-        "subtitle": "Campaign / Marketing",
         "problem": "I support brands in regional campaigns and market-specific communication.",
         "desc": "By aligning visual strategy with local contexts, campaigns remain consistent and effective.",
         "chips": [
@@ -845,7 +853,6 @@
       },
       "offlineApplications": {
         "title": "Offline & Real-world Applications",
-        "subtitle": "Offline / Space Design",
         "problem": "I translate brand systems into real-world environments.",
         "desc": "From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces.",
         "chips": [
@@ -856,7 +863,6 @@
       },
       "creativeExploration": {
         "title": "Creative & Art-driven Exploration",
-        "subtitle": "Art Direction / Exploration",
         "problem": "I explore visual expression beyond commercial boundaries.",
         "desc": "Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking.",
         "chips": [
@@ -927,14 +933,14 @@
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
-    "retry": "Retry",
+    "retry": "Try Again",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
     "back": "Back",
-    "next": "Next",
+    "next": "Continue",
     "previous": "Previous",
     "close": "Close",
     "search": "Search",
@@ -942,12 +948,11 @@
     "viewMore": "View More",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "scroll": "Scroll",
+    "scroll": "Scroll Down",
     "backToTop": "Back to Top",
     "swipeToExplore": "Swipe to Explore",
     "swipeToViewWorks": "Swipe Up for Works",
     "swipeToServices": "Swipe Up for Services",
-    "swipeToPartners": "Swipe Up for Partners",
     "swipeToContact": "Swipe Up to Contact"
   },
   "footer": {
@@ -972,7 +977,7 @@
     "gallery": "Gallery",
     "caseStudies": "Case Studies",
     "designSystem": "Design System",
-    "showcase": "Showcase",
+    "showcase": "Featured",
     "contact": "Contact",
     "services": "Services"
   }
