@@ -354,6 +354,29 @@ const GalleryModule = () => {
     toggleButtonActive: {
       backgroundColor: isDark ? '#fff' : '#1a1a1a',
       color: isDark ? '#000' : '#fff'
+    },
+    // 面包屑样式
+    breadcrumb: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: isMobile ? '8px' : '10px',
+      marginBottom: isMobile ? '24px' : '40px',
+      flexWrap: 'wrap',
+    },
+    breadcrumbLink: {
+      color: isDark ? '#666' : '#888',
+      textDecoration: 'none',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      transition: 'color 0.2s ease',
+    },
+    breadcrumbSeparator: {
+      color: isDark ? '#444' : '#ccc',
+      fontSize: isMobile ? '0.75rem' : '0.85rem',
+    },
+    breadcrumbCurrent: {
+      color: isDark ? '#aaa' : '#555',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      fontWeight: '500',
     }
   };
 
@@ -378,9 +401,14 @@ const GalleryModule = () => {
     >
       {/* Header Section */}
       <header style={styles.header}>
-        <Link to="/gallery/list" style={styles.backLink}>
-          ← {t('gallery.backToGallery')}
-        </Link>
+        {/* 面包屑导航 */}
+        <nav style={styles.breadcrumb}>
+          <Link to="/" style={styles.breadcrumbLink}>{t('nav.home')}</Link>
+          <span style={styles.breadcrumbSeparator}>/</span>
+          <Link to="/gallery/list" style={styles.breadcrumbLink}>{t('nav.gallery')}</Link>
+          <span style={styles.breadcrumbSeparator}>/</span>
+          <span style={styles.breadcrumbCurrent}>{moduleData.title}</span>
+        </nav>
         
         <motion.div variants={itemVariants} style={styles.moduleNumber}>
           {moduleData.number}
@@ -492,7 +520,7 @@ const GalleryModule = () => {
         <button
           onClick={() => {
             setAspectType('portrait');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'instant' });
           }}
           style={{
             ...styles.toggleButton,
@@ -504,7 +532,7 @@ const GalleryModule = () => {
         <button
           onClick={() => {
             setAspectType('landscape');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'instant' });
           }}
           style={{
             ...styles.toggleButton,

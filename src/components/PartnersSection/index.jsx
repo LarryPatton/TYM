@@ -205,16 +205,10 @@ const PartnersSection = ({ partners }) => {
                   borderRadius: '16px',
                   overflow: 'hidden',
                   zIndex: isHighlighted ? 100 : index + 1,
-                  cursor: 'pointer',
                   boxShadow: isHighlighted 
                     ? (isDark ? '0 20px 60px rgba(0,0,0,0.5)' : '0 20px 60px rgba(0,0,0,0.15)')
                     : 'none',
                   transition: 'box-shadow 0.3s ease',
-                }}
-                whileHover={{ 
-                  scale: 1.02,
-                  zIndex: 100,
-                  transition: { duration: 0.3 }
                 }}
               >
                 {/* 背景图片 */}
@@ -256,30 +250,6 @@ const PartnersSection = ({ partners }) => {
                     {t(`home.partners.${partner.id}.name`).charAt(0)}
                   </span>
                 </div>
-
-                {/* 悬停遮罩 */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: colors.cardOverlay,
-                    backdropFilter: 'blur(4px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <span style={{
-                    color: '#fff',
-                    fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)',
-                    fontWeight: '600',
-                  }}>
-                    {t('home.partnersViewCase')} →
-                  </span>
-                </motion.div>
 
                 {/* 品牌标签 */}
                 <div

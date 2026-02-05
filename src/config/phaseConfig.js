@@ -123,7 +123,7 @@ export const phase02Config = {
     screens: ['cmf-main', 'cmf-color', 'factory-keycaps', 'priority'],
     labels: ['Exploration', 'Memory', 'Details', 'Process']
   },
-  totalScreens: 13,
+  totalScreens: 12, // 删除产品终图后：12屏
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境
@@ -135,7 +135,7 @@ export const phase02Config = {
       bgImage: `${PHASE02_BASE}/cover/hero.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
-    // Screen 02: TOC - 目录列表
+    // Screen 02: TOC - 目录列表 (sticky)
     {
       id: 'toc',
       type: 'phase-toc',
@@ -145,7 +145,9 @@ export const phase02Config = {
         `${PHASE02_BASE}/toc/toc-02.png`,
         `${PHASE02_BASE}/toc/toc-03.png`
       ],
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
+      sticky: true,
+      stickyHeight: 200,
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' }
     },
     // Screen 02.5: Popup Sequence - 目标用户代际弹出
     {
@@ -355,22 +357,15 @@ export const phase02Config = {
       ],
       bgAlt: true
     },
-    // Screen 08: Component Assembly - 组件拼装展示
+    // Screen 08: Component Assembly - 组件拼装展示 (sticky)
     {
       id: 'component-assembly',
       type: 'component-assembly',
       categoryLabel: '组件拼装',
+      stickyHeight: 200, // 滚动200vh后离开
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' }
     },
-    // Screen 09: Product Final - 产品终图展示
-    {
-      id: 'product-final',
-      type: 'fullscreen-image',
-      categoryLabel: '产品终图',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
-      bgImage: `${PHASE02_BASE}/closing/product-final.png`
-    },
-    // Screen 10: Closing - 收束与行动意图
+    // Screen 09: Closing - 收束与行动意图
     {
       id: 'closing',
       type: 'phase-closing',
@@ -515,8 +510,9 @@ export const phase03Config = {
       id: 'fly-in-gallery',
       type: 'fly-in-gallery',
       categoryLabel: '产品画廊',
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
-      imageHeight: '55vh', // 统一高度
+      scrollBehavior: { sticky: true, length: 'medium', intensity: 'medium' },
+      stickyHeight: 180, // 滚动 180vh 后离开
+      imageHeight: '38vh', // 缩小图片高度
       images: [
         { src: `${PHASE03_BASE}/product/wide/fly-01.png`, label: 'View 1' },
         { src: `${PHASE03_BASE}/product/wide/fly-02.png`, label: 'View 2' },
@@ -527,13 +523,14 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/wide/fly-07.png`, label: 'View 7' }
       ]
     },
-    // Screen 07: 分组轮播 - 3组正方形产品图 (3+8+4=15张)
+    // Screen 07: 分组轮播 - 3组产品图 (3+8+4=15张)
     {
       id: 'grouped-carousel',
       type: 'grouped-carousel',
       categoryLabel: '产品分组',
       showGroupLabel: false,
       showItemCount: false,
+      aspectRatio: '3 / 4', // 竖向产品图，避免被截断
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       groups: [
         {
@@ -573,7 +570,8 @@ export const phase03Config = {
       id: 'cards-marquee',
       type: 'three-row-marquee',
       categoryLabel: '卡片跑马灯',
-      scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
+      stickyHeight: 200, // 滚动 200vh 后离开
       showGradient: false,
       images: [
         // Row 1: Group 01/a (7张)
@@ -653,7 +651,8 @@ export const phase03Config = {
       id: 'panorama-marquee',
       type: 'panorama-marquee',
       categoryLabel: '跑马灯混合',
-      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
+      stickyHeight: 180, // 滚动 180vh 后离开
       // 横条跑马灯
       marqueeImages: [
         { src: `${PHASE03_BASE}/marquee/marquee-01.png`, label: 'Marquee 1' },
@@ -739,40 +738,52 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/document-focus/focus-03.png`, label: 'Document Focus 3' }
       ]
     },
-    // Screen 13: 瀑布流 (上) - 9张 A4 竖向 (1592×2253)
+    // Screen 13: 瀑布流 (上) - 9张 A4 竖向 (1592×2253) - 使用分组视差瀑布流
     {
       id: 'gallery-upper',
-      type: 'packaging-gallery',
+      type: 'natural-parallax-grid',
       categoryLabel: '瀑布流画廊',
-      scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
-      images: [
-        { src: `${PHASE03_BASE}/gallery-a/page-01.png`, label: 'Page 1' },
-        { src: `${PHASE03_BASE}/gallery-a/page-02.png`, label: 'Page 2' },
-        { src: `${PHASE03_BASE}/gallery-a/page-03.png`, label: 'Page 3' },
-        { src: `${PHASE03_BASE}/gallery-a/page-04.png`, label: 'Page 4' },
-        { src: `${PHASE03_BASE}/gallery-a/page-05.png`, label: 'Page 5' },
-        { src: `${PHASE03_BASE}/gallery-a/page-06.png`, label: 'Page 6' },
-        { src: `${PHASE03_BASE}/gallery-a/page-07.png`, label: 'Page 7' },
-        { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' },
-        { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' }
-      ]
-    },
-    // Screen 09: 瀑布流 (下) - 9张长竖图 (~1555×2763)
-    {
-      id: 'gallery-lower',
-      type: 'packaging-gallery',
-      categoryLabel: '海报画廊',
-      scrollBehavior: { sticky: false, length: 'medium', intensity: 'low' },
-      images: [
-        { src: `${PHASE03_BASE}/gallery-b/poster-01.png`, label: 'Poster 1' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-02.png`, label: 'Poster 2' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-03.png`, label: 'Poster 3' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-04.png`, label: 'Poster 4' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-05.png`, label: 'Poster 5' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-06.png`, label: 'Poster 6' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-07.png`, label: 'Poster 7' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-08.png`, label: 'Poster 8' },
-        { src: `${PHASE03_BASE}/gallery-b/poster-09.png`, label: 'Poster 9' }
+      maxWidth: '1400px',
+      columns: 3,
+      gap: '20px',
+      paddingTop: 60,
+      parallaxIntensity: 1,
+      scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
+      // 将18张图片分为3组（每组6张，与 phase-05 结构一致）
+      groups: [
+        {
+          label: 'GALLERY A',
+          images: [
+            { src: `${PHASE03_BASE}/gallery-a/page-01.png`, label: 'Page 1' },
+            { src: `${PHASE03_BASE}/gallery-a/page-02.png`, label: 'Page 2' },
+            { src: `${PHASE03_BASE}/gallery-a/page-03.png`, label: 'Page 3' },
+            { src: `${PHASE03_BASE}/gallery-a/page-04.png`, label: 'Page 4' },
+            { src: `${PHASE03_BASE}/gallery-a/page-05.png`, label: 'Page 5' },
+            { src: `${PHASE03_BASE}/gallery-a/page-06.png`, label: 'Page 6' }
+          ]
+        },
+        {
+          label: 'GALLERY B',
+          images: [
+            { src: `${PHASE03_BASE}/gallery-a/page-07.png`, label: 'Page 7' },
+            { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' },
+            { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-01.png`, label: 'Poster 1' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-02.png`, label: 'Poster 2' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-03.png`, label: 'Poster 3' }
+          ]
+        },
+        {
+          label: 'GALLERY C',
+          images: [
+            { src: `${PHASE03_BASE}/gallery-b/poster-04.png`, label: 'Poster 4' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-05.png`, label: 'Poster 5' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-06.png`, label: 'Poster 6' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-07.png`, label: 'Poster 7' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-08.png`, label: 'Poster 8' },
+            { src: `${PHASE03_BASE}/gallery-b/poster-09.png`, label: 'Poster 9' }
+          ]
+        }
       ]
     },
     // Screen 10: Closing - 收尾导航

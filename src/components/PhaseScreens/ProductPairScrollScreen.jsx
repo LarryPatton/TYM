@@ -60,37 +60,7 @@ export const ProductPairScrollScreen = ({
         overflow: 'hidden'
       }}>
         
-        {/* 屏幕标识 */}
-        {screenNumber && (
-          <motion.div style={{
-            position: 'absolute',
-            top: '40px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '0.75rem',
-            color: 'rgba(255,255,255,0.4)',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            zIndex: 10
-          }}>
-            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
-          </motion.div>
-        )}
-
-        {/* 标题 */}
-        {title && (
-          <motion.h2 style={{
-            position: 'absolute',
-            top: '100px',
-            fontSize: '2rem',
-            fontWeight: 300,
-            color: '#fff',
-            letterSpacing: '4px',
-            textTransform: 'uppercase'
-          }}>
-            {title}
-          </motion.h2>
-        )}
+        {/* 屏幕标识和标题已移至左上角胶囊导航，此处不再显示 */}
 
         {/* 配对展示区域 */}
         <div style={{

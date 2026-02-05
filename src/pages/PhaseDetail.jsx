@@ -476,6 +476,41 @@ const PhaseDetail = () => {
         );
 
       case 'phase-toc':
+        // 检查是否需要 sticky 效果
+        const isTocSticky = screenConfig.sticky === true;
+        const tocStickyHeight = screenConfig.stickyHeight || 200;
+        
+        if (isTocSticky) {
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${tocStickyHeight}vh`,
+                position: 'relative',
+                background: phase.bgColor || '#000',
+              }}
+            >
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <PhaseTocScreen
+                  screenNumber={screenNumber}
+                  screenLabel={screenLabel}
+                  images={screenConfig.images || []}
+                  bgColor={phase.bgColor}
+                />
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <PhaseTocScreen
             key={screenConfig.id}
@@ -531,6 +566,61 @@ const PhaseDetail = () => {
         );
 
       case 'packaging-gallery':
+        // 检查是否需要滚动驱动视差效果（类似幻灯片展示）
+        const isPackagingStickyParallax = screenConfig.stickyParallax === true;
+        const packagingStickyHeight = screenConfig.stickyHeight || 280;
+        
+        if (isPackagingStickyParallax) {
+          // 滚动驱动视差效果 - 直接传递参数给组件
+          return (
+            <PackagingGalleryScreen
+              key={screenConfig.id}
+              screenNumber={screenNumber}
+              screenLabel={screenLabel}
+              title={screenData?.title || ''}
+              content={screenData?.content || ''}
+              emphasis={screenData?.emphasis || ''}
+              images={screenConfig.images || []}
+              bgAlt={screenConfig.bgAlt}
+              stickyParallax={true}
+              stickyHeight={packagingStickyHeight}
+            />
+          );
+        }
+        
+        // 普通 sticky 效果
+        const isPackagingSticky = screenConfig.scrollBehavior?.sticky === true;
+        if (isPackagingSticky) {
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${packagingStickyHeight}vh`,
+                position: 'relative',
+                background: '#000',
+              }}
+            >
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                overflow: 'hidden',
+              }}>
+                <PackagingGalleryScreen
+                  screenNumber={screenNumber}
+                  screenLabel={screenLabel}
+                  title={screenData?.title || ''}
+                  content={screenData?.content || ''}
+                  emphasis={screenData?.emphasis || ''}
+                  images={screenConfig.images || []}
+                  bgAlt={screenConfig.bgAlt}
+                />
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <PackagingGalleryScreen
             key={screenConfig.id}
@@ -601,6 +691,46 @@ const PhaseDetail = () => {
         );
 
       case 'panorama-marquee':
+        // 检查是否需要 sticky 效果
+        const isPanoramaSticky = screenConfig.scrollBehavior?.sticky === true;
+        const panoramaStickyHeight = screenConfig.stickyHeight || 180;
+        
+        if (isPanoramaSticky) {
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${panoramaStickyHeight}vh`,
+                position: 'relative',
+                background: '#000',
+              }}
+            >
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <PanoramaMarqueeScreen
+                  screenNumber={screenNumber}
+                  screenLabel={screenLabel}
+                  title={screenData?.title || ''}
+                  content={screenData?.content || ''}
+                  emphasis={screenData?.emphasis || ''}
+                  marqueeImages={screenConfig.marqueeImages || []}
+                  sceneImages={screenConfig.sceneImages || []}
+                  carouselImages={screenConfig.carouselImages || []}
+                  bgAlt={screenConfig.bgAlt}
+                />
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <PanoramaMarqueeScreen
             key={screenConfig.id}
@@ -749,6 +879,38 @@ const PhaseDetail = () => {
         );
 
       case 'component-assembly':
+        // 检查是否需要 sticky 效果
+        const isAssemblySticky = screenConfig.scrollBehavior?.sticky === true;
+        const assemblyStickyHeight = screenConfig.stickyHeight || 200;
+        
+        if (isAssemblySticky) {
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${assemblyStickyHeight}vh`,
+                position: 'relative',
+                background: '#0a0a0a',
+              }}
+            >
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                overflow: 'hidden',
+              }}>
+                <ComponentAssemblyScreen
+                  screenNumber={screenNumber}
+                  screenLabel={screenLabel}
+                  title={screenData?.title || ''}
+                  content={screenData?.content || ''}
+                />
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <ComponentAssemblyScreen
             key={screenConfig.id}
@@ -768,6 +930,46 @@ const PhaseDetail = () => {
         );
 
       case 'fly-in-gallery':
+        // 检查是否需要 sticky 效果
+        const isFlyInSticky = screenConfig.scrollBehavior?.sticky === true;
+        const flyInStickyHeight = screenConfig.stickyHeight || 180;
+        
+        if (isFlyInSticky) {
+          return (
+            <div
+              key={screenConfig.id}
+              style={{
+                height: `${flyInStickyHeight}vh`,
+                position: 'relative',
+                background: '#000',
+              }}
+            >
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <FlyInGalleryScreen
+                  id={screenConfig.id}
+                  phaseId={phase.id}
+                  screenNumber={screenNumber}
+                  screenLabel={screenLabel}
+                  title={screenData?.title || ''}
+                  content={screenData?.content || ''}
+                  images={screenConfig.images || []}
+                  imageHeight={screenConfig.imageHeight || '50vh'}
+                  bgAlt={screenConfig.bgAlt}
+                />
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <FlyInGalleryScreen
             key={screenConfig.id}
@@ -822,6 +1024,7 @@ const PhaseDetail = () => {
             rowGap={config.rowGap || '24px'}
             showGroupLabel={config.showGroupLabel !== false}
             showItemCount={config.showItemCount !== false}
+            aspectRatio={config.aspectRatio || '1 / 1'}
           />
         );
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // 移动端仍使用
 import { useTranslation } from 'react-i18next';
 import { useScrollLock } from '../../contexts/ScrollLockContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
@@ -626,27 +626,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                           {p.subtitle2}
                         </p>
 
-                        {/* View Case Button */}
-                        <Link 
-                          to={`/work/the-case/${p.id}`}
-                          style={{ textDecoration: 'none' }}
-                        >
-                          <motion.div
-                            whileHover={{ x: 5 }}
-                            style={{ 
-                              display: 'inline-flex', 
-                              alignItems: 'center', 
-                              gap: '8px',
-                              fontSize: '0.9rem',
-                              fontWeight: '600',
-                              color: 'var(--color-text-main)',
-                              borderBottom: '1px solid var(--color-text-main)',
-                              paddingBottom: '2px'
-                            }}
-                          >
-                            {t('common.viewMore')} <span style={{ fontSize: '1.1rem' }}>→</span>
-                          </motion.div>
-                        </Link>
+                        {/* View Case Button 已移除 */}
                       </div>
                     </motion.div>
                   )}
@@ -657,101 +637,127 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
         </div>
       </div>
 
-      {/* Right Content - Scrollable Images */}
-      <div style={{ flex: 1, background: 'var(--color-bg-subtle)' }}>
-        {projects.map((project) => (
-          <motion.div
-            key={project.id}
+      {/* Right Content - Sticky 容器 + Crossfade 过渡 */}
+      <div style={{ 
+        flex: 1, 
+        position: 'relative',
+        height: `${projects.length * 100}vh`, // 滚动高度 = 项目数 × 100vh
+      }}>
+        {/* 隐藏的滚动触发器 - 用于检测当前项目 */}
+        {projects.map((project, index) => (
+          <div
+            key={`trigger-${project.id}`}
             id={`project-${project.id}`}
-            onViewportEnter={() => handleViewportEnter(project.id)}
-            viewport={{ margin: "-45% 0px -45% 0px" }} // 视口中间 10% 区域触发
             style={{
               height: '100vh',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 'clamp(40px, 8vw, 100px)',
-              boxSizing: 'border-box',
+              position: 'relative',
             }}
           >
-            <Link 
-              to={`/work/the-case/${project.id}`}
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                display: 'block',
-                textDecoration: 'none'
-              }}
-            >
-              <motion.div
-                whileHover={{ scale: 0.98 }}
-                transition={{ duration: 0.5 }}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  background: project.cover || '#eee',
-                  borderRadius: 'var(--radius-lg)',
-                  overflow: 'hidden',
-                  boxShadow: 'var(--shadow-xl)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                }}
-              >
-                {/* Image or Placeholder */}
-                {project.coverImage ? (
-                  <img 
-                    src={project.coverImage} 
-                    alt={project.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                    }}
-                  />
-                ) : (
-                  <div style={{ 
-                    color: 'rgba(255,255,255,0.2)', 
-                    fontSize: 'clamp(2rem, 5vw, 4rem)', 
-                    fontWeight: '700',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em'
-                  }}>
-                    {project.title}
-                  </div>
-                )}
-
-                {/* Hover Overlay */}
+            <motion.div
+              onViewportEnter={() => handleViewportEnter(project.id)}
+              viewport={{ margin: "-45% 0px -45% 0px" }}
+              style={{ height: '100%', width: '100%' }}
+            />
+          </div>
+        ))}
+        
+        {/* Sticky 图片容器 - 固定在视口 */}
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          marginTop: `-${projects.length * 100}vh`, // 将 sticky 容器拉回到顶部
+          overflow: 'hidden',
+          background: 'var(--color-bg-subtle)',
+        }}>
+          {/* 所有图片叠加，通过 opacity 控制显示 */}
+          <AnimatePresence mode="wait">
+            {projects.map((project) => (
+              activeId === project.id && (
                 <motion.div
+                  key={project.id}
                   initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'rgba(0,0,0,0.3)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backdropFilter: 'blur(4px)',
+                    width: '100%',
+                    height: '100%',
                   }}
                 >
-                  <div style={{
-                    padding: '15px 30px',
-                    background: '#fff',
-                    borderRadius: '100px',
-                    color: '#000',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                  }}>
-                    {t('work.viewProject')}
-                  </div>
+                  {project.coverImage ? (
+                    <img 
+                      src={project.coverImage} 
+                      alt={project.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <div style={{ 
+                      width: '100%',
+                      height: '100%',
+                      background: project.cover || '#eee',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'rgba(255,255,255,0.2)', 
+                      fontSize: 'clamp(2rem, 5vw, 4rem)', 
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
+                    }}>
+                      {project.title}
+                    </div>
+                  )}
                 </motion.div>
-              </motion.div>
-            </Link>
-          </motion.div>
-        ))}
+              )
+            ))}
+          </AnimatePresence>
+          
+          {/* 右侧进度指示器 */}
+          <div style={{
+            position: 'absolute',
+            right: '24px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            zIndex: 10,
+          }}>
+            {projects.map((p, index) => (
+              <motion.div
+                key={p.id}
+                animate={{
+                  scale: activeId === p.id ? 1.2 : 1,
+                  opacity: activeId === p.id ? 1 : 0.4,
+                }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: '#fff',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                }}
+                onClick={() => {
+                  const element = document.getElementById(`project-${p.id}`);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

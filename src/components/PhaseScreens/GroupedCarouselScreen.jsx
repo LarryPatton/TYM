@@ -31,7 +31,8 @@ export const GroupedCarouselScreen = ({
   rowGap = '24px',           // 自定义行间距，默认 24px
   showGroupLabel = true,     // 是否显示分组标题
   showItemCount = true,      // 是否显示图片计数
-  showScreenLabel = false    // 是否显示顶部屏幕标识（默认隐藏，由胶囊导航显示）
+  showScreenLabel = false,   // 是否显示顶部屏幕标识（默认隐藏，由胶囊导航显示）
+  aspectRatio = '1 / 1'      // 图片容器宽高比，默认正方形
 }) => {
   const containerRef = useRef(null);
   
@@ -227,6 +228,7 @@ export const GroupedCarouselScreen = ({
               rowGap={rowGap}
               showGroupLabel={showGroupLabel}
               showItemCount={showItemCount}
+              aspectRatio={aspectRatio}
             />
           ))}
         </div>
@@ -320,7 +322,7 @@ const IndicatorDot = ({ index, label, scrollYProgress, range, center, showLabel 
 /**
  * 单组场景（横向切换版本）
  */
-const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true }) => {
+const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true, aspectRatio = '1 / 1' }) => {
   const range = getGroupRange(index);
   
   // 透明度：进入时渐显，停顿时保持，离开时渐隐
@@ -505,7 +507,7 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
               <motion.div
                 key={`img-${index}-${imgIndex}`}
                 style={{
-                  aspectRatio: '1 / 1',
+                  aspectRatio: aspectRatio, // 使用传入的宽高比
                   overflow: 'hidden',
                   background: 'transparent',
                   display: 'flex',

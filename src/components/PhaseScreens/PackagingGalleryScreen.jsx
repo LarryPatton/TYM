@@ -27,7 +27,9 @@ export const PackagingGalleryScreen = ({
   content,
   emphasis,
   images = [],
-  bgAlt = false
+  bgAlt = false,
+  stickyParallax = false, // 滚动驱动视差效果（类似幻灯片展示）
+  stickyHeight = 280 // 滚动高度
 }) => {
   const containerRef = useRef(null);
   
@@ -46,7 +48,7 @@ export const PackagingGalleryScreen = ({
   // 滚动进度追踪
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: stickyParallax ? ["start start", "end end"] : ["start end", "end start"]
   });
 
   // 瀑布流整体显现
@@ -55,6 +57,10 @@ export const PackagingGalleryScreen = ({
   // 强调文字
   const emphasisOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
   const emphasisY = useTransform(scrollYProgress, [0.55, 0.7], [30, 0]);
+  
+  // Sticky Parallax 模式的视差动画
+  const yFast = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const ySlow = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   // 根据设备决定列数：移动端1列，桌面端3列
   const columnCount = isMobile ? 1 : 3;
@@ -63,6 +69,91 @@ export const PackagingGalleryScreen = ({
     columns[index % columnCount].push({ ...image, originalIndex: index });
   });
 
+  // ============ Sticky Parallax 模式 ============
+  if (stickyParallax) {
+    return (
+      <div 
+        ref={containerRef}
+        style={{
+          height: `${stickyHeight}vh`,
+          position: 'relative',
+          background: '#000'
+        }}
+      >
+        {/* Sticky 容器 */}
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden'
+        }}>
+          {/* 三列网格容器 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '20px',
+            maxWidth: '1200px',
+            width: '100%',
+            padding: '0 40px',
+            alignItems: 'start'
+          }}>
+            {columns.map((colImages, colIndex) => {
+              // 两侧列 (0, 2) 快速，中间列 (1) 慢速
+              const isCenter = colIndex === 1;
+              const yMotion = isCenter ? ySlow : yFast;
+              
+              return (
+                <motion.div
+                  key={`col-${colIndex}`}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '16px',
+                    y: yMotion,
+                    // 中间列添加顶部偏移，形成错落
+                    paddingTop: isCenter ? '80px' : '0'
+                  }}
+                >
+                  {colImages.map((img) => (
+                    <motion.div
+                      key={`img-${img.originalIndex}`}
+                      style={{
+                        position: 'relative',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        background: '#1a1a1a'
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <img
+                        src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
+                        alt={img.label || `Image ${img.originalIndex + 1}`}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          display: 'block'
+                        }}
+                        onError={(e) => {
+                          console.error('PackagingGallery image load error:', img.src);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============ 普通模式 ============
   return (
     <section 
       ref={containerRef}

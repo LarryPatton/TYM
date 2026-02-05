@@ -590,7 +590,8 @@ const Work = () => {
         paddingLeft: '12px',
         borderLeft: `2px solid ${styles.label.borderColor}`,
         fontWeight: '500',
-        letterSpacing: '0.02em'
+        letterSpacing: '0.02em',
+        textShadow: styles.label.textShadow || 'none',
       }}
     >
       {text}
@@ -632,7 +633,7 @@ const Work = () => {
     tag: { border: '1px solid #555', color: '#ccc', backgroundColor: 'rgba(255,255,255,0.05)' }
   };
 
-  // 亮色模式样式
+  // 亮色模式样式 - 文字使用白色+阴影，确保在彩色背景上可读
   const lightStyles = {
     page: {
       backgroundColor: '#f8f8f8',
@@ -657,12 +658,12 @@ const Work = () => {
     dividerBg: '#f8f8f8',
     dividerLine: '#e5e5e5',
     dividerText: '#999',
-    label: { color: '#333', borderColor: '#999' },
-    title: { color: '#111', fontWeight: '500' },
-    desc: { color: '#333' },
-    quote: { color: '#444' },
-    cta: { color: '#111', fontWeight: '600' },
-    tag: { border: '1px solid #999', color: '#333', backgroundColor: 'rgba(0,0,0,0.03)' }
+    label: { color: '#fff', borderColor: 'rgba(255,255,255,0.6)', textShadow: '0 2px 8px rgba(0,0,0,0.5)' },
+    title: { color: '#fff', fontWeight: '500', textShadow: '0 2px 12px rgba(0,0,0,0.6)' },
+    desc: { color: 'rgba(255,255,255,0.9)', textShadow: '0 1px 6px rgba(0,0,0,0.5)' },
+    quote: { color: 'rgba(255,255,255,0.8)' },
+    cta: { color: '#fff', fontWeight: '600' },
+    tag: { border: '1px solid rgba(255,255,255,0.5)', color: '#fff', backgroundColor: 'rgba(0,0,0,0.2)', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }
   };
 
   const styles = isDark ? darkStyles : lightStyles;
@@ -818,16 +819,16 @@ const Work = () => {
             {/* 倾斜切割背景 */}
             <SlicedBackground phases={phases} isDark={isDark} />
             
-            {/* 左侧渐变遮罩 */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: isDark
-                ? 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)'
-                : 'linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 45%, transparent 60%)',
-              pointerEvents: 'none',
-              zIndex: 1,
-            }} />
+            {/* 左侧渐变遮罩 - 仅深色模式显示 */}
+            {isDark && (
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
+                pointerEvents: 'none',
+                zIndex: 1,
+              }} />
+            )}
             
             {/* 前景内容 */}
             <div style={{ 

@@ -45,14 +45,14 @@ const seededRandom = (seed) => {
 const generateGridPositions = (count, startY = 35) => {
   const positions = [];
   const cols = 5; // 5列网格
-  const rowHeight = 22; // 行高
+  const rowHeight = 17; // 行高
   
   for (let i = 0; i < count; i++) {
     const row = Math.floor(i / cols);
     const col = i % cols;
     
     // 严格网格布局
-    const baseX = (col / cols) * 100 + 4; // 调整边距，使网格居中
+    const baseX = (col / cols) * 100 + 2; // 调整边距，使网格居中
     const baseY = startY + row * rowHeight;
     
     // 极微小的随机扰动，避免完全死板，但视觉上看起来是整齐的
@@ -97,7 +97,7 @@ export const ConsistencyMosaicScreen = ({
 
   // 为产品生成散布位置（使用 useMemo 缓存） - 改用 generateGridPositions
   const productPositions = useMemo(() => 
-    generateGridPositions(products.length, 38), 
+    generateGridPositions(products.length, 28), 
     [products.length]
   );
   
@@ -264,7 +264,7 @@ export const ConsistencyMosaicScreen = ({
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
                 y: parallaxY,
-                width: '14vw', // 稍微调大尺寸，适配5列网格
+                width: '15vw', // 稍微调大尺寸，适配5列网格
                 height: 'auto', // 保持原始宽高比
                 zIndex: pos.zIndex,
                 animation: `gentleDrift ${pos.animationDuration}s ease-in-out infinite`,

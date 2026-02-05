@@ -1,111 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useClipboard } from '../hooks/useClipboard';
-import { useIsMobile, useIsTablet } from '../hooks/useMediaQuery';
+import { useIsMobile } from '../hooks/useMediaQuery';
+import { useTheme } from '../hooks/useTheme';
 
-// 导航圆点组件 (适配自然滚动) - 移动端隐藏
-const DotNavigation = ({ sections, isMobile }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-      
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i].id);
-        if (element && element.offsetTop <= scrollPosition) {
-          setCurrentIndex(i);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections]);
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // Header height
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
-
-  // 移动端隐藏导航圆点
-  if (isMobile) return null;
-
-  return (
-    <div style={{
-      position: 'fixed',
-      right: '40px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '16px',
-      zIndex: 100
-    }}>
-      {sections.map((section, index) => (
-        <motion.button
-          key={section.id}
-          onClick={() => scrollToSection(section.id)}
-          whileHover={{ scale: 1.3 }}
-          whileTap={{ scale: 0.9 }}
-          style={{
-            width: currentIndex === index ? '12px' : '8px',
-            height: currentIndex === index ? '12px' : '8px',
-            borderRadius: '50%',
-            border: 'none',
-            backgroundColor: currentIndex === index ? 'var(--color-text-main)' : 'var(--color-border)',
-            cursor: 'pointer',
-            padding: 0,
-            transition: 'all 0.3s ease',
-            position: 'relative'
-          }}
-          title={section.name}
-        />
-      ))}
-    </div>
-  );
-};
-
+/**
+ * About 页面 - 全屏 Sticky Scroll 设计
+ * 4 个 section 各自占据一个视口高度，滚动时切换显示
+ */
 const About = () => {
   const { t } = useTranslation();
   useTitle(t('about.pageTitle'));
   const location = useLocation();
   const { copiedId, copy } = useClipboard();
   const [formStatus, setFormStatus] = useState('idle');
+  const [activeSection, setActiveSection] = useState(0);
   const isMobile = useIsMobile();
-  const isTablet = useIsTablet();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const containerRef = useRef(null);
 
-  // 处理从其他页面跳转过来时的滚动
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      const element = document.getElementById(location.state.scrollTo);
-      if (element) {
-        setTimeout(() => {
-          const offset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
-        }, 100);
-      }
-    }
-  }, [location]);
+  // 主题颜色配置
+  const colors = {
+    bg: isDark ? '#0a0a0a' : '#fafafa',
+    bgAlt: isDark ? '#111' : '#f5f5f5',
+    text: isDark ? '#fff' : '#111',
+    textMuted: isDark ? '#888' : '#666',
+    textLight: isDark ? '#555' : '#999',
+    border: isDark ? '#333' : '#ddd',
+    accent: isDark ? '#fff' : '#111',
+    cardBg: isDark ? '#1a1a1a' : '#fff',
+    inputBg: isDark ? '#1a1a1a' : '#fff',
+    inputBorder: isDark ? '#333' : '#ddd',
+  };
 
+  // Section 配置
   const sections = [
     { id: 'intro', name: t('about.sectionIntro') },
     { id: 'expertise', name: t('about.sectionExpertise') },
@@ -113,678 +45,291 @@ const About = () => {
     { id: 'contact', name: t('about.sectionContact') }
   ];
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
+  // 总滚动高度：4个 section
+  const totalScrollHeight = sections.length * 100; // vh
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1
+  // 使用 useScroll 监听滚动进度
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // 根据滚动进度计算当前 section
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (progress) => {
+      const newIndex = Math.min(
+        Math.floor(progress * sections.length),
+        sections.length - 1
+      );
+      if (newIndex !== activeSection && newIndex >= 0) {
+        setActiveSection(newIndex);
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, sections.length, activeSection]);
+
+  // 处理从其他页面跳转
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const targetIndex = sections.findIndex(s => s.id === location.state.scrollTo);
+      if (targetIndex >= 0 && containerRef.current) {
+        setTimeout(() => {
+          const scrollTarget = (targetIndex / sections.length) * containerRef.current.scrollHeight;
+          window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }, 100);
       }
     }
-  };
+  }, [location, sections]);
 
+  // 能力数据
   const capabilities = [
-    {
-      title: t('about.expertise.strategy.title'),
-      items: t('about.expertise.strategy.items', { returnObjects: true })
-    },
-    {
-      title: t('about.expertise.design.title'),
-      items: t('about.expertise.design.items', { returnObjects: true })
-    },
-    {
-      title: t('about.expertise.development.title'),
-      items: t('about.expertise.development.items', { returnObjects: true })
-    }
+    { title: t('about.expertise.strategy.title'), items: t('about.expertise.strategy.items', { returnObjects: true }) },
+    { title: t('about.expertise.design.title'), items: t('about.expertise.design.items', { returnObjects: true }) },
+    { title: t('about.expertise.development.title'), items: t('about.expertise.development.items', { returnObjects: true }) }
   ];
 
+  // 职业历程
   const journey = [
-    { 
-      year: t('about.journey.item1.year'), 
-      role: t('about.journey.item1.role'), 
-      company: t('about.journey.item1.company'),
-      logo: '/images/about/logos/tech-innovators.svg'
-    },
-    { 
-      year: t('about.journey.item2.year'), 
-      role: t('about.journey.item2.role'), 
-      company: t('about.journey.item2.company'),
-      logo: '/images/about/logos/creative-studio.svg'
-    },
-    { 
-      year: t('about.journey.item3.year'), 
-      role: t('about.journey.item3.role'), 
-      company: t('about.journey.item3.company'),
-      logo: '/images/about/logos/startup-alpha.svg'
-    },
-    { 
-      year: t('about.journey.item4.year'), 
-      role: t('about.journey.item4.role'), 
-      company: t('about.journey.item4.company'),
-      logo: '/images/about/logos/academy-arts.svg'
-    },
+    { year: t('about.journey.item1.year'), role: t('about.journey.item1.role'), company: t('about.journey.item1.company') },
+    { year: t('about.journey.item2.year'), role: t('about.journey.item2.role'), company: t('about.journey.item2.company') },
+    { year: t('about.journey.item3.year'), role: t('about.journey.item3.role'), company: t('about.journey.item3.company') },
+    { year: t('about.journey.item4.year'), role: t('about.journey.item4.role'), company: t('about.journey.item4.company') },
   ];
 
-  // 滚动提示透明度控制
-  const { scrollY } = useScroll();
-  const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
-
-  // Formspree 表单提交处理
+  // 表单提交
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mlgbqjeg';
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('submitting');
-    
-    const formData = new FormData(e.target);
-    
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        body: new FormData(e.target),
+        headers: { 'Accept': 'application/json' }
       });
-      
-      if (response.ok) {
-        setFormStatus('success');
-        e.target.reset(); // 清空表单
-      } else {
-        const data = await response.json();
-        if (data.errors) {
-          console.error('Form errors:', data.errors);
-        }
-        setFormStatus('error');
-      }
-    } catch (error) {
-      console.error('Submit error:', error);
-      setFormStatus('error');
+      if (response.ok) { setFormStatus('success'); e.target.reset(); }
+      else { setFormStatus('error'); }
+    } catch { setFormStatus('error'); }
+  };
+
+  // 导航跳转
+  const scrollToSection = (index) => {
+    if (containerRef.current) {
+      const scrollTarget = (index / sections.length) * containerRef.current.scrollHeight;
+      window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
     }
   };
 
+  // 动画变体
+  const contentVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+    exit: { opacity: 0, y: -40, transition: { duration: 0.4 } }
+  };
+
+  // ==================== 移动端布局 ====================
+  if (isMobile) {
+    return (
+      <MobileAbout 
+        t={t} colors={colors} capabilities={capabilities} journey={journey}
+        copiedId={copiedId} copy={copy} formStatus={formStatus} 
+        handleSubmit={handleSubmit} setFormStatus={setFormStatus} isDark={isDark}
+      />
+    );
+  }
+
+  // 导航栏高度
+  const navHeight = 80;
+
+  // ==================== 桌面端：Sticky Scroll ====================
   return (
-    <div style={{ position: 'relative' }}>
-      <DotNavigation sections={sections} isMobile={isMobile} />
-
-      {/* 滚动提示 - 移动端隐藏 */}
-      {!isMobile && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          style={{
-            opacity: scrollIndicatorOpacity,
-            position: 'fixed',
-            bottom: '50px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '10px',
-            color: 'var(--color-text-light)',
-            fontSize: '0.75rem',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            zIndex: 50,
-            pointerEvents: 'none',
-          }}
-        >
-          <span>{t('common.scroll')}</span>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            style={{
-              width: '1px',
-              height: '50px',
-              background: 'linear-gradient(to bottom, var(--color-text-light), transparent)',
-            }}
-          />
-        </motion.div>
-      )}
-
-      <motion.div 
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-        style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          padding: isMobile 
-            ? 'var(--space-lg) var(--space-page-x)' 
-            : 'clamp(60px, 8vh, 100px) clamp(40px, 5vw, 80px)',
-          boxSizing: 'border-box'
-        }}
-      >
+    <div ref={containerRef} style={{ position: 'relative', height: `${totalScrollHeight}vh`, background: colors.bg }}>
+      {/* Sticky 容器 */}
+      <div style={{ position: 'sticky', top: `${navHeight}px`, height: `calc(100vh - ${navHeight}px)`, display: 'flex', overflow: 'hidden', background: colors.bg }}>
         
-        {/* Section 1: Intro */}
-        <section id="intro" style={{ 
-          minHeight: isMobile ? 'auto' : '80vh', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          justifyContent: 'center', 
-          marginBottom: isMobile ? '60px' : '100px',
-          paddingTop: isMobile ? 'var(--space-md)' : 0
-        }}>
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'minmax(280px, 380px) 1fr', 
-            gap: isMobile ? '32px' : '60px', 
-            alignItems: 'start' 
-          }}>
-            {/* 左侧/上方：个人形象照 */}
-            <motion.div 
-              variants={fadeInUp}
-              style={{ position: isMobile ? 'static' : 'sticky', top: '100px' }}
-            >
-              <div style={{
-                position: 'relative',
-                width: isMobile ? '60%' : '100%',
-                maxWidth: isMobile ? '200px' : 'none',
-                margin: isMobile ? '0 auto' : 0,
-                aspectRatio: '3 / 4',
-                borderRadius: isMobile ? '12px' : '16px',
-                overflow: 'hidden',
-                background: 'var(--color-bg-subtle)',
-                border: '1px solid var(--color-border)'
-              }}>
-                {/* 形象照图片 - 替换 src 为您的实际照片路径 */}
-                <img 
-                  src="/images/about/portrait.jpg" 
-                  alt={t('about.greeting')}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center top'
-                  }}
-                  onError={(e) => {
-                    // 图片加载失败时显示占位符
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
-                />
-                {/* 占位符 - 图片不存在时显示 */}
-                <div style={{
-                  display: 'none',
-                  position: 'absolute',
-                  inset: 0,
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--color-text-muted)',
-                  gap: '12px'
-                }}>
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="8" r="4"/>
-                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
-                  </svg>
-                  <span style={{ fontSize: '0.85rem' }}>Portrait Photo</span>
-                </div>
-              </div>
-              {/* 形象照下方的装饰标签 */}
-              <div style={{
-                marginTop: isMobile ? '12px' : '16px',
-                display: 'flex',
-                gap: '8px',
-                flexWrap: 'wrap',
-                justifyContent: isMobile ? 'center' : 'flex-start'
-              }}>
-                <span style={{
-                  padding: isMobile ? '4px 10px' : '6px 12px',
-                  background: 'var(--color-bg-subtle)',
-                  borderRadius: '100px',
-                  fontSize: isMobile ? '0.75rem' : '0.8rem',
-                  color: 'var(--color-text-muted)'
-                }}>
-                  {t('about.expertise.design.title')}
-                </span>
-                <span style={{
-                  padding: isMobile ? '4px 10px' : '6px 12px',
-                  background: 'var(--color-bg-subtle)',
-                  borderRadius: '100px',
-                  fontSize: isMobile ? '0.75rem' : '0.8rem',
-                  color: 'var(--color-text-muted)'
-                }}>
-                  Brand Visual
-                </span>
-              </div>
-            </motion.div>
-
-            {/* 右侧/下方：文字介绍 */}
-            <motion.div variants={fadeInUp} style={{ paddingTop: isMobile ? 0 : '20px' }}>
-              <h1 style={{ 
-                fontFamily: 'var(--font-serif)', 
-                fontSize: isMobile ? 'clamp(1.8rem, 8vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.5rem)', 
-                fontWeight: '400', 
-                lineHeight: 1.1, 
-                marginBottom: isMobile ? '24px' : '40px',
-                letterSpacing: '-0.03em',
-                textAlign: isMobile ? 'center' : 'left'
-              }}>
-                {t('about.title')}
-              </h1>
-              <p style={{ 
-                fontSize: isMobile ? '1rem' : '1.2rem', 
-                lineHeight: 1.6, 
-                color: 'var(--color-text-main)', 
-                marginBottom: isMobile ? '16px' : '24px', 
-                fontWeight: '500' 
-              }}>
-                {t('about.greeting')}<br/>
-                {t('about.introLine1')}
-              </p>
-              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '12px' : '20px' }}>
-                {t('about.introLine2')}
-              </p>
-              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '12px' : '20px' }}>
-                {t('about.introLine3')}
-              </p>
-              <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', lineHeight: 1.8, color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px' }}>
-                {t('about.introLine4')}
-              </p>
-              <div style={{ display: 'flex', gap: '20px', justifyContent: isMobile ? 'center' : 'flex-start' }}>
-                <button 
-                  onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                  style={{ 
-                    padding: isMobile ? '10px 24px' : '12px 30px', 
-                    background: 'var(--color-text-main)', 
-                    color: 'var(--color-bg)', 
-                    border: 'none', 
-                    borderRadius: '100px', 
-                    fontSize: '0.9rem', 
-                    cursor: 'pointer',
-                    fontWeight: '500'
-                  }}
-                >
-                  {t('about.contactMe')}
-                </button>
-              </div>
-            </motion.div>
+        {/* 左侧导航 */}
+        <div style={{ width: '80px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRight: `1px solid ${colors.border}` }}>
+          <div style={{ width: '3px', height: '180px', background: colors.border, borderRadius: '2px', position: 'relative', marginBottom: '24px' }}>
+            <motion.div animate={{ height: `${((activeSection + 1) / sections.length) * 100}%` }} transition={{ duration: 0.4 }} style={{ width: '100%', background: colors.accent, borderRadius: '2px' }} />
           </div>
-        </section>
-
-        {/* Section 2: Expertise */}
-        <section id="expertise" style={{ marginBottom: isMobile ? '80px' : '160px' }}>
-          <div style={{ 
-            borderTop: '1px solid var(--color-border)', 
-            paddingTop: isMobile ? '32px' : '60px', 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: isMobile ? '28px' : '40px' 
-          }}>
-            <motion.div variants={fadeInUp} style={{ gridColumn: '1 / -1', marginBottom: isMobile ? '8px' : '20px' }}>
-              <h2 style={{ fontSize: isMobile ? '0.8rem' : '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)' }}>{t('about.expertiseTitle')}</h2>
-            </motion.div>
-            
-            {capabilities.map((cap, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: isMobile ? '1.2rem' : '1.5rem', marginBottom: isMobile ? '12px' : '20px', fontWeight: '400' }}>{cap.title}</h3>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {cap.items.map((item, i) => (
-                    <li key={i} style={{ marginBottom: isMobile ? '6px' : '10px', color: 'var(--color-text-muted)', fontSize: isMobile ? '0.85rem' : '0.95rem' }}>{item}</li>
-                  ))}
-                </ul>
-              </motion.div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {sections.map((section, index) => (
+              <motion.button key={section.id} onClick={() => scrollToSection(index)} whileHover={{ scale: 1.2 }} style={{ width: activeSection === index ? '12px' : '8px', height: activeSection === index ? '12px' : '8px', borderRadius: '50%', border: 'none', background: activeSection === index ? colors.accent : colors.border, cursor: 'pointer', transition: 'all 0.3s' }} title={section.name} />
             ))}
           </div>
-        </section>
+          <div style={{ marginTop: '24px', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: colors.textMuted }}>{String(activeSection + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}</div>
+        </div>
 
-        {/* Section 3: Journey */}
-        <section id="journey" style={{ marginBottom: isMobile ? '80px' : '160px' }}>
-          <div style={{ 
-            borderTop: '1px solid var(--color-border)', 
-            paddingTop: isMobile ? '32px' : '60px', 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr', 
-            gap: isMobile ? '24px' : '60px' 
-          }}>
-            <motion.div variants={fadeInUp}>
-              <h2 style={{ 
-                fontSize: isMobile ? '0.8rem' : '0.9rem', 
-                textTransform: 'uppercase', 
-                letterSpacing: '2px', 
-                color: 'var(--color-text-muted)', 
-                position: isMobile ? 'static' : 'sticky', 
-                top: '100px',
-                marginBottom: isMobile ? '8px' : 0
-              }}>{t('about.journeyTitle')}</h2>
-            </motion.div>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '24px' : '40px' }}>
-              {journey.map((item, index) => (
-                <motion.div 
-                  key={index} 
-                  variants={fadeInUp}
-                  style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: isMobile ? '40px 1fr' : '48px 100px 1fr', 
-                    gap: isMobile ? '12px' : '20px',
-                    alignItems: isMobile ? 'start' : 'center'
-                  }}
-                >
-                  {/* 公司 Logo */}
-                  <div style={{
-                    width: isMobile ? '40px' : '48px',
-                    height: isMobile ? '40px' : '48px',
-                    borderRadius: isMobile ? '10px' : '12px',
-                    background: 'var(--color-bg-subtle)',
-                    border: '1px solid var(--color-border)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                    flexShrink: 0
-                  }}>
-                    <img 
-                      src={item.logo} 
-                      alt={item.company}
-                      style={{
-                        width: isMobile ? '26px' : '32px',
-                        height: isMobile ? '26px' : '32px',
-                        objectFit: 'contain'
-                      }}
-                      onError={(e) => {
-                        // Logo 加载失败时显示首字母
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                    {/* Logo 占位符 - 显示公司名首字母 */}
-                    <span style={{
-                      display: 'none',
-                      fontSize: isMobile ? '1rem' : '1.2rem',
-                      fontWeight: '600',
-                      color: 'var(--color-text-muted)',
-                      fontFamily: 'var(--font-serif)'
-                    }}>
-                      {item.company.charAt(0)}
-                    </span>
+        {/* 内容区域 */}
+        <div style={{ flex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(40px, 5vw, 80px)', overflow: 'hidden' }}>
+          <AnimatePresence mode="wait">
+            {/* Section 1: Intro */}
+            {activeSection === 0 && (
+              <motion.div key="intro" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px', display: 'grid', gridTemplateColumns: 'minmax(260px, 320px) 1fr', gap: '60px', alignItems: 'center' }}>
+                <div>
+                  <div style={{ aspectRatio: '3 / 4', borderRadius: '16px', overflow: 'hidden', background: colors.bgAlt, border: `1px solid ${colors.border}` }}>
+                    <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
+                    <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
                   </div>
-                  
-                  {/* 移动端：年份和职位合并 */}
-                  {isMobile ? (
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '4px' }}>{item.year}</div>
-                      <div style={{ fontSize: '1rem', fontWeight: '500', marginBottom: '2px' }}>{item.role}</div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{item.company}</div>
-                    </div>
-                  ) : (
-                    <>
-                      {/* 桌面端：年份单独一列 */}
-                      <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{item.year}</div>
-                      
-                      {/* 职位和公司 */}
-                      <div>
-                        <div style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '4px' }}>{item.role}</div>
-                        <div style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>{item.company}</div>
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Contact (Merged) */}
-        <section id="contact" style={{ marginBottom: isMobile ? '60px' : '100px' }}>
-          <div style={{ 
-            borderTop: '1px solid var(--color-border)', 
-            paddingTop: isMobile ? '32px' : '60px', 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))', 
-            gap: isMobile ? '40px' : '80px' 
-          }}>
-            
-            {/* Left Column: Info */}
-            <div>
-              <motion.div variants={fadeInUp}>
-                <h2 style={{ fontSize: isMobile ? '0.8rem' : '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px' }}>{t('about.contactTitle')}</h2>
-              </motion.div>
-              
-              <motion.h1 
-                variants={fadeInUp}
-                style={{ 
-                  fontFamily: 'var(--font-serif)', 
-                  fontSize: isMobile ? 'clamp(1.8rem, 8vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4rem)', 
-                  fontWeight: '400', 
-                  lineHeight: 1.1, 
-                  marginBottom: isMobile ? '20px' : '40px',
-                  letterSpacing: '-0.03em',
-                  color: 'var(--color-text-main)'
-                }}
-              >
-                {t('about.letsTalk')}
-              </motion.h1>
-              
-              <motion.p variants={fadeInUp} style={{ fontSize: isMobile ? '0.95rem' : '1.1rem', color: 'var(--color-text-muted)', marginBottom: isMobile ? '24px' : '40px', lineHeight: 1.6, maxWidth: '450px' }}>
-                {t('about.contactIntro')}<br/>
-                {t('about.contactIntro2')}
-              </motion.p>
-
-              {/* 个人签名装饰 - 移动端隐藏或缩小 */}
-              <motion.div 
-                variants={fadeInUp}
-                style={{ 
-                  marginBottom: isMobile ? '24px' : '40px',
-                  position: 'relative',
-                  display: isMobile ? 'none' : 'block'
-                }}
-              >
-                {/* 签名图片 - 替换为实际签名图片路径 */}
-                <img 
-                  src="/images/about/signature.svg" 
-                  alt="Signature"
-                  style={{
-                    height: '60px',
-                    width: 'auto',
-                    opacity: 0.8,
-                    filter: 'var(--filter-invert, none)'
-                  }}
-                  onError={(e) => {
-                    // 签名图片加载失败时显示手写风格文字
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                {/* 签名占位符 - 手写风格 */}
-                <div style={{
-                  display: 'none',
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '2rem',
-                  fontStyle: 'italic',
-                  color: 'var(--color-text-main)',
-                  opacity: 0.6,
-                  transform: 'rotate(-3deg)',
-                  letterSpacing: '2px'
-                }}>
-                  Lumi Tian
+                </div>
+                <div>
+                  <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', fontWeight: '400', marginBottom: '28px', lineHeight: 1.15, color: colors.text }}>{t('about.greeting')}</h1>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', color: colors.textMuted, fontSize: '1.05rem', lineHeight: 1.7 }}>
+                    <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
+                    <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
+                    <p style={{ margin: 0 }}>{t('about.introLine3')}</p>
+                    <p style={{ margin: 0 }}>{t('about.introLine4')}</p>
+                  </div>
+                  <div style={{ marginTop: '35px', display: 'flex', gap: '15px' }}>
+                    <motion.a href="/resume.pdf" target="_blank" whileHover={{ scale: 1.05 }} style={{ padding: '13px 30px', background: colors.accent, color: isDark ? '#000' : '#fff', borderRadius: '100px', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none' }}>{t('about.downloadResume')}</motion.a>
+                  </div>
                 </div>
               </motion.div>
+            )}
 
-              <motion.div variants={fadeInUp} style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '20px' : '30px' }}>
-                
-                {/* Email Item */}
-                <div>
-                  <div style={{ fontSize: isMobile ? '0.75rem' : '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '6px' : '10px' }}>{t('about.emailLabel')}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '15px', flexWrap: 'wrap' }}>
-                    <a href="mailto:hello@example.com" style={{ fontSize: isMobile ? '1rem' : '1.2rem', color: 'var(--color-text-main)', textDecoration: 'none', fontFamily: 'var(--font-serif)' }}>
-                      hello@example.com
-                    </a>
-                    <button 
-                      onClick={() => copy('hello@example.com', 'email')}
-                      style={{ 
-                        background: 'transparent', 
-                        border: '1px solid var(--color-border)', 
-                        borderRadius: '20px', 
-                        padding: isMobile ? '3px 10px' : '4px 12px', 
-                        fontSize: isMobile ? '0.7rem' : '0.75rem', 
-                        cursor: 'pointer',
-                        color: 'var(--color-text-muted)'
-                      }}
-                    >
-                      {copiedId === 'email' ? t('about.copied') : t('about.copy')}
-                    </button>
-                  </div>
-                </div>
-
-                {/* WeChat Item */}
-                <div>
-                  <div style={{ fontSize: isMobile ? '0.75rem' : '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)', marginBottom: isMobile ? '6px' : '10px' }}>{t('about.wechatLabel')}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '15px', flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: isMobile ? '1rem' : '1.2rem', color: 'var(--color-text-main)', fontFamily: 'var(--font-serif)' }}>
-                      wx_username
-                    </span>
-                    <button 
-                      onClick={() => copy('wx_username', 'wechat')}
-                      style={{ 
-                        background: 'transparent', 
-                        border: '1px solid var(--color-border)', 
-                        borderRadius: '20px', 
-                        padding: isMobile ? '3px 10px' : '4px 12px', 
-                        fontSize: isMobile ? '0.7rem' : '0.75rem', 
-                        cursor: 'pointer',
-                        color: 'var(--color-text-muted)'
-                      }}
-                    >
-                      {copiedId === 'wechat' ? t('about.copied') : t('about.copy')}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Social Links */}
-                <div style={{ marginTop: isMobile ? '12px' : '20px', display: 'flex', gap: isMobile ? '16px' : '20px', flexWrap: 'wrap' }}>
-                  {['LinkedIn', 'Twitter', 'Instagram'].map(social => (
-                    <a key={social} href="#" style={{ color: 'var(--color-text-main)', textDecoration: 'none', fontSize: isMobile ? '0.85rem' : '0.9rem', fontWeight: '500' }}>
-                      {social}
-                    </a>
+            {/* Section 2: Expertise */}
+            {activeSection === 1 && (
+              <motion.div key="expertise" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px' }}>
+                <h2 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '3px', color: colors.textLight, marginBottom: '45px' }}>{t('about.expertiseTitle')}</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '45px' }}>
+                  {capabilities.map((cap, index) => (
+                    <motion.div key={index} initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1, duration: 0.5 }}>
+                      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: '400', marginBottom: '22px', color: colors.text }}>{cap.title}</h3>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                        {cap.items.map((item, i) => (
+                          <li key={i} style={{ marginBottom: '10px', color: colors.textMuted, fontSize: '0.95rem', paddingLeft: '14px', position: 'relative' }}>
+                            <span style={{ position: 'absolute', left: 0, top: '8px', width: '4px', height: '4px', borderRadius: '50%', background: colors.textLight }} />{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
                   ))}
                 </div>
-
               </motion.div>
-            </div>
+            )}
 
-            {/* Right Column: Form */}
-            <motion.div variants={fadeInUp}>
-              <div style={{ 
-                background: 'var(--color-bg)', 
-                padding: isMobile ? '24px' : '40px', 
-                borderRadius: isMobile ? '16px' : '24px', 
-                border: '1px solid var(--color-border)',
-                boxShadow: 'var(--shadow-sm)'
-              }}>
-                <h3 style={{ fontSize: isMobile ? '1.1rem' : '1.2rem', fontFamily: 'var(--font-serif)', marginBottom: isMobile ? '20px' : '30px', fontWeight: '400' }}>{t('about.projectConsultation')}</h3>
-                
-                {formStatus === 'success' ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    style={{ textAlign: 'center', padding: isMobile ? '24px 0' : '40px 0' }}
-                  >
-                    <div style={{ fontSize: isMobile ? '2.5rem' : '3rem', marginBottom: isMobile ? '12px' : '20px' }}>✨</div>
-                    <h3 style={{ marginBottom: '10px', fontSize: isMobile ? '1.1rem' : '1.25rem' }}>{t('about.messageSent')}</h3>
-                    <p style={{ color: 'var(--color-text-muted)', marginBottom: isMobile ? '20px' : '30px', fontSize: isMobile ? '0.9rem' : '1rem' }}>{t('about.thankYou')}</p>
-                    <button 
-                      onClick={() => setFormStatus('idle')}
-                      style={{ padding: isMobile ? '10px 24px' : '12px 30px', background: 'var(--color-text-main)', color: 'var(--color-bg)', border: 'none', borderRadius: '100px', cursor: 'pointer', fontSize: isMobile ? '0.9rem' : '1rem' }}
-                    >
-                      {t('about.sendAnother')}
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '16px' : '20px' }}>
-                    {/* 错误提示 */}
-                    {formStatus === 'error' && (
-                      <motion.div 
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        style={{
-                          padding: isMobile ? '10px 12px' : '12px 16px',
-                          background: 'rgba(239, 68, 68, 0.1)',
-                          border: '1px solid rgba(239, 68, 68, 0.3)',
-                          borderRadius: '8px',
-                          color: '#ef4444',
-                          fontSize: isMobile ? '0.8rem' : '0.9rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px'
-                        }}
-                      >
-                        <span>⚠️</span>
-                        <span>{t('about.formError') || '发送失败，请稍后重试或直接发送邮件联系我。'}</span>
-                      </motion.div>
-                    )}
-                    
-                    {/* 移动端：单列输入框 */}
-                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '16px' : '20px' }}>
-                      <div>
-                        <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formName')}</label>
-                        <input name="name" required type="text" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formNamePlaceholder')} />
+            {/* Section 3: Journey */}
+            {activeSection === 2 && (
+              <motion.div key="journey" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '750px' }}>
+                <h2 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '3px', color: colors.textLight, marginBottom: '45px' }}>{t('about.journeyTitle')}</h2>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {journey.map((item, index) => (
+                    <motion.div key={index} initial={{ opacity: 0, x: -25 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1, duration: 0.5 }} style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '35px', padding: '28px 0', borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none', alignItems: 'center' }}>
+                      <div style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: colors.textMuted }}>{item.year}</div>
+                      <div><div style={{ fontSize: '1.25rem', fontWeight: '500', color: colors.text, marginBottom: '5px' }}>{item.role}</div><div style={{ fontSize: '0.95rem', color: colors.textMuted }}>{item.company}</div></div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Section 4: Contact */}
+            {activeSection === 3 && (
+              <motion.div key="contact" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '850px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '70px', alignItems: 'start' }}>
+                <div>
+                  <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: '400', marginBottom: '18px', color: colors.text }}>{t('about.letsTalk')}</h2>
+                  <p style={{ fontSize: '1.05rem', color: colors.textMuted, lineHeight: 1.7, marginBottom: '35px' }}>{t('about.contactIntro')}<br/>{t('about.contactIntro2')}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '11px', background: colors.bgAlt, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13 2 6"/></svg></div>
+                      <div><div style={{ fontSize: '0.75rem', color: colors.textLight, marginBottom: '2px' }}>{t('about.emailLabel')}</div><a href="mailto:tian_yangmin@163.com" style={{ fontSize: '0.95rem', color: colors.text, textDecoration: 'none' }}>tian_yangmin@163.com</a></div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '11px', background: colors.bgAlt, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="20" height="20" viewBox="0 0 24 24" fill={colors.textMuted}><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg></div>
+                      <div><div style={{ fontSize: '0.75rem', color: colors.textLight, marginBottom: '2px' }}>{t('about.wechatLabel')}</div><div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ fontSize: '0.95rem', color: colors.text }}>your_wechat_id</span><button onClick={() => copy('your_wechat_id', 'wechat')} style={{ padding: '3px 9px', fontSize: '0.7rem', background: colors.bgAlt, color: colors.textMuted, border: 'none', borderRadius: '4px', cursor: 'pointer' }}>{copiedId === 'wechat' ? t('about.copied') : t('about.copy')}</button></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '28px', background: colors.cardBg, borderRadius: '14px', border: `1px solid ${colors.border}` }}>
+                  {formStatus === 'success' ? (
+                    <div style={{ textAlign: 'center', padding: '35px 15px' }}>
+                      <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#22c55e20', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 18px' }}><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+                      <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: colors.text }}>{t('about.messageSent')}</h3>
+                      <p style={{ color: colors.textMuted, marginBottom: '18px', fontSize: '0.95rem' }}>{t('about.thankYou')}</p>
+                      <button onClick={() => setFormStatus('idle')} style={{ padding: '10px 22px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>{t('about.sendAnother')}</button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                        <div><label style={{ fontSize: '0.8rem', color: colors.textMuted, marginBottom: '7px', display: 'block' }}>{t('about.formName')}</label><input type="text" name="name" required placeholder={t('about.formNamePlaceholder')} style={{ width: '100%', padding: '11px 14px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, outline: 'none', boxSizing: 'border-box' }} /></div>
+                        <div><label style={{ fontSize: '0.8rem', color: colors.textMuted, marginBottom: '7px', display: 'block' }}>{t('about.formEmail')}</label><input type="email" name="email" required placeholder={t('about.formEmailPlaceholder')} style={{ width: '100%', padding: '11px 14px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, outline: 'none', boxSizing: 'border-box' }} /></div>
+                        <div><label style={{ fontSize: '0.8rem', color: colors.textMuted, marginBottom: '7px', display: 'block' }}>{t('about.formDetails')}</label><textarea name="message" rows="4" placeholder={t('about.formDetailsPlaceholder')} style={{ width: '100%', padding: '11px 14px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, outline: 'none', resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' }} /></div>
+                        <button type="submit" disabled={formStatus === 'submitting'} style={{ padding: '13px 22px', background: formStatus === 'submitting' ? colors.textMuted : colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', fontSize: '0.95rem', fontWeight: '600', cursor: formStatus === 'submitting' ? 'not-allowed' : 'pointer' }}>{formStatus === 'submitting' ? t('about.submitting') : t('about.submit')}</button>
+                        {formStatus === 'error' && <p style={{ color: '#ef4444', fontSize: '0.85rem', margin: 0 }}>{t('common.error')}</p>}
                       </div>
-                      <div>
-                        <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formEmail')}</label>
-                        <input name="email" required type="email" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none' }} placeholder={t('about.formEmailPlaceholder')} />
-                      </div>
-                    </div>
+                    </form>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-                    <div>
-                      <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formProjectType')}</label>
-                      <select name="project_type" style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', boxSizing: 'border-box', outline: 'none', color: 'var(--color-text-main)' }}>
-                        <option>{t('about.formProjectTypeOptions.webDesign')}</option>
-                        <option>{t('about.formProjectTypeOptions.mobileApp')}</option>
-                        <option>{t('about.formProjectTypeOptions.branding')}</option>
-                        <option>{t('about.formProjectTypeOptions.consulting')}</option>
-                        <option>{t('about.formProjectTypeOptions.other')}</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label style={{ display: 'block', marginBottom: '8px', fontSize: isMobile ? '0.8rem' : '0.85rem', color: 'var(--color-text-muted)' }}>{t('about.formDetails')}</label>
-                      <textarea name="message" required rows={isMobile ? 4 : 5} style={{ width: '100%', padding: isMobile ? '10px' : '12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-subtle)', fontSize: isMobile ? '0.9rem' : '0.95rem', fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} placeholder={t('about.formDetailsPlaceholder')}></textarea>
-                    </div>
-
-                    <button
-                      type="submit" 
-                      disabled={formStatus === 'submitting'}
-                      style={{ 
-                        marginTop: isMobile ? '8px' : '10px',
-                        width: '100%', 
-                        padding: isMobile ? '14px' : '16px', 
-                        background: 'var(--color-text-main)', 
-                        color: 'var(--color-bg)', 
-                        border: 'none', 
-                        borderRadius: '100px', 
-                        fontSize: isMobile ? '0.9rem' : '0.95rem', 
-                        fontWeight: '500', 
-                        cursor: formStatus === 'submitting' ? 'wait' : 'pointer', 
-                        opacity: formStatus === 'submitting' ? 0.7 : 1,
-                        transition: 'opacity 0.2s'
-                      }}
-                    >
-                      {formStatus === 'submitting' ? t('about.submitting') : t('about.submit')}
-                    </button>
-                  </form>
-                )}
-              </div>
-            </motion.div>
-
-          </div>
-        </section>
-
-      </motion.div>
+        {/* 滚动提示 */}
+        {activeSection < sections.length - 1 && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ position: 'absolute', bottom: '35px', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '8px', color: colors.textLight, fontSize: '0.75rem' }}>
+            <span>{t('common.scroll')}</span>
+            <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>↓</motion.div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };
+
+/** 移动端 About */
+const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formStatus, handleSubmit, setFormStatus, isDark }) => (
+  <div style={{ padding: 'var(--space-lg) var(--space-page-x)', background: colors.bg }}>
+    {/* Intro */}
+    <section style={{ marginBottom: '50px', paddingTop: 'var(--space-md)' }}>
+      <div style={{ width: '50%', maxWidth: '160px', margin: '0 auto 25px', aspectRatio: '3 / 4', borderRadius: '12px', overflow: 'hidden', background: colors.bgAlt }}>
+        <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+      </div>
+      <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', fontWeight: '400', textAlign: 'center', marginBottom: '18px', color: colors.text }}>{t('about.greeting')}</h1>
+      <div style={{ color: colors.textMuted, fontSize: '0.9rem', lineHeight: 1.7, textAlign: 'center' }}><p>{t('about.introLine1')}</p><p>{t('about.introLine2')}</p></div>
+    </section>
+
+    {/* Expertise */}
+    <section style={{ marginBottom: '50px' }}>
+      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '25px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.expertiseTitle')}</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+        {capabilities.map((cap, index) => (
+          <div key={index}><h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '10px', color: colors.text }}>{cap.title}</h3><ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{cap.items.map((item, i) => <li key={i} style={{ marginBottom: '6px', color: colors.textMuted, fontSize: '0.85rem' }}>{item}</li>)}</ul></div>
+        ))}
+      </div>
+    </section>
+
+    {/* Journey */}
+    <section style={{ marginBottom: '50px' }}>
+      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '25px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.journeyTitle')}</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {journey.map((item, index) => (
+          <div key={index} style={{ paddingBottom: '20px', borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none' }}>
+            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: colors.textLight, marginBottom: '6px' }}>{item.year}</div>
+            <div style={{ fontSize: '1rem', fontWeight: '500', color: colors.text, marginBottom: '3px' }}>{item.role}</div>
+            <div style={{ fontSize: '0.85rem', color: colors.textMuted }}>{item.company}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Contact */}
+    <section>
+      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '18px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.contactTitle')}</h2>
+      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: '400', marginBottom: '12px', color: colors.text }}>{t('about.letsTalk')}</h3>
+      <p style={{ color: colors.textMuted, fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '25px' }}>{t('about.contactIntro')}</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '25px' }}>
+        <a href="mailto:tian_yangmin@163.com" style={{ padding: '14px', background: colors.bgAlt, borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: colors.text }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13 2 6"/></svg><span style={{ fontSize: '0.9rem' }}>tian_yangmin@163.com</span></a>
+      </div>
+      <div style={{ padding: '20px', background: colors.cardBg, borderRadius: '14px', border: `1px solid ${colors.border}` }}>
+        {formStatus === 'success' ? (
+          <div style={{ textAlign: 'center', padding: '18px 0' }}><div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#22c55e20', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg></div><h3 style={{ fontSize: '1rem', marginBottom: '8px', color: colors.text }}>{t('about.messageSent')}</h3><p style={{ color: colors.textMuted, fontSize: '0.85rem', marginBottom: '12px' }}>{t('about.thankYou')}</p><button onClick={() => setFormStatus('idle')} style={{ padding: '9px 18px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '0.9rem' }}>{t('about.sendAnother')}</button></div>
+        ) : (
+          <form onSubmit={handleSubmit}><div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}><input type="text" name="name" required placeholder={t('about.formNamePlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, boxSizing: 'border-box' }} /><input type="email" name="email" required placeholder={t('about.formEmailPlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, boxSizing: 'border-box' }} /><textarea name="message" rows="4" placeholder={t('about.formDetailsPlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' }} /><button type="submit" disabled={formStatus === 'submitting'} style={{ padding: '12px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', fontSize: '0.95rem', fontWeight: '600', cursor: 'pointer' }}>{formStatus === 'submitting' ? t('about.submitting') : t('about.submit')}</button></div></form>
+        )}
+      </div>
+    </section>
+  </div>
+);
 
 export default About;
