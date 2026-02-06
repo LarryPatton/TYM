@@ -9,6 +9,7 @@ import BlindsTransition from '../components/BlindsTransition';
 import PartnersSection from '../components/PartnersSection';
 import MobileHome from '../components/MobileHome';
 import WechatModal from '../components/WechatModal';
+import ScrollIndicator from '../components/ScrollIndicator';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
@@ -746,31 +747,6 @@ const Home = () => {
             >
               {t('home.wechatContact')}
             </motion.button>
-          </motion.div>
-
-          {/* 底部滚动提示 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            style={{
-              position: 'absolute',
-              bottom: 'clamp(30px, 5vh, 50px)',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: themeColors.ctaTextMuted,
-              fontSize: '0.8rem',
-            }}
-          >
-            <span>Scroll</span>
-            <motion.div
-              animate={{ y: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              ↓
-            </motion.div>
           </motion.div>
         </div>
       </section>

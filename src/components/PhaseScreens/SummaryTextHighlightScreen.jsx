@@ -1,7 +1,7 @@
-// ... existing code ...
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
+import ScrollIndicator from '../ScrollIndicator';
 
 // ============================================
 // 屏幕: 阶段总结 Grid Reveal 展示 (SummaryTextHighlightScreen)
@@ -237,20 +237,12 @@ export const SummaryTextHighlightScreen = ({
         </div>
 
         {/* 底部提示 */}
-        <motion.div 
-          style={{ 
-            position: 'absolute', 
-            bottom: '40px', 
-            opacity: 0.5, 
-            fontSize: '0.8rem',
-            letterSpacing: '2px',
-            textTransform: 'uppercase'
-          }}
-          animate={{ opacity: [0.3, 0.7, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          Scroll to Review Deliverables
-        </motion.div>
+        <ScrollIndicator
+          variant="review"
+          position="bottom-center"
+          color="rgba(255,255,255,0.5)"
+          size="small"
+        />
 
       </div>
     </section>

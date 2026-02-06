@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useScreenTransition } from './TransitionContext';
+import ScrollIndicator from '../ScrollIndicator';
 
 // ============================================
 // 流式文字组件 - 逐字出现效果
@@ -208,26 +209,14 @@ export const StabilityMessageScreen = () => {
         </motion.div>
 
         {/* 滚动提示 - 在展示完毕后出现 */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            bottom: '50px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            opacity: scrollHintOpacity,
-            zIndex: 5
-          }}
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ 
-              color: 'rgba(255,255,255,0.3)',
-              fontSize: '1.5rem'
-            }}
-          >
-            ↓
-          </motion.div>
+        <motion.div style={{ opacity: scrollHintOpacity, zIndex: 5 }}>
+          <ScrollIndicator
+            variant="default"
+            position="bottom-center"
+            color="rgba(255,255,255,0.3)"
+            arrowOnly={true}
+            size="large"
+          />
         </motion.div>
 
       </div>

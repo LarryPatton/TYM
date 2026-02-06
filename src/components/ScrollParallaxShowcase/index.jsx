@@ -34,6 +34,9 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
   const activeProject = projects.find(p => p.id === activeId) || projects[0];
   const activeIndex = projects.findIndex(p => p.id === activeId);
   
+  // ==================== PC端固定 30:70 图文比例 ====================
+  const textAreaWidth = '25%';
+  
   // 移动端触摸滑动处理
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
@@ -506,7 +509,9 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
     );
   }
 
-  // ==================== 桌面端布局（原有逻辑）====================
+  // ==================== 桌面端布局 ====================
+  // 智能图文比例适配逻辑已在组件顶部计算（layoutMode, textAreaWidth）
+  
   return (
     <section
       style={{
@@ -517,20 +522,27 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
         minHeight: '100vh',
       }}
     >
-      {/* Left Sidebar - Sticky Navigation & Details */}
+      {/* Left Sidebar - 智能宽度适配 */}
       <div
         style={{
-          width: 'clamp(300px, 35vw, 500px)',
+          // 根据 layoutMode 动态设置宽度
+          // auto 模式：使用计算出的精确宽度
+          // fixed 模式：固定 30%
+          width: textAreaWidth,
+          minWidth: '280px',
+          flexShrink: 0,
           height: '100vh',
           position: 'sticky',
           top: 0,
-          padding: 'clamp(40px, 6vh, 80px) clamp(30px, 4vw, 60px)',
+          padding: 'clamp(40px, 6vh, 80px) clamp(24px, 3vw, 50px)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           borderRight: '1px solid var(--color-border)',
           background: 'var(--color-bg)',
           zIndex: 10,
+          overflow: 'hidden',
+          boxSizing: 'border-box',
         }}
       >
         {/* Section Title */}
@@ -664,7 +676,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
         </div>
       </div>
 
-      {/* Right Content - Sticky 容器 + Crossfade 过渡 */}
+      {/* Right Content - 智能图片显示 */}
       <div style={{ 
         flex: 1, 
         position: 'relative',
@@ -688,18 +700,21 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
           </div>
         ))}
         
-        {/* Sticky 图片容器 - 固定在视口 */}
+        {/* Sticky 图片容器 - 智能适配显示 */}
         <div style={{
           position: 'sticky',
           top: 0,
           left: 0,
           width: '100%',
           height: '100vh',
-          marginTop: `-${projects.length * 100}vh`, // 将 sticky 容器拉回到顶部
+          marginTop: `-${projects.length * 100}vh`,
           overflow: 'hidden',
           background: 'var(--color-bg-subtle)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
-          {/* 所有图片叠加，通过 opacity 控制显示 */}
+          {/* 单张图片切换 - Crossfade 效果 */}
           <AnimatePresence mode="wait">
             {projects.map((project) => (
               activeId === project.id && (
@@ -710,10 +725,11 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
                   style={{
-                    position: 'absolute',
-                    inset: 0,
                     width: '100%',
                     height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
                   {project.coverImage ? (
@@ -723,7 +739,11 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                       style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover',
+                        // 根据布局模式选择 objectFit
+                        // auto 模式：contain（完整显示，可能有留白）
+                        // fixed 模式：contain（7:3比例，允许上下留白）
+                        objectFit: 'contain',
+                        objectPosition: 'center',
                       }}
                     />
                   ) : (
@@ -738,7 +758,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
                       fontSize: 'clamp(2rem, 5vw, 4rem)', 
                       fontWeight: '700',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em'
+                      letterSpacing: '0.05em',
                     }}>
                       {project.title}
                     </div>
@@ -747,8 +767,6 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
               )
             ))}
           </AnimatePresence>
-          
-          {/* 右侧进度指示器已移除，改用左侧竖线显示进度 */}
         </div>
       </div>
     </section>

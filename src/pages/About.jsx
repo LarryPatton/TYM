@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useClipboard } from '../hooks/useClipboard';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 /**
  * About 页面 - 全屏 Sticky Scroll 设计
@@ -266,12 +267,13 @@ const About = () => {
         </div>
 
         {/* 滚动提示 */}
-        {activeSection < sections.length - 1 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ position: 'absolute', bottom: '35px', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '8px', color: colors.textLight, fontSize: '0.75rem' }}>
-            <span>{t('common.scroll')}</span>
-            <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>↓</motion.div>
-          </motion.div>
-        )}
+        <ScrollIndicator
+          variant="default"
+          position="bottom-center"
+          color={colors.textLight}
+          size="small"
+          opacity={activeSection < sections.length - 1 ? 1 : 0}
+        />
       </div>
     </div>
   );

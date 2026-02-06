@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { MAX_WIDTH_WIDE } from './Common';
 import { useScreenTransition } from './TransitionContext';
+import ScrollIndicator from '../ScrollIndicator';
 
 // ============================================
 // 屏幕: Logo 无限跑马灯展示 (LogoMarqueeScreen)
@@ -16,6 +18,7 @@ export const LogoMarqueeScreen = ({
   content
 }) => {
   const ref = useRef(null);
+  const { t } = useTranslation();
   
   // 获取过渡配置 (支持实时调试)
   const T = useScreenTransition('logo-marquee');
@@ -168,7 +171,7 @@ export const LogoMarqueeScreen = ({
               letterSpacing: '2px',
               textTransform: 'uppercase'
             }}>
-              Scroll to explore
+              {t('common.scrollToExplore')}
             </div>
             {/* 进度条 */}
             <div style={{

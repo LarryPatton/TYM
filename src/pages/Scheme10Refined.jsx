@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 const projects = [
   { id: '01', title: 'Brand Identity', subtitle: 'Chapter 01', desc: 'Defining the visual core.', cover: '#2a2a3e', accent: '#1a1a2e' },
@@ -365,21 +366,12 @@ const Scheme10Refined = () => {
           </div>
           
           {/* Scroll Hint */}
-          <motion.div 
-            style={{ 
-              position: 'absolute', 
-              bottom: '40px', 
-              right: '40px', 
-              color: 'rgba(255,255,255,0.5)', 
-              fontSize: '0.8rem', 
-              textTransform: 'uppercase', 
-              letterSpacing: '1px' 
-            }}
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Scroll to Explore
-          </motion.div>
+          <ScrollIndicator
+            variant="explore"
+            position="bottom-right"
+            color="rgba(255,255,255,0.5)"
+            size="small"
+          />
 
         </motion.div>
       </div>

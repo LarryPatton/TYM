@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 /**
  * ProductPairScrollScreen - 滚动卷轴配对展示组件
@@ -25,6 +26,7 @@ export const ProductPairScrollScreen = ({
   showLabel = true // 是否显示图片下方标签，默认显示
 }) => {
   const containerRef = useRef(null);
+  const { t } = useTranslation();
   
   // 滚动进度监听
   const { scrollYProgress } = useScroll({
@@ -98,10 +100,11 @@ export const ProductPairScrollScreen = ({
             fontSize: '0.8rem',
             color: 'rgba(255,255,255,0.3)',
             letterSpacing: '2px',
+            textTransform: 'uppercase',
             opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0])
           }}
         >
-          SCROLL TO EXPLORE →
+          {t('common.scrollToExplore')} →
         </motion.div>
       </div>
     </div>

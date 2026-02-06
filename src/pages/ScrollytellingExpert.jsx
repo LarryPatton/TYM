@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Matter from 'matter-js';
+import ScrollIndicator from '../components/ScrollIndicator';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, Environment, Float, Text, ContactShadows } from '@react-three/drei';
 import { Suspense } from 'react';
@@ -535,7 +536,14 @@ const ScrollytellingExpert = () => {
         <p style={{ color: '#666', fontSize: '1.2rem', marginTop: '20px' }}>
           Phase 3: WebGL Visuals
         </p>
-        <div style={{ marginTop: '50px', color: '#444' }}>↓ Scroll to Explore</div>
+        <div style={{ marginTop: '50px' }}>
+          <ScrollIndicator
+            variant="explore"
+            position="inline"
+            color="#444"
+            layout="vertical"
+          />
+        </div>
       </div>
 
       <VariableFontBreathing />

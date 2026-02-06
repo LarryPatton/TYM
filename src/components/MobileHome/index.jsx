@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import WechatModal from '../WechatModal';
 
 /**
  * 移动端首页 - 全屏分屏布局
@@ -502,35 +503,42 @@ const HeroScreen = ({ t, onNext }) => {
 };
 
 /**
- * Works 屏幕 - 横向滑动卡片
+ * Works 屏幕 - 每页显示两个项目，左右滑动
  */
 const WorksScreen = ({ t, projects, onNext }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activePageIndex, setActivePageIndex] = useState(0);
   const carouselRef = useRef(null);
   
-  // 监听滚动位置更新当前项目
+  // 将项目分组，每页2个
+  const pages = [];
+  for (let i = 0; i < projects.length; i += 2) {
+    pages.push(projects.slice(i, i + 2));
+  }
+  const totalPages = pages.length;
+  
+  // 监听滚动位置更新当前页
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
     
     const handleScroll = () => {
-      const cardWidth = carousel.offsetWidth;
+      const pageWidth = carousel.offsetWidth;
       const scrollLeft = carousel.scrollLeft;
-      const newIndex = Math.round(scrollLeft / cardWidth);
-      if (newIndex !== activeIndex && newIndex >= 0 && newIndex < projects.length) {
-        setActiveIndex(newIndex);
+      const newIndex = Math.round(scrollLeft / pageWidth);
+      if (newIndex !== activePageIndex && newIndex >= 0 && newIndex < totalPages) {
+        setActivePageIndex(newIndex);
       }
     };
     
     carousel.addEventListener('scroll', handleScroll, { passive: true });
     return () => carousel.removeEventListener('scroll', handleScroll);
-  }, [projects.length, activeIndex]);
+  }, [totalPages, activePageIndex]);
   
-  const scrollToProject = (index) => {
+  const scrollToPage = (index) => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.offsetWidth;
+      const pageWidth = carouselRef.current.offsetWidth;
       carouselRef.current.scrollTo({
-        left: index * cardWidth,
+        left: index * pageWidth,
         behavior: 'smooth'
       });
     }
@@ -538,18 +546,18 @@ const WorksScreen = ({ t, projects, onNext }) => {
   
   return (
     <div style={{
-      flex: 1,
+      height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: 'var(--space-md)',
-      paddingBottom: 'var(--space-lg)',
+      overflow: 'hidden',
     }}>
-      {/* Header */}
+      {/* Header - 固定高度 */}
       <div style={{
-        padding: '0 var(--space-page-x) var(--space-sm)',
+        padding: '12px var(--space-page-x) 8px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexShrink: 0,
       }}>
         <span style={{
           fontSize: '0.7rem',
@@ -566,20 +574,21 @@ const WorksScreen = ({ t, projects, onNext }) => {
           color: 'var(--color-text-main)',
           fontWeight: '600',
         }}>
-          {String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+          {String(activePageIndex + 1).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}
         </span>
       </div>
       
-      {/* Progress Bar */}
+      {/* Progress Bar - 固定高度 */}
       <div style={{
-        margin: '0 var(--space-page-x) var(--space-sm)',
+        margin: '0 var(--space-page-x) 8px',
         height: '2px',
         background: 'var(--color-border)',
         borderRadius: '1px',
         overflow: 'hidden',
+        flexShrink: 0,
       }}>
         <motion.div
-          animate={{ width: `${((activeIndex + 1) / projects.length) * 100}%` }}
+          animate={{ width: `${((activePageIndex + 1) / totalPages) * 100}%` }}
           transition={{ duration: 0.3 }}
           style={{
             height: '100%',
@@ -588,7 +597,7 @@ const WorksScreen = ({ t, projects, onNext }) => {
         />
       </div>
       
-      {/* Carousel */}
+      {/* Carousel - 每页两个项目 */}
       <div
         ref={carouselRef}
         style={{
@@ -601,137 +610,157 @@ const WorksScreen = ({ t, projects, onNext }) => {
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
+          minHeight: 0,
         }}
         className="hide-scrollbar"
       >
-        {projects.map((project, index) => (
+        {pages.map((pageProjects, pageIndex) => (
           <div
-            key={project.id}
+            key={`page-${pageIndex}`}
             style={{
               flex: '0 0 100%',
               scrollSnapAlign: 'start',
               scrollSnapStop: 'always',
-              padding: 'var(--space-sm) var(--space-page-x)',
+              padding: '0 var(--space-page-x)',
               boxSizing: 'border-box',
               display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--space-sm)',
+              justifyContent: 'space-between',
+              gap: '8px',
+              height: '100%',
             }}
           >
-            <Link
-              to={`/work/the-case/${project.id}`}
-              style={{ textDecoration: 'none', flex: 1, minHeight: 0 }}
-            >
-              <motion.div
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  minHeight: '40vh',
-                  background: project.cover || '#eee',
-                  borderRadius: 'var(--radius-lg)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  boxShadow: 'var(--shadow-lg)',
-                }}
-              >
-                {project.coverImage ? (
-                  <img
-                    src={project.coverImage}
-                    alt={project.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
+            {pageProjects.map((project, idx) => {
+              const globalIndex = pageIndex * 2 + idx;
+              return (
+                <div
+                  key={project.id}
+                  style={{
+                    flex: '0 0 48%', // 每个项目占 48%，留 4% 给间隙
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'rgba(255,255,255,0.4)',
-                    fontSize: 'clamp(1.3rem, 5vw, 2rem)',
-                    fontWeight: '600',
-                    textAlign: 'center',
-                    padding: '20px',
-                    fontFamily: 'var(--font-serif)',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* 图片容器 - 弹性填充 */}
+                  <motion.div
+                    whileTap={{ scale: 0.98 }}
+                    style={{
+                      flex: 1,
+                      minHeight: 0,
+                      position: 'relative',
+                      background: project.cover || 'var(--color-surface)',
+                      borderRadius: 'var(--radius-md)',
+                      overflow: 'hidden',
+                      boxShadow: 'var(--shadow-md)',
+                    }}
+                  >
+                    {project.coverImage ? (
+                      <img
+                        src={project.coverImage}
+                        alt={project.title}
+                        style={{ 
+                          width: '100%', 
+                          height: '100%', 
+                          objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--color-text-muted)',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        textAlign: 'center',
+                        padding: '10px',
+                        fontFamily: 'var(--font-serif)',
+                        boxSizing: 'border-box',
+                      }}>
+                        {project.title}
+                      </div>
+                    )}
+                    
+                    {/* Badge */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '6px',
+                      left: '6px',
+                      padding: '3px 8px',
+                      background: 'rgba(0,0,0,0.7)',
+                      borderRadius: '100px',
+                      color: '#fff',
+                      fontSize: '0.6rem',
+                      fontWeight: '600',
+                      fontFamily: 'var(--font-mono, monospace)',
+                    }}>
+                      {String(globalIndex + 1).padStart(2, '0')}
+                    </div>
+                  </motion.div>
+                  
+                  {/* Text - 紧凑单行 */}
+                  <div style={{ 
+                    paddingTop: '4px',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '8px',
                   }}>
-                    {project.title}
+                    <h3 style={{
+                      margin: 0,
+                      fontSize: '0.85rem',
+                      fontFamily: 'var(--font-serif)',
+                      fontWeight: '500',
+                      lineHeight: 1.2,
+                      color: 'var(--color-text-main)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      flex: 1,
+                      minWidth: 0,
+                    }}>
+                      {project.title}
+                    </h3>
+                    <span style={{
+                      fontSize: '0.7rem',
+                      color: 'var(--color-text-muted)',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}>
+                      {project.subtitle?.split('·')[0] || ''}
+                    </span>
                   </div>
-                )}
-                
-                {/* Badge */}
-                <div style={{
-                  position: 'absolute',
-                  top: '12px',
-                  left: '12px',
-                  padding: '6px 12px',
-                  background: 'rgba(0,0,0,0.7)',
-                  borderRadius: '100px',
-                  color: '#fff',
-                  fontSize: '0.7rem',
-                  fontWeight: '600',
-                  fontFamily: 'var(--font-mono, monospace)',
-                }}>
-                  {String(index + 1).padStart(2, '0')}
                 </div>
-                
-                {/* View Button */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '12px',
-                  right: '12px',
-                  padding: '8px 16px',
-                  background: 'rgba(255,255,255,0.95)',
-                  borderRadius: '100px',
-                  color: '#000',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                }}>
-                  {t('work.viewProject')} →
-                </div>
-              </motion.div>
-            </Link>
-            
-            {/* Text */}
-            <div>
-              <h3 style={{
-                margin: '0 0 4px 0',
-                fontSize: 'clamp(1.1rem, 4vw, 1.3rem)',
-                fontFamily: 'var(--font-serif)',
-                fontWeight: '500',
-                lineHeight: 1.2,
-                color: 'var(--color-text-main)',
-              }}>
-                {project.title}
-              </h3>
-              <p style={{
-                margin: 0,
-                fontSize: '0.85rem',
-                color: 'var(--color-text-muted)',
-                lineHeight: 1.4,
-              }}>
-                {project.subtitle}
-              </p>
-            </div>
+              );
+            })}
           </div>
         ))}
       </div>
       
-      {/* 底部区域：指示条 或 滑动提示 */}
-      {activeIndex === projects.length - 1 ? (
-        <SwipeToNextHint 
-          label={t('common.swipeToServices') || '上滑查看服务'} 
-          isDark={false} 
-          onSwipe={onNext} 
-        />
-      ) : (
-        <SwipeIndicator
-          activeIndex={activeIndex}
-          total={projects.length}
-          onScrollTo={scrollToProject}
-          isDark={false}
-        />
-      )}
+      {/* 底部导航区域 - 固定高度 */}
+      <div style={{
+        flexShrink: 0,
+        paddingTop: '8px',
+        paddingBottom: '16px',
+      }}>
+        {activePageIndex === totalPages - 1 ? (
+          <SwipeToNextHint 
+            label={t('common.swipeToServices') || '上滑查看服务'} 
+            isDark={false} 
+            onSwipe={onNext} 
+          />
+        ) : (
+          <SwipeIndicator
+            activeIndex={activePageIndex}
+            total={totalPages}
+            onScrollTo={scrollToPage}
+            isDark={false}
+          />
+        )}
+      </div>
       
       <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
     </div>
@@ -739,21 +768,11 @@ const WorksScreen = ({ t, projects, onNext }) => {
 };
 
 /**
- * Services 屏幕 - 横向滑动卡片（带图片容器）
+ * Services 屏幕 - 横向滑动卡片（3张图布局，类似桌面端）
  */
 const ServicesScreen = ({ t, services, onNext }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef(null);
-  
-  // 服务图片配置（与桌面端 ServiceSection 保持一致）
-  const serviceImages = {
-    'brand-foundation': '/images/services/brand-1.jpg',
-    'product-physical': '/images/services/product-1.jpg',
-    'visual-communication': '/images/services/visual-1.jpg',
-    'campaign-marketing': '/images/services/campaign-1.jpg',
-    'offline-applications': '/images/services/offline-1.jpg',
-    'creative-exploration': '/images/services/creative-1.jpg',
-  };
   
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -784,18 +803,18 @@ const ServicesScreen = ({ t, services, onNext }) => {
   
   return (
     <div style={{
-      flex: 1,
+      height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: 'var(--space-md)',
-      paddingBottom: 'var(--space-lg)',
+      overflow: 'hidden',
     }}>
-      {/* Header */}
+      {/* Header - 固定高度 */}
       <div style={{
-        padding: '0 var(--space-page-x) var(--space-sm)',
+        padding: '12px var(--space-page-x) 8px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexShrink: 0,
       }}>
         <span style={{
           fontSize: '0.7rem',
@@ -816,13 +835,14 @@ const ServicesScreen = ({ t, services, onNext }) => {
         </span>
       </div>
       
-      {/* Progress Bar */}
+      {/* Progress Bar - 固定高度 */}
       <div style={{
-        margin: '0 var(--space-page-x) var(--space-sm)',
+        margin: '0 var(--space-page-x) 8px',
         height: '2px',
         background: 'rgba(255,255,255,0.1)',
         borderRadius: '1px',
         overflow: 'hidden',
+        flexShrink: 0,
       }}>
         <motion.div
           animate={{ width: `${((activeIndex + 1) / services.length) * 100}%` }}
@@ -834,7 +854,7 @@ const ServicesScreen = ({ t, services, onNext }) => {
         />
       </div>
       
-      {/* Carousel */}
+      {/* Carousel - 弹性填充剩余空间 */}
       <div
         ref={carouselRef}
         style={{
@@ -847,11 +867,16 @@ const ServicesScreen = ({ t, services, onNext }) => {
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
+          minHeight: 0, // 关键：允许flex子元素收缩
         }}
         className="hide-scrollbar"
       >
         {services.map((service, index) => {
-          const serviceImage = serviceImages[service.id];
+          // 获取3张图片
+          const mainImage = service.images?.main;
+          const subImage1 = service.images?.sub1;
+          const subImage2 = service.images?.sub2;
+          
           return (
             <div
               key={service.id}
@@ -859,104 +884,171 @@ const ServicesScreen = ({ t, services, onNext }) => {
                 flex: '0 0 100%',
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
-                padding: 'var(--space-xs) var(--space-page-x)',
+                padding: '0 var(--space-page-x)',
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--space-xs)',
                 height: '100%',
+                overflow: 'hidden',
               }}
             >
-              {/* 图片容器 - 占据主要空间 */}
+              {/* 图片区域 - 3张图布局 */}
               <div style={{
-                width: '100%',
                 flex: 1,
-                minHeight: '45vh',
-                borderRadius: 'var(--radius-lg)',
-                overflow: 'hidden',
-                background: 'rgba(255,255,255,0.08)',
-                position: 'relative',
+                display: 'flex',
+                gap: '8px',
+                minHeight: 0,
+                marginBottom: '10px',
               }}>
-                {serviceImage ? (
-                  <img
-                    src={serviceImage}
-                    alt={service.title}
-                    style={{
+                {/* 左侧大图 */}
+                <div style={{
+                  flex: '1 1 55%',
+                  borderRadius: 'var(--radius-md)',
+                  overflow: 'hidden',
+                  background: 'rgba(255,255,255,0.08)',
+                  position: 'relative',
+                }}>
+                  {mainImage ? (
+                    <img
+                      src={mainImage}
+                      alt={service.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <div style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.style.display = 'flex';
-                      e.target.parentElement.style.alignItems = 'center';
-                      e.target.parentElement.style.justifyContent = 'center';
-                    }}
-                  />
-                ) : null}
-                {/* 图片占位/标题叠加层 */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: serviceImage ? 'transparent' : 'rgba(255,255,255,0.05)',
-                  color: 'rgba(255,255,255,0.25)',
-                  fontSize: 'clamp(1rem, 3vw, 1.2rem)',
-                  fontWeight: '500',
-                  textAlign: 'center',
-                  padding: '20px',
-                  pointerEvents: 'none',
-                }}>
-                  {!serviceImage && service.title}
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'rgba(255,255,255,0.25)',
+                      fontSize: '0.9rem',
+                    }}>
+                      Main
+                    </div>
+                  )}
+                  {/* 编号标签 */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '8px',
+                    left: '8px',
+                    padding: '4px 10px',
+                    background: 'rgba(0,0,0,0.6)',
+                    borderRadius: '100px',
+                    color: '#fff',
+                    fontSize: '0.65rem',
+                    fontWeight: '600',
+                    fontFamily: 'var(--font-mono, monospace)',
+                  }}>
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
                 </div>
-                {/* 编号标签 */}
+                
+                {/* 右侧两张小图 */}
                 <div style={{
-                  position: 'absolute',
-                  top: '12px',
-                  left: '12px',
-                  padding: '6px 12px',
-                  background: 'rgba(0,0,0,0.6)',
-                  borderRadius: '100px',
-                  color: '#fff',
-                  fontSize: '0.7rem',
-                  fontWeight: '600',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  flex: '1 1 45%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
                 }}>
-                  {String(index + 1).padStart(2, '0')}
+                  {/* 右上小图 */}
+                  <div style={{
+                    flex: 1,
+                    borderRadius: 'var(--radius-md)',
+                    overflow: 'hidden',
+                    background: 'rgba(255,255,255,0.08)',
+                  }}>
+                    {subImage1 ? (
+                      <img
+                        src={subImage1}
+                        alt={`${service.title} - 1`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'rgba(255,255,255,0.25)',
+                        fontSize: '0.75rem',
+                      }}>
+                        Sub 1
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* 右下小图 */}
+                  <div style={{
+                    flex: 1,
+                    borderRadius: 'var(--radius-md)',
+                    overflow: 'hidden',
+                    background: 'rgba(255,255,255,0.08)',
+                  }}>
+                    {subImage2 ? (
+                      <img
+                        src={subImage2}
+                        alt={`${service.title} - 2`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'rgba(255,255,255,0.25)',
+                        fontSize: '0.75rem',
+                      }}>
+                        Sub 2
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               
-              {/* 底部文字信息 - 紧凑布局 */}
+              {/* 底部文字信息 - 固定高度 */}
               <div style={{
                 background: 'rgba(255,255,255,0.05)',
                 borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-sm)',
+                padding: '10px 12px',
                 flexShrink: 0,
               }}>
                 {/* Title */}
                 <h3 style={{
-                  fontSize: 'clamp(1rem, 3.5vw, 1.2rem)',
+                  fontSize: '1rem',
                   fontWeight: '500',
                   color: '#fff',
-                  margin: '0 0 6px 0',
+                  margin: '0 0 4px 0',
                   lineHeight: 1.3,
                 }}>
                   {service.title}
                 </h3>
                 
-                {/* Problem - 单行或两行 */}
+                {/* Problem - 单行 */}
                 {service.problem && (
                   <p style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.75rem',
                     color: 'rgba(255,255,255,0.6)',
                     lineHeight: 1.4,
-                    margin: '0 0 8px 0',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
+                    margin: '0 0 6px 0',
+                    whiteSpace: 'nowrap',
                     overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}>
                     {service.problem}
                   </p>
@@ -971,16 +1063,15 @@ const ServicesScreen = ({ t, services, onNext }) => {
                     overflowX: 'auto',
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
-                    paddingBottom: '2px',
                   }}>
-                    {service.tags.map(tag => (
+                    {service.tags.slice(0, 4).map(tag => (
                       <span
                         key={tag}
                         style={{
-                          padding: '4px 10px',
+                          padding: '3px 8px',
                           border: '1px solid rgba(255,255,255,0.2)',
                           borderRadius: 'var(--radius-full)',
-                          fontSize: '0.65rem',
+                          fontSize: '0.6rem',
                           color: 'rgba(255,255,255,0.7)',
                           whiteSpace: 'nowrap',
                           flexShrink: 0,
@@ -997,57 +1088,85 @@ const ServicesScreen = ({ t, services, onNext }) => {
         })}
       </div>
       
-      {/* 底部区域：指示条 或 滑动提示 */}
-      {activeIndex === services.length - 1 ? (
-        <SwipeToNextHint 
-          label={t('common.swipeToPartners') || '上滑查看合作品牌'} 
-          isDark={true} 
-          onSwipe={onNext} 
-        />
-      ) : (
-        <SwipeIndicator
-          activeIndex={activeIndex}
-          total={services.length}
-          onScrollTo={scrollToService}
-          isDark={true}
-        />
-      )}
+      {/* 底部导航区域 - 固定高度 */}
+      <div style={{
+        flexShrink: 0,
+        paddingTop: '8px',
+        paddingBottom: '16px',
+      }}>
+        {activeIndex === services.length - 1 ? (
+          <SwipeToNextHint 
+            label={t('common.swipeToPartners') || '上滑查看合作品牌'} 
+            isDark={true} 
+            onSwipe={onNext} 
+          />
+        ) : (
+          <SwipeIndicator
+            activeIndex={activeIndex}
+            total={services.length}
+            onScrollTo={scrollToService}
+            isDark={true}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 /**
- * Partners 屏幕 - 合作品牌展示
+ * Partners 屏幕 - 合作品牌展示（自动逐个弹出效果）
  */
 const PartnersScreen = ({ t, partners = [], onNext }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   
+  // 自动逐个弹出效果
   useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel || !partners.length) return;
+    if (!isAutoPlaying || !partners.length) return;
     
-    const handleScroll = () => {
-      const cardWidth = carousel.offsetWidth;
-      const scrollLeft = carousel.scrollLeft;
-      const newIndex = Math.round(scrollLeft / cardWidth);
-      if (newIndex !== activeIndex && newIndex >= 0 && newIndex < partners.length) {
-        setActiveIndex(newIndex);
-      }
-    };
+    // 初始延迟后开始弹出
+    const initialDelay = setTimeout(() => {
+      setCurrentIndex(0);
+    }, 300);
     
-    carousel.addEventListener('scroll', handleScroll, { passive: true });
-    return () => carousel.removeEventListener('scroll', handleScroll);
-  }, [partners.length, activeIndex]);
+    return () => clearTimeout(initialDelay);
+  }, [isAutoPlaying, partners.length]);
   
-  const scrollToPartner = (index) => {
-    if (carouselRef.current) {
-      const cardWidth = carouselRef.current.offsetWidth;
-      carouselRef.current.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
-      });
+  // 逐个弹出的定时器
+  useEffect(() => {
+    if (!isAutoPlaying || currentIndex < 0 || currentIndex >= partners.length - 1) return;
+    
+    const timer = setTimeout(() => {
+      setCurrentIndex(prev => prev + 1);
+    }, 400); // 每400ms弹出一个
+    
+    return () => clearTimeout(timer);
+  }, [currentIndex, isAutoPlaying, partners.length]);
+  
+  // 全部弹出后停止自动播放
+  useEffect(() => {
+    if (currentIndex >= partners.length - 1) {
+      setIsAutoPlaying(false);
     }
+  }, [currentIndex, partners.length]);
+  
+  // 网格布局计算（2列布局，适合移动端）
+  const getGridPosition = (index, total) => {
+    const cols = 2;
+    const rows = Math.ceil(total / cols);
+    const row = Math.floor(index / cols);
+    const col = index % cols;
+    
+    const gapPercent = 2; // 间隙百分比
+    const cellWidth = (100 - gapPercent) / cols;
+    const cellHeight = (100 - (rows - 1) * gapPercent) / rows;
+    
+    return {
+      left: `${col * (cellWidth + gapPercent)}%`,
+      top: `${row * (cellHeight + gapPercent)}%`,
+      width: `${cellWidth}%`,
+      height: `${cellHeight}%`,
+    };
   };
 
   // 如果没有 partners 数据，直接跳到下一屏
@@ -1071,20 +1190,22 @@ const PartnersScreen = ({ t, partners = [], onNext }) => {
     );
   }
   
+  const allVisible = currentIndex >= partners.length - 1;
+  
   return (
     <div style={{
-      flex: 1,
+      height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: 'var(--space-md)',
-      paddingBottom: 'var(--space-lg)',
+      overflow: 'hidden',
     }}>
-      {/* Header */}
+      {/* Header - 固定高度 */}
       <div style={{
-        padding: '0 var(--space-page-x) var(--space-sm)',
+        padding: '12px var(--space-page-x) 8px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexShrink: 0,
       }}>
         <span style={{
           fontSize: '0.7rem',
@@ -1095,26 +1216,33 @@ const PartnersScreen = ({ t, partners = [], onNext }) => {
         }}>
           {t('home.partnersTitle') || 'PARTNERS'}
         </span>
-        <span style={{
-          fontSize: '0.8rem',
-          fontFamily: 'var(--font-mono, monospace)',
-          color: 'var(--color-text-main)',
-          fontWeight: '600',
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
         }}>
-          {String(activeIndex + 1).padStart(2, '0')} / {String(partners.length).padStart(2, '0')}
-        </span>
+          <span style={{
+            fontSize: '0.8rem',
+            fontFamily: 'var(--font-mono, monospace)',
+            color: 'var(--color-text-main)',
+            fontWeight: '600',
+          }}>
+            {String(Math.max(0, currentIndex + 1)).padStart(2, '0')} / {String(partners.length).padStart(2, '0')}
+          </span>
+        </div>
       </div>
       
-      {/* Progress Bar */}
+      {/* Progress Bar - 固定高度 */}
       <div style={{
-        margin: '0 var(--space-page-x) var(--space-sm)',
+        margin: '0 var(--space-page-x) 12px',
         height: '2px',
         background: 'var(--color-border)',
         borderRadius: '1px',
         overflow: 'hidden',
+        flexShrink: 0,
       }}>
         <motion.div
-          animate={{ width: `${((activeIndex + 1) / partners.length) * 100}%` }}
+          animate={{ width: `${(Math.max(0, currentIndex + 1) / partners.length) * 100}%` }}
           transition={{ duration: 0.3 }}
           style={{
             height: '100%',
@@ -1123,156 +1251,156 @@ const PartnersScreen = ({ t, partners = [], onNext }) => {
         />
       </div>
       
-      {/* Carousel */}
-      <div
-        ref={carouselRef}
-        style={{
-          flex: 1,
-          display: 'flex',
-          overflowX: 'auto',
-          overflowY: 'hidden',
-          scrollSnapType: 'x mandatory',
-          scrollBehavior: 'smooth',
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-        }}
-        className="hide-scrollbar"
-      >
-        {partners.map((partner, index) => (
-          <div
-            key={partner.id}
-            style={{
-              flex: '0 0 100%',
-              scrollSnapAlign: 'start',
-              scrollSnapStop: 'always',
-              padding: 'var(--space-sm) var(--space-page-x)',
-              boxSizing: 'border-box',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-md)',
-            }}
-          >
-            {/* Partner Logo Card */}
+      {/* 网格容器 - 弹性填充 */}
+      <div style={{
+        flex: 1,
+        position: 'relative',
+        margin: '0 var(--space-page-x)',
+        minHeight: 0,
+      }}>
+        {partners.map((partner, index) => {
+          const isVisible = index <= currentIndex;
+          const isHighlighted = index === currentIndex;
+          const pos = getGridPosition(index, partners.length);
+          
+          return (
             <motion.div
-              whileTap={{ scale: 0.98 }}
+              key={partner.id}
+              initial={{ opacity: 0, scale: 0.7, y: 30 }}
+              animate={{ 
+                opacity: isVisible ? 1 : 0,
+                scale: isVisible ? 1 : 0.7,
+                y: isVisible ? 0 : 30,
+              }}
+              transition={{ 
+                duration: 0.4, 
+                ease: [0.16, 1, 0.3, 1],
+              }}
               style={{
-                flex: 1,
-                minHeight: '35vh',
+                position: 'absolute',
+                left: pos.left,
+                top: pos.top,
+                width: pos.width,
+                height: pos.height,
+                borderRadius: '12px',
+                overflow: 'hidden',
                 background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-lg)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 'var(--space-xl)',
-                boxShadow: 'var(--shadow-md)',
-                border: '1px solid var(--color-border)',
+                border: isHighlighted 
+                  ? '2px solid var(--color-text-main)' 
+                  : '1px solid var(--color-border)',
+                boxShadow: isHighlighted 
+                  ? '0 8px 30px rgba(0,0,0,0.15)' 
+                  : '0 2px 10px rgba(0,0,0,0.05)',
+                transition: 'border 0.3s, box-shadow 0.3s',
               }}
             >
-              {/* Logo */}
+              {/* 背景图片 */}
+              {partner.image && (
+                <img
+                  src={partner.image}
+                  alt={t(`home.partners.${partner.id}.name`) || partner.id}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              )}
+              
+              {/* 底部信息叠加层 */}
               <div style={{
-                width: '100%',
-                maxWidth: '200px',
-                height: '80px',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: '8px 10px',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 'var(--space-lg)',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
               }}>
-                {partner.image ? (
-                  <img
-                    src={partner.image}
-                    alt={t(`home.partners.${partner.id}.name`) || partner.id}
-                    style={{
-                      maxWidth: '100%',
-                      maxHeight: '100%',
-                      objectFit: 'contain',
-                      filter: 'grayscale(100%)',
-                      opacity: 0.8,
-                      transition: 'all 0.3s ease',
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    background: 'var(--color-border)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '2rem',
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h3 style={{
+                    fontSize: '0.85rem',
                     fontWeight: '600',
-                    color: 'var(--color-text-muted)',
+                    color: '#fff',
+                    margin: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.5)',
                   }}>
-                    {(t(`home.partners.${partner.id}.name`) || partner.id).charAt(0)}
-                  </div>
-                )}
+                    {t(`home.partners.${partner.id}.name`) || partner.id}
+                  </h3>
+                  <p style={{
+                    fontSize: '0.65rem',
+                    color: 'rgba(255,255,255,0.7)',
+                    margin: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}>
+                    {t(`home.partners.${partner.id}.desc`) || '合作伙伴'}
+                  </p>
+                </div>
+                <span style={{
+                  padding: '2px 6px',
+                  background: 'rgba(255,255,255,0.2)',
+                  backdropFilter: 'blur(5px)',
+                  borderRadius: '100px',
+                  fontSize: '0.6rem',
+                  color: '#fff',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  flexShrink: 0,
+                  marginLeft: '6px',
+                }}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
               </div>
-              
-              {/* Partner Name */}
-              <h3 style={{
-                fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
-                fontWeight: '500',
-                color: 'var(--color-text-main)',
-                margin: '0 0 8px',
-                textAlign: 'center',
-              }}>
-                {t(`home.partners.${partner.id}.name`) || partner.id}
-              </h3>
-              
-              {/* Partner Description */}
-              <p style={{
-                fontSize: '0.9rem',
-                color: 'var(--color-text-muted)',
-                textAlign: 'center',
-                lineHeight: 1.5,
-                margin: 0,
-                maxWidth: '280px',
-              }}>
-                {t(`home.partners.${partner.id}.desc`) || '合作伙伴'}
-              </p>
             </motion.div>
-            
-            {/* Number Badge */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-            }}>
-              <span style={{
-                fontSize: '0.75rem',
-                fontFamily: 'var(--font-mono, monospace)',
-                color: 'var(--color-text-muted)',
-              }}>
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div style={{
-                flex: 1,
-                height: '1px',
-                background: 'var(--color-border)',
-              }} />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
-      {/* 底部区域：指示条 或 滑动提示 */}
-      {activeIndex === partners.length - 1 ? (
-        <SwipeToNextHint 
-          label={t('common.swipeToContact') || '上滑联系我'} 
-          isDark={false} 
-          onSwipe={onNext} 
-        />
-      ) : (
-        <SwipeIndicator
-          activeIndex={activeIndex}
-          total={partners.length}
-          onScrollTo={scrollToPartner}
-          isDark={false}
-        />
-      )}
+      {/* 底部区域 - 固定高度 */}
+      <div style={{
+        flexShrink: 0,
+        paddingTop: '12px',
+        paddingBottom: '16px',
+      }}>
+        {allVisible ? (
+          <SwipeToNextHint 
+            label={t('common.swipeToContact') || '上滑联系我'} 
+            isDark={false} 
+            onSwipe={onNext} 
+          />
+        ) : (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '0 var(--space-page-x)',
+          }}>
+            {/* 加载动画 */}
+            <motion.div
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+              style={{
+                fontSize: '0.75rem',
+                color: 'var(--color-text-muted)',
+                letterSpacing: '1px',
+              }}
+            >
+              Loading...
+            </motion.div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -1281,131 +1409,142 @@ const PartnersScreen = ({ t, partners = [], onNext }) => {
  * Contact 屏幕 - 内容完全居中
  */
 const ContactScreen = ({ t, onBackToTop }) => {
+  const [wechatModalOpen, setWechatModalOpen] = useState(false);
+  
   return (
-    <div style={{
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      padding: 'var(--space-xl) var(--space-page-x)',
-      textAlign: 'center',
-    }}>
-      {/* 主内容区域 - 垂直居中 */}
+    <>
       <div style={{
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 'var(--space-xl) var(--space-page-x)',
+        textAlign: 'center',
       }}>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(1.8rem, 7vw, 2.5rem)',
-            fontWeight: '400',
-            color: '#fff',
-            marginBottom: '16px',
-            lineHeight: 1.2,
-          }}
-        >
-          {t('home.ctaTitle')}
-        </motion.h2>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          style={{
-            fontSize: '0.95rem',
-            color: 'rgba(255,255,255,0.6)',
-            marginBottom: '32px',
-            maxWidth: '300px',
-            lineHeight: 1.5,
-          }}
-        >
-          {t('home.ctaDesc')}
-        </motion.p>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-            width: '100%',
-            maxWidth: '280px',
-          }}
-        >
-          <a href="mailto:hello@example.com" style={{ textDecoration: 'none' }}>
+        {/* 主内容区域 - 垂直居中 */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.8rem, 7vw, 2.5rem)',
+              fontWeight: '400',
+              color: '#fff',
+              marginBottom: '16px',
+              lineHeight: 1.2,
+            }}
+          >
+            {t('home.ctaTitle')}
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            style={{
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.6)',
+              marginBottom: '32px',
+              maxWidth: '300px',
+              lineHeight: 1.5,
+            }}
+          >
+            {t('home.ctaDesc')}
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              width: '100%',
+              maxWidth: '280px',
+            }}
+          >
+            <a href="mailto:hello@example.com" style={{ textDecoration: 'none' }}>
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  width: '100%',
+                  padding: '16px 32px',
+                  background: '#fff',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                }}
+              >
+                {t('home.emailMe')}
+              </motion.button>
+            </a>
+            
             <motion.button
+              onClick={() => setWechatModalOpen(true)}
               whileTap={{ scale: 0.98 }}
               style={{
                 width: '100%',
                 padding: '16px 32px',
-                background: '#fff',
-                color: '#000',
-                border: 'none',
+                background: 'transparent',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.25)',
                 borderRadius: 'var(--radius-full)',
                 fontSize: '0.95rem',
-                fontWeight: '600',
                 cursor: 'pointer',
               }}
             >
-              {t('home.emailMe')}
+              {t('home.wechatContact')}
             </motion.button>
-          </a>
-          
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            style={{
-              width: '100%',
-              padding: '16px 32px',
-              background: 'transparent',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,0.25)',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.95rem',
-              cursor: 'pointer',
-            }}
-          >
-            {t('home.wechatContact')}
-          </motion.button>
-        </motion.div>
+          </motion.div>
+        </div>
+        
+        {/* 底部回到顶部按钮 */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.4 }}
+          onClick={onBackToTop}
+          whileTap={{ scale: 0.95 }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            padding: '14px 24px',
+            margin: '0 auto',
+            background: 'rgba(255,255,255,0.08)',
+            border: 'none',
+            borderRadius: 'var(--radius-full)',
+            color: 'rgba(255,255,255,0.5)',
+            fontSize: '0.8rem',
+            fontWeight: '500',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          <span style={{ fontSize: '1rem' }}>↑</span>
+          {t('common.backToTop') || '回到顶部'}
+        </motion.button>
       </div>
       
-      {/* 底部回到顶部按钮 */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.4 }}
-        onClick={onBackToTop}
-        whileTap={{ scale: 0.95 }}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-          padding: '14px 24px',
-          margin: '0 auto',
-          background: 'rgba(255,255,255,0.08)',
-          border: 'none',
-          borderRadius: 'var(--radius-full)',
-          color: 'rgba(255,255,255,0.5)',
-          fontSize: '0.8rem',
-          fontWeight: '500',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-        }}
-      >
-        <span style={{ fontSize: '1rem' }}>↑</span>
-        {t('common.backToTop') || '回到顶部'}
-      </motion.button>
-    </div>
+      {/* 微信二维码弹窗 */}
+      <WechatModal 
+        isOpen={wechatModalOpen} 
+        onClose={() => setWechatModalOpen(false)} 
+      />
+    </>
   );
 };
 

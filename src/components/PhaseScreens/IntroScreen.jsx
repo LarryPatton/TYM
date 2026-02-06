@@ -2,6 +2,7 @@ import React, { useRef, useContext, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
 import { useScreenTransition } from './TransitionContext';
 import FlashlightMask from './FlashlightMask';
+import ScrollIndicator from '../ScrollIndicator';
 
 // ============================================
 // 屏幕 01: 阶阶段引导页 (IntroScreen)
@@ -164,40 +165,15 @@ export const IntroScreen = ({
 
   // 滚动提示组件（复用）
   const ScrollHint = () => (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1 }}
+    <ScrollIndicator
+      variant="reveal"
+      position="bottom-center"
+      color="#fff"
+      layout="vertical"
       style={{
-        position: 'absolute',
         bottom: '40px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: '#fff',
-        opacity: textOpacity
       }}
-    >
-      <motion.div 
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ 
-          fontSize: '0.75rem', 
-          letterSpacing: '3px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '12px',
-          textTransform: 'uppercase'
-        }}
-      >
-        <span>Scroll to Reveal</span>
-        <div style={{ 
-          width: '1px', 
-          height: '24px', 
-          background: 'linear-gradient(to bottom, #fff, transparent)' 
-        }} />
-      </motion.div>
-    </motion.div>
+    />
   );
 
   return (

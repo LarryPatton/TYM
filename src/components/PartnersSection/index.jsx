@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../hooks/useTheme';
+import ScrollIndicator from '../ScrollIndicator';
 
 /**
  * 合作品牌区域 - Sticky Scroll + 滚动渐进出现效果
@@ -316,29 +317,12 @@ const PartnersSection = ({ partners }) => {
         </div>
 
         {/* 底部滚动提示 */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: currentIndex < partners.length - 1 ? 1 : 0 }}
-          style={{
-            position: 'absolute',
-            bottom: 'clamp(20px, 3vh, 40px)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            color: colors.textMuted,
-            fontSize: '0.8rem',
-          }}
-        >
-          <span>Scroll</span>
-          <motion.div
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            ↓
-          </motion.div>
-        </motion.div>
+        <ScrollIndicator
+          variant="default"
+          position="bottom-center"
+          color={colors.textMuted}
+          opacity={currentIndex < partners.length - 1 ? 1 : 0}
+        />
       </div>
     </section>
   );

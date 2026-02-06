@@ -1,5 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // ============================================
 // 演示: 粒子汇聚色彩揭示 (ColorRevealDemo)
@@ -7,6 +8,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 // ============================================
 const ColorRevealDemo = () => {
   const containerRef = useRef(null);
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -200,12 +202,13 @@ const ColorRevealDemo = () => {
             color: '#fff',
             opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]),
             fontSize: '0.9rem',
-            letterSpacing: '2px'
+            letterSpacing: '2px',
+            textTransform: 'uppercase'
           }}
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          SCROLL TO EXPLORE
+          {t('common.scrollToExplore')}
         </motion.div>
 
       </motion.div>

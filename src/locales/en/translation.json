@@ -724,6 +724,7 @@
     "sectionWorks": "Works",
     "sectionServices": "Services",
     "sectionContact": "Contact",
+    "sectionPartners": "Partners",
     "featuredTitle": "Portfolio Guide · Featured Works",
     "partnersTitle": "Partners",
     "ctaTitle": "Interested in working on something meaningful together?",
@@ -812,6 +813,7 @@
     "services": {
       "brandFoundation": {
         "title": "Brand Foundation",
+        "subtitle": "Complete Brand Visual System Building",
         "problem": "I help establish a clear and structured visual foundation for brands.",
         "desc": "By defining core identity systems and guidelines, I ensure visual consistency across products, packaging, and communication.",
         "chips": [
@@ -822,6 +824,7 @@
       },
       "productPhysical": {
         "title": "Product & Physical Experience",
+        "subtitle": "Product CMF & Packaging Design",
         "problem": "I shape cohesive product and packaging experiences through CMF design.",
         "desc": "By aligning color, material, and finish decisions, I strengthen brand perception at the physical level.",
         "chips": [
@@ -833,6 +836,7 @@
       },
       "visualCommunication": {
         "title": "Visual Communication System",
+        "subtitle": "Key Visual & Communication System Design",
         "problem": "I develop scalable visual communication systems for brands.",
         "desc": "Through key visuals and repeatable design rules, brand messages become clearer and more memorable.",
         "chips": [
@@ -843,6 +847,7 @@
       },
       "campaignMarketing": {
         "title": "Campaign & Regional Marketing",
+        "subtitle": "Marketing Campaign Visual Strategy Support",
         "problem": "I support brands in regional campaigns and market-specific communication.",
         "desc": "By aligning visual strategy with local contexts, campaigns remain consistent and effective.",
         "chips": [
@@ -853,6 +858,7 @@
       },
       "offlineApplications": {
         "title": "Offline & Real-world Applications",
+        "subtitle": "Offline Space & Material Design",
         "problem": "I translate brand systems into real-world environments.",
         "desc": "From offline materials to spatial applications, I ensure visual clarity and consistency in physical spaces.",
         "chips": [
@@ -863,6 +869,7 @@
       },
       "creativeExploration": {
         "title": "Creative & Art-driven Exploration",
+        "subtitle": "Art Direction & Experimental Design",
         "problem": "I explore visual expression beyond commercial boundaries.",
         "desc": "Through art-driven projects and exhibitions, I contribute deeper aesthetic perspectives to brand thinking.",
         "chips": [
@@ -949,10 +956,22 @@
     "viewAll": "View All",
     "learnMore": "Learn More",
     "scroll": "Scroll Down",
+    "scrollToExplore": "Scroll to Explore",
+    "scrollToReveal": "Scroll to Reveal",
+    "scrollToCompare": "Scroll to Compare",
+    "scrollToRead": "Scroll to Read",
+    "scrollToControl": "Scroll to Control",
+    "scrollToInteract": "Scroll to Interact",
+    "scrollToSeeEffect": "Scroll to See Effect",
+    "scrollToSeeDepth": "Scroll to See Depth",
+    "scrollToMorph": "Scroll to Morph",
+    "scrollToLiftCurtain": "Scroll to Lift Curtain",
+    "scrollToReview": "Scroll to Review",
     "backToTop": "Back to Top",
     "swipeToExplore": "Swipe to Explore",
     "swipeToViewWorks": "Swipe Up for Works",
     "swipeToServices": "Swipe Up for Services",
+    "swipeToPartners": "Swipe Up for Partners",
     "swipeToContact": "Swipe Up to Contact"
   },
   "footer": {

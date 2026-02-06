@@ -1,5 +1,25 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+// 滚动提示子组件
+const ScrollHint = ({ opacity }) => {
+  const { t } = useTranslation();
+  return (
+    <motion.div
+      animate={{ opacity }}
+      style={{
+        fontSize: '0.7rem',
+        color: 'rgba(255,255,255,0.5)',
+        textTransform: 'uppercase',
+        letterSpacing: '2px',
+        marginTop: '10px'
+      }}
+    >
+      {t('common.scroll')}
+    </motion.div>
+  );
+};
 
 /**
  * ScrollDrivenCarousel - 滚动驱动轮播组件 (优化版：Focus Lens 风格)
@@ -236,19 +256,8 @@ export const ScrollDrivenCarousel = ({
             ))}
           </div>
           
-          {/* 滚动提示 */}
-          <motion.div
-            animate={{ opacity: activeIndex === 0 ? 0.5 : 0 }}
-            style={{
-              fontSize: '0.7rem',
-              color: 'rgba(255,255,255,0.5)',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginTop: '10px'
-            }}
-          >
-            Scroll
-          </motion.div>
+          {/* 滚动提示 - 使用 t() 获取文案 */}
+          <ScrollHint opacity={activeIndex === 0 ? 0.5 : 0} />
         </div>
 
       </div>

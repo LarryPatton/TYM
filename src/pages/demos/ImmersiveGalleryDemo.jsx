@@ -2,7 +2,9 @@ import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Image, ScrollControls, useScroll, Text, Environment, Float } from '@react-three/drei';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
+import ScrollIndicator from '../../components/ScrollIndicator';
 
 // 单个画作组件
 const Frame = ({ url, c = new THREE.Color(), ...props }) => {
@@ -146,8 +148,12 @@ const ImmersiveGalleryDemo = () => {
       </div>
 
       {/* 提示信息 */}
-      <div style={{ position: 'absolute', bottom: 30, left: '50%', transform: 'translateX(-50%)', zIndex: 1000, color: '#666', pointerEvents: 'none' }}>
-        Scroll to Explore
+      <div style={{ position: 'absolute', bottom: 30, left: '50%', transform: 'translateX(-50%)', zIndex: 1000, pointerEvents: 'none' }}>
+        <ScrollIndicator
+          variant="explore"
+          position="inline"
+          color="#666"
+        />
       </div>
 
       <Canvas 

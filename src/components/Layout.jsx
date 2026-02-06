@@ -269,8 +269,8 @@ const Layout = () => {
           transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
         }}>
           {/* 左侧 Logo */}
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ fontWeight: '900', fontSize: isMobile ? '1.2em' : '1.5em', letterSpacing: '-1px' }}>PORTFOLIO.</div>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', height: '44px' }}>
+            <div style={{ fontWeight: '900', fontSize: isMobile ? '1.2em' : '1.5em', letterSpacing: '-1px', lineHeight: 1 }}>PORTFOLIO.</div>
           </Link>
             
           {/* 桌面端：中间导航链接 */}

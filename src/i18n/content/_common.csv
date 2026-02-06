@@ -17,8 +17,20 @@ common.viewMore,查看更多,View More
 common.viewAll,查看全部,View All
 common.learnMore,了解更多,Learn More
 common.scroll,继续向下,Scroll Down
+common.scrollToExplore,向下探索,Scroll to Explore
+common.scrollToReveal,向下揭示,Scroll to Reveal
+common.scrollToCompare,滚动对比,Scroll to Compare
+common.scrollToRead,滚动阅读,Scroll to Read
+common.scrollToControl,滚动控制,Scroll to Control
+common.scrollToInteract,滚动互动,Scroll to Interact
+common.scrollToSeeEffect,滚动查看效果,Scroll to See Effect
+common.scrollToSeeDepth,滚动查看景深,Scroll to See Depth
+common.scrollToMorph,滚动变形,Scroll to Morph
+common.scrollToLiftCurtain,滚动揭幕,Scroll to Lift Curtain
+common.scrollToReview,滚动查看,Scroll to Review
 common.backToTop,回到顶部,Back to Top
 common.swipeToExplore,左右滑动浏览,Swipe to Explore
 common.swipeToViewWorks,上滑查看作品,Swipe Up for Works
 common.swipeToServices,上滑查看服务,Swipe Up for Services
+common.swipeToPartners,上滑查看合作品牌,Swipe Up for Partners
 common.swipeToContact,上滑联系我,Swipe Up to Contact

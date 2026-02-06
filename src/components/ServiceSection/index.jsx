@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { useScrollLock } from '../../contexts/ScrollLockContext';
 import { useTheme } from '../../hooks/useTheme';
+import ScrollIndicator from '../ScrollIndicator';
 
 /**
  * 服务区域主组件 - Sticky Scroll Design
@@ -259,23 +260,6 @@ const ServiceSection = ({
                 </div>
               )}
 
-              {/* CTA Button */}
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  padding: '12px 30px',
-                  background: colors.buttonBg,
-                  color: colors.buttonText,
-                  border: 'none',
-                  borderRadius: 'var(--radius-full)',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                }}
-              >
-                View Projects →
-              </motion.button>
             </motion.div>
           </AnimatePresence>
 
@@ -306,28 +290,12 @@ const ServiceSection = ({
           </div>
 
           {/* 滚动提示 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: activeIndex < services.length - 1 ? 1 : 0 }}
-            style={{
-              position: 'absolute',
-              bottom: 'clamp(30px, 5vh, 50px)',
-              right: 'clamp(40px, 6vw, 80px)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: colors.textLight,
-              fontSize: '0.8rem',
-            }}
-          >
-            <span>Scroll</span>
-            <motion.div
-              animate={{ y: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              ↓
-            </motion.div>
-          </motion.div>
+          <ScrollIndicator
+            variant="default"
+            position="bottom-right"
+            color={colors.textLight}
+            opacity={activeIndex < services.length - 1 ? 1 : 0}
+          />
         </div>
 
         {/* Right: Image Gallery - 扩大区域 */}

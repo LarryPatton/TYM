@@ -1,5 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // ============================================
 // 屏幕: 色彩揭示 (ColorRevealScreen)
@@ -7,6 +8,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 // ============================================
 export const ColorRevealScreen = () => {
   const containerRef = useRef(null);
+  const { t } = useTranslation();
   
   // ============================================
   // 【滚动监听配置】
@@ -404,7 +406,7 @@ export const ColorRevealScreen = () => {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          Scroll
+          {t('common.scroll')}
         </motion.div>
 
       </motion.div>
