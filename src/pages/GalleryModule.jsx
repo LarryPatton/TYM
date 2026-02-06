@@ -326,30 +326,31 @@ const GalleryModule = () => {
     },
     floatingToggle: {
       position: 'fixed',
-      bottom: '40px',
+      bottom: isMobile ? '24px' : '40px',
       left: '50%',
       transform: 'translateX(-50%)',
       zIndex: 1000,
       backgroundColor: isDark ? '#1a1a1a' : '#fff',
       border: `1px solid ${isDark ? '#333' : '#e0e0e0'}`,
       borderRadius: '100px',
-      padding: '6px',
+      padding: isMobile ? '4px' : '6px',
       display: 'flex',
-      gap: '4px',
+      gap: isMobile ? '2px' : '4px',
       boxShadow: isDark 
         ? '0 10px 40px rgba(0,0,0,0.5)' 
         : '0 10px 40px rgba(0,0,0,0.15)'
     },
     toggleButton: {
-      padding: '12px 32px',
-      fontSize: '0.9rem',
+      padding: isMobile ? '8px 20px' : '12px 32px',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
       borderRadius: '100px',
       border: 'none',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       fontWeight: '500',
       backgroundColor: 'transparent',
-      color: isDark ? '#666' : '#888'
+      color: isDark ? '#666' : '#888',
+      whiteSpace: 'nowrap', // 防止换行
     },
     toggleButtonActive: {
       backgroundColor: isDark ? '#fff' : '#1a1a1a',
@@ -359,24 +360,35 @@ const GalleryModule = () => {
     breadcrumb: {
       display: 'flex',
       alignItems: 'center',
-      gap: isMobile ? '8px' : '10px',
+      gap: isMobile ? '6px' : '10px',
       marginBottom: isMobile ? '24px' : '40px',
-      flexWrap: 'wrap',
+      flexWrap: 'nowrap', // 不换行，保持一行
     },
     breadcrumbLink: {
       color: isDark ? '#666' : '#888',
       textDecoration: 'none',
-      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      fontSize: isMobile ? '0.75rem' : '0.9rem',
       transition: 'color 0.2s ease',
+      flexShrink: 0, // 不压缩
+      lineHeight: 1.2,
+      display: 'inline-block',
     },
     breadcrumbSeparator: {
       color: isDark ? '#444' : '#ccc',
-      fontSize: isMobile ? '0.75rem' : '0.85rem',
+      fontSize: isMobile ? '0.7rem' : '0.85rem',
+      flexShrink: 0,
+      lineHeight: 1.2,
+      display: 'inline-block',
     },
     breadcrumbCurrent: {
       color: isDark ? '#aaa' : '#555',
-      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      fontSize: isMobile ? '0.75rem' : '0.9rem',
       fontWeight: '500',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      lineHeight: 1.2,
+      display: 'inline-block',
     }
   };
 
@@ -402,12 +414,40 @@ const GalleryModule = () => {
       {/* Header Section */}
       <header style={styles.header}>
         {/* 面包屑导航 */}
-        <nav style={styles.breadcrumb}>
-          <Link to="/" style={styles.breadcrumbLink}>{t('nav.home')}</Link>
-          <span style={styles.breadcrumbSeparator}>/</span>
-          <Link to="/gallery/list" style={styles.breadcrumbLink}>{t('nav.gallery')}</Link>
-          <span style={styles.breadcrumbSeparator}>/</span>
-          <span style={styles.breadcrumbCurrent}>{moduleData.title}</span>
+        <nav style={{
+          display: 'inline-flex',
+          alignItems: 'baseline',
+          gap: isMobile ? '6px' : '10px',
+          marginBottom: isMobile ? '24px' : '40px',
+        }}>
+          <Link to="/" style={{
+            color: isDark ? '#666' : '#888',
+            textDecoration: 'none',
+            fontSize: isMobile ? '0.75rem' : '0.9rem',
+            lineHeight: 1,
+          }}>{t('nav.home')}</Link>
+          <span style={{
+            color: isDark ? '#444' : '#ccc',
+            fontSize: isMobile ? '0.7rem' : '0.85rem',
+            lineHeight: 1,
+          }}>/</span>
+          <Link to="/gallery" style={{
+            color: isDark ? '#666' : '#888',
+            textDecoration: 'none',
+            fontSize: isMobile ? '0.75rem' : '0.9rem',
+            lineHeight: 1,
+          }}>{t('nav.gallery')}</Link>
+          <span style={{
+            color: isDark ? '#444' : '#ccc',
+            fontSize: isMobile ? '0.7rem' : '0.85rem',
+            lineHeight: 1,
+          }}>/</span>
+          <span style={{
+            color: isDark ? '#aaa' : '#555',
+            fontSize: isMobile ? '0.75rem' : '0.9rem',
+            fontWeight: '500',
+            lineHeight: 1,
+          }}>{moduleData.title}</span>
         </nav>
         
         <motion.div variants={itemVariants} style={styles.moduleNumber}>

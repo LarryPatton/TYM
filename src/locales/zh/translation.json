@@ -671,7 +671,7 @@
       }
     },
     "pageTitle": "画廊",
-    "label": "Art Practice · Visual Exploration",
+    "label": "艺术实践 · 视觉探索",
     "title": "艺术画廊",
     "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
     "exploreWorks": "探索作品",
@@ -911,14 +911,14 @@
       ]
     },
     "gallery": {
-      "label": "Art Practice · Visual Exploration",
+      "label": "艺术实践 · 视觉探索",
       "title": "艺术画廊",
       "desc": "作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。",
       "tags": [
-        "Art Direction",
-        "Mixed Media",
-        "Illustration",
-        "Painting"
+        "艺术指导",
+        "综合媒材",
+        "插画",
+        "绘画"
       ],
       "enter": "进入画廊"
     },

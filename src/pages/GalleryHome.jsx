@@ -1,11 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { Link } from 'react-router-dom';
 import SlicedImageDisplay from '../components/SlicedImageDisplay';
+import LoadingScreen from '../components/LoadingScreen';
 
 const GalleryHome = () => {
   const { t } = useTranslation();
@@ -51,6 +53,94 @@ const GalleryHome = () => {
     'material-texture', 
     'narrative-imagery'
   ];
+
+  // ========== 图片预加载逻辑 ==========
+  
+  // GalleryList 页面的图片（提前预加载）
+  const galleryListImages = [
+    '/covers/gallery/items/1.png',
+    '/covers/gallery/items/2.png',
+    '/covers/gallery/items/3.png',
+    '/covers/gallery/items/4.png',
+    '/covers/gallery/items/5.png',
+    '/covers/gallery/items/6.png',
+    '/covers/gallery/items/7.png',
+    '/covers/gallery/items/8.png',
+  ];
+
+  // 收集所有需要预加载的图片 URL（当前页 + GalleryList 页）
+  const imageUrls = useMemo(() => {
+    const urls = [];
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizeUrl = (path) => {
+      if (!path || typeof path !== 'string') return null;
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return baseUrl + cleanPath;
+    };
+    
+    // 1. 收集当前页模块的斜切图片
+    Object.values(moduleConfigs).forEach(config => {
+      config.images.forEach(img => {
+        if (img.image) {
+          urls.push(normalizeUrl(img.image));
+        }
+      });
+    });
+    
+    // 2. 收集 GalleryList 页面的图片（提前预加载）
+    galleryListImages.forEach(img => {
+      urls.push(normalizeUrl(img));
+    });
+    
+    // 去重并过滤空值
+    const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
+    
+    console.log('[GalleryHome] Collected image URLs:', uniqueUrls.length, uniqueUrls);
+    
+    return uniqueUrls;
+  }, []);
+  
+  // 添加标志位，确保只加载一次
+  const [hasPreloaded, setHasPreloaded] = useState(false);
+  // 添加 canEnter 状态，由动画完成回调控制
+  const [canEnter, setCanEnter] = useState(false);
+  
+  // 使用图片预加载 Hook（50% 阈值策略）
+  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+    enabled: !hasPreloaded,
+    threshold: 50, // 加载 50% 后即可进入页面
+    onThresholdReached: (info) => {
+      console.log('[GalleryHome] ✅ 50% threshold reached!', info);
+    },
+    onComplete: (stats) => {
+      console.log('[GalleryHome] ✅ 100% loading complete!', stats);
+      setHasPreloaded(true);
+    },
+    onProgress: (info) => {
+      console.log('[GalleryHome] Progress update:', info);
+    }
+  });
+  
+  // 动画完成回调：只有动画播放完毕且真实加载 >= 50% 时才允许进入
+  const handleAnimationComplete = useCallback(() => {
+    if (progress >= 50) {
+      console.log('[GalleryHome] ✅ Animation complete! User can enter page.');
+      setCanEnter(true);
+    }
+  }, [progress]);
+  
+  // 调试输出
+  useEffect(() => {
+    console.log('[GalleryHome] Loading state:', { 
+      isLoading, 
+      canEnter, 
+      progress, 
+      loadedCount, 
+      totalCount, 
+      hasPreloaded,
+      displayProgress: `真实 ${progress}% → 显示 ${progress >= 50 ? 100 : Math.round((progress / 50) * 100)}%`
+    });
+  }, [isLoading, canEnter, progress, loadedCount, totalCount, hasPreloaded]);
 
   // 动画配置
   const containerVariants = {
@@ -240,97 +330,116 @@ const GalleryHome = () => {
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      style={styles.page}
-    >
-      {/* Header Section */}
-      <motion.header variants={itemVariants} style={styles.header}>
-        <div style={styles.headerContent}>
-          {/* 面包屑导航 */}
-          <nav style={styles.breadcrumb}>
-            <Link to="/" style={styles.breadcrumbLink}>{t('nav.home')}</Link>
-            <span style={styles.breadcrumbSeparator}>/</span>
-            <span style={styles.breadcrumbCurrent}>{t('gallery.title')}</span>
-          </nav>
-          <h1 style={styles.headerTitle}>{t('gallery.title')}</h1>
-          <p style={styles.headerDesc}>
-            {t('gallery.subtitle')}
-          </p>
-        </div>
-      </motion.header>
+    <>
+      {/* 加载屏幕 */}
+      <LoadingScreen 
+        isVisible={!canEnter}
+        realProgress={progress}
+        loadedCount={loadedCount}
+        totalCount={totalCount}
+        phaseNumber="" // Gallery 页面不显示 Phase 编号
+        threshold={50}
+        minDuration={1500} // 最小动画时长 1.5 秒
+        onAnimationComplete={handleAnimationComplete}
+      />
+      
+      <AnimatePresence mode="wait">
+        {canEnter && (
+          <motion.div
+            key="gallery-content"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            style={styles.page}
+          >
+            {/* Header Section */}
+            <motion.header variants={itemVariants} style={styles.header}>
+              <div style={styles.headerContent}>
+                {/* 面包屑导航 */}
+                <nav style={styles.breadcrumb}>
+                  <Link to="/" style={styles.breadcrumbLink}>{t('nav.home')}</Link>
+                  <span style={styles.breadcrumbSeparator}>/</span>
+                  <span style={styles.breadcrumbCurrent}>{t('gallery.title')}</span>
+                </nav>
+                <h1 style={styles.headerTitle}>{t('gallery.title')}</h1>
+                <p style={styles.headerDesc}>
+                  {t('gallery.subtitle')}
+                </p>
+              </div>
+            </motion.header>
 
-      {/* Modules List */}
-      <motion.div variants={containerVariants} style={styles.modulesGrid}>
-        {moduleKeys.map((key, moduleIndex) => {
-          const module = t(`gallery.modules.${key}`, { returnObjects: true });
-          const config = moduleConfigs[key];
-          
-          return (
-            <Link 
-              key={key} 
-              to={`/gallery/${key}`} 
-              style={{ textDecoration: 'none', color: 'inherit' }}
-            >
-              <motion.div
-                variants={itemVariants}
-                whileHover={styles.moduleCardHover}
-                style={styles.moduleCard}
-              >
-                <div style={styles.moduleInner}>
-                  {/* 左侧：文字内容 */}
-                  <div style={styles.leftSection}>
-                    {/* 移动端：编号和标题在一行 */}
-                    {isMobile ? (
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
-                        <span style={styles.moduleNumber}>{module.number}</span>
-                        <h2 style={styles.moduleTitle}>{module.title}</h2>
-                      </div>
-                    ) : (
-                      <>
-                        <div style={styles.moduleNumber}>{module.number}</div>
-                        <h2 style={styles.moduleTitle}>{module.title}</h2>
-                      </>
-                    )}
-                    <p style={styles.moduleDesc}>{module.desc}</p>
-                    <div style={styles.tagsRow}>
-                      {module.media?.map((m, i) => (
-                        <span key={i} style={styles.mediaTag}>{m}</span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* 右侧：斜切图片 + 浮动箭头 */}
-                  <div style={styles.rightSection}>
-                    {/* 斜切图片容器 - 绝对定位占满父元素 */}
-                    <div style={{ position: 'absolute', inset: 0 }}>
-                      <SlicedImageDisplay
-                        images={config.images}
-                        isDark={isDark}
-                        slantOffset={6}
-                        animated={!isMobile}
-                        animationDelay={0.3 + moduleIndex * 0.2}
-                        height="100%"
-                        hueStart={config.hueStart}
-                      />
-                    </div>
-                    {/* 浮动箭头 */}
-                    <motion.div 
-                      style={styles.floatingArrow}
-                      whileHover={{ scale: 1.1, boxShadow: isDark ? '0 6px 24px rgba(0,0,0,0.5)' : '0 6px 24px rgba(0,0,0,0.2)' }}
+            {/* Modules List */}
+            <motion.div variants={containerVariants} style={styles.modulesGrid}>
+              {moduleKeys.map((key, moduleIndex) => {
+                const module = t(`gallery.modules.${key}`, { returnObjects: true });
+                const config = moduleConfigs[key];
+                
+                return (
+                  <Link 
+                    key={key} 
+                    to={`/gallery/${key}`} 
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <motion.div
+                      variants={itemVariants}
+                      whileHover={styles.moduleCardHover}
+                      style={styles.moduleCard}
                     >
-                      <span style={styles.moduleArrow}>→</span>
+                      <div style={styles.moduleInner}>
+                        {/* 左侧：文字内容 */}
+                        <div style={styles.leftSection}>
+                          {/* 移动端：编号和标题在一行 */}
+                          {isMobile ? (
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
+                              <span style={styles.moduleNumber}>{module.number}</span>
+                              <h2 style={styles.moduleTitle}>{module.title}</h2>
+                            </div>
+                          ) : (
+                            <>
+                              <div style={styles.moduleNumber}>{module.number}</div>
+                              <h2 style={styles.moduleTitle}>{module.title}</h2>
+                            </>
+                          )}
+                          <p style={styles.moduleDesc}>{module.desc}</p>
+                          <div style={styles.tagsRow}>
+                            {module.media?.map((m, i) => (
+                              <span key={i} style={styles.mediaTag}>{m}</span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        {/* 右侧：斜切图片 + 浮动箭头 */}
+                        <div style={styles.rightSection}>
+                          {/* 斜切图片容器 - 绝对定位占满父元素 */}
+                          <div style={{ position: 'absolute', inset: 0 }}>
+                            <SlicedImageDisplay
+                              images={config.images}
+                              isDark={isDark}
+                              slantOffset={6}
+                              animated={!isMobile}
+                              animationDelay={0.3 + moduleIndex * 0.2}
+                              height="100%"
+                              hueStart={config.hueStart}
+                            />
+                          </div>
+                          {/* 浮动箭头 */}
+                          <motion.div 
+                            style={styles.floatingArrow}
+                            whileHover={{ scale: 1.1, boxShadow: isDark ? '0 6px 24px rgba(0,0,0,0.5)' : '0 6px 24px rgba(0,0,0,0.2)' }}
+                          >
+                            <span style={styles.moduleArrow}>→</span>
+                          </motion.div>
+                        </div>
+                      </div>
                     </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-          );
-        })}
-      </motion.div>
-    </motion.div>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

@@ -1,145 +1,125 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+
+// 调试开关
+const DEBUG = false;
 
 /**
  * AutoSequencePopup - 自动顺序弹出组件
- * 当屏幕进入视口时，内容按固定间隔依次弹出
- * 
- * 移动端优化：支持双区域模式，上下两个区域分别播放不同的图片序列
- * 
- * @param {Array} images - 图片数组，每个图片对象包含 src 和 label
- * @param {Array} images2 - 第二组图片数组（移动端双区域模式用）
- * @param {Number} interval - 弹出间隔时间（毫秒），默认 300ms
- * @param {Number} duration - 单个动画持续时间（秒），默认 0.6s
- * @param {String} bgColor - 背景颜色，默认黑色
- * @param {Boolean} dualMode - 是否启用双区域模式（移动端自动启用）
+ * 使用纯 CSS 动画，避免 framer-motion 导致的重渲染问题
  */
 const AutoSequencePopup = ({ 
   images = [], 
-  images2 = [], // 第二组图片（用于移动端双区域）
+  images2 = [],
   interval = 300,
   duration = 0.6,
   bgColor = '#000',
-  dualMode = false // 是否启用双区域模式
+  dualMode = false
 }) => {
-  const [visibleIndices, setVisibleIndices] = useState([]);
-  const [visibleIndices2, setVisibleIndices2] = useState([]); // 第二区域的可见索引
-  const [hasTriggered, setHasTriggered] = useState(false);
+  // 使用数组存储可见索引，避免 Set 的引用问题
+  const [visibleCount, setVisibleCount] = useState(0);
+  const [visibleCount2, setVisibleCount2] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
+  const animationTimersRef = useRef([]);
+  const hasTriggeredRef = useRef(false);
 
-  // 移动端检测
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const imageKey = useMemo(() => images.map(img => img.src).join('|'), [images]);
+  const imageKey2 = useMemo(() => images2.map(img => img.src).join('|'), [images2]);
 
-  // 当图片数组变化时，重置状态
+  // 重置状态
   useEffect(() => {
-    // 重置状态（当组件重新挂载或图片变化时）
-    setVisibleIndices([]);
-    setVisibleIndices2([]);
-    setHasTriggered(false);
+    if (DEBUG) console.log('🔄 重置状态');
+    
+    animationTimersRef.current.forEach(timer => clearTimeout(timer));
+    animationTimersRef.current = [];
+    hasTriggeredRef.current = false;
+    setVisibleCount(0);
+    setVisibleCount2(0);
     setIsMounted(false);
     
-    // 延迟启用 IntersectionObserver，避免挂载时立即触发
-    const mountTimer = setTimeout(() => {
-      setIsMounted(true);
-    }, 200);
+    const mountTimer = setTimeout(() => setIsMounted(true), 100);
     
     return () => {
       clearTimeout(mountTimer);
-      setIsMounted(false);
+      animationTimersRef.current.forEach(timer => clearTimeout(timer));
     };
-  }, [images, images2]); // 当图片变化时重置
+  }, [imageKey, imageKey2]);
 
-  // 判断是否使用双区域模式
   const useDualMode = dualMode && images2.length > 0;
 
+  // IntersectionObserver - 一次性触发所有定时器
   useEffect(() => {
-    // 等待组件完全挂载后再设置观察器
     if (!isMounted) return;
+    
+    const currentContainer = containerRef.current;
     
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // 当屏幕进入视口且未触发过时，开始顺序弹出
-        if (entry.isIntersecting && !hasTriggered) {
-          setHasTriggered(true);
+        if (entry.isIntersecting && !hasTriggeredRef.current) {
+          hasTriggeredRef.current = true;
+          if (DEBUG) console.log('🚀 开始顺序显示');
           
-          // 依次显示第一组图片
+          // 一次性设置所有定时器，每个定时器只更新计数
           images.forEach((_, index) => {
-            setTimeout(() => {
-              setVisibleIndices(prev => [...prev, index]);
+            const timer = setTimeout(() => {
+              setVisibleCount(index + 1);
             }, index * interval);
+            animationTimersRef.current.push(timer);
           });
           
-          // 如果是双区域模式，同时播放第二组
           if (useDualMode) {
             images2.forEach((_, index) => {
-              setTimeout(() => {
-                setVisibleIndices2(prev => [...prev, index]);
+              const timer = setTimeout(() => {
+                setVisibleCount2(index + 1);
               }, index * interval);
+              animationTimersRef.current.push(timer);
             });
           }
         }
       },
-      {
-        threshold: 0.1, // 降低阈值，只需10%进入视口即触发
-        rootMargin: '0px' // 移除负边距，更容易触发
-      }
+      { threshold: 0.15, rootMargin: '-50px 0px' }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    if (currentContainer) observer.observe(currentContainer);
+    return () => { if (currentContainer) observer.unobserve(currentContainer); };
+  }, [images.length, images2.length, interval, isMounted, useDualMode]);
 
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
-  }, [images, images2, interval, hasTriggered, isMounted, useDualMode]);
+  const FIXED_SCROLL_HEIGHT = 200;
 
-  // 弹出动画变体
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 30,
-      scale: 0.95
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: duration,
-        ease: [0.25, 0.1, 0.25, 1] // cubic-bezier 缓动曲线
-      }
-    }
-  };
+  // CSS 动画样式
+  const getImageStyle = (index, isVisible, isMobile) => ({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: index + 1,
+    padding: isMobile ? '4px' : 0,
+    opacity: isVisible ? 1 : 0,
+    transition: `opacity ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)`
+  });
 
-  // 计算总滚动高度：根据图片数量和弹出动画时间
-  const maxImagesCount = useDualMode ? Math.max(images.length, images2.length) : images.length;
-  const totalAnimationTime = maxImagesCount * interval + duration * 1000;
-  const scrollHeight = Math.max(200, Math.ceil(totalAnimationTime / 10));
+  const imgStyle = (isMobile) => ({
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'contain',
+    filter: isMobile 
+      ? 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))' 
+      : 'drop-shadow(0 20px 60px rgba(0,0,0,0.3))',
+    borderRadius: isMobile ? '6px' : 0
+  });
 
-  // 双区域模式渲染：上下两个区域分别播放
+  // 双区域模式
   if (useDualMode) {
     return (
       <div 
-        ref={containerRef}
+        ref={containerRef} 
         style={{
-          height: `${scrollHeight}vh`,
+          height: `${FIXED_SCROLL_HEIGHT}vh`,
           position: 'relative',
           background: bgColor
         }}
       >
-        {/* Sticky 容器 - 优化移动端布局 */}
         <div style={{
           position: 'sticky',
           top: 0,
@@ -148,102 +128,56 @@ const AutoSequencePopup = ({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'space-between', // 改为 space-between，让内容更分散
+          justifyContent: 'space-between',
           overflow: 'hidden',
-          padding: '8px 8px 64px 8px', // 减少水平 padding，底部留出导航栏空间
+          padding: '8px 8px 64px 8px',
           boxSizing: 'border-box'
         }}>
-          {/* 上半区域 - 第一组图片 */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '48%', // 固定高度比例，确保充分利用空间
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden'
-            }}
-          >
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '48%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}>
             {images.map((image, index) => (
-              <motion.div
-                key={`top-${index}`}
-                variants={itemVariants}
-                initial="hidden"
-                animate={visibleIndices.includes(index) ? "visible" : "hidden"}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: index + 1,
-                  padding: '4px' // 给图片留一点边距
-                }}
+              <div 
+                key={image.src} 
+                style={getImageStyle(index, index < visibleCount, true)}
               >
                 <img
                   src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
                   alt={image.label || `Image ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
-                    borderRadius: '6px'
-                  }}
+                  style={imgStyle(true)}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
           
-          {/* 中间分隔线 - 视觉分隔 */}
-          <div style={{
-            width: '60%',
-            height: '1px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            flexShrink: 0
-          }} />
+          <div style={{ width: '60%', height: '1px', background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
           
-          {/* 下半区域 - 第二组图片 */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '48%', // 固定高度比例
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden'
-            }}
-          >
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '48%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}>
             {images2.map((image, index) => (
-              <motion.div
-                key={`bottom-${index}`}
-                variants={itemVariants}
-                initial="hidden"
-                animate={visibleIndices2.includes(index) ? "visible" : "hidden"}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: index + 1,
-                  padding: '4px'
-                }}
+              <div 
+                key={image.src} 
+                style={getImageStyle(index, index < visibleCount2, true)}
               >
                 <img
                   src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
                   alt={image.label || `Image ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
-                    borderRadius: '6px'
-                  }}
+                  style={imgStyle(true)}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -251,17 +185,16 @@ const AutoSequencePopup = ({
     );
   }
 
-  // 单区域模式渲染（桌面端默认）
+  // 单区域模式
   return (
     <div 
-      ref={containerRef}
+      ref={containerRef} 
       style={{
-        height: `${scrollHeight}vh`,
+        height: `${FIXED_SCROLL_HEIGHT}vh`,
         position: 'relative',
         background: bgColor
       }}
     >
-      {/* Sticky 容器 */}
       <div style={{
         position: 'sticky',
         top: 0,
@@ -272,43 +205,25 @@ const AutoSequencePopup = ({
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        {/* 图片叠加容器 */}
-        <div
-          style={{
-            position: 'relative',
-            width: '90vw',
-            height: '80vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
+        <div style={{
+          position: 'relative',
+          width: '90vw',
+          height: '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           {images.map((image, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              initial="hidden"
-              animate={visibleIndices.includes(index) ? "visible" : "hidden"}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: index + 1
-              }}
+            <div 
+              key={image.src} 
+              style={getImageStyle(index, index < visibleCount, false)}
             >
               <img
                 src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
                 alt={image.label || `Image ${index + 1}`}
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.3))'
-                }}
+                style={imgStyle(false)}
               />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

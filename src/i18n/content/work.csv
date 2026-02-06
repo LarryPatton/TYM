@@ -17,13 +17,13 @@ work.featured.tags[0],品牌策略,Brand Strategy
 work.featured.tags[1],系统思维,System Thinking
 work.featured.tags[2],迭代优化,Iteration
 work.featured.tags[3],落地应用,Application
-work.gallery.label,Art Practice · Visual Exploration,Art Practice · Visual Exploration
+work.gallery.label,艺术实践 · 视觉探索,Art Practice · Visual Exploration
 work.gallery.title,艺术画廊,Art Gallery
 work.gallery.desc,"作为商业项目之外的长期视觉实践，这些作品用于探索形式、材料与感知方式，并反向滋养我在品牌与产品设计中的判断力。","As a long-term visual practice beyond commercial projects, these works explore form, material, and perception, while enriching my judgment in brand and product design."
-work.gallery.tags[0],Art Direction,Art Direction
-work.gallery.tags[1],Mixed Media,Mixed Media
-work.gallery.tags[2],Illustration,Illustration
-work.gallery.tags[3],Painting,Painting
+work.gallery.tags[0],艺术指导,Art Direction
+work.gallery.tags[1],综合媒材,Mixed Media
+work.gallery.tags[2],插画,Illustration
+work.gallery.tags[3],绘画,Painting
 work.gallery.enter,进入画廊,Enter Gallery
 work.modules.form.label,Module A,Module A
 work.modules.form.title,造型 Form,Form

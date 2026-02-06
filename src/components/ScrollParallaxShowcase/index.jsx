@@ -34,7 +34,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
   const activeProject = projects.find(p => p.id === activeId) || projects[0];
   const activeIndex = projects.findIndex(p => p.id === activeId);
   
-  // ==================== PC端固定 30:70 图文比例 ====================
+  // ==================== PC端固定 25:75 图文比例 ====================
   const textAreaWidth = '25%';
   
   // 移动端触摸滑动处理

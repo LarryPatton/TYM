@@ -1545,7 +1545,16 @@ const PhaseDetail = () => {
                 id={screenConfig.id} 
                 className="phase-screen-wrapper"
                 data-product={screenConfig.product || 'common'}
-                style={{ width: '100%', position: 'relative' }}
+                style={{ 
+                  width: '100%', 
+                  position: 'relative',
+                  // 添加背景色，防止屏幕切换时闪烁
+                  background: phaseBgColor,
+                  // GPU 加速
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
               >
                 {renderScreen(screenConfig, index)}
               </div>

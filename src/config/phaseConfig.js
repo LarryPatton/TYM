@@ -638,13 +638,21 @@ export const phase03Config = {
       ]
     },
     // Screen 07: 移除 (内容已合并至上方)
-    // Screen 08: Panorama 单屏完整展示 - 1张超宽全景图
+    // Screen 08: 全景展示 - 多图自动弹出
     {
       id: 'panorama-full',
-      type: 'panorama-full',
+      type: 'auto-sequence-popup',
       categoryLabel: '全景展示',
+      interval: 300,
+      duration: 0.6,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
-      image: { src: `${PHASE03_BASE}/panorama/panorama-01.png`, label: 'Panorama View' }
+      images: [
+        { src: `${PHASE03_BASE}/panorama-popup/Frame 95.png`, label: 'Panorama 1' },
+        { src: `${PHASE03_BASE}/panorama-popup/Frame 96.png`, label: 'Panorama 2' },
+        { src: `${PHASE03_BASE}/panorama-popup/Frame 97.png`, label: 'Panorama 3' },
+        { src: `${PHASE03_BASE}/panorama-popup/Frame 98.png`, label: 'Panorama 4' },
+        { src: `${PHASE03_BASE}/panorama-popup/Frame 99.png`, label: 'Panorama 5' }
+      ]
     },
     // Screen 07: 跑马灯 + 场景 + 轮播 (共17张)
     {
