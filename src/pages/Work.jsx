@@ -278,36 +278,38 @@ const Work = () => {
   // ========== 图片预加载逻辑 ==========
   
   // 定义 phases 数据用于倾斜背景（深度案例研究）
+  // 移动端使用 /images/mobile/work/ 目录
+  // 桌面端使用 /covers/work/phases/ 目录
   const phases = [
     {
       id: 'phase-01',
       titleEn: 'Brand Identity',
-      image: '/covers/work/phases/phase-01-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 1.png' : '/covers/work/phases/phase-01-cover.png',
     },
     {
       id: 'phase-02',
       titleEn: 'Product A',
-      image: '/covers/work/phases/phase-02-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 2.png' : '/covers/work/phases/phase-02-cover.png',
     },
     {
       id: 'phase-03',
       titleEn: 'Product B',
-      image: '/covers/work/phases/phase-03-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 3.png' : '/covers/work/phases/phase-03-cover.png',
     },
     {
       id: 'phase-04',
       titleEn: 'Packaging',
-      image: '/covers/work/phases/phase-04-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 4.png' : '/covers/work/phases/phase-04-cover.png',
     },
     {
       id: 'phase-05',
       titleEn: 'Retail & Experience Expansion',
-      image: '/covers/work/phases/phase-05-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 5.png' : '/covers/work/phases/phase-05-cover.png',
     },
     {
       id: 'phase-06',
       titleEn: 'Copywriting Visualization',
-      image: '/covers/work/phases/phase-06-cover.png',
+      image: isMobile ? '/images/mobile/work/Desktop - 6.png' : '/covers/work/phases/phase-06-cover.png',
     }
   ];
 

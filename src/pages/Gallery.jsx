@@ -277,11 +277,15 @@ const Gallery = () => {
   useTitle(t('gallery.pageTitle'));
 
   // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
-  // 飞入素材配置 - 自动按数字顺序读取 fly-in 文件夹中的图片
+  // 飞入素材配置 - 自动按数字顺序读取
+  // 移动端使用 /images/mobile/gallery/ 目录
+  // 桌面端使用 /covers/gallery/fly-in/ 目录
   const galleryItems = Array.from({ length: 6 }, (_, i) => ({
     id: `gallery-${String(i + 1).padStart(2, '0')}`,
     titleEn: `Artwork ${String(i + 1).padStart(2, '0')}`,
-    image: `/covers/gallery/fly-in/${i + 1}.png`,
+    image: isMobile 
+      ? `/images/mobile/gallery/Desktop - ${i + 1}.png`
+      : `/covers/gallery/fly-in/${i + 1}.png`,
   }));
 
   // 收集所有需要预加载的图片 URL

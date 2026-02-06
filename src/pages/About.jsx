@@ -166,15 +166,74 @@ const About = () => {
           <AnimatePresence mode="wait">
             {/* Section 1: Intro */}
             {activeSection === 0 && (
-              <motion.div key="intro" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px', display: 'grid', gridTemplateColumns: 'minmax(260px, 320px) 1fr', gap: '60px', alignItems: 'center' }}>
-                <div>
-                  <div style={{ aspectRatio: '3 / 4', borderRadius: '16px', overflow: 'hidden', background: colors.bgAlt, border: `1px solid ${colors.border}` }}>
-                    <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
-                    <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+              <motion.div key="intro" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                
+                {/* 顶部签名区域 - 跨越全宽 */}
+                <motion.div 
+                  style={{ 
+                    width: '100%', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    marginBottom: '50px',
+                    minHeight: '100px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* 签名图片 - 带手写动效 */}
+                  <motion.div
+                    initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                    animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                    transition={{ 
+                      delay: 0.3, 
+                      duration: 1.8, 
+                      ease: [0.25, 0.1, 0.25, 1] 
+                    }}
+                    style={{ position: 'relative' }}
+                  >
+                    <motion.img 
+                      src={isDark ? '/images/signature/白.png' : '/images/signature/黑.png'} 
+                      alt="Signature" 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.85 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      style={{ 
+                        height: 'clamp(80px, 12vw, 120px)', 
+                        width: 'auto',
+                        maxWidth: '90%',
+                      }} 
+                    />
+                  </motion.div>
+                  
+                  {/* 装饰性笔触线条 */}
+                  <motion.div
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 0.15 }}
+                    transition={{ delay: 2.0, duration: 0.6, ease: 'easeOut' }}
+                    style={{
+                      position: 'absolute',
+                      bottom: '0',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '200px',
+                      height: '1px',
+                      background: `linear-gradient(90deg, transparent 0%, ${colors.text} 50%, transparent 100%)`,
+                      transformOrigin: 'center',
+                    }}
+                  />
+                </motion.div>
+
+                {/* 内容区域 - 照片 + 文字 */}
+                <div style={{ width: '100%', display: 'grid', gridTemplateColumns: 'minmax(260px, 320px) 1fr', gap: '60px', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ aspectRatio: '3 / 4', borderRadius: '16px', overflow: 'hidden', background: colors.bgAlt, border: `1px solid ${colors.border}` }}>
+                      <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
+                      <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', fontWeight: '400', marginBottom: '28px', lineHeight: 1.15, color: colors.text }}>{t('about.greeting')}</h1>
+                  <div>
+                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', fontWeight: '400', marginBottom: '28px', lineHeight: 1.15, color: colors.text }}>{t('about.greeting')}</h1>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', color: colors.textMuted, fontSize: '1.05rem', lineHeight: 1.7 }}>
                     <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
                     <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
@@ -183,6 +242,7 @@ const About = () => {
                   </div>
                   <div style={{ marginTop: '35px', display: 'flex', gap: '15px' }}>
                     <motion.a href="/resume.pdf" target="_blank" whileHover={{ scale: 1.05 }} style={{ padding: '13px 30px', background: colors.accent, color: isDark ? '#000' : '#fff', borderRadius: '100px', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none' }}>{t('about.downloadResume')}</motion.a>
+                  </div>
                   </div>
                 </div>
               </motion.div>
