@@ -8,7 +8,7 @@ import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
 // 主题切换按钮组件
-const ThemeToggle = ({ size = 18 }) => {
+const ThemeToggle = ({ size = 18, compact = false }) => {
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
   
@@ -38,17 +38,19 @@ const ThemeToggle = ({ size = 18 }) => {
     event.stopPropagation();
     toggleTheme(event);
   };
+
+  const buttonSize = compact ? '36px' : '44px';
   
   return (
     <motion.button
       onClick={handleClick}
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.92 }}
       style={{
-        width: '44px',
-        height: '44px',
-        minWidth: '44px', // 确保最小触摸区域
-        minHeight: '44px',
+        width: buttonSize,
+        height: buttonSize,
+        minWidth: buttonSize,
+        minHeight: buttonSize,
         borderRadius: '50%',
         border: '1px solid var(--color-border)',
         background: 'transparent',
@@ -58,8 +60,8 @@ const ThemeToggle = ({ size = 18 }) => {
         justifyContent: 'center',
         color: 'var(--color-text-main)',
         transition: 'all 0.3s ease',
-        WebkitTapHighlightColor: 'transparent', // 移除移动端点击高亮
-        touchAction: 'manipulation', // 优化触摸响应
+        WebkitTapHighlightColor: 'transparent',
+        touchAction: 'manipulation',
       }}
       title={theme === 'dark' ? t('theme.switchToLight') : t('theme.switchToDark')}
     >
@@ -68,31 +70,48 @@ const ThemeToggle = ({ size = 18 }) => {
   );
 };
 
-// 汉堡菜单按钮组件
-const HamburgerButton = ({ isOpen, onClick }) => (
+// 汉堡菜单按钮组件 (带页面名)
+const HamburgerButton = ({ isOpen, onClick, currentPageName }) => (
   <motion.button
     onClick={onClick}
     whileTap={{ scale: 0.95 }}
     style={{
-      width: '44px',
-      height: '44px',
-      borderRadius: 'var(--radius-md)',
-      border: 'none',
-      background: 'transparent',
-      cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: 0,
+      gap: '10px',
+      height: '40px',
+      padding: '0 12px 0 16px',
+      borderRadius: 'var(--radius-full)',
+      border: '1px solid var(--color-border)',
+      background: 'var(--color-bg)',
+      cursor: 'pointer',
       position: 'relative',
       zIndex: 1001,
     }}
     aria-label={isOpen ? 'Close menu' : 'Open menu'}
     aria-expanded={isOpen}
   >
-    <div style={{ width: '24px', height: '18px', position: 'relative' }}>
+    {/* 页面名 */}
+    <span style={{
+      fontSize: '0.9rem',
+      fontWeight: '500',
+      color: 'var(--color-text-main)',
+      whiteSpace: 'nowrap',
+    }}>
+      {currentPageName}
+    </span>
+    
+    {/* 分隔线 */}
+    <span style={{
+      width: '1px',
+      height: '16px',
+      background: 'var(--color-border)',
+    }} />
+    
+    {/* 汉堡图标 */}
+    <div style={{ width: '18px', height: '14px', position: 'relative' }}>
       <motion.span
-        animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
+        animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         style={{
           position: 'absolute', top: 0, left: 0, width: '100%', height: '2px',
@@ -108,7 +127,7 @@ const HamburgerButton = ({ isOpen, onClick }) => (
         }}
       />
       <motion.span
-        animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }}
+        animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         style={{
           position: 'absolute', bottom: 0, left: 0, width: '100%', height: '2px',
@@ -120,7 +139,7 @@ const HamburgerButton = ({ isOpen, onClick }) => (
 );
 
 // 移动端抽屉导航组件
-const MobileDrawer = ({ isOpen, onClose, navLinks, isActive, t }) => {
+const MobileDrawer = ({ isOpen, onClose, navLinks, isActive, t, currentPath }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -134,85 +153,131 @@ const MobileDrawer = ({ isOpen, onClose, navLinks, isActive, t }) => {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* 遮罩层 */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             onClick={onClose}
             style={{
-              position: 'fixed', inset: 0, background: 'rgba(0, 0, 0, 0.5)',
-              backdropFilter: 'blur(4px)', zIndex: 999,
+              position: 'fixed', 
+              inset: 0, 
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(8px)', 
+              WebkitBackdropFilter: 'blur(8px)',
+              zIndex: 9998,
             }}
           />
+          {/* 抽屉面板 */}
           <motion.nav
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 40 }}
             style={{
-              position: 'fixed', top: 0, right: 0, bottom: 0, width: 'min(320px, 85vw)',
-              background: 'var(--color-bg)', zIndex: 1000, display: 'flex', flexDirection: 'column',
-              boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.1)',
+              position: 'fixed', 
+              top: 0, 
+              right: 0, 
+              bottom: 0, 
+              width: '160px',
+              background: 'var(--color-bg)', 
+              zIndex: 9999, 
+              display: 'flex', 
+              flexDirection: 'column',
+              boxShadow: '-8px 0 30px rgba(0, 0, 0, 0.1)',
+              borderLeft: '1px solid var(--color-border)',
             }}
           >
+            {/* 顶部留白 */}
             <div style={{ height: 'var(--nav-height)', flexShrink: 0 }} />
-            <div style={{ flex: 1, padding: 'var(--space-xl) var(--space-lg)', display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={onClose}
-                    style={{
-                      display: 'block', padding: 'var(--space-md) var(--space-sm)', fontSize: '1.5rem',
-                      fontWeight: '600', color: isActive(link.path), textDecoration: 'none',
-                      borderBottom: '1px solid var(--color-border)', transition: 'color 0.2s',
-                    }}
+            
+            {/* 导航链接区域 - 方案D: 品牌风格 */}
+            <div style={{ 
+              flex: 1, 
+              display: 'flex', 
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '0 12px',
+              gap: '8px',
+            }}>
+              {navLinks.map((link, index) => {
+                const isCurrentActive = currentPath === link.path;
+                return (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.06, duration: 0.3 }}
+                    style={{ width: '100%', textAlign: 'center' }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      onClick={onClose}
+                      style={{
+                        display: 'inline-flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: '12px 16px', 
+                        fontSize: '1.25rem',
+                        fontWeight: '600',
+                        letterSpacing: '-0.02em',
+                        color: isActive(link.path), 
+                        textDecoration: 'none',
+                        transition: 'color 0.2s',
+                      }}
+                    >
+                      {link.label}
+                      {/* 底部装饰点 - 当前页面显示 */}
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: isCurrentActive ? 1 : 0 }}
+                        style={{
+                          width: '5px',
+                          height: '5px',
+                          borderRadius: '50%',
+                          background: 'var(--color-primary)',
+                          marginTop: '6px',
+                        }}
+                      />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
+            
+            {/* 底部操作区域 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
               style={{
-                padding: 'var(--space-xl) var(--space-lg)', borderTop: '1px solid var(--color-border)',
-                display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)',
+                padding: '12px 16px',
+                borderTop: '1px solid var(--color-border)',
+                background: 'var(--color-bg-subtle)',
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '10px',
               }}
             >
-              {/* 语言和主题切换 - 增大触摸区域 */}
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 'var(--space-lg)', 
-                justifyContent: 'center',
-              }}>
-                <div style={{ 
-                  transform: 'scale(1.15)', 
-                  transformOrigin: 'center',
-                }}>
-                  <LanguageSwitcher variant="toggle" />
-                </div>
-                <div style={{ 
-                  transform: 'scale(1.15)', 
-                  transformOrigin: 'center',
-                }}>
-                  <ThemeToggle size={20} />
-                </div>
+              {/* 语言和主题切换 */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+                <LanguageSwitcher variant="compact" />
+                <ThemeToggle size={14} compact />
               </div>
+              {/* 联系按钮 */}
               <Link to="/about" state={{ scrollTo: 'contact' }} onClick={onClose} style={{ textDecoration: 'none' }}>
                 <button style={{
-                  width: '100%', padding: '16px 24px', background: 'var(--color-primary)',
-                  color: 'var(--color-text-inverse)', border: 'none', borderRadius: 'var(--radius-full)',
-                  fontWeight: '600', fontSize: '1rem', cursor: 'pointer',
+                  width: '100%',
+                  padding: '10px 12px',
+                  background: 'var(--color-primary)',
+                  color: 'var(--color-text-inverse)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-full)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
                 }}>
                   {t('nav.contact')}
                 </button>
@@ -249,6 +314,16 @@ const Layout = () => {
     { path: '/gallery', label: t('nav.gallery') },
     { path: '/about', label: t('nav.about') },
   ];
+
+  // 获取当前页面名称
+  const getCurrentPageName = () => {
+    const path = location.pathname;
+    if (path === '/') return t('nav.home');
+    if (path.startsWith('/work')) return t('nav.work');
+    if (path.startsWith('/gallery')) return t('nav.gallery');
+    if (path.startsWith('/about')) return t('nav.about');
+    return t('nav.home');
+  };
 
   return (
     <div style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-text-main)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -312,7 +387,8 @@ const Layout = () => {
           ) : (
             <HamburgerButton 
               isOpen={mobileMenuOpen} 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              currentPageName={getCurrentPageName()}
             />
           )}
         </nav>
@@ -325,6 +401,7 @@ const Layout = () => {
         navLinks={navLinks}
         isActive={isActive}
         t={t}
+        currentPath={location.pathname}
       />
 
       {/* 页面内容容器 */}

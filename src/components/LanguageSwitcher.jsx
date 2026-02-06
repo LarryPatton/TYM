@@ -86,6 +86,41 @@ export function LanguageSwitcher({
     );
   }
 
+  // Compact 模式 - 紧凑版，适合移动端侧边栏
+  if (variant === 'compact') {
+    return (
+      <motion.button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLanguage();
+        }}
+        whileTap={{ scale: 0.92 }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '36px',
+          height: '36px',
+          borderRadius: '50%',
+          border: '1px solid var(--color-border)',
+          background: 'transparent',
+          color: 'var(--color-text-main)',
+          fontSize: '0.75rem',
+          fontWeight: '600',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          fontFamily: 'var(--font-sans)',
+          WebkitTapHighlightColor: 'transparent',
+          touchAction: 'manipulation',
+        }}
+        aria-label={t('language.switchTo')}
+      >
+        {currentLanguage === 'zh' ? 'EN' : '中'}
+      </motion.button>
+    );
+  }
+
   // Buttons 模式 - 按钮组
   if (variant === 'buttons') {
     return (

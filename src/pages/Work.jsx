@@ -437,14 +437,15 @@ const Work = () => {
     }
   };
 
-  // 卡片容器 - 控制内部元素交错（等待图片动画完成后再显示文字）
+  // 卡片容器 - 控制内部元素交错
+  // PC端需要等待斜切动画完成 (3.5s)，移动端图片动画更快 (约1.8s)
   const cardContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.06,
-        delayChildren: 3.5 // 延迟 3.5秒（等待所有图片就位：0.6 + 6*0.35 + 0.8 = 3.5s）
+        delayChildren: isMobile ? 0 : 3.5 // 移动端文字动画独立控制，不使用容器延迟
       }
     }
   };

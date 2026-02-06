@@ -265,6 +265,68 @@ const ImageViewer = ({ images = [], initialIndex = 0, isOpen = false, onClose })
       fontFamily: 'var(--font-mono, monospace)',
       backdropFilter: 'blur(20px)'
     },
+    // 移动端底部统一信息栏（按钮样式）
+    mobileBottomBar: {
+      position: 'fixed',
+      bottom: '24px',
+      left: 0,
+      right: 0,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: 'fit-content',
+      zIndex: 10002,
+      padding: '10px 12px',
+      borderRadius: '100px',
+      border: `2px solid ${isDark ? '#fff' : '#1a1a1a'}`,
+      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.9)',
+      backdropFilter: 'blur(20px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '4px',
+      maxWidth: '90vw',
+    },
+    mobileNavArrow: {
+      width: '32px',
+      height: '32px',
+      borderRadius: '50%',
+      border: 'none',
+      backgroundColor: 'transparent',
+      color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)',
+      fontSize: '18px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      transition: 'all 0.2s ease',
+    },
+    mobileInfoCenter: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      padding: '0 8px',
+    },
+    mobileTitle: {
+      color: isDark ? '#fff' : '#1a1a1a',
+      fontSize: '0.85rem',
+      fontWeight: '500',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      maxWidth: '45vw',
+    },
+    mobileDivider: {
+      width: '1px',
+      height: '14px',
+      backgroundColor: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
+    },
+    mobileCounter: {
+      color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)',
+      fontSize: '0.8rem',
+      fontFamily: 'var(--font-mono, monospace)',
+      flexShrink: 0,
+    },
     controls: {
       position: 'fixed',
       top: isMobile ? '16px' : '30px',
@@ -450,38 +512,71 @@ const ImageViewer = ({ images = [], initialIndex = 0, isOpen = false, onClose })
             />
           </div>
           
-          {/* 移动端滑动提示 */}
-          {isMobile && images.length > 1 && (
+          {/* 移动端：底部统一信息栏（带左右箭头） */}
+          {isMobile ? (
             <motion.div
-              style={styles.swipeHint}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              ← 滑动切换 →
-            </motion.div>
-          )}
-          
-          {/* 图片信息 */}
-          <motion.div
-            style={styles.imageInfo}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            {currentImage.title}
-          </motion.div>
-          
-          {/* 计数器 */}
-          {images.length > 1 && (
-            <motion.div
-              style={styles.counter}
+              style={styles.mobileBottomBar}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              {currentIndex + 1} / {images.length}
+              {/* 左箭头 */}
+              {images.length > 1 && (
+                <motion.button
+                  style={styles.mobileNavArrow}
+                  onClick={(e) => { e.stopPropagation(); goPrev(); }}
+                  whileTap={{ scale: 0.9, backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }}
+                >
+                  ‹
+                </motion.button>
+              )}
+              
+              {/* 中间信息区 */}
+              <div style={styles.mobileInfoCenter}>
+                <span style={styles.mobileTitle}>{currentImage.title}</span>
+                {images.length > 1 && (
+                  <>
+                    <span style={styles.mobileDivider} />
+                    <span style={styles.mobileCounter}>{currentIndex + 1}/{images.length}</span>
+                  </>
+                )}
+              </div>
+              
+              {/* 右箭头 */}
+              {images.length > 1 && (
+                <motion.button
+                  style={styles.mobileNavArrow}
+                  onClick={(e) => { e.stopPropagation(); goNext(); }}
+                  whileTap={{ scale: 0.9, backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }}
+                >
+                  ›
+                </motion.button>
+              )}
             </motion.div>
+          ) : (
+            <>
+              {/* 桌面端：图片信息 */}
+              <motion.div
+                style={styles.imageInfo}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                {currentImage.title}
+              </motion.div>
+              
+              {/* 桌面端：计数器 */}
+              {images.length > 1 && (
+                <motion.div
+                  style={styles.counter}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {currentIndex + 1} / {images.length}
+                </motion.div>
+              )}
+            </>
           )}
         </motion.div>
       )}

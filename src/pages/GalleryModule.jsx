@@ -413,40 +413,25 @@ const GalleryModule = () => {
     >
       {/* Header Section */}
       <header style={styles.header}>
-        {/* 面包屑导航 */}
+        {/* 面包屑导航 - 紧凑文本模式 */}
         <nav style={{
-          display: 'inline-flex',
-          alignItems: 'baseline',
-          gap: isMobile ? '6px' : '10px',
           marginBottom: isMobile ? '24px' : '40px',
+          fontSize: isMobile ? '0.75rem' : '0.9rem',
+          lineHeight: 1.4,
         }}>
           <Link to="/" style={{
             color: isDark ? '#666' : '#888',
             textDecoration: 'none',
-            fontSize: isMobile ? '0.75rem' : '0.9rem',
-            lineHeight: 1,
           }}>{t('nav.home')}</Link>
-          <span style={{
-            color: isDark ? '#444' : '#ccc',
-            fontSize: isMobile ? '0.7rem' : '0.85rem',
-            lineHeight: 1,
-          }}>/</span>
+          <span style={{ color: isDark ? '#444' : '#ccc' }}> / </span>
           <Link to="/gallery" style={{
             color: isDark ? '#666' : '#888',
             textDecoration: 'none',
-            fontSize: isMobile ? '0.75rem' : '0.9rem',
-            lineHeight: 1,
           }}>{t('nav.gallery')}</Link>
-          <span style={{
-            color: isDark ? '#444' : '#ccc',
-            fontSize: isMobile ? '0.7rem' : '0.85rem',
-            lineHeight: 1,
-          }}>/</span>
+          <span style={{ color: isDark ? '#444' : '#ccc' }}> / </span>
           <span style={{
             color: isDark ? '#aaa' : '#555',
-            fontSize: isMobile ? '0.75rem' : '0.9rem',
             fontWeight: '500',
-            lineHeight: 1,
           }}>{moduleData.title}</span>
         </nav>
         
