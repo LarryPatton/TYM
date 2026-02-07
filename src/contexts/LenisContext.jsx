@@ -18,15 +18,16 @@ export function LenisProvider({ children, options = {} }) {
   useEffect(() => {
     // 创建 Lenis 实例
     const lenis = new Lenis({
-      // 默认配置
-      duration: 1.2,           // 滚动持续时间（秒）
+      // 优化配置 - 针对长页面滚动体验
+      duration: 1.0,           // 略微缩短滚动持续时间，提高响应速度
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
       orientation: 'vertical', // 滚动方向
       gestureOrientation: 'vertical',
       smoothWheel: true,       // 平滑鼠标滚轮
-      wheelMultiplier: 1,      // 滚轮速度倍数
+      wheelMultiplier: 1.2,    // 稍微加快滚轮速度
       touchMultiplier: 2,      // 触摸速度倍数
       infinite: false,         // 无限滚动
+      lerp: 0.1,              // 线性插值系数，越小越平滑
       // 合并自定义配置
       ...options,
     });

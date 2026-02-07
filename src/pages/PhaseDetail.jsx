@@ -1,9 +1,34 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 // import { Leva } from 'leva'; // 已禁用：移除调试面板
 import { useTitle } from '../hooks/useTitle';
+
+// ========== 渲染调试工具 ==========
+const useRenderCount = (componentName, props = {}) => {
+  const renderCount = useRef(0);
+  const prevPropsRef = useRef(props);
+  
+  renderCount.current += 1;
+  
+  // 检测哪些 props/state 发生了变化
+  const changedProps = [];
+  Object.keys(props).forEach(key => {
+    if (prevPropsRef.current[key] !== props[key]) {
+      changedProps.push(`${key}: ${JSON.stringify(prevPropsRef.current[key])} → ${JSON.stringify(props[key])}`);
+    }
+  });
+  prevPropsRef.current = { ...props };
+  
+  console.log(
+    `%c[RENDER] ${componentName} #${renderCount.current}`,
+    'color: #4ecdc4; font-weight: bold; font-size: 12px;',
+    changedProps.length > 0 ? `\n  Changed: ${changedProps.join('\n  ')}` : ''
+  );
+  
+  return renderCount.current;
+};
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
@@ -75,6 +100,14 @@ const PhaseDetail = () => {
   
   // 开发环境启用调试模式
   const isDev = import.meta.env.DEV;
+  
+  // ========== 渲染调试 ==========
+  useRenderCount('PhaseDetail', {
+    phaseId,
+    currentScreen,
+    isMobile,
+    isDev
+  });
   
   // 调试参数状态 - 用于实时预览
   const [debugParams, setDebugParams] = useState({});
@@ -340,11 +373,13 @@ const PhaseDetail = () => {
     setCanEnter(false);
   }, [phaseId]);
   
-  // 滚动监听更新当前屏幕
+  // 滚动监听更新当前屏幕（仅桌面端需要，移动端使用按钮控制）
   useEffect(() => {
+    // 移动端使用按钮式翻页，不需要滚动监听
+    if (isMobile) return;
+    
     const handleScroll = () => {
-      const sections = document.querySelectorAll('.phase-screen-wrapper'); // Changed selector to target wrapper
-      // Fallback to sections if wrappers not found (migration safety)
+      const sections = document.querySelectorAll('.phase-screen-wrapper');
       const targets = sections.length > 0 ? sections : document.querySelectorAll('section');
       
       const scrollTop = window.scrollY + window.innerHeight / 2;
@@ -353,7 +388,6 @@ const PhaseDetail = () => {
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
         const sectionBottom = sectionTop + rect.height;
-        
         if (scrollTop >= sectionTop && scrollTop < sectionBottom) {
           setCurrentScreen(index + 1);
         }
@@ -362,13 +396,17 @@ const PhaseDetail = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile]);
 
-  // 页面切换时滚动到顶部
+  // 页面切换时重置状态
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // 移动端使用按钮式翻页，只需重置屏幕索引
+    // 桌面端需要滚动到顶部
+    if (!isMobile) {
+      window.scrollTo(0, 0);
+    }
     setCurrentScreen(1);
-  }, [phaseId]);
+  }, [phaseId, isMobile]);
   
   if (!phase) {
     return (
@@ -1326,11 +1364,22 @@ const PhaseDetail = () => {
         </>
       )} */}
       
-      <div style={{ 
-        position: 'relative', 
-        background: phaseBgColor,
-        '--phase-bg-color': phaseBgColor 
-      }}>
+      <div 
+        className={isMobile ? 'phase-detail-mobile-snap' : ''}
+        style={{ 
+          position: 'relative', 
+          background: phaseBgColor,
+          '--phase-bg-color': phaseBgColor,
+          // 移动端启用 Snap Scroll（proximity 模式更灵活，适配复杂屏幕）
+          ...(isMobile ? {
+            height: '100vh',
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            scrollSnapType: 'y proximity', // proximity 比 mandatory 更灵活，适配混合高度屏幕
+            WebkitOverflowScrolling: 'touch', // iOS 平滑滚动
+          } : {})
+        }}
+      >
         {/* 桌面端：左上角悬浮胶囊导航 */}
         {!isMobile && (
           <motion.div
@@ -1393,101 +1442,161 @@ const PhaseDetail = () => {
           </motion.div>
         )}
 
-        {/* 移动端：底部固定导航栏 */}
+        {/* 移动端：底部固定导航栏（纯按钮式翻页） */}
         {isMobile && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: currentScreen > 1 ? 1 : 0, 
-              y: currentScreen > 1 ? 0 : 20,
-              pointerEvents: currentScreen > 1 ? 'auto' : 'none'
-            }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
               bottom: 0,
               left: 0,
               right: 0,
-              height: '56px',
-              background: 'rgba(0, 0, 0, 0.9)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              height: '60px',
+              background: 'rgba(0, 0, 0, 0.95)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '0 16px',
-              zIndex: 100,
+              padding: '0 12px',
+              zIndex: 200,
             }}
           >
-            {/* 返回按钮 */}
+            {/* 左侧：返回按钮 */}
             <Link 
               to="/work/the-case" 
               style={{ 
                 textDecoration: 'none', 
                 color: '#fff', 
-                fontSize: '0.85rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '8px 12px',
-                borderRadius: '8px',
+                justifyContent: 'center',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
                 background: 'rgba(255, 255, 255, 0.1)',
-                minWidth: '44px',
-                minHeight: '44px',
-                justifyContent: 'center'
+                flexShrink: 0,
+                fontSize: '1rem',
               }}
             >
-              <span>←</span>
-              <span>{t('case.backToToc')}</span>
+              ←
             </Link>
 
-            {/* 中间：Phase 信息和进度 */}
+            {/* 中间：上一屏 + Phase 信息 + 下一屏 */}
             <div style={{ 
               display: 'flex', 
-              flexDirection: 'column', 
               alignItems: 'center',
-              gap: '4px'
+              gap: '16px',
+              flex: 1,
+              justifyContent: 'center'
             }}>
-              <span style={{ 
-                color: '#fff', 
-                fontSize: '0.75rem',
-                opacity: 0.8,
-                fontWeight: 500
+              {/* 上一屏按钮 */}
+              <button
+                onClick={() => {
+                  if (currentScreen > 1) {
+                    setCurrentScreen(currentScreen - 1);
+                  }
+                }}
+                disabled={currentScreen <= 1}
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  background: currentScreen > 1 ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                  color: currentScreen > 1 ? '#fff' : 'rgba(255, 255, 255, 0.3)',
+                  fontSize: '1.2rem',
+                  cursor: currentScreen > 1 ? 'pointer' : 'default',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                ↑
+              </button>
+
+              {/* Phase 信息和进度 */}
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                gap: '4px',
+                minWidth: '100px'
               }}>
-                Phase {phase.number}
-              </span>
-              {/* 进度条 */}
-              <div style={{
-                width: '80px',
-                height: '3px',
-                background: 'rgba(255, 255, 255, 0.2)',
-                borderRadius: '2px',
-                overflow: 'hidden'
-              }}>
-                <motion.div 
-                  style={{
-                    height: '100%',
-                    background: '#fff',
-                    borderRadius: '2px'
-                  }}
-                  animate={{
-                    width: `${(currentScreen / filteredScreens.length) * 100}%`
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
+                <span style={{ 
+                  color: '#fff', 
+                  fontSize: '0.75rem',
+                  opacity: 0.9,
+                  fontWeight: 600,
+                  letterSpacing: '0.5px'
+                }}>
+                  {currentScreen} / {filteredScreens.length}
+                </span>
+                {/* 进度条 */}
+                <div style={{
+                  width: '80px',
+                  height: '3px',
+                  background: 'rgba(255, 255, 255, 0.15)',
+                  borderRadius: '2px',
+                  overflow: 'hidden'
+                }}>
+                  <motion.div 
+                    style={{
+                      height: '100%',
+                      background: '#fff',
+                      borderRadius: '2px'
+                    }}
+                    animate={{
+                      width: `${(currentScreen / filteredScreens.length) * 100}%`
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
               </div>
+
+              {/* 下一屏按钮 */}
+              <button
+                onClick={() => {
+                  if (currentScreen < filteredScreens.length) {
+                    setCurrentScreen(currentScreen + 1);
+                  }
+                }}
+                disabled={currentScreen >= filteredScreens.length}
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  background: currentScreen < filteredScreens.length ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                  color: currentScreen < filteredScreens.length ? '#fff' : 'rgba(255, 255, 255, 0.3)',
+                  fontSize: '1.2rem',
+                  cursor: currentScreen < filteredScreens.length ? 'pointer' : 'default',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                ↓
+              </button>
             </div>
 
-            {/* 右侧：屏幕计数 */}
+            {/* 右侧：Phase 编号 */}
             <div style={{
               color: '#fff',
-              fontSize: '0.75rem',
+              fontSize: '0.7rem',
               opacity: 0.6,
-              minWidth: '60px',
-              textAlign: 'right'
+              width: '40px',
+              textAlign: 'center',
+              flexShrink: 0,
             }}>
-              {currentScreen} / {filteredScreens.length}
+              P{phase.number}
             </div>
           </motion.div>
         )}
@@ -1527,49 +1636,86 @@ const PhaseDetail = () => {
           />
         )}
         
-        {/* 渲染所有屏幕（使用过滤后的screens） */}
-        {filteredScreens.map((screenConfig, index) => {
-          // 检测是否为当前产品的最后一屏
-          const isLastOfProduct = hasProductFilter && 
-            screenConfig.product === currentProduct && 
-            index === filteredScreens.length - 1;
-          
-          // key 包含 currentProduct，确保切换产品时组件重新挂载，动画状态重置
-          const screenKey = hasProductFilter 
-            ? `${screenConfig.id}-${currentProduct}` 
-            : screenConfig.id;
-          
-          return (
-            <React.Fragment key={screenKey}>
-              <div 
-                id={screenConfig.id} 
-                className="phase-screen-wrapper"
-                data-product={screenConfig.product || 'common'}
-                style={{ 
-                  width: '100%', 
-                  position: 'relative',
-                  // 添加背景色，防止屏幕切换时闪烁
-                  background: phaseBgColor,
-                  // GPU 加速
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden'
-                }}
-              >
-                {renderScreen(screenConfig, index)}
-              </div>
-              
-              {/* 在每个产品的最后一屏后插入提示 */}
-              {isLastOfProduct && (
-                <ProductEndHint 
-                  currentProduct={currentProduct}
-                  availableProducts={phase.products}
-                  onSwitchProduct={handleProductChange}
-                />
-              )}
-            </React.Fragment>
-          );
-        })}
+        {/* 渲染屏幕：移动端使用按钮式翻页，桌面端正常滚动 */}
+        {isMobile ? (
+          // ========== 移动端：纯按钮式翻页模式 ==========
+          // 只渲染当前屏幕，通过动画切换
+          <motion.div
+            key={`mobile-screen-${currentScreen}`}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 60, // 为底部导航栏留空间
+              overflow: 'auto', // 允许单屏内部滚动
+              WebkitOverflowScrolling: 'touch',
+              background: phaseBgColor,
+            }}
+          >
+            <div 
+              id={filteredScreens[currentScreen - 1]?.id}
+              className="phase-screen-wrapper mobile-pager-screen"
+              data-product={filteredScreens[currentScreen - 1]?.product || 'common'}
+              data-screen-type={filteredScreens[currentScreen - 1]?.type}
+              style={{ 
+                width: '100%', 
+                minHeight: '100%',
+                position: 'relative',
+                background: phaseBgColor,
+              }}
+            >
+              {renderScreen(filteredScreens[currentScreen - 1], currentScreen - 1)}
+            </div>
+          </motion.div>
+        ) : (
+          // ========== 桌面端：正常滚动模式 ==========
+          filteredScreens.map((screenConfig, index) => {
+            // 检测是否为当前产品的最后一屏
+            const isLastOfProduct = hasProductFilter && 
+              screenConfig.product === currentProduct && 
+              index === filteredScreens.length - 1;
+            
+            // key 包含 currentProduct，确保切换产品时组件重新挂载，动画状态重置
+            const screenKey = hasProductFilter 
+              ? `${screenConfig.id}-${currentProduct}` 
+              : screenConfig.id;
+            
+            return (
+              <React.Fragment key={screenKey}>
+                <div 
+                  id={screenConfig.id} 
+                  className="phase-screen-wrapper"
+                  data-product={screenConfig.product || 'common'}
+                  data-screen-type={screenConfig.type}
+                  style={{ 
+                    width: '100%', 
+                    position: 'relative',
+                    background: phaseBgColor,
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  }}
+                >
+                  {renderScreen(screenConfig, index)}
+                </div>
+                
+                {/* 在每个产品的最后一屏后插入提示 */}
+                {isLastOfProduct && (
+                  <ProductEndHint 
+                    currentProduct={currentProduct}
+                    availableProducts={phase.products}
+                    onSwitchProduct={handleProductChange}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })
+        )}
       </div>
     </TransitionProvider>
     </>

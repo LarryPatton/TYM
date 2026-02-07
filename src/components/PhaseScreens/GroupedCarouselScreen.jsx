@@ -1,5 +1,30 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
+// ========== 渲染调试工具 ==========
+const useRenderCount = (componentName, props = {}) => {
+  const renderCount = useRef(0);
+  const prevPropsRef = useRef(props);
+  
+  renderCount.current += 1;
+  
+  // 检测哪些 props 发生了变化
+  const changedProps = [];
+  Object.keys(props).forEach(key => {
+    if (prevPropsRef.current[key] !== props[key]) {
+      changedProps.push(key);
+    }
+  });
+  prevPropsRef.current = props;
+  
+  console.log(
+    `%c[RENDER] ${componentName} #${renderCount.current}`,
+    'color: #ff6b6b; font-weight: bold;',
+    changedProps.length > 0 ? `| Changed props: ${changedProps.join(', ')}` : ''
+  );
+  
+  return renderCount.current;
+};
 
 /**
  * GroupedCarouselScreen - 滚动驱动分组轮播展示（优化版：横向切换 + 停顿）
@@ -34,6 +59,19 @@ export const GroupedCarouselScreen = ({
   showScreenLabel = false,   // 是否显示顶部屏幕标识（默认隐藏，由胶囊导航显示）
   aspectRatio = '1 / 1'      // 图片容器宽高比，默认正方形
 }) => {
+  // ========== 渲染调试 ==========
+  const renderCount = useRenderCount('GroupedCarouselScreen', {
+    screenNumber,
+    screenLabel,
+    title,
+    groupsLength: groups.length,
+    bgColor,
+    rowGap,
+    showGroupLabel,
+    showItemCount,
+    aspectRatio
+  });
+  
   const containerRef = useRef(null);
   
   // 移动端检测

@@ -142,6 +142,31 @@ export const responsiveStyles = `
     .gallery-grid {
       grid-template-columns: 1fr !important;
     }
+    
+    /* ========================================
+     * 移动端按钮式翻页交互优化
+     * ======================================== */
+    
+    /* 按钮式翻页主容器 */
+    .phase-detail-mobile-pager {
+      /* 禁止页面级滚动 */
+      overflow: hidden;
+      touch-action: none; /* 禁止默认触摸手势 */
+    }
+    
+    /* 单屏内容容器：允许内部滚动 */
+    .mobile-pager-screen {
+      /* 确保每屏内容完整显示 */
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    
+    /* 单屏内容区域样式 */
+    .mobile-pager-screen section {
+      /* 确保 section 填满可用空间 */
+      flex: 1;
+    }
   }
 `;
 

@@ -110,6 +110,27 @@ const GalleryModule = () => {
     filteredWorks = filterWorks(enrichedWorks, mediaTypes, aspectType);
   }
 
+  // 计算当前 aspectType 下有作品的媒介类型
+  const availableMediaTypes = useMemo(() => {
+    if (loading || enrichedWorks.length === 0) return [];
+    
+    // 获取当前 aspectType 下的所有作品
+    const worksInCurrentAspect = filterWorks(enrichedWorks, getAllMediaTypes(), aspectType);
+    
+    // 收集这些作品中出现的媒介类型
+    const mediaSet = new Set(worksInCurrentAspect.map(work => work.media));
+    
+    // 只返回有作品的媒介类型
+    return getAllMediaTypes().filter(media => mediaSet.has(media));
+  }, [loading, enrichedWorks, aspectType, getAllMediaTypes, filterWorks]);
+
+  // 当切换 aspectType 时，如果当前选中的媒介没有作品，重置为 'all'
+  useEffect(() => {
+    if (selectedMedia !== 'all' && !availableMediaTypes.includes(selectedMedia)) {
+      setSelectedMedia('all');
+    }
+  }, [aspectType, availableMediaTypes, selectedMedia]);
+
   // 切换媒介选择（单选模式）
   const selectMedia = (media) => {
     setSelectedMedia(media);
@@ -472,8 +493,8 @@ const GalleryModule = () => {
             {t('gallery.filter.all')}
           </motion.button>
           
-          {/* 各个媒介 */}
-          {getAllMediaTypes().map(media => {
+          {/* 各个媒介（只显示当前 aspectType 下有作品的） */}
+          {availableMediaTypes.map(media => {
             const isActive = selectedMedia === media;
             return (
               <motion.button

@@ -32,7 +32,7 @@ import InteractiveBackgroundDemo from './pages/demos/InteractiveBackgroundDemo';
 import ColorRevealDemo from './pages/demos/ColorRevealDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
-import NavDemo from './pages/NavDemo';
+import AboutLayoutPreview from './pages/AboutLayoutPreview';
 
 // Gallery Pages
 import GalleryHome from './pages/GalleryHome';
@@ -89,9 +89,8 @@ function App() {
             <Route path="gallery/:module/:submodule/:slug" element={<GalleryWorkDetail />} />
 
             <Route path="about" element={<About />} />
+            <Route path="about-layouts" element={<AboutLayoutPreview />} />
             
-            {/* Demo Pages */}
-            <Route path="nav-demo" element={<NavDemo />} />
           </Route>
           </Routes>
           </BrowserRouter>

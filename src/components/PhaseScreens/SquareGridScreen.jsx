@@ -1,48 +1,33 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, memo, useMemo } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
+// 调试开关
+const DEBUG = false;
+
 /**
- * SquareGridScreen - 方形图片网格滚动渐现 (支持动态列数)
+ * SquareGridScreen - 方形图片网格滚动渐现（优化版）
  * 
- * 优化点：
- * 1. 支持动态列数 (默认4列，可配置为6列等)
- * 2. 通过 margin: 0 auto 和 left/right: 0 强制绝对居中。
- * 3. 奇偶列错落视差效果。
- * 4. 保持配件垂挂交互（如有）。
- * 5. 支持配件卡片翻转效果（正反面切换）。
- * 
- * 移动端优化：
- * - 强制 2 列布局
- * - 禁用视差效果
- * - 缩短滚动行程
- * - 禁用配件动画
- * 
- * @param {Array} images - 网格图片数组 [{src, label}]
- * @param {number} columns - 列数 (默认4)
- * @param {Array} accessoryImages - 配件图片数组 (正面) [{src, label}]
- * @param {Array} accessoryBackImages - 配件背面图片数组 (可选) [{src, label}]
- * @param {string} bgColor - 背景颜色
- * @param {boolean} noBorder - 是否无边框样式 (透明正方形图)
- * @param {number} imageScale - 图片缩放比例 (可选，默认1)
- * @param {string} gap - 自定义间距 (可选，默认根据列数自动计算)
- * @param {string} rowGap - 自定义行间距 (可选，优先级高于gap)
- * @param {string} columnGap - 自定义列间距 (可选，优先级高于gap)
+ * 优化策略：
+ * 1. 使用 React.memo 优化子组件
+ * 2. 使用 useMemo 缓存计算结果
+ * 3. 移动端完全禁用 framer-motion 动画
+ * 4. 使用 IntersectionObserver 替代移动端的 whileInView
  */
-export const SquareGridScreen = ({
+export const SquareGridScreen = memo(({
   screenNumber,
   screenLabel,
   title,
   content,
   images = [],
-  columns: columnCount = 4, // 新增：列数配置，默认4
+  columns: columnCount = 4,
   accessoryImages = [], 
-  accessoryBackImages = [], // 新增：背面图片
+  accessoryBackImages = [],
   bgColor = '#000',
-  noBorder = false, // 新增：无边框样式
-  imageScale = 1, // 新增：图片缩放比例
-  gap = null, // 新增：自定义间距
-  rowGap = null, // 新增：自定义行间距
-  columnGap = null // 新增：自定义列间距
+  noBorder = false,
+  imageScale = 1,
+  gap = null,
+  rowGap = null,
+  columnGap = null
 }) => {
   const containerRef = useRef(null);
   
@@ -50,19 +35,17 @@ export const SquareGridScreen = ({
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
   
-  // 移动端优化：强制 2 列，禁用配件动画
+  // 移动端优化
   const effectiveColumnCount = isMobile ? 2 : columnCount;
   const effectiveHasAccessories = isMobile ? false : accessoryImages.length > 0;
   
-  // 滚动进度监听
+  // 滚动进度监听 - 只在桌面端使用
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -71,84 +54,57 @@ export const SquareGridScreen = ({
   const hasAccessories = effectiveHasAccessories;
   const hasFlip = isMobile ? false : accessoryBackImages.length > 0;
   
-  // 预先计算行数（用于确定视差范围）- 使用有效列数
-  const tempColumns = Array.from({ length: effectiveColumnCount }, () => []);
-  images.forEach((img, index) => {
-    const colIndex = index % effectiveColumnCount;
-    tempColumns[colIndex].push(img);
-  });
-  const rowCount = Math.max(...tempColumns.map(col => col.length), 1);
+  // 预计算列数据
+  const { columns, rowCount } = useMemo(() => {
+    const tempColumns = Array.from({ length: effectiveColumnCount }, () => []);
+    images.forEach((img, index) => {
+      const colIndex = index % effectiveColumnCount;
+      tempColumns[colIndex].push({ ...img, originalIndex: index });
+    });
+    const maxRowCount = Math.max(...tempColumns.map(col => col.length), 1);
+    return { columns: tempColumns, rowCount: maxRowCount };
+  }, [images, effectiveColumnCount]);
   
-  // 根据行数动态调整视差位移范围
-  // 优化：针对3行布局（11张图/4列）增大位移范围，确保所有图片完整显示
-  const is6Row = rowCount >= 6;
-  const is3Row = rowCount === 3;
-  
-  // 3行布局特殊处理：增大位移范围以适应错落布局
-  // 6列时使用不对称位移：起始位置更靠上，结束位置更靠下
-  const fastStart = is6Row ? 100 : (is3Row ? 300 : (rowCount >= 4 ? 200 : 120));  // 3行布局起始更靠上
-  const fastEnd = is6Row ? -1100 : (is3Row ? -300 : (rowCount >= 4 ? -200 : -120)); // 3行布局结束更靠下
-  const slowStart = is6Row ? 50 : (is3Row ? 200 : (rowCount >= 4 ? 80 : 40));
-  const slowEnd = is6Row ? -900 : (is3Row ? -200 : (rowCount >= 4 ? -80 : -40)); // 3行布局增大慢列位移
+  // 视差参数计算
+  const { fastStart, fastEnd, slowStart, slowEnd } = useMemo(() => {
+    const is6Row = rowCount >= 6;
+    const is3Row = rowCount === 3;
+    return {
+      fastStart: is6Row ? 100 : (is3Row ? 300 : (rowCount >= 4 ? 200 : 120)),
+      fastEnd: is6Row ? -1100 : (is3Row ? -300 : (rowCount >= 4 ? -200 : -120)),
+      slowStart: is6Row ? 50 : (is3Row ? 200 : (rowCount >= 4 ? 80 : 40)),
+      slowEnd: is6Row ? -900 : (is3Row ? -200 : (rowCount >= 4 ? -80 : -40))
+    };
+  }, [rowCount]);
 
-  // ----------------------------------------------------
-  // Phase 1: Grid Animation (动态列数)
-  // ----------------------------------------------------
-  
-  // Grid 位移：奇偶列交替视差
+  // Grid 动画
   const gridRange = hasAccessories ? [0, 0.35] : [0, 1];
-  
-  // 使用不对称的位移值，让内容一开始就更靠上
   const yFast = useTransform(scrollYProgress, gridRange, [fastStart, fastEnd]);
   const ySlow = useTransform(scrollYProgress, gridRange, [slowStart, slowEnd]);
-  
-  // Grid 退场：往后方退去
   const gridScale = useTransform(scrollYProgress, [0.3, 0.5], [1, 0.9]); 
   const gridOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0.2]); 
   const gridBlur = useTransform(scrollYProgress, [0.3, 0.5], ['blur(0px)', 'blur(10px)']); 
   
-  // ----------------------------------------------------
-  // Phase 2: Accessories Animation (Drop In Center)
-  // ----------------------------------------------------
-  
-  // 触发区间：0.35 ~ 0.55（掉落）
+  // 配件动画
   const dropRange = [0.35, 0.55];
-  
-  // 垂直掉落位移
   const rawDropY = useTransform(scrollYProgress, dropRange, ['-150vh', '0vh']);
   const dropY = useSpring(rawDropY, { stiffness: 120, damping: 15 });
-  
-  // 物理摆动模拟
   const rawRotate = useTransform(scrollYProgress, dropRange, [-5, 0]);
   const smoothRotate = useSpring(rawRotate, { stiffness: 100, damping: 10 });
 
-  // ----------------------------------------------------
-  // Phase 3: Flip Animation (翻转动画)
-  // ----------------------------------------------------
-  
-  // 翻转触发区间：0.65 ~ 0.85
+  // 翻转动画
   const flipRange = [0.65, 0.85];
-  
-  // Y轴旋转角度：0 -> 180 (水平翻转)
   const flipRotateY = useTransform(scrollYProgress, flipRange, [0, 180]);
   const smoothFlipRotateY = useSpring(flipRotateY, { stiffness: 80, damping: 15 });
 
   if (images.length === 0) return null;
 
-  // 动态列数支持：根据 columnCount 分配图片（复用已计算的 tempColumns）
-  const columns = tempColumns.map((col, colIndex) => 
-    col.map((img, i) => ({ ...img, originalIndex: colIndex + i * columnCount }))
-  );
-  
-  // 根据列数调整间距（支持自定义 gap 和独立的 rowGap/columnGap）
-  // 移动端使用更小的间距
+  // 间距计算
   const defaultGap = isMobile ? '10px' : (effectiveColumnCount >= 6 ? '12px' : '24px');
   const gapSize = gap || defaultGap;
   const finalRowGap = rowGap || gapSize;
   const finalColumnGap = columnGap || gapSize;
   const paddingTop = isMobile ? '0' : (effectiveColumnCount >= 6 ? '30px' : '60px');
-  
-  // 移动端：禁用 sticky，使用自然滚动
   const desktopHeight = hasAccessories ? (hasFlip ? '500vh' : '400vh') : '300vh';
 
   // ============ 移动端：简化为垂直网格布局 ============
@@ -162,7 +118,6 @@ export const SquareGridScreen = ({
           color: '#fff'
         }}
       >
-        {/* 屏幕标识 */}
         {(screenNumber || screenLabel) && (
           <div style={{
             fontSize: '0.75rem',
@@ -176,7 +131,6 @@ export const SquareGridScreen = ({
           </div>
         )}
 
-        {/* 移动端 2 列网格 */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
@@ -184,38 +138,11 @@ export const SquareGridScreen = ({
           maxWidth: '100%'
         }}>
           {images.map((img, index) => (
-            <motion.div
+            <MobileGridItem
               key={`mobile-grid-${index}`}
-              style={{
-                aspectRatio: '1 / 1',
-                background: 'transparent',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                borderRadius: 'var(--radius-image, 8px)'
-              }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.4, 
-                delay: Math.min(index * 0.03, 0.3)
-              }}
-              viewport={{ once: true, margin: '-5%' }}
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
-                alt={img.label || `Image ${index + 1}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  display: 'block',
-                  borderRadius: 'var(--radius-image, 8px)'
-                }}
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-            </motion.div>
+              image={img}
+              index={index}
+            />
           ))}
         </div>
       </section>
@@ -232,7 +159,6 @@ export const SquareGridScreen = ({
         background: bgColor
       }}
     >
-      {/* Sticky 容器 */}
       <div style={{
         position: 'sticky',
         top: 0,
@@ -243,13 +169,11 @@ export const SquareGridScreen = ({
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        perspective: '1500px' // 3D 透视
+        perspective: '1500px'
       }}>
         
-        {/* 屏幕标识 */}
-        {/* 屏幕标识 - 仅当两者都存在时显示 */}
         {(screenNumber || screenLabel) && (
-          <motion.div style={{
+          <div style={{
             position: 'absolute',
             top: '40px',
             left: '50%',
@@ -261,12 +185,10 @@ export const SquareGridScreen = ({
             zIndex: 10
           }}>
             {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
-          </motion.div>
+          </div>
         )}
 
-        {/* -------------------------------------------------- */}
-        {/* Layer 1: Background Grid (响应式列数) */}
-        {/* -------------------------------------------------- */}
+        {/* Background Grid */}
         <motion.div style={{
           position: 'absolute',
           inset: 0,
@@ -274,24 +196,21 @@ export const SquareGridScreen = ({
           left: 0,
           right: 0,
           display: 'grid',
-          gridTemplateColumns: `repeat(${effectiveColumnCount}, 1fr)`, // 使用有效列数（移动端2列）
+          gridTemplateColumns: `repeat(${effectiveColumnCount}, 1fr)`,
           rowGap: finalRowGap,
           columnGap: finalColumnGap,
-          maxWidth: isMobile ? '100%' : (effectiveColumnCount >= 6 ? '1600px' : '1400px'),
+          maxWidth: effectiveColumnCount >= 6 ? '1600px' : '1400px',
           width: '100%',
-          padding: isMobile ? '0 16px' : (effectiveColumnCount >= 6 ? '0 24px' : '0 48px'),
+          padding: effectiveColumnCount >= 6 ? '0 24px' : '0 48px',
           alignItems: 'center',
           scale: hasAccessories ? gridScale : 1,
           opacity: hasAccessories ? gridOpacity : 1,
           filter: hasAccessories ? gridBlur : 'none',
           zIndex: 1
         }}>
-          
           {columns.map((colImages, colIndex) => {
-            // 奇偶列交替视差：0,2,4 快，1,3,5 慢
-            // 移动端禁用视差效果
             const isEvenCol = colIndex % 2 === 0;
-            const yMotion = isMobile ? 0 : (isEvenCol ? yFast : ySlow);
+            const yMotion = isEvenCol ? yFast : ySlow;
             
             return (
               <motion.div 
@@ -301,15 +220,13 @@ export const SquareGridScreen = ({
                   flexDirection: 'column', 
                   gap: finalRowGap, 
                   y: yMotion,
-                  // 奇数列添加顶部偏移，形成错落（移动端禁用）
-                  paddingTop: isMobile ? '0' : (isEvenCol ? '0' : paddingTop)
+                  paddingTop: isEvenCol ? '0' : paddingTop
                 }}
               >
                 {colImages.map((img, i) => (
-                  <GridItem 
+                  <DesktopGridItem 
                     key={`col${colIndex}-${i}`} 
                     image={img} 
-                    index={img.originalIndex} 
                     isCenter={!isEvenCol}
                     scale={imageScale}
                   />
@@ -317,12 +234,9 @@ export const SquareGridScreen = ({
               </motion.div>
             );
           })}
-
         </motion.div>
 
-        {/* -------------------------------------------------- */}
-        {/* Layer 2: Foreground Accessories (Center Drop + Flip) */}
-        {/* -------------------------------------------------- */}
+        {/* Foreground Accessories */}
         {hasAccessories && (
           <motion.div style={{
             position: 'absolute',
@@ -342,10 +256,9 @@ export const SquareGridScreen = ({
                width: '100%',
                justifyContent: 'center',
                padding: '0 48px',
-               perspective: '1500px' // 3D 透视
+               perspective: '1500px'
              }}>
                {accessoryImages.map((img, i) => {
-                 const delay = Math.abs(i - 2) * 0.1;
                  const rotateFactor = (i % 2 === 0 ? 1 : -1) * (1 + i * 0.2); 
                  const backImage = accessoryBackImages[i];
 
@@ -368,12 +281,131 @@ export const SquareGridScreen = ({
       </div>
     </div>
   );
-};
+});
+
+SquareGridScreen.displayName = 'SquareGridScreen';
+
+/**
+ * 移动端网格项 - 使用 IntersectionObserver
+ */
+const MobileGridItem = memo(({ image, index }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const itemRef = useRef(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '-5%' }
+    );
+    
+    if (itemRef.current) observer.observe(itemRef.current);
+    return () => observer.disconnect();
+  }, []);
+  
+  return (
+    <div
+      ref={itemRef}
+      style={{
+        aspectRatio: '1 / 1',
+        background: 'transparent',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        borderRadius: 'var(--radius-image, 8px)',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 0.4s ease ${Math.min(index * 0.03, 0.3)}s, transform 0.4s ease ${Math.min(index * 0.03, 0.3)}s`
+      }}
+    >
+      <img
+        src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
+        alt={image.label || `Image ${index + 1}`}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+          display: 'block',
+          borderRadius: 'var(--radius-image, 8px)'
+        }}
+        onError={(e) => { e.target.style.display = 'none'; }}
+      />
+    </div>
+  );
+});
+
+MobileGridItem.displayName = 'MobileGridItem';
+
+/**
+ * 桌面端网格项
+ */
+const DesktopGridItem = memo(({ image, isCenter, scale = 1 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  if (!image) return null;
+  
+  return (
+    <div
+      style={{
+        aspectRatio: '1 / 1',
+        background: 'transparent',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+        transition: 'transform 0.4s ease'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
+        alt={image.label}
+        style={{
+          width: `${scale * 100}%`,
+          height: `${scale * 100}%`,
+          objectFit: 'contain', 
+          display: 'block',
+          background: 'transparent',
+          borderRadius: 'var(--radius-image, 12px)',
+          filter: isCenter 
+            ? 'drop-shadow(0 20px 25px rgba(0,0,0,0.5))' 
+            : 'drop-shadow(0 12px 18px rgba(0,0,0,0.3))',
+        }}
+      />
+      <div style={{
+        position: 'absolute',
+        bottom: '10px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        color: 'rgba(255,255,255,0.6)',
+        fontSize: '0.75rem',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        background: 'rgba(0,0,0,0.6)', 
+        padding: '2px 8px',
+        borderRadius: '10px',
+        opacity: isHovered ? 1 : 0,
+        transition: 'opacity 0.3s'
+      }}>
+        {image.label}
+      </div>
+    </div>
+  );
+});
+
+DesktopGridItem.displayName = 'DesktopGridItem';
 
 /**
  * FlipCard - 3D 翻转卡片组件
  */
-const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, flipRotateY }) => {
+const FlipCard = memo(({ frontImage, backImage, index, smoothRotate, rotateFactor, flipRotateY }) => {
   const hasBack = !!backImage;
   
   return (
@@ -390,7 +422,6 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
         transformStyle: 'preserve-3d'
       }}
     >
-      {/* 悬挂线 */}
       <div style={{
         width: '1px',
         height: '150vh',
@@ -400,7 +431,6 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
         left: '50%'
       }} />
 
-      {/* 翻转容器 */}
       <motion.div
         style={{
           width: '100%',
@@ -410,7 +440,6 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
           rotateY: flipRotateY || 0
         }}
       >
-        {/* 正面 */}
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -429,7 +458,6 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
           />
         </div>
 
-        {/* 背面 */}
         {hasBack && (
           <div style={{
             position: 'absolute',
@@ -453,59 +481,8 @@ const FlipCard = ({ frontImage, backImage, index, smoothRotate, rotateFactor, fl
       </motion.div>
     </motion.div>
   );
-};
+});
 
-// 子组件：单张卡片 (保持无背景，支持缩放)
-const GridItem = ({ image, index, isCenter, scale = 1 }) => {
-  if (!image) return null;
-  return (
-    <motion.div
-      style={{
-        aspectRatio: '1 / 1',
-        background: 'transparent',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.4 }}
-    >
-      <img
-        src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
-        alt={image.label}
-        style={{
-          width: `${scale * 100}%`,
-          height: `${scale * 100}%`,
-          objectFit: 'contain', 
-          display: 'block',
-          background: 'transparent',
-          borderRadius: 'var(--radius-image, 12px)',
-          filter: isCenter 
-            ? 'drop-shadow(0 20px 25px rgba(0,0,0,0.5))' 
-            : 'drop-shadow(0 12px 18px rgba(0,0,0,0.3))',
-        }}
-      />
-      {/* Label (Hidden by default) */}
-      <div style={{
-        position: 'absolute',
-        bottom: '10px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: 'rgba(255,255,255,0.6)',
-        fontSize: '0.75rem',
-        textTransform: 'uppercase',
-        letterSpacing: '1px',
-        background: 'rgba(0,0,0,0.6)', 
-        padding: '2px 8px',
-        borderRadius: '10px',
-        opacity: 0,
-      }}
-      >
-        {image.label}
-      </div>
-    </motion.div>
-  );
-};
+FlipCard.displayName = 'FlipCard';
 
 export default SquareGridScreen;

@@ -3,6 +3,9 @@
  * 定义每个 Phase 的屏幕序列、类型和内容结构
  */
 
+// 移动端封面图片路径 - 用于 CaseIndex 和 PhaseDetail intro 的揭示底图
+const MOBILE_COVER_BASE = '/images/mobile/work';
+
 // Phase 01: 品牌视觉系统的 0-1 建立 (7屏)
 export const phase01Config = {
   id: 'phase-01',
@@ -18,7 +21,7 @@ export const phase01Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: '品牌标志单独展示 / 标志 + 视觉关键词',
-      bgImage: '/images/phase-01/cover.png'
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 1.png`
     },
     {
       id: 'core-principles',
@@ -132,7 +135,7 @@ export const phase02Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: 'Concept to Launch',
-      bgImage: `${PHASE02_BASE}/cover/hero.png`,
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 2.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     // Screen 02: TOC - 目录列表 (sticky)
@@ -402,7 +405,7 @@ export const phase03Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: 'Product B Hero Shot',
-      bgImage: `${PHASE03_BASE}/cover/hero.png`,
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 3.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     // Screen 02: 概念对比 - 两张近方形图 (1942×1938, 1559×1821)
@@ -827,7 +830,7 @@ export const phase04Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: '包装与营销系统化扩展',
-      bgImage: `${PHASE04_BASE}/cover/hero.png`,
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 4.png`,
       enableFlashlight: true,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
@@ -1190,7 +1193,7 @@ export const phase05Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: '零售场景与体验拓展',
-      bgImage: `${PHASE05_BASE}/cover/hero.png`,
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 5.png`,
       enableFlashlight: true,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
@@ -1632,7 +1635,7 @@ export const phase06Config = {
       categoryLabel: '引言',
       product: null,
       imageHint: 'Copywriting Visualization',
-      bgImage: `${PHASE06_BASE}/cover/hero.png`,
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 6.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     

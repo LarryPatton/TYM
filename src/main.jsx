@@ -22,9 +22,10 @@ const LoadingFallback = () => (
 )
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // 临时关闭 StrictMode 进行性能调试
+  // <StrictMode>
     <Suspense fallback={<LoadingFallback />}>
       <App />
     </Suspense>
-  </StrictMode>,
+  // </StrictMode>,
 )

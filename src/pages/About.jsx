@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
@@ -7,6 +7,7 @@ import { useClipboard } from '../hooks/useClipboard';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
 import ScrollIndicator from '../components/ScrollIndicator';
+import AnimatedSignature from '../components/AnimatedSignature';
 
 /**
  * About 页面 - 全屏 Sticky Scroll 设计
@@ -23,6 +24,14 @@ const About = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const containerRef = useRef(null);
+  const [isRefReady, setIsRefReady] = useState(false);
+
+  // 确保 ref 在 useScroll 使用前已赋值
+  useLayoutEffect(() => {
+    if (containerRef.current && !isMobile) {
+      setIsRefReady(true);
+    }
+  }, [isMobile]);
 
   // 主题颜色配置
   const colors = {
@@ -49,14 +58,20 @@ const About = () => {
   // 总滚动高度：4个 section
   const totalScrollHeight = sections.length * 100; // vh
 
-  // 使用 useScroll 监听滚动进度
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  // 使用 useScroll 监听滚动进度（仅在桌面端且 ref 准备好时使用）
+  const { scrollYProgress } = useScroll(
+    isRefReady && !isMobile
+      ? {
+          target: containerRef,
+          offset: ["start start", "end end"]
+        }
+      : undefined
+  );
 
   // 根据滚动进度计算当前 section
   useEffect(() => {
+    if (!scrollYProgress || isMobile) return;
+    
     const unsubscribe = scrollYProgress.on("change", (progress) => {
       const newIndex = Math.min(
         Math.floor(progress * sections.length),
@@ -67,7 +82,7 @@ const About = () => {
       }
     });
     return () => unsubscribe();
-  }, [scrollYProgress, sections.length, activeSection]);
+  }, [scrollYProgress, sections.length, activeSection, isMobile]);
 
   // 处理从其他页面跳转
   useEffect(() => {
@@ -164,87 +179,128 @@ const About = () => {
         {/* 内容区域 */}
         <div style={{ flex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(40px, 5vw, 80px)', overflow: 'hidden' }}>
           <AnimatePresence mode="wait">
-            {/* Section 1: Intro */}
+            {/* Section 1: Intro - 三栏并列布局 (方案 A) */}
             {activeSection === 0 && (
-              <motion.div key="intro" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                
-                {/* 顶部签名区域 - 跨越全宽 */}
+              <motion.div 
+                key="intro" 
+                variants={contentVariants} 
+                initial="hidden" 
+                animate="visible" 
+                exit="exit" 
+                style={{ 
+                  width: '100%', 
+                  maxWidth: '1200px',
+                  height: '100%',
+                  display: 'grid',
+                  gridTemplateColumns: '1fr minmax(160px, 200px) 1.3fr',
+                  gap: 'clamp(30px, 4vw, 60px)',
+                  alignItems: 'center',
+                  padding: '20px 0',
+                }}
+              >
+                {/* 左栏：签名动画 */}
                 <motion.div 
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
                   style={{ 
-                    width: '100%', 
                     display: 'flex', 
                     justifyContent: 'center', 
                     alignItems: 'center',
-                    marginBottom: '50px',
-                    minHeight: '100px',
-                    position: 'relative',
-                    overflow: 'hidden',
                   }}
                 >
-                  {/* 签名图片 - 带手写动效 */}
-                  <motion.div
-                    initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                    animate={{ clipPath: 'inset(0 0% 0 0)' }}
-                    transition={{ 
-                      delay: 0.3, 
-                      duration: 1.8, 
-                      ease: [0.25, 0.1, 0.25, 1] 
-                    }}
-                    style={{ position: 'relative' }}
-                  >
-                    <motion.img 
-                      src={isDark ? '/images/signature/白.png' : '/images/signature/黑.png'} 
-                      alt="Signature" 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.85 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                      style={{ 
-                        height: 'clamp(80px, 12vw, 120px)', 
-                        width: 'auto',
-                        maxWidth: '90%',
-                      }} 
-                    />
-                  </motion.div>
-                  
-                  {/* 装饰性笔触线条 */}
-                  <motion.div
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    animate={{ scaleX: 1, opacity: 0.15 }}
-                    transition={{ delay: 2.0, duration: 0.6, ease: 'easeOut' }}
-                    style={{
-                      position: 'absolute',
-                      bottom: '0',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      width: '200px',
-                      height: '1px',
-                      background: `linear-gradient(90deg, transparent 0%, ${colors.text} 50%, transparent 100%)`,
-                      transformOrigin: 'center',
-                    }}
+                  <AnimatedSignature 
+                    isDark={isDark}
+                    width={Math.min(320, window.innerWidth * 0.22)}
+                    height={Math.min(200, window.innerWidth * 0.14)}
+                    duration={2.2}
+                    initialDelay={0.4}
+                    strokeWidth={1.2}
+                    showFill={true}
                   />
                 </motion.div>
 
-                {/* 内容区域 - 照片 + 文字 */}
-                <div style={{ width: '100%', display: 'grid', gridTemplateColumns: 'minmax(260px, 320px) 1fr', gap: '60px', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ aspectRatio: '3 / 4', borderRadius: '16px', overflow: 'hidden', background: colors.bgAlt, border: `1px solid ${colors.border}` }}>
-                      <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
-                      <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+                {/* 中栏：头像 */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <div style={{ 
+                    width: '100%', 
+                    maxWidth: '180px',
+                    aspectRatio: '3 / 4', 
+                    borderRadius: '14px', 
+                    overflow: 'hidden', 
+                    background: colors.bgAlt, 
+                    border: `1px solid ${colors.border}`,
+                    boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.3)' : '0 20px 50px rgba(0,0,0,0.08)',
+                  }}>
+                    <img 
+                      src="/images/about/portrait.jpg" 
+                      alt={t('about.greeting')} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} 
+                    />
+                    <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}>
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+                      </svg>
                     </div>
                   </div>
-                  <div>
-                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', fontWeight: '400', marginBottom: '28px', lineHeight: 1.15, color: colors.text }}>{t('about.greeting')}</h1>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', color: colors.textMuted, fontSize: '1.05rem', lineHeight: 1.7 }}>
+                </motion.div>
+
+                {/* 右栏：文字介绍 */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <h1 style={{ 
+                    fontFamily: 'var(--font-serif)', 
+                    fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', 
+                    fontWeight: '400', 
+                    marginBottom: 'clamp(16px, 2vw, 24px)', 
+                    lineHeight: 1.2, 
+                    color: colors.text 
+                  }}>
+                    {t('about.greeting')}
+                  </h1>
+                  <div style={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    gap: 'clamp(10px, 1.5vw, 16px)', 
+                    color: colors.textMuted, 
+                    fontSize: 'clamp(0.9rem, 1vw, 1.05rem)', 
+                    lineHeight: 1.7 
+                  }}>
                     <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
                     <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
                     <p style={{ margin: 0 }}>{t('about.introLine3')}</p>
                     <p style={{ margin: 0 }}>{t('about.introLine4')}</p>
                   </div>
-                  <div style={{ marginTop: '35px', display: 'flex', gap: '15px' }}>
-                    <motion.a href="/resume.pdf" target="_blank" whileHover={{ scale: 1.05 }} style={{ padding: '13px 30px', background: colors.accent, color: isDark ? '#000' : '#fff', borderRadius: '100px', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none' }}>{t('about.downloadResume')}</motion.a>
+                  <div style={{ marginTop: 'clamp(20px, 2.5vw, 32px)', display: 'flex', gap: '12px' }}>
+                    <motion.a 
+                      href="/resume.pdf" 
+                      target="_blank" 
+                      whileHover={{ scale: 1.03 }} 
+                      whileTap={{ scale: 0.98 }}
+                      style={{ 
+                        padding: 'clamp(10px, 1.2vw, 13px) clamp(20px, 2.5vw, 28px)', 
+                        background: colors.accent, 
+                        color: isDark ? '#000' : '#fff', 
+                        borderRadius: '100px', 
+                        fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', 
+                        fontWeight: '600', 
+                        textDecoration: 'none',
+                        boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
+                      }}
+                    >
+                      {t('about.downloadResume')}
+                    </motion.a>
                   </div>
-                  </div>
-                </div>
+                </motion.div>
               </motion.div>
             )}
 
@@ -339,59 +395,277 @@ const About = () => {
   );
 };
 
-/** 移动端 About */
-const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formStatus, handleSubmit, setFormStatus, isDark }) => (
-  <div style={{ padding: 'var(--space-lg) var(--space-page-x)', background: colors.bg }}>
-    {/* Intro */}
-    <section style={{ marginBottom: '50px', paddingTop: 'var(--space-md)' }}>
-      <div style={{ width: '50%', maxWidth: '160px', margin: '0 auto 25px', aspectRatio: '3 / 4', borderRadius: '12px', overflow: 'hidden', background: colors.bgAlt }}>
-        <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
-      </div>
-      <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', fontWeight: '400', textAlign: 'center', marginBottom: '18px', color: colors.text }}>{t('about.greeting')}</h1>
-      <div style={{ color: colors.textMuted, fontSize: '0.9rem', lineHeight: 1.7, textAlign: 'center' }}><p>{t('about.introLine1')}</p><p>{t('about.introLine2')}</p></div>
-    </section>
+/** 移动端 About - 固定全屏切换模式（与首页一致） */
+const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formStatus, handleSubmit, setFormStatus, isDark }) => {
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const trackRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const screens = [
+    { id: 'intro', name: t('about.sectionIntro') },
+    { id: 'expertise', name: t('about.sectionExpertise') },
+    { id: 'journey', name: t('about.sectionJourney') },
+    { id: 'contact', name: t('about.sectionContact') }
+  ];
+  const totalScreens = screens.length;
 
-    {/* Expertise */}
-    <section style={{ marginBottom: '50px' }}>
-      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '25px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.expertiseTitle')}</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
-        {capabilities.map((cap, index) => (
-          <div key={index}><h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '10px', color: colors.text }}>{cap.title}</h3><ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{cap.items.map((item, i) => <li key={i} style={{ marginBottom: '6px', color: colors.textMuted, fontSize: '0.85rem' }}>{item}</li>)}</ul></div>
-        ))}
-      </div>
-    </section>
+  // 切换屏幕
+  const goToScreen = (index) => {
+    if (isTransitioning || index === currentScreen) return;
+    if (index < 0 || index >= totalScreens) return;
+    setIsTransitioning(true);
+    setCurrentScreen(index);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
 
-    {/* Journey */}
-    <section style={{ marginBottom: '50px' }}>
-      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '25px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.journeyTitle')}</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        {journey.map((item, index) => (
-          <div key={index} style={{ paddingBottom: '20px', borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none' }}>
-            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: colors.textLight, marginBottom: '6px' }}>{item.year}</div>
-            <div style={{ fontSize: '1rem', fontWeight: '500', color: colors.text, marginBottom: '3px' }}>{item.role}</div>
-            <div style={{ fontSize: '0.85rem', color: colors.textMuted }}>{item.company}</div>
+  // 禁用页面滚动
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
+  // 进度条拖动逻辑
+  const handleTrackInteraction = (e) => {
+    if (!trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const percentage = Math.max(0, Math.min(1, x / rect.width));
+    const newIndex = Math.round(percentage * (totalScreens - 1));
+    if (newIndex !== currentScreen) goToScreen(newIndex);
+  };
+
+  const canPrev = currentScreen > 0;
+  const canNext = currentScreen < totalScreens - 1;
+  const segmentWidth = 100 / totalScreens;
+  const thumbLeft = currentScreen * segmentWidth;
+
+  // 颜色配置
+  const bgColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)';
+  const activeColor = isDark ? '#fff' : colors.text;
+  const mutedColor = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)';
+
+  return (
+    <div style={{
+      position: 'fixed',
+      inset: 0,
+      top: 'var(--nav-height)',
+      background: colors.bg,
+      overflow: 'hidden',
+    }}>
+      {/* 屏幕内容区 */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentScreen}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '24px',
+            paddingBottom: '80px',
+            boxSizing: 'border-box',
+            overflowY: 'auto',
+          }}
+        >
+          {/* Screen 0: Intro */}
+          {currentScreen === 0 && (
+            <div style={{ textAlign: 'center', width: '100%', maxWidth: '340px' }}>
+              <AnimatedSignature isDark={isDark} width={260} height={162} duration={2} strokeWidth={1} />
+              <div style={{ width: '45%', maxWidth: '140px', margin: '20px auto', aspectRatio: '3 / 4', borderRadius: '12px', overflow: 'hidden', background: colors.bgAlt }}>
+                <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+              </div>
+              <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: '400', marginBottom: '14px', color: colors.text }}>{t('about.greeting')}</h1>
+              <p style={{ color: colors.textMuted, fontSize: '0.85rem', lineHeight: 1.7, margin: 0 }}>{t('about.introLine1')}</p>
+              <p style={{ color: colors.textMuted, fontSize: '0.85rem', lineHeight: 1.7, margin: '8px 0 0 0' }}>{t('about.introLine2')}</p>
+            </div>
+          )}
+
+          {/* Screen 1: Expertise */}
+          {currentScreen === 1 && (
+            <div style={{ width: '100%', maxWidth: '340px' }}>
+              <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '24px', textAlign: 'center' }}>{t('about.expertiseTitle')}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {capabilities.map((cap, index) => (
+                  <motion.div key={index} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1, duration: 0.4 }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: '500', marginBottom: '8px', color: colors.text }}>{cap.title}</h3>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                      {cap.items.map((item, i) => (
+                        <li key={i} style={{ marginBottom: '4px', color: colors.textMuted, fontSize: '0.8rem', paddingLeft: '12px', position: 'relative' }}>
+                          <span style={{ position: 'absolute', left: 0, top: '7px', width: '4px', height: '4px', borderRadius: '50%', background: colors.textLight }} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Screen 2: Journey */}
+          {currentScreen === 2 && (
+            <div style={{ width: '100%', maxWidth: '340px' }}>
+              <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '24px', textAlign: 'center' }}>{t('about.journeyTitle')}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {journey.map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.4 }}
+                    style={{ 
+                      padding: '16px 0', 
+                      borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none',
+                      display: 'grid',
+                      gridTemplateColumns: '70px 1fr',
+                      gap: '12px',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: colors.textLight }}>{item.year}</div>
+                    <div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: '500', color: colors.text, marginBottom: '2px' }}>{item.role}</div>
+                      <div style={{ fontSize: '0.8rem', color: colors.textMuted }}>{item.company}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Screen 3: Contact */}
+          {currentScreen === 3 && (
+            <div style={{ width: '100%', maxWidth: '340px' }}>
+              <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '16px', textAlign: 'center' }}>{t('about.contactTitle')}</h2>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: '400', marginBottom: '10px', color: colors.text, textAlign: 'center' }}>{t('about.letsTalk')}</h3>
+              <p style={{ color: colors.textMuted, fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '20px', textAlign: 'center' }}>{t('about.contactIntro')}</p>
+              
+              <a href="mailto:tian_yangmin@163.com" style={{ 
+                padding: '12px', background: colors.bgAlt, borderRadius: '10px', 
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', 
+                textDecoration: 'none', color: colors.text, marginBottom: '16px'
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13 2 6"/></svg>
+                <span style={{ fontSize: '0.9rem' }}>tian_yangmin@163.com</span>
+              </a>
+
+              <div style={{ padding: '18px', background: colors.cardBg, borderRadius: '14px', border: `1px solid ${colors.border}` }}>
+                {formStatus === 'success' ? (
+                  <div style={{ textAlign: 'center', padding: '12px 0' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#22c55e20', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <h3 style={{ fontSize: '0.95rem', marginBottom: '6px', color: colors.text }}>{t('about.messageSent')}</h3>
+                    <p style={{ color: colors.textMuted, fontSize: '0.8rem', marginBottom: '10px' }}>{t('about.thankYou')}</p>
+                    <button onClick={() => setFormStatus('idle')} style={{ padding: '8px 16px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '0.85rem' }}>{t('about.sendAnother')}</button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <input type="text" name="name" required placeholder={t('about.formNamePlaceholder')} style={{ width: '100%', padding: '10px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.9rem', color: colors.text, boxSizing: 'border-box' }} />
+                      <input type="email" name="email" required placeholder={t('about.formEmailPlaceholder')} style={{ width: '100%', padding: '10px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.9rem', color: colors.text, boxSizing: 'border-box' }} />
+                      <textarea name="message" rows="3" placeholder={t('about.formDetailsPlaceholder')} style={{ width: '100%', padding: '10px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.9rem', color: colors.text, resize: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} />
+                      <button type="submit" disabled={formStatus === 'submitting'} style={{ padding: '11px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', fontSize: '0.9rem', fontWeight: '600', cursor: 'pointer' }}>{formStatus === 'submitting' ? t('about.submitting') : t('about.submit')}</button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* 底部导航条 - 与首页一致的进度条+箭头样式 */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px var(--space-page-x)',
+        paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+        background: isDark ? 'rgba(17,17,17,0.9)' : 'rgba(250,250,250,0.9)',
+        backdropFilter: 'blur(10px)',
+        borderTop: `1px solid ${colors.border}`,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* 左箭头 */}
+          <motion.button
+            onClick={() => canPrev && goToScreen(currentScreen - 1)}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              width: '32px', height: '32px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'transparent', border: 'none', borderRadius: '50%',
+              color: canPrev ? activeColor : mutedColor,
+              fontSize: '1.2rem', cursor: canPrev ? 'pointer' : 'default',
+              transition: 'color 0.3s', flexShrink: 0,
+            }}
+            disabled={!canPrev}
+          >
+            ‹
+          </motion.button>
+
+          {/* 进度条轨道 */}
+          <div
+            ref={trackRef}
+            onTouchStart={(e) => { setIsDragging(true); handleTrackInteraction(e); }}
+            onTouchMove={(e) => isDragging && handleTrackInteraction(e)}
+            onTouchEnd={() => setIsDragging(false)}
+            onClick={handleTrackInteraction}
+            style={{ flex: 1, height: '24px', display: 'flex', alignItems: 'center', cursor: 'pointer', touchAction: 'none' }}
+          >
+            <div style={{ width: '100%', height: '3px', background: bgColor, borderRadius: '2px', position: 'relative', overflow: 'hidden' }}>
+              {/* 滑块 */}
+              <motion.div
+                animate={{ left: `${thumbLeft}%` }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                style={{
+                  position: 'absolute', top: '-4px',
+                  width: `${segmentWidth}%`, height: '11px',
+                  background: activeColor, borderRadius: '6px',
+                }}
+              />
+            </div>
           </div>
-        ))}
-      </div>
-    </section>
 
-    {/* Contact */}
-    <section>
-      <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '18px', borderTop: `1px solid ${colors.border}`, paddingTop: '18px' }}>{t('about.contactTitle')}</h2>
-      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: '400', marginBottom: '12px', color: colors.text }}>{t('about.letsTalk')}</h3>
-      <p style={{ color: colors.textMuted, fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '25px' }}>{t('about.contactIntro')}</p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '25px' }}>
-        <a href="mailto:tian_yangmin@163.com" style={{ padding: '14px', background: colors.bgAlt, borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: colors.text }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13 2 6"/></svg><span style={{ fontSize: '0.9rem' }}>tian_yangmin@163.com</span></a>
+          {/* 右箭头 */}
+          <motion.button
+            onClick={() => canNext && goToScreen(currentScreen + 1)}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              width: '32px', height: '32px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'transparent', border: 'none', borderRadius: '50%',
+              color: canNext ? activeColor : mutedColor,
+              fontSize: '1.2rem', cursor: canNext ? 'pointer' : 'default',
+              transition: 'color 0.3s', flexShrink: 0,
+            }}
+            disabled={!canNext}
+          >
+            ›
+          </motion.button>
+        </div>
+
+        {/* 当前屏幕标题 */}
+        <div style={{ textAlign: 'center', marginTop: '8px' }}>
+          <span style={{ fontSize: '0.7rem', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '1px' }}>
+            {screens[currentScreen]?.name}
+          </span>
+        </div>
       </div>
-      <div style={{ padding: '20px', background: colors.cardBg, borderRadius: '14px', border: `1px solid ${colors.border}` }}>
-        {formStatus === 'success' ? (
-          <div style={{ textAlign: 'center', padding: '18px 0' }}><div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#22c55e20', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg></div><h3 style={{ fontSize: '1rem', marginBottom: '8px', color: colors.text }}>{t('about.messageSent')}</h3><p style={{ color: colors.textMuted, fontSize: '0.85rem', marginBottom: '12px' }}>{t('about.thankYou')}</p><button onClick={() => setFormStatus('idle')} style={{ padding: '9px 18px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '0.9rem' }}>{t('about.sendAnother')}</button></div>
-        ) : (
-          <form onSubmit={handleSubmit}><div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}><input type="text" name="name" required placeholder={t('about.formNamePlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, boxSizing: 'border-box' }} /><input type="email" name="email" required placeholder={t('about.formEmailPlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, boxSizing: 'border-box' }} /><textarea name="message" rows="4" placeholder={t('about.formDetailsPlaceholder')} style={{ width: '100%', padding: '11px 12px', background: colors.inputBg, border: `1px solid ${colors.inputBorder}`, borderRadius: '8px', fontSize: '0.95rem', color: colors.text, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' }} /><button type="submit" disabled={formStatus === 'submitting'} style={{ padding: '12px', background: colors.accent, color: isDark ? '#000' : '#fff', border: 'none', borderRadius: '8px', fontSize: '0.95rem', fontWeight: '600', cursor: 'pointer' }}>{formStatus === 'submitting' ? t('about.submitting') : t('about.submit')}</button></div></form>
-        )}
-      </div>
-    </section>
-  </div>
-);
+    </div>
+  );
+};
 
 export default About;
