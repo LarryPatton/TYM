@@ -516,7 +516,7 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
     <section
       style={{
         display: 'flex',
-        background: 'var(--color-bg)',
+        background: 'transparent', // 让全局光斑背景透出
         color: 'var(--color-text-main)',
         position: 'relative',
         minHeight: '100vh',
@@ -539,7 +539,8 @@ const ScrollParallaxShowcase = ({ projects, sectionTitle = "精选作品" }) => 
           flexDirection: 'column',
           justifyContent: 'center',
           borderRight: '1px solid var(--color-border)',
-          background: 'var(--color-bg)',
+          // 完全透明 - 让全局光斑背景完全显示
+          background: 'transparent',
           zIndex: 10,
           overflow: 'hidden',
           boxSizing: 'border-box',

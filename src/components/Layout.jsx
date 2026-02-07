@@ -444,7 +444,9 @@ const Layout = () => {
           color: 'var(--color-text-muted)', 
           fontSize: '0.9em', 
           background: 'var(--color-bg-subtle)',
-          transition: 'background-color var(--transition-theme), border-color var(--transition-theme)'
+          transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
+          position: 'relative',
+          zIndex: 10, // 确保在全局背景之上
         }}>
           <div style={{ 
             display: 'flex', 

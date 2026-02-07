@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { Link } from 'react-router-dom';
@@ -11,9 +11,11 @@ import MobileHome from '../components/MobileHome';
 import WechatModal from '../components/WechatModal';
 import ScrollIndicator from '../components/ScrollIndicator';
 import FrostedDotsBackground from '../components/FrostedDotsBackground';
+import LoadingScreen from '../components/LoadingScreen';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 
 // 首页专用导航圆点组件
 const HomeDotNavigation = ({ sections, isMobile }) => {
@@ -355,22 +357,132 @@ const Home = () => {
     { id: 'contact-cta', name: t('home.sectionContact'), dark: true },
   ];
 
+  // ========== 图片预加载 ==========
+  
+  // 收集首页需要预加载的图片 URL（首屏关键资源）
+  const imageUrls = useMemo(() => {
+    const urls = [];
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizeUrl = (path) => {
+      if (!path || typeof path !== 'string') return null;
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return baseUrl + cleanPath;
+    };
+    
+    // 1. 精选作品封面图（首屏关键资源）
+    featuredCases.forEach(item => {
+      if (item.coverImage) {
+        urls.push(normalizeUrl(item.coverImage));
+      }
+    });
+    
+    // 2. 合作伙伴 logo（首屏可见）
+    partnersData.forEach(partner => {
+      if (partner.image) {
+        urls.push(normalizeUrl(partner.image));
+      }
+    });
+    
+    // 去重并过滤空值
+    const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
+    
+    console.log('[Home] Collected image URLs:', uniqueUrls.length, uniqueUrls);
+    
+    return uniqueUrls;
+  }, []);
+  
+  // 添加标志位，确保只加载一次
+  const [hasPreloaded, setHasPreloaded] = useState(false);
+  // 添加 canEnter 状态，由动画完成回调控制
+  const [canEnter, setCanEnter] = useState(false);
+  
+  // 使用图片预加载 Hook（85% 阈值策略，首页需要完整体验）
+  const { isLoading, progress, loadedCount, totalCount, fromCache } = useImagePreloader(imageUrls, {
+    enabled: !hasPreloaded,
+    threshold: 85, // 首页加载 85% 后才可进入（确保首屏完整）
+    pageId: 'home', // 页面级缓存标识
+    onThresholdReached: (info) => {
+      console.log('[Home] ✅ 85% threshold reached!', info);
+    },
+    onComplete: (stats) => {
+      console.log('[Home] ✅ 100% loading complete!', stats);
+      setHasPreloaded(true);
+    },
+    onProgress: (info) => {
+      console.log('[Home] Progress update:', info);
+    }
+  });
+  
+  // 动画完成回调：只有动画播放完毕且真实加载 >= 85% 时才允许进入
+  const handleAnimationComplete = useCallback(() => {
+    if (progress >= 85) {
+      console.log('[Home] ✅ Animation complete! User can enter page.');
+      setCanEnter(true);
+    }
+  }, [progress]);
+
   // ==================== 移动端：使用全新的分屏布局 ====================
   if (isMobile) {
     return (
-      <MobileHome 
-        featuredCases={featuredCases}
-        services={services}
-        partners={partnersData}
-      />
+      <>
+        {/* 加载屏幕 */}
+        <LoadingScreen 
+          isVisible={!canEnter}
+          realProgress={progress}
+          loadedCount={loadedCount}
+          totalCount={totalCount}
+          phaseNumber="" // 首页不显示 Phase 编号
+          threshold={85}
+          minDuration={2000} // 首页最小动画时长 2 秒（品牌展示）
+          onAnimationComplete={handleAnimationComplete}
+        />
+        
+        <AnimatePresence mode="wait">
+          {canEnter && (
+            <motion.div
+              key="mobile-home-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <MobileHome 
+                featuredCases={featuredCases}
+                services={services}
+                partners={partnersData}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
     );
   }
 
   // ==================== 桌面端：保持原有布局 ====================
   return (
-    <div>
-      {/* 导航圆点 - 移动端隐藏 */}
-      <HomeDotNavigation sections={homeSections} isMobile={isMobile} />
+    <>
+      {/* 加载屏幕 */}
+      <LoadingScreen 
+        isVisible={!canEnter}
+        realProgress={progress}
+        loadedCount={loadedCount}
+        totalCount={totalCount}
+        phaseNumber="" // 首页不显示 Phase 编号
+        threshold={85}
+        minDuration={2000} // 首页最小动画时长 2 秒（品牌展示）
+        onAnimationComplete={handleAnimationComplete}
+      />
+      
+      <AnimatePresence mode="wait">
+        {canEnter && (
+          <motion.div
+            key="desktop-home-content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div>
+              {/* 导航圆点 - 移动端隐藏 */}
+              <HomeDotNavigation sections={homeSections} isMobile={isMobile} />
 
       {/* 1. Hero Section - 全屏沉浸式 */}
       <motion.section 
@@ -386,13 +498,13 @@ const Home = () => {
           padding: isMobile 
             ? 'var(--space-2xl) var(--space-page-x) var(--space-3xl)'
             : 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
-          background: 'transparent', // 让动态背景显示
+          background: 'transparent', // 让光斑背景显示
           position: 'relative',
           boxSizing: 'border-box',
-          overflow: 'hidden', // 防止背景装饰溢出
+          overflow: 'hidden',
         }}
       >
-        {/* 磨砂 + 柔和渐变光斑动态背景 */}
+        {/* Hero 区域光斑背景 */}
         <FrostedDotsBackground />
 
         <div style={{ maxWidth: '1400px', width: '100%', position: 'relative', zIndex: 1 }}>
@@ -609,9 +721,20 @@ const Home = () => {
         style={{ 
           position: 'relative',
           height: '200vh', // Sticky 滚动高度
-          background: themeColors.ctaBg,
+          background: 'transparent', // 让光斑背景显示
         }}
       >
+        {/* Contact CTA 区域光斑背景 */}
+        <FrostedDotsBackground 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
+        
         {/* Sticky 容器 */}
         <div
           style={{
@@ -631,19 +754,6 @@ const Home = () => {
             boxSizing: 'border-box',
           }}
         >
-          {/* 背景装饰圆 */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 'clamp(350px, 55vw, 900px)',
-            height: 'clamp(350px, 55vw, 900px)',
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${themeColors.ctaDecoCircle} 0%, transparent 60%)`,
-            pointerEvents: 'none',
-          }} />
-
           {/* 顶部装饰线 */}
           <div style={{
             position: 'absolute',
@@ -754,7 +864,11 @@ const Home = () => {
         isOpen={wechatModalOpen} 
         onClose={() => setWechatModalOpen(false)} 
       />
-    </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

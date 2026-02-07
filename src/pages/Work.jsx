@@ -313,28 +313,7 @@ const Work = () => {
     }
   ];
 
-  // 🚀 提取 the-case 页面的封面图片用于预加载（动态读取，适应未来扩展）
-  const caseIndexCoverImages = useMemo(() => {
-    const baseUrl = import.meta.env.BASE_URL || '/';
-    const normalizeUrl = (path) => {
-      if (!path || typeof path !== 'string') return null;
-      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
-      return baseUrl + cleanPath;
-    };
-    
-    // 从 phases 配置中提取封面图片（过滤掉 null）
-    const coverUrls = phases
-      .filter(phase => phase.image) // 过滤掉没有图片的 phase
-      .map(phase => normalizeUrl(phase.image))
-      .filter(url => url && url.trim() !== ''); // 过滤空值
-    
-    console.log('[Work] 🎯 提取 the-case 封面图片:', coverUrls.length, coverUrls);
-    
-    return coverUrls;
-  }, []);
-
-
-  // 收集所有需要预加载的图片 URL
+  // 收集所有需要预加载的图片 URL（Work 页和 CaseIndex 使用同一批图片）
   const imageUrls = useMemo(() => {
     const urls = [];
     const baseUrl = import.meta.env.BASE_URL || '/';
@@ -365,9 +344,10 @@ const Work = () => {
   const [canEnter, setCanEnter] = useState(false);
   
   // 使用图片预加载 Hook（30% 阈值策略，因为图片较少）
-  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+  const { isLoading, progress, loadedCount, totalCount, fromCache } = useImagePreloader(imageUrls, {
     enabled: !hasPreloaded,
     threshold: 30, // 加载 30% 后即可进入页面（资源少，降低阈值）
+    pageId: 'work', // 页面级缓存标识
     onThresholdReached: (info) => {
       console.log('[Work] ✅ 30% threshold reached!', info);
     },
@@ -377,30 +357,6 @@ const Work = () => {
     },
     onProgress: (info) => {
       console.log('[Work] Progress update:', info);
-    }
-  });
-
-  // 🚀 并行预加载 the-case 页面的封面图片（后台静默加载）
-  const { 
-    progress: prefetchProgress, 
-    loadedCount: prefetchLoaded, 
-    totalCount: prefetchTotal 
-  } = useImagePreloader(caseIndexCoverImages, {
-    enabled: true, // 立即开始预加载
-    threshold: 100, // 后台任务，不设置阈值
-    onComplete: (stats) => {
-      console.log('[Work] 🚀 Prefetch complete! The-case covers are ready:', stats);
-      console.log('[Work] 📊 Prefetch stats:', {
-        total: prefetchTotal,
-        loaded: prefetchLoaded,
-        progress: `${prefetchProgress}%`
-      });
-    },
-    onProgress: (info) => {
-      // 静默预加载，仅记录日志
-      if (info.loadedCount % 2 === 0 || info.loadedCount === info.totalCount) {
-        console.log('[Work] 🔄 Prefetching covers:', `${info.loadedCount}/${info.totalCount} (${Math.round(info.realProgress)}%)`);
-      }
     }
   });
   

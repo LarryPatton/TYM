@@ -5,30 +5,6 @@ import { useTranslation } from 'react-i18next';
 // import { Leva } from 'leva'; // 已禁用：移除调试面板
 import { useTitle } from '../hooks/useTitle';
 
-// ========== 渲染调试工具 ==========
-const useRenderCount = (componentName, props = {}) => {
-  const renderCount = useRef(0);
-  const prevPropsRef = useRef(props);
-  
-  renderCount.current += 1;
-  
-  // 检测哪些 props/state 发生了变化
-  const changedProps = [];
-  Object.keys(props).forEach(key => {
-    if (prevPropsRef.current[key] !== props[key]) {
-      changedProps.push(`${key}: ${JSON.stringify(prevPropsRef.current[key])} → ${JSON.stringify(props[key])}`);
-    }
-  });
-  prevPropsRef.current = { ...props };
-  
-  console.log(
-    `%c[RENDER] ${componentName} #${renderCount.current}`,
-    'color: #4ecdc4; font-weight: bold; font-size: 12px;',
-    changedProps.length > 0 ? `\n  Changed: ${changedProps.join('\n  ')}` : ''
-  );
-  
-  return renderCount.current;
-};
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { phasesConfig, getNextPhase } from '../config/phaseConfig';
@@ -100,14 +76,6 @@ const PhaseDetail = () => {
   
   // 开发环境启用调试模式
   const isDev = import.meta.env.DEV;
-  
-  // ========== 渲染调试 ==========
-  useRenderCount('PhaseDetail', {
-    phaseId,
-    currentScreen,
-    isMobile,
-    isDev
-  });
   
   // 调试参数状态 - 用于实时预览
   const [debugParams, setDebugParams] = useState({});
@@ -319,9 +287,6 @@ const PhaseDetail = () => {
     // 去重并过滤空值
     const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
     
-    console.log('[PhaseDetail] Collected image URLs:', uniqueUrls.length);
-    console.log('[PhaseDetail] Sample URLs:', uniqueUrls.slice(0, 5));
-    
     return uniqueUrls;
   }, [phase]);
   
@@ -331,41 +296,21 @@ const PhaseDetail = () => {
   const [canEnter, setCanEnter] = useState(false);
   
   // 使用图片预加载 Hook（50% 阈值策略）
-  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+  const { isLoading, progress, loadedCount, totalCount, fromCache } = useImagePreloader(imageUrls, {
     enabled: !hasPreloaded, // 如果已经预加载过，则禁用
     threshold: 50, // 加载 50% 后即可进入页面
-    onThresholdReached: (info) => {
-      console.log('[PhaseDetail] ✅ 50% threshold reached! (真实加载)', info);
-    },
+    pageId: `phase-${phaseId}`, // 每个 Phase 独立缓存标识
     onComplete: (stats) => {
-      console.log('[PhaseDetail] ✅ 100% loading complete!', stats);
       setHasPreloaded(true); // 标记为已加载
     },
-    onProgress: (info) => {
-      console.log('[PhaseDetail] Progress update:', info);
-    }
   });
   
   // 动画完成回调：只有动画播放完毕且真实加载 >= 50% 时才允许进入
   const handleAnimationComplete = useCallback(() => {
     if (progress >= 50) {
-      console.log('[PhaseDetail] ✅ Animation complete! User can enter page.');
       setCanEnter(true);
     }
   }, [progress]);
-  
-  // 调试输出
-  useEffect(() => {
-    console.log('[PhaseDetail] Loading state:', { 
-      isLoading, 
-      canEnter, 
-      progress, 
-      loadedCount, 
-      totalCount, 
-      hasPreloaded,
-      displayProgress: `真实 ${progress}% → 显示 ${progress >= 50 ? 100 : Math.round((progress / 50) * 100)}%`
-    });
-  }, [isLoading, canEnter, progress, loadedCount, totalCount, hasPreloaded]);
   
   // 当 phaseId 变化时，重置预加载标志和进入状态
   useEffect(() => {
@@ -1696,9 +1641,6 @@ const PhaseDetail = () => {
                     width: '100%', 
                     position: 'relative',
                     background: phaseBgColor,
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
                   }}
                 >
                   {renderScreen(screenConfig, index)}

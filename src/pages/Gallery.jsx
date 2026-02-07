@@ -319,9 +319,10 @@ const Gallery = () => {
   const [canEnter, setCanEnter] = useState(false);
   
   // 使用图片预加载 Hook（30% 阈值策略，因为图片较少）
-  const { isLoading, progress, loadedCount, totalCount } = useImagePreloader(imageUrls, {
+  const { isLoading, progress, loadedCount, totalCount, fromCache } = useImagePreloader(imageUrls, {
     enabled: !hasPreloaded,
     threshold: 30, // 加载 30% 后即可进入页面（资源少，降低阈值）
+    pageId: 'gallery', // 页面级缓存标识
     onThresholdReached: (info) => {
       console.log('[Gallery] ✅ 30% threshold reached!', info);
     },

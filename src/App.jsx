@@ -3,6 +3,7 @@ import './App.css'
 import { ThemeProvider } from './hooks/useTheme';
 import { ScrollLockProvider } from './contexts/ScrollLockContext';
 import { LenisProvider } from './contexts/LenisContext';
+import { ImageCacheProvider } from './contexts/ImageCacheContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Work from './pages/Work';
@@ -43,11 +44,12 @@ import GalleryWorkDetail from './pages/GalleryWorkDetail';
 function App() {
   return (
     <ThemeProvider>
-      <LenisProvider>
-        <ScrollLockProvider>
-          <BrowserRouter basename="/">
-          <ScrollToTop />
-          <Routes>
+      <ImageCacheProvider>
+        <LenisProvider>
+          <ScrollLockProvider>
+            <BrowserRouter basename="/">
+            <ScrollToTop />
+            <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="work" element={<Work />} />
@@ -92,10 +94,11 @@ function App() {
             <Route path="about-layouts" element={<AboutLayoutPreview />} />
             
           </Route>
-          </Routes>
-          </BrowserRouter>
-        </ScrollLockProvider>
-      </LenisProvider>
+            </Routes>
+            </BrowserRouter>
+          </ScrollLockProvider>
+        </LenisProvider>
+      </ImageCacheProvider>
     </ThemeProvider>
   );
 }
