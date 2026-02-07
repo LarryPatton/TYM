@@ -351,15 +351,30 @@ const Layout = () => {
           {/* 桌面端：中间导航链接 */}
           {!isMobile && (
             <div style={{ display: 'flex', gap: '40px' }}>
-              {navLinks.map(link => (
-                <Link 
-                  key={link.path}
-                  to={link.path} 
-                  style={{ textDecoration: 'none', color: isActive(link.path), fontWeight: '500', fontSize: '1em', transition: 'color 0.2s' }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map(link => {
+                const isCurrentActive = location.pathname === link.path;
+                return (
+                  <Link 
+                    key={link.path}
+                    to={link.path} 
+                    style={{ 
+                      textDecoration: 'none', 
+                      color: isActive(link.path), 
+                      fontWeight: '500', 
+                      fontSize: '1em', 
+                      transition: 'color 0.2s',
+                      position: 'relative',
+                      display: 'inline-block',
+                      paddingBottom: '4px',
+                    }}
+                    className={`nav-link-underline ${isCurrentActive ? 'nav-link-active' : ''}`}
+                  >
+                    {link.label}
+                    {/* 下划线 */}
+                    <span className="nav-underline" />
+                  </Link>
+                );
+              })}
             </div>
           )}
 

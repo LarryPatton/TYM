@@ -10,6 +10,7 @@ import PartnersSection from '../components/PartnersSection';
 import MobileHome from '../components/MobileHome';
 import WechatModal from '../components/WechatModal';
 import ScrollIndicator from '../components/ScrollIndicator';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
@@ -385,23 +386,14 @@ const Home = () => {
           padding: isMobile 
             ? 'var(--space-2xl) var(--space-page-x) var(--space-3xl)'
             : 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
-          background: 'var(--color-bg-subtle)',
+          background: 'transparent', // 让动态背景显示
           position: 'relative',
           boxSizing: 'border-box',
           overflow: 'hidden', // 防止背景装饰溢出
         }}
       >
-        {/* 背景装饰元素 */}
-        <div style={{
-          position: 'absolute',
-          top: '15%',
-          right: '8%',
-          width: 'clamp(250px, 35vw, 600px)',
-          height: 'clamp(250px, 35vw, 600px)',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+        {/* 磨砂 + 柔和渐变光斑动态背景 */}
+        <FrostedDotsBackground />
 
         <div style={{ maxWidth: '1400px', width: '100%', position: 'relative', zIndex: 1 }}>
           <motion.h1 

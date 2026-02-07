@@ -512,3 +512,27 @@
       padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
     }
   }
+
+  /* ========================================
+     NAV LINK UNDERLINE - 导航链接下划线效果
+     ======================================== */
+  
+  .nav-link-underline .nav-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-text-main);
+    transition: width 0.3s ease;
+  }
+  
+  /* 当前激活的导航项显示下划线 */
+  .nav-link-underline.nav-link-active .nav-underline {
+    width: 100%;
+  }
+  
+  /* 鼠标悬浮时显示下划线 */
+  .nav-link-underline:hover .nav-underline {
+    width: 100%;
+  }

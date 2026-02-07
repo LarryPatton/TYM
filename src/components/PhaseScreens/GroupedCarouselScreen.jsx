@@ -500,6 +500,7 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
                           }}
                           initial={{ opacity: 0, scale: 0.9 }}
                           whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
                           transition={{ delay: globalIndex * 0.08, duration: 0.4 }}
                         >
                           <img
@@ -555,6 +556,7 @@ const GroupScene = ({ group, index, scrollYProgress, totalGroups, getGroupRange,
                 }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ delay: imgIndex * 0.08, duration: 0.4 }}
               >
                 <img
