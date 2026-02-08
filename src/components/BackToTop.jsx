@@ -44,11 +44,15 @@ const BackToTop = () => {
             position: 'fixed',
             bottom: '40px',
             right: '40px',
-            zIndex: 9999, // 提高层级，确保不被其他元素遮挡
+            zIndex: 99999, // 最高层级，确保不被任何元素遮挡
+            pointerEvents: 'auto', // 确保可以点击
           }}
         >
           <button
-            onClick={scrollToTop}
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollToTop();
+            }}
             style={{
               width: '50px',
               height: '50px',

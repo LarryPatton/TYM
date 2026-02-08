@@ -20,8 +20,10 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
   // 当前打字阶段：'name' | 'role' | 'desc1' | 'desc2' | 'done'
   const [phase, setPhase] = useState('name');
   
-  // PORTFOLIO 是否显示（在 Hero 和 Contact 区域显示）
+  // PORTFOLIO 显示状态
   const [showPortfolio, setShowPortfolio] = useState(true);
+  // 是否在 Contact 区域（用于跳过动画延迟）
+  const [isInContactArea, setIsInContactArea] = useState(false);
   
   // 监听滚动，在 Hero 和 Contact 区域显示 PORTFOLIO
   useEffect(() => {
@@ -42,6 +44,7 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
       }
       
       setShowPortfolio(isInHero || isInContact);
+      setIsInContactArea(isInContact);
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -288,14 +291,14 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
             {/* 文字容器 - 使用 overflow:hidden 实现从右向左推出效果 */}
             <div style={{ overflow: 'hidden' }}>
               <motion.span
-                initial={{ x: '100%' }}
+                initial={{ x: isInContactArea ? '0%' : '100%' }}
                 animate={{ 
-                  x: phase === 'done' ? '0%' : '100%',
+                  x: (isInContactArea || phase === 'done') ? '0%' : '100%',
                 }}
                 transition={{ 
-                  duration: 0.4, 
+                  duration: isInContactArea ? 0 : 0.4, 
                   ease: [0.25, 0.46, 0.45, 0.94],
-                  delay: 2.6,
+                  delay: isInContactArea ? 0 : 2.6,
                 }}
                 style={{
                   display: 'inline-block',
@@ -318,9 +321,9 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
               height="40"
               viewBox="0 0 24 40"
               fill="none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: phase === 'done' ? 1 : 0 }}
-              transition={{ duration: 0.1, delay: 2.15 }}
+              initial={{ opacity: isInContactArea ? 1 : 0 }}
+              animate={{ opacity: (isInContactArea || phase === 'done') ? 1 : 0 }}
+              transition={{ duration: isInContactArea ? 0 : 0.1, delay: isInContactArea ? 0 : 2.15 }}
               style={{ overflow: 'visible' }}
             >
               <motion.line
@@ -331,12 +334,12 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
                 stroke="var(--color-text-main)"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: phase === 'done' ? 1 : 0 }}
+                initial={{ pathLength: isInContactArea ? 1 : 0 }}
+                animate={{ pathLength: (isInContactArea || phase === 'done') ? 1 : 0 }}
                 transition={{ 
-                  duration: 0.25, 
+                  duration: isInContactArea ? 0 : 0.25, 
                   ease: 'easeOut',
-                  delay: 2.2,
+                  delay: isInContactArea ? 0 : 2.2,
                 }}
               />
             </motion.svg>

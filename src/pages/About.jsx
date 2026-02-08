@@ -8,6 +8,9 @@ import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
 import ScrollIndicator from '../components/ScrollIndicator';
 import AnimatedSignature from '../components/AnimatedSignature';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
+import AboutTypewriter from '../components/AboutTypewriter';
+import WechatModal from '../components/WechatModal';
 
 /**
  * About 页面 - 全屏 Sticky Scroll 设计
@@ -19,6 +22,7 @@ const About = () => {
   const location = useLocation();
   const { copiedId, copy } = useClipboard();
   const [formStatus, setFormStatus] = useState('idle');
+  const [wechatModalOpen, setWechatModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
   const isMobile = useIsMobile();
   const { theme } = useTheme();
@@ -33,18 +37,18 @@ const About = () => {
     }
   }, [isMobile]);
 
-  // 主题颜色配置
+  // 主题颜色配置（白色模式增强对比度，适配彩色动态背景）
   const colors = {
     bg: isDark ? '#0a0a0a' : '#fafafa',
-    bgAlt: isDark ? '#111' : '#f5f5f5',
+    bgAlt: isDark ? '#111' : 'rgba(255,255,255,0.85)', // 半透明白色，更好融合背景
     text: isDark ? '#fff' : '#111',
-    textMuted: isDark ? '#888' : '#666',
-    textLight: isDark ? '#555' : '#999',
-    border: isDark ? '#333' : '#ddd',
+    textMuted: isDark ? '#888' : '#555', // #666 → #555，更深
+    textLight: isDark ? '#555' : '#666', // #999 → #666，显著加深
+    border: isDark ? '#333' : '#bbb', // #ddd → #bbb，更明显
     accent: isDark ? '#fff' : '#111',
-    cardBg: isDark ? '#1a1a1a' : '#fff',
+    cardBg: isDark ? '#1a1a1a' : 'rgba(255,255,255,0.95)', // 半透明白色卡片
     inputBg: isDark ? '#1a1a1a' : '#fff',
-    inputBorder: isDark ? '#333' : '#ddd',
+    inputBorder: isDark ? '#333' : '#aaa', // #ddd → #aaa，更深的边框
   };
 
   // Section 配置
@@ -104,12 +108,17 @@ const About = () => {
     { title: t('about.expertise.development.title'), items: t('about.expertise.development.items', { returnObjects: true }) }
   ];
 
-  // 职业历程
-  const journey = [
-    { year: t('about.journey.item1.year'), role: t('about.journey.item1.role'), company: t('about.journey.item1.company') },
-    { year: t('about.journey.item2.year'), role: t('about.journey.item2.role'), company: t('about.journey.item2.company') },
-    { year: t('about.journey.item3.year'), role: t('about.journey.item3.role'), company: t('about.journey.item3.company') },
-    { year: t('about.journey.item4.year'), role: t('about.journey.item4.role'), company: t('about.journey.item4.company') },
+  // 工作经历
+  const workExperience = [
+    { year: t('about.work.item1.year'), role: t('about.work.item1.role'), company: t('about.work.item1.company') },
+    { year: t('about.work.item2.year'), role: t('about.work.item2.role'), company: t('about.work.item2.company') },
+    { year: t('about.work.item3.year'), role: t('about.work.item3.role'), company: t('about.work.item3.company') },
+  ];
+
+  // 教育背景
+  const education = [
+    { year: t('about.education.item1.year'), degree: t('about.education.item1.degree'), school: t('about.education.item1.school') },
+    { year: t('about.education.item2.year'), degree: t('about.education.item2.degree'), school: t('about.education.item2.school') },
   ];
 
   // 表单提交
@@ -147,24 +156,49 @@ const About = () => {
   if (isMobile) {
     return (
       <MobileAbout 
-        t={t} colors={colors} capabilities={capabilities} journey={journey}
+        t={t} colors={colors} capabilities={capabilities} 
+        workExperience={workExperience} education={education}
         copiedId={copiedId} copy={copy} formStatus={formStatus} 
         handleSubmit={handleSubmit} setFormStatus={setFormStatus} isDark={isDark}
+        wechatModalOpen={wechatModalOpen} setWechatModalOpen={setWechatModalOpen}
       />
     );
   }
 
-  // 导航栏高度
-  const navHeight = 80;
+  // 导航栏高度（使用 CSS 变量值）
+  const navHeight = 65; // 对应 --nav-height: 65px
 
   // ==================== 桌面端：Sticky Scroll ====================
   return (
     <div ref={containerRef} style={{ position: 'relative', height: `${totalScrollHeight}vh`, background: colors.bg }}>
+      {/* 动态磨砂光斑背景 - 固定在视口，覆盖整个屏幕（包括导航栏后方） */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0,
+        top: 0, // 从顶部开始，覆盖导航栏空隙
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
+      {/* 左侧分割线 - 固定在视口，从导航栏底部延伸到页面底部 */}
+      <div style={{
+        position: 'fixed',
+        top: `${navHeight}px`,
+        left: '80px',
+        bottom: 0,
+        width: '1px',
+        background: isDark ? colors.border : '#222',
+        zIndex: 2,
+        pointerEvents: 'none', // 确保不阻挡点击
+      }} />
+      
       {/* Sticky 容器 */}
-      <div style={{ position: 'sticky', top: `${navHeight}px`, height: `calc(100vh - ${navHeight}px)`, display: 'flex', overflow: 'hidden', background: colors.bg }}>
+      <div style={{ position: 'sticky', top: `${navHeight}px`, height: `calc(100vh - ${navHeight}px)`, display: 'flex', overflow: 'hidden', background: 'transparent', zIndex: 1 }}>
         
         {/* 左侧导航 */}
-        <div style={{ width: '80px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRight: `1px solid ${colors.border}` }}>
+        <div style={{ width: '80px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ width: '3px', height: '180px', background: colors.border, borderRadius: '2px', position: 'relative', marginBottom: '24px' }}>
             <motion.div animate={{ height: `${((activeSection + 1) / sections.length) * 100}%` }} transition={{ duration: 0.4 }} style={{ width: '100%', background: colors.accent, borderRadius: '2px' }} />
           </div>
@@ -211,8 +245,8 @@ const About = () => {
                 >
                   <div style={{ 
                     width: '100%', 
-                    maxWidth: '450px',
-                    aspectRatio: '4 / 5',
+                    maxWidth: '400px',
+                    aspectRatio: '2 / 3',
                     maxHeight: 'min(600px, calc(100vh - 200px))',
                     borderRadius: '0', 
                     overflow: 'hidden', 
@@ -220,7 +254,7 @@ const About = () => {
                     position: 'relative',
                   }}>
                     <img 
-                      src="/images/about/portrait.jpg" 
+                      src="/covers/self/tym.jpg" 
                       alt={t('about.greeting')} 
                       style={{ 
                         width: '100%', 
@@ -272,31 +306,16 @@ const About = () => {
                     />
                   </motion.div>
 
-                  {/* 文字介绍区域 */}
+                  {/* 文字介绍区域 - 打字机效果 */}
                   <div>
-                    <h1 style={{ 
-                      fontFamily: 'var(--font-serif)', 
-                      fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', 
-                      fontWeight: '400', 
-                      marginBottom: 'clamp(16px, 2vw, 24px)', 
-                      lineHeight: 1.2, 
-                      color: colors.text 
-                    }}>
-                      {t('about.greeting')}
-                    </h1>
-                    <div style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      gap: 'clamp(10px, 1.5vw, 16px)', 
-                      color: colors.textMuted, 
-                      fontSize: 'clamp(0.9rem, 1vw, 1.05rem)', 
-                      lineHeight: 1.7 
-                    }}>
-                      <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
-                      <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
-                      <p style={{ margin: 0 }}>{t('about.introLine3')}</p>
-                      <p style={{ margin: 0 }}>{t('about.introLine4')}</p>
-                    </div>
+                    <AboutTypewriter
+                      greeting={t('about.greeting')}
+                      line1={t('about.introLine1')}
+                      line2={t('about.introLine2')}
+                      line3={t('about.introLine3')}
+                      line4={t('about.introLine4')}
+                      colors={colors}
+                    />
                     <div style={{ marginTop: 'clamp(20px, 2.5vw, 32px)', display: 'flex', gap: '12px' }}>
                       <motion.a 
                         href="/resume.pdf" 
@@ -343,17 +362,123 @@ const About = () => {
               </motion.div>
             )}
 
-            {/* Section 3: Journey */}
+            {/* Section 3: Journey - 双轨时间轴布局 */}
             {activeSection === 2 && (
-              <motion.div key="journey" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '750px' }}>
-                <h2 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '3px', color: colors.textLight, marginBottom: '45px' }}>{t('about.journeyTitle')}</h2>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {journey.map((item, index) => (
-                    <motion.div key={index} initial={{ opacity: 0, x: -25 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1, duration: 0.5 }} style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: '35px', padding: '28px 0', borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none', alignItems: 'center' }}>
-                      <div style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: colors.textMuted }}>{item.year}</div>
-                      <div><div style={{ fontSize: '1.25rem', fontWeight: '500', color: colors.text, marginBottom: '5px' }}>{item.role}</div><div style={{ fontSize: '0.95rem', color: colors.textMuted }}>{item.company}</div></div>
-                    </motion.div>
-                  ))}
+              <motion.div key="journey" variants={contentVariants} initial="hidden" animate="visible" exit="exit" style={{ width: '100%', maxWidth: '1000px' }}>
+                <h2 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '3px', color: colors.textLight, marginBottom: '45px', textAlign: 'center' }}>{t('about.journeyTitle')}</h2>
+                
+                {/* 双轨布局容器 */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 60px 1fr', gap: '0', alignItems: 'start' }}>
+                  
+                  {/* 左侧：工作经历 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <h3 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '24px', width: '100%', textAlign: 'right', paddingRight: '20px' }}>{t('about.workTitle')}</h3>
+                    {workExperience.map((item, index) => (
+                      <motion.div 
+                        key={`work-${index}`}
+                        initial={{ opacity: 0, x: -25 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                        whileHover={{ 
+                          x: -4,
+                          backgroundColor: colors.bgAlt,
+                          boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.05)' : '0 4px 20px rgba(0,0,0,0.08)'
+                        }}
+                        style={{ 
+                          width: '100%',
+                          padding: '20px',
+                          paddingRight: '24px',
+                          marginBottom: '12px',
+                          borderRadius: '8px',
+                          borderRight: `3px solid transparent`,
+                          textAlign: 'right',
+                          cursor: 'default',
+                          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                          background: 'transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderRightColor = colors.accent;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderRightColor = 'transparent';
+                        }}
+                      >
+                        <div style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: colors.textMuted, marginBottom: '6px' }}>{item.year}</div>
+                        <div style={{ fontSize: '1.1rem', fontWeight: '500', color: colors.text, marginBottom: '4px' }}>{item.role}</div>
+                        <div style={{ fontSize: '0.9rem', color: colors.textMuted }}>{item.company}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* 中间：时间轴线 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '40px' }}>
+                    <div style={{ 
+                      width: '2px', 
+                      flex: 1, 
+                      background: colors.border,
+                      position: 'relative',
+                      minHeight: '300px',
+                    }}>
+                      {/* 时间轴节点 */}
+                      {[...Array(Math.max(workExperience.length, education.length))].map((_, index) => (
+                        <div 
+                          key={`node-${index}`}
+                          style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: `${(index / Math.max(workExperience.length, education.length)) * 100}%`,
+                            transform: 'translate(-50%, 20px)',
+                            width: '12px',
+                            height: '12px',
+                            borderRadius: '50%',
+                            background: colors.bg,
+                            border: `2px solid ${colors.accent}`,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 右侧：教育背景 */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <h3 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '24px', width: '100%', textAlign: 'left', paddingLeft: '20px' }}>{t('about.educationTitle')}</h3>
+                    {education.map((item, index) => (
+                      <motion.div 
+                        key={`edu-${index}`}
+                        initial={{ opacity: 0, x: 25 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + 0.15, duration: 0.5 }}
+                        whileHover={{ 
+                          x: 4,
+                          backgroundColor: colors.bgAlt,
+                          boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.05)' : '0 4px 20px rgba(0,0,0,0.08)'
+                        }}
+                        style={{ 
+                          width: '100%',
+                          padding: '20px',
+                          paddingLeft: '24px',
+                          marginBottom: '12px',
+                          borderRadius: '8px',
+                          borderLeft: `3px solid transparent`,
+                          textAlign: 'left',
+                          cursor: 'default',
+                          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                          background: 'transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderLeftColor = colors.accent;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderLeftColor = 'transparent';
+                        }}
+                      >
+                        <div style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: colors.textMuted, marginBottom: '6px' }}>{item.year}</div>
+                        <div style={{ fontSize: '1.1rem', fontWeight: '500', color: colors.text, marginBottom: '4px' }}>{item.degree}</div>
+                        <div style={{ fontSize: '0.9rem', color: colors.textMuted }}>{item.school}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+
                 </div>
               </motion.div>
             )}
@@ -371,7 +496,29 @@ const About = () => {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                       <div style={{ width: '44px', height: '44px', borderRadius: '11px', background: colors.bgAlt, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="20" height="20" viewBox="0 0 24 24" fill={colors.textMuted}><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg></div>
-                      <div><div style={{ fontSize: '0.75rem', color: colors.textLight, marginBottom: '2px' }}>{t('about.wechatLabel')}</div><div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ fontSize: '0.95rem', color: colors.text }}>your_wechat_id</span><button onClick={() => copy('your_wechat_id', 'wechat')} style={{ padding: '3px 9px', fontSize: '0.7rem', background: colors.bgAlt, color: colors.textMuted, border: 'none', borderRadius: '4px', cursor: 'pointer' }}>{copiedId === 'wechat' ? t('about.copied') : t('about.copy')}</button></div></div>
+                      <div>
+                        <div style={{ fontSize: '0.75rem', color: colors.textLight, marginBottom: '4px' }}>{t('about.wechatLabel')}</div>
+                        <motion.button 
+                          onClick={() => setWechatModalOpen(true)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          style={{ 
+                            padding: '8px 16px', 
+                            fontSize: '0.9rem', 
+                            background: colors.bgAlt, 
+                            color: colors.text, 
+                            border: `1px solid ${colors.border}`,
+                            borderRadius: '8px', 
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                          }}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"/></svg>
+                          {t('home.wechatContact')}
+                        </motion.button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -409,12 +556,18 @@ const About = () => {
           opacity={activeSection < sections.length - 1 ? 1 : 0}
         />
       </div>
+      
+      {/* 微信二维码弹窗 */}
+      <WechatModal 
+        isOpen={wechatModalOpen} 
+        onClose={() => setWechatModalOpen(false)} 
+      />
     </div>
   );
 };
 
 /** 移动端 About - 固定全屏切换模式（与首页一致） */
-const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formStatus, handleSubmit, setFormStatus, isDark }) => {
+const MobileAbout = ({ t, colors, capabilities, workExperience, education, copiedId, copy, formStatus, handleSubmit, setFormStatus, isDark, wechatModalOpen, setWechatModalOpen }) => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const trackRef = useRef(null);
@@ -475,6 +628,16 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
       background: colors.bg,
       overflow: 'hidden',
     }}>
+      {/* 动态磨砂光斑背景 */}
+      <div style={{ 
+        position: 'absolute', 
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
       {/* 屏幕内容区 */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -500,8 +663,8 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
           {currentScreen === 0 && (
             <div style={{ textAlign: 'center', width: '100%', maxWidth: '340px' }}>
               <AnimatedSignature isDark={isDark} width={260} height={162} duration={2} strokeWidth={1} />
-              <div style={{ width: '45%', maxWidth: '140px', margin: '20px auto', aspectRatio: '3 / 4', borderRadius: '12px', overflow: 'hidden', background: colors.bgAlt }}>
-                <img src="/images/about/portrait.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+              <div style={{ width: '50%', maxWidth: '160px', margin: '20px auto', aspectRatio: '2 / 3', borderRadius: '12px', overflow: 'hidden', background: colors.bgAlt }}>
+                <img src="/covers/self/tym.jpg" alt={t('about.greeting')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
               </div>
               <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: '400', marginBottom: '14px', color: colors.text }}>{t('about.greeting')}</h1>
               <p style={{ color: colors.textMuted, fontSize: '0.85rem', lineHeight: 1.7, margin: 0 }}>{t('about.introLine1')}</p>
@@ -531,20 +694,23 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
             </div>
           )}
 
-          {/* Screen 2: Journey */}
+          {/* Screen 2: Journey - 移动端双轨展示 */}
           {currentScreen === 2 && (
             <div style={{ width: '100%', maxWidth: '340px' }}>
               <h2 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: colors.textLight, marginBottom: '24px', textAlign: 'center' }}>{t('about.journeyTitle')}</h2>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {journey.map((item, index) => (
+              
+              {/* 工作经历 */}
+              <h3 style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: colors.textLight, marginBottom: '12px' }}>{t('about.workTitle')}</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '24px' }}>
+                {workExperience.map((item, index) => (
                   <motion.div 
-                    key={index}
+                    key={`work-${index}`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.4 }}
                     style={{ 
-                      padding: '16px 0', 
-                      borderBottom: index < journey.length - 1 ? `1px solid ${colors.border}` : 'none',
+                      padding: '12px 0', 
+                      borderBottom: index < workExperience.length - 1 ? `1px solid ${colors.border}` : 'none',
                       display: 'grid',
                       gridTemplateColumns: '70px 1fr',
                       gap: '12px',
@@ -553,8 +719,35 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
                   >
                     <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: colors.textLight }}>{item.year}</div>
                     <div>
-                      <div style={{ fontSize: '0.95rem', fontWeight: '500', color: colors.text, marginBottom: '2px' }}>{item.role}</div>
-                      <div style={{ fontSize: '0.8rem', color: colors.textMuted }}>{item.company}</div>
+                      <div style={{ fontSize: '0.9rem', fontWeight: '500', color: colors.text, marginBottom: '2px' }}>{item.role}</div>
+                      <div style={{ fontSize: '0.75rem', color: colors.textMuted }}>{item.company}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* 教育背景 */}
+              <h3 style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: colors.textLight, marginBottom: '12px' }}>{t('about.educationTitle')}</h3>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {education.map((item, index) => (
+                  <motion.div 
+                    key={`edu-${index}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (workExperience.length + index) * 0.1, duration: 0.4 }}
+                    style={{ 
+                      padding: '12px 0', 
+                      borderBottom: index < education.length - 1 ? `1px solid ${colors.border}` : 'none',
+                      display: 'grid',
+                      gridTemplateColumns: '70px 1fr',
+                      gap: '12px',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: colors.textLight }}>{item.year}</div>
+                    <div>
+                      <div style={{ fontSize: '0.9rem', fontWeight: '500', color: colors.text, marginBottom: '2px' }}>{item.degree}</div>
+                      <div style={{ fontSize: '0.75rem', color: colors.textMuted }}>{item.school}</div>
                     </div>
                   </motion.div>
                 ))}
@@ -572,11 +765,36 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
               <a href="mailto:tian_yangmin@163.com" style={{ 
                 padding: '12px', background: colors.bgAlt, borderRadius: '10px', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', 
-                textDecoration: 'none', color: colors.text, marginBottom: '16px'
+                textDecoration: 'none', color: colors.text, marginBottom: '10px'
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13 2 6"/></svg>
                 <span style={{ fontSize: '0.9rem' }}>tian_yangmin@163.com</span>
               </a>
+
+              {/* 微信二维码按钮 */}
+              <motion.button 
+                onClick={() => setWechatModalOpen(true)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ 
+                  width: '100%',
+                  padding: '12px', 
+                  background: colors.bgAlt, 
+                  borderRadius: '10px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  gap: '10px', 
+                  color: colors.text, 
+                  marginBottom: '16px',
+                  border: `1px solid ${colors.border}`,
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill={colors.textMuted}><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg>
+                {t('home.wechatContact')}
+              </motion.button>
 
               <div style={{ padding: '18px', background: colors.cardBg, borderRadius: '14px', border: `1px solid ${colors.border}` }}>
                 {formStatus === 'success' ? (
@@ -682,6 +900,12 @@ const MobileAbout = ({ t, colors, capabilities, journey, copiedId, copy, formSta
           </span>
         </div>
       </div>
+      
+      {/* 微信二维码弹窗 */}
+      <WechatModal 
+        isOpen={wechatModalOpen} 
+        onClose={() => setWechatModalOpen(false)} 
+      />
     </div>
   );
 };

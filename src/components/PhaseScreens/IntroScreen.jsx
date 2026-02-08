@@ -245,62 +245,66 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
       transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
     }}
   >
-    {/* Phase Label */}
+    {/* Phase Label - 带截断线样式 */}
     <div style={{
-      fontSize: '0.85rem',
-      textTransform: 'uppercase',
-      letterSpacing: '4px',
-      marginBottom: '24px',
-      color: '#fff',
-      opacity: 0.5,
-      fontWeight: '500',
-      fontFamily: 'var(--font-sans)'
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '20px',
+      marginBottom: '40px',
     }}>
-      Phase {phaseNumber}
+      <div style={{
+        width: '60px',
+        height: '1px',
+        background: 'rgba(255,255,255,0.3)',
+      }} />
+      <span style={{
+        fontSize: '0.9rem',
+        letterSpacing: '0.3em',
+        color: '#fff',
+        opacity: 0.6,
+        fontWeight: '500',
+        fontFamily: 'var(--font-sans)',
+      }}>
+        阶段 {phaseNumber}
+      </span>
+      <div style={{
+        width: '60px',
+        height: '1px',
+        background: 'rgba(255,255,255,0.3)',
+      }} />
     </div>
 
-    {/* English Title */}
+    {/* Chinese Title - 作为主标题 */}
     <h1 style={{
       fontFamily: 'var(--font-serif)',
-      fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+      fontSize: 'clamp(2.8rem, 7vw, 5rem)',
       fontWeight: '400',
-      lineHeight: 1.1,
-      marginBottom: '16px',
-      letterSpacing: '-0.02em',
+      lineHeight: 1.2,
+      marginBottom: '48px',
+      letterSpacing: '0.1em',
       color: '#fff'
     }}>
-      {titleEn}
-    </h1>
-
-    {/* Chinese Title */}
-    <div style={{
-      fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
-      color: '#fff',
-      opacity: 0.9,
-      marginBottom: '48px',
-      fontWeight: '300',
-      letterSpacing: '0.2em',
-      fontFamily: 'var(--font-sans)'
-    }}>
       {titleZh}
-    </div>
+    </h1>
 
     <div style={{
       width: '1px',
-      height: '40px',
+      height: '48px',
       background: 'rgba(255,255,255,0.3)',
-      margin: '0 auto 40px auto'
+      margin: '0 auto 48px auto'
     }} />
 
     <p style={{
-      fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-      lineHeight: 1.8,
-      maxWidth: '640px',
+      fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
+      lineHeight: 1.9,
+      maxWidth: '680px',
       margin: '0 auto',
       color: '#fff',
-      opacity: 0.8,
+      opacity: 0.75,
       fontWeight: '300',
-      fontFamily: 'var(--font-sans)'
+      fontFamily: 'var(--font-sans)',
+      letterSpacing: '0.02em'
     }}>
       {content}
     </p>

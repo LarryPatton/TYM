@@ -1,23 +1,159 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../hooks/useTheme';
 import { mapProgressWithEasing } from '../utils/easing';
 
 /**
- * 加载屏幕组件 - 全屏遮罩 + 中心进度条
- * 符合网站视觉风格，支持亮色/暗色主题切换
+ * 方形边框描边进度指示器组件
+ * 从左上角顺时针描边，进度 = 描边长度 / 周长
+ */
+const SquareProgressBorder = ({ progress, size = 160, strokeWidth = 2 }) => {
+  // 计算周长（四边）
+  const perimeter = size * 4;
+  // 描边长度
+  const strokeLength = (progress / 100) * perimeter;
+  
+  // SVG 路径：从左上角开始，顺时针绘制方形
+  // M 0,0 → L size,0 → L size,size → L 0,size → Z
+  const pathD = `M ${strokeWidth/2},${strokeWidth/2} 
+                 L ${size - strokeWidth/2},${strokeWidth/2} 
+                 L ${size - strokeWidth/2},${size - strokeWidth/2} 
+                 L ${strokeWidth/2},${size - strokeWidth/2} 
+                 Z`;
+  
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        pointerEvents: 'none',
+      }}
+    >
+      {/* 背景边框（浅色） */}
+      <path
+        d={pathD}
+        fill="none"
+        stroke="var(--color-border)"
+        strokeWidth={strokeWidth}
+        strokeLinecap="square"
+      />
+      {/* 进度边框（描边动画） */}
+      <motion.path
+        d={pathD}
+        fill="none"
+        stroke="var(--color-text-main)"
+        strokeWidth={strokeWidth}
+        strokeLinecap="square"
+        strokeDasharray={perimeter}
+        strokeDashoffset={perimeter - strokeLength}
+        initial={{ strokeDashoffset: perimeter }}
+        animate={{ strokeDashoffset: perimeter - strokeLength }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      />
+    </svg>
+  );
+};
+
+/**
+ * Logo 动画组件（复用导航栏逻辑）
+ * 底层旋转 + 顶层交替
+ */
+const AnimatedLogo = ({ size = 60 }) => {
+  const { theme } = useTheme();
+  const [logoTopIndex, setLogoTopIndex] = useState(0);
+  const [logoRotation, setLogoRotation] = useState(0);
+  
+  // Logo 动画定时器
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLogoTopIndex(prev => (prev === 0 ? 1 : 0));
+      setLogoRotation(prev => prev - 90);
+    }, 2000); // 加载页更快切换
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  // 根据主题选择素材
+  const logoPrefix = theme === 'dark' ? 'logo_black' : 'logo_white';
+  
+  return (
+    <div style={{ 
+      position: 'relative',
+      width: size,
+      height: size,
+    }}>
+      {/* 底层图片 - 逆时针旋转 */}
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_bottom.png`}
+        alt="Logo" 
+        animate={{ rotate: logoRotation }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ 
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+          display: 'block',
+        }} 
+      />
+      {/* 顶层图片1 - 交替显示 */}
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_top.png`}
+        alt="" 
+        initial={{ opacity: 1, scale: 1 }}
+        animate={{ 
+          opacity: logoTopIndex === 0 ? 1 : 0,
+          scale: logoTopIndex === 0 ? 1 : 0.3,
+        }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }} 
+      />
+      {/* 顶层图片2 - 交替显示 */}
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_top2.png`}
+        alt="" 
+        initial={{ opacity: 0, scale: 0.3 }}
+        animate={{ 
+          opacity: logoTopIndex === 1 ? 1 : 0,
+          scale: logoTopIndex === 1 ? 1 : 0.3,
+        }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }} 
+      />
+    </div>
+  );
+};
+
+/**
+ * 加载屏幕组件 - 全屏遮罩 + Logo + 方形边框进度
  * 
- * 乐观加载策略：
- * - 即使真实进度为 0%，也会缓慢推进显示进度（1, 2, 3...）
- * - 乐观进度有上限（默认 15%），避免用户等待时看到虚假的高进度
- * - 当真实进度追上来后，进度条会快速推进
- * 
- * @param {boolean} isVisible - 是否显示加载屏幕（由 !canEnter 控制）
+ * @param {boolean} isVisible - 是否显示加载屏幕
  * @param {number} realProgress - 真实加载进度（0-100）
  * @param {number} loadedCount - 已加载数量
  * @param {number} totalCount - 总数量
  * @param {string} phaseNumber - Phase 编号（如 "05"）
- * @param {number} threshold - 映射阈值（默认 50，即真实 50% 映射到显示 100%）
+ * @param {number} threshold - 映射阈值（默认 50）
+ * @param {number} minDuration - 最小动画时长（毫秒）
+ * @param {function} onAnimationComplete - 动画完成回调
  */
 const LoadingScreen = ({ 
   isVisible, 
@@ -26,8 +162,8 @@ const LoadingScreen = ({
   totalCount = 0,
   phaseNumber = '',
   threshold = 50,
-  minDuration = 2500, // 最小动画时长（毫秒）
-  onAnimationComplete // 动画完成回调
+  minDuration = 2500,
+  onAnimationComplete
 }) => {
   const { t } = useTranslation();
   const [displayProgress, setDisplayProgress] = useState(0);
@@ -36,11 +172,11 @@ const LoadingScreen = ({
   const lastRealProgressRef = useRef(0);
   
   // 乐观加载配置
-  const OPTIMISTIC_MAX = 15; // 乐观进度上限（%）
-  const OPTIMISTIC_SPEED = 0.3; // 乐观进度增长速度（每50ms增加的%）
-  const CATCH_UP_SPEED = 3; // 真实进度追上后的加速速度
+  const OPTIMISTIC_MAX = 15;
+  const OPTIMISTIC_SPEED = 0.3;
+  const CATCH_UP_SPEED = 3;
   
-  // 独立的进度条动画控制器
+  // 进度条动画控制器
   useEffect(() => {
     if (!isVisible) {
       setDisplayProgress(0);
@@ -50,7 +186,6 @@ const LoadingScreen = ({
       return;
     }
     
-    // 记录开始时间
     if (startTime === null) {
       setStartTime(Date.now());
     }
@@ -59,58 +194,49 @@ const LoadingScreen = ({
       const now = Date.now();
       const elapsed = now - (startTime || now);
       
-      // 计算基于时间的进度（确保至少 minDuration 才能到 100%）
       const timeBasedProgress = Math.min((elapsed / minDuration) * 100, 100);
-      
-      // 计算基于真实加载的进度（映射 0-50% → 0-100%）
       const mappedRealProgress = mapProgressWithEasing(realProgress, threshold);
-      
-      // 检测真实进度是否有增长
       const realProgressIncreased = realProgress > lastRealProgressRef.current;
       lastRealProgressRef.current = realProgress;
       
       setOptimisticProgress(prev => {
-        // 如果真实进度已经开始增长，乐观进度不再单独增长
         if (realProgress > 5) {
-          return prev; // 冻结乐观进度
+          return prev;
         }
-        // 否则，缓慢增长乐观进度，但不超过上限
         if (prev < OPTIMISTIC_MAX) {
           return Math.min(prev + OPTIMISTIC_SPEED, OPTIMISTIC_MAX);
         }
         return prev;
       });
       
-      // 计算最终目标进度
-      // 取 乐观进度 和 真实进度 的较大值
       const effectiveProgress = Math.max(optimisticProgress, mappedRealProgress);
-      
-      // 结合时间限制
       const targetProgress = Math.min(timeBasedProgress, effectiveProgress);
       
       setDisplayProgress(prev => {
-        // 如果真实进度大于当前显示，快速追赶
         if (mappedRealProgress > prev && realProgressIncreased) {
           return Math.min(prev + CATCH_UP_SPEED, mappedRealProgress);
         }
-        // 平滑增长到目标
         if (targetProgress > prev) {
           return Math.min(prev + 1, targetProgress);
         }
         return prev;
       });
       
-      // 当显示进度到达 100% 时，触发完成回调
       if (displayProgress >= 100 && realProgress >= threshold) {
         if (onAnimationComplete) {
           onAnimationComplete();
         }
         clearInterval(animationInterval);
       }
-    }, 50); // 每 50ms 更新一次
+    }, 50);
     
     return () => clearInterval(animationInterval);
   }, [isVisible, realProgress, threshold, startTime, minDuration, displayProgress, optimisticProgress, onAnimationComplete]);
+
+  // 配置
+  const LOGO_SIZE = 60; // Logo 尺寸
+  const BORDER_SIZE = 140; // 边框尺寸（Logo + 内间距）
+  const BORDER_STROKE = 1.5; // 边框粗细
 
   return (
     <AnimatePresence>
@@ -123,7 +249,7 @@ const LoadingScreen = ({
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 999, // 低于导航栏的 1000，让导航栏始终可见
+            zIndex: 999,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -141,10 +267,8 @@ const LoadingScreen = ({
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 'var(--space-xl)',
+              gap: 'var(--space-lg)',
               padding: 'var(--space-2xl)',
-              maxWidth: '480px',
-              width: '100%',
             }}
           >
             {/* Phase 标题（可选） */}
@@ -166,77 +290,70 @@ const LoadingScreen = ({
               </motion.div>
             )}
             
-            {/* 进度条容器 */}
-            <div style={{ width: '100%' }}>
-              {/* 进度条背景 */}
-              <div
-                style={{
-                  width: '100%',
-                  height: '4px',
-                  background: 'var(--color-border)',
-                  borderRadius: 'var(--radius-full)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}
-              >
-                {/* 进度条填充 */}
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${displayProgress}%` }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                  style={{
-                    height: '100%',
-                    background: 'var(--color-text-main)',
-                    borderRadius: 'var(--radius-full)',
-                    position: 'relative',
-                  }}
-                >
-                  {/* 进度条发光效果（暗色模式更明显） */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: 0,
-                      width: '50%',
-                      height: '100%',
-                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3))',
-                      animation: 'shimmer 2s infinite',
-                    }}
-                  />
-                </motion.div>
-              </div>
+            {/* Logo + 方形边框进度容器 */}
+            <div style={{
+              position: 'relative',
+              width: BORDER_SIZE,
+              height: BORDER_SIZE,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              {/* 方形边框进度 */}
+              <SquareProgressBorder 
+                progress={displayProgress} 
+                size={BORDER_SIZE} 
+                strokeWidth={BORDER_STROKE}
+              />
+              
+              {/* Logo 动画 */}
+              <AnimatedLogo size={LOGO_SIZE} />
             </div>
             
-            {/* 进度信息 */}
+            {/* 品牌名 */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
               style={{
+                fontFamily: "'Afacad', var(--font-sans)",
+                fontWeight: '600',
+                fontSize: '1.5rem',
+                letterSpacing: '0.05em',
+                color: 'var(--color-text-main)',
+                marginTop: '-8px', // 稍微靠近边框
+              }}
+            >
+              LUMI TIAN
+            </motion.div>
+            
+            {/* 进度信息 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 'var(--space-sm)',
+                gap: 'var(--space-xs)',
+                marginTop: 'var(--space-md)',
               }}
             >
-              {/* 百分比 - 显示映射后的进度 */}
+              {/* 百分比 */}
               <div
                 style={{
-                  fontSize: 'var(--text-h3)',
-                  fontWeight: '700',
+                  fontSize: 'var(--text-lg)',
+                  fontWeight: '600',
                   fontFamily: 'var(--font-sans)',
                   color: 'var(--color-text-main)',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1,
+                  letterSpacing: '0.05em',
                 }}
               >
                 {Math.round(displayProgress)}%
               </div>
               
-              {/* 提示文本 - 根据进度变化 */}
+              {/* 提示文本 */}
               <div
                 style={{
                   fontSize: 'var(--text-sm)',
@@ -251,18 +368,6 @@ const LoadingScreen = ({
               </div>
             </motion.div>
           </motion.div>
-          
-          {/* CSS 动画定义 */}
-          <style>{`
-            @keyframes shimmer {
-              0% {
-                transform: translateX(-100%);
-              }
-              100% {
-                transform: translateX(200%);
-              }
-            }
-          `}</style>
         </motion.div>
       )}
     </AnimatePresence>

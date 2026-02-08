@@ -8,6 +8,8 @@
     "sectionContact": "联系",
     "expertiseTitle": "专业能力",
     "journeyTitle": "职业历程",
+    "workTitle": "工作经历",
+    "educationTitle": "教育背景",
     "contactTitle": "联系方式",
     "emailLabel": "邮箱",
     "wechatLabel": "微信",
@@ -72,7 +74,7 @@
         ]
       }
     },
-    "journey": {
+    "work": {
       "item1": {
         "year": "2024 – 至今",
         "role": "高级品牌设计师",
@@ -87,11 +89,18 @@
         "year": "2022 – 2023",
         "role": "美术教师",
         "company": "呼和浩特第二中学初中部"
+      }
+    },
+    "education": {
+      "item1": {
+        "year": "2023 – 至今",
+        "degree": "美术学硕士",
+        "school": "西南大学美术学院"
       },
-      "item4": {
+      "item2": {
         "year": "2018 – 2022",
-        "role": "艺术学学士",
-        "company": "西南大学美术学院"
+        "degree": "艺术学学士",
+        "school": "西南大学美术学院"
       }
     }
   },

@@ -325,9 +325,18 @@ const Layout = () => {
   
   // 判断是否在首页
   const isHomePage = location.pathname === '/';
+  // 判断是否在 About 页面
+  const isAboutPage = location.pathname === '/about';
   
   // 监听滚动，判断是否在 Hero 区域或 Contact 区域
   useEffect(() => {
+    // About 页面不需要监听滚动，始终透明
+    if (isAboutPage) {
+      setIsInHeroArea(false);
+      setIsInContactArea(false);
+      return;
+    }
+    
     if (!isHomePage) {
       setIsInHeroArea(false);
       setIsInContactArea(false);
@@ -355,10 +364,15 @@ const Layout = () => {
     handleScroll(); // 初始检测
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
+  }, [isHomePage, isAboutPage]);
   
-  // 导航栏是否透明（只在首页 Hero 区域或 Contact 区域，且是亮色模式）
-  const isNavTransparent = isHomePage && (isInHeroArea || isInContactArea) && theme === 'light';
+  // 导航栏是否透明
+  // - 首页 Hero 区域或 Contact 区域（亮色模式）
+  // - About 页面（亮色模式）
+  const isNavTransparent = theme === 'light' && (
+    (isHomePage && (isInHeroArea || isInContactArea)) || 
+    isAboutPage
+  );
   
   const isActive = (path) => {
     return location.pathname === path ? 'var(--color-text-main)' : 'var(--color-text-muted)';

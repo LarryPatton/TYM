@@ -1676,6 +1676,11 @@ const PhaseDetail = () => {
                   <ProductEndHint 
                     currentProduct={currentProduct}
                     availableProducts={phase.products}
+                    productImages={{
+                      cube: '/covers/products/cube.png',
+                      'nicotine-sugar': '/covers/products/oi.png',
+                      motor: '/covers/products/motor.png'
+                    }}
                     onSwitchProduct={handleProductChange}
                   />
                 )}

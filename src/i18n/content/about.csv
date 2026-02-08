@@ -7,6 +7,8 @@ about.sectionJourney,旅程,Journey
 about.sectionContact,联系,Contact
 about.expertiseTitle,专业能力,Expertise
 about.journeyTitle,职业历程,Journey
+about.workTitle,工作经历,Work Experience
+about.educationTitle,教育背景,Education
 about.contactTitle,联系方式,Contact
 about.emailLabel,邮箱,Email
 about.wechatLabel,微信,WeChat
@@ -55,15 +57,18 @@ about.expertise.development.items[0],AI工具流程化应用,AI Tools Workflow A
 about.expertise.development.items[1],模型与素材处理能力,Model & Asset Processing
 about.expertise.development.items[2],多工具协同工作应用,Multi-tool Collaboration
 about.expertise.development.items[3],复杂需求视觉实现能力,Complex Visual Implementation
-about.journey.item1.year,2024 – 至今,2024 - Present
-about.journey.item1.role,高级品牌设计师,Senior Brand Designer
-about.journey.item1.company,深圳市摩赞科技有限公司,Mozan Technology Co. Ltd.
-about.journey.item2.year,2023 – 2024,2023 - 2024
-about.journey.item2.role,视觉设计师,Visual Designer
-about.journey.item2.company,深圳市合天源有限公司,Hetianyuan Co. Ltd.
-about.journey.item3.year,2022 – 2023,2022 - 2023
-about.journey.item3.role,美术教师,Art Teacher
-about.journey.item3.company,呼和浩特第二中学初中部,Hohhot No.2 Middle School
-about.journey.item4.year,2018 – 2022,2018 - 2022
-about.journey.item4.role,艺术学学士,Bachelor of Arts
-about.journey.item4.company,西南大学美术学院,Southwest University School of Fine Arts
+about.work.item1.year,2024 – 至今,2024 - Present
+about.work.item1.role,高级品牌设计师,Senior Brand Designer
+about.work.item1.company,深圳市摩赞科技有限公司,Mozan Technology Co. Ltd.
+about.work.item2.year,2023 – 2024,2023 - 2024
+about.work.item2.role,视觉设计师,Visual Designer
+about.work.item2.company,深圳市合天源有限公司,Hetianyuan Co. Ltd.
+about.work.item3.year,2022 – 2023,2022 - 2023
+about.work.item3.role,美术教师,Art Teacher
+about.work.item3.company,呼和浩特第二中学初中部,Hohhot No.2 Middle School
+about.education.item1.year,2023 – 至今,2023 - Present
+about.education.item1.degree,美术学硕士,Master of Fine Arts
+about.education.item1.school,西南大学美术学院,Southwest University School of Fine Arts
+about.education.item2.year,2018 – 2022,2018 - 2022
+about.education.item2.degree,艺术学学士,Bachelor of Arts
+about.education.item2.school,西南大学美术学院,Southwest University School of Fine Arts

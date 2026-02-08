@@ -8,6 +8,8 @@
     "sectionContact": "Contact",
     "expertiseTitle": "Expertise",
     "journeyTitle": "Journey",
+    "workTitle": "Work Experience",
+    "educationTitle": "Education",
     "contactTitle": "Contact",
     "emailLabel": "Email",
     "wechatLabel": "WeChat",
@@ -72,7 +74,7 @@
         ]
       }
     },
-    "journey": {
+    "work": {
       "item1": {
         "year": "2024 - Present",
         "role": "Senior Brand Designer",
@@ -87,11 +89,18 @@
         "year": "2022 - 2023",
         "role": "Art Teacher",
         "company": "Hohhot No.2 Middle School"
+      }
+    },
+    "education": {
+      "item1": {
+        "year": "2023 - Present",
+        "degree": "Master of Fine Arts",
+        "school": "Southwest University School of Fine Arts"
       },
-      "item4": {
+      "item2": {
         "year": "2018 - 2022",
-        "role": "Bachelor of Arts",
-        "company": "Southwest University School of Fine Arts"
+        "degree": "Bachelor of Arts",
+        "school": "Southwest University School of Fine Arts"
       }
     }
   },
