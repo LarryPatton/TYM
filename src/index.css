@@ -72,11 +72,12 @@
        FROSTED BACKGROUND TOKENS - 磨砂背景
        ---------------------------------------- */
     --frosted-bg: #f5f5f5;
-    --frosted-blob-1: rgba(180, 180, 180, 0.6);
-    --frosted-blob-2: rgba(160, 160, 160, 0.5);
-    --frosted-blob-3: rgba(200, 200, 200, 0.55);
-    --frosted-blob-4: rgba(170, 170, 170, 0.45);
-    --frosted-blob-5: rgba(190, 190, 190, 0.5);
+    /* 亮色模式使用 #B5D3EB 浅蓝色系光斑 */
+    --frosted-blob-1: rgba(181, 211, 235, 0.7);
+    --frosted-blob-2: rgba(161, 201, 230, 0.6);
+    --frosted-blob-3: rgba(191, 221, 240, 0.65);
+    --frosted-blob-4: rgba(171, 206, 232, 0.55);
+    --frosted-blob-5: rgba(185, 215, 238, 0.6);
     --frosted-grain-opacity-1: 0.12;
     --frosted-grain-opacity-2: 0.1;
     --frosted-grain-opacity-3: 0.15;
@@ -224,12 +225,12 @@
     --color-dark-border: #2a2a2a;
     
     /* 磨砂背景 - 暗色主题 */
-    --frosted-bg: #0a0a0a;
-    --frosted-blob-1: rgba(60, 60, 60, 0.5);
-    --frosted-blob-2: rgba(80, 80, 80, 0.4);
-    --frosted-blob-3: rgba(50, 50, 50, 0.45);
-    --frosted-blob-4: rgba(70, 70, 70, 0.35);
-    --frosted-blob-5: rgba(40, 40, 40, 0.4);
+    --frosted-bg: #050505;
+    --frosted-blob-1: rgba(35, 35, 35, 0.6);
+    --frosted-blob-2: rgba(50, 50, 50, 0.5);
+    --frosted-blob-3: rgba(25, 25, 25, 0.55);
+    --frosted-blob-4: rgba(45, 45, 45, 0.45);
+    --frosted-blob-5: rgba(20, 20, 20, 0.5);
     --frosted-grain-opacity-1: 0.15;
     --frosted-grain-opacity-2: 0.12;
     --frosted-grain-opacity-3: 0.25;

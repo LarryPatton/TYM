@@ -368,6 +368,14 @@ const Work = () => {
     }
   }, [progress]);
   
+  // 🚀 缓存命中时直接跳过加载页（不等待动画）
+  useEffect(() => {
+    if (fromCache && !canEnter) {
+      console.log('[Work] 🚀 Cache hit! Skipping loading screen.');
+      setCanEnter(true);
+    }
+  }, [fromCache, canEnter]);
+  
   // 调试输出
   useEffect(() => {
     console.log('[Work] Loading state:', { 
@@ -820,7 +828,7 @@ const Work = () => {
                 inset: 0,
                 background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
                 pointerEvents: 'none',
-                zIndex: 1,
+                zIndex: 10, // 提高 z-index，确保在斜切图片之上
               }} />
             )}
             
@@ -828,12 +836,12 @@ const Work = () => {
             <div style={{ 
               maxWidth: '600px', 
               position: 'relative', 
-              zIndex: 2,
+              zIndex: 20, // 提高 z-index，确保在遮罩和图片之上
             }}>
               {/* 标签 */}
               <AnimatedLabel text={t('work.featuredCaseStudy')} isPrimary={true} />
               
-              {/* 标题 */}
+              {/* 标题 - 限制1行，防止英文换行过多 */}
               <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
                 <AnimatedTitle 
                   text={t('work.featured.title')}
@@ -841,12 +849,13 @@ const Work = () => {
                     fontFamily: 'var(--font-serif)', 
                     fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
                     lineHeight: 1.1,
+                    whiteSpace: 'nowrap', // 禁止换行，确保单行
                     ...styles.title
                   }}
                 />
               </motion.div>
               
-              {/* 描述 */}
+              {/* 描述 - 自然换行，空间足够显示完整内容 */}
               <motion.p 
                 variants={descReveal}
                 style={{ 

@@ -13,7 +13,8 @@ const AutoSequencePopup = ({
   interval = 300,
   duration = 0.6,
   bgColor = '#000',
-  dualMode = false
+  dualMode = false,
+  caption = ''
 }) => {
   // 使用数组存储可见索引，避免 Set 的引用问题
   const [visibleCount, setVisibleCount] = useState(0);
@@ -185,6 +186,9 @@ const AutoSequencePopup = ({
     );
   }
 
+  // 字幕条是否显示：所有图片弹出完毕后淡入
+  const showCaption = caption && visibleCount >= images.length && images.length > 0;
+
   // 单区域模式
   return (
     <div 
@@ -226,6 +230,35 @@ const AutoSequencePopup = ({
             </div>
           ))}
         </div>
+
+        {/* 底部毛玻璃字幕条 */}
+        {caption && (
+          <div style={{
+            position: 'absolute',
+            bottom: '32px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            maxWidth: '720px',
+            width: 'auto',
+            padding: '10px 24px',
+            background: 'rgba(255, 255, 255, 0.06)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            borderRadius: '8px',
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: '0.82rem',
+            lineHeight: '1.6',
+            textAlign: 'center',
+            letterSpacing: '0.02em',
+            zIndex: 100,
+            opacity: showCaption ? 1 : 0,
+            transition: 'opacity 0.8s ease',
+            pointerEvents: 'none'
+          }}>
+            {caption}
+          </div>
+        )}
       </div>
     </div>
   );

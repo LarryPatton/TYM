@@ -153,9 +153,9 @@
     },
     "products": {
       "label": "Products",
-      "cube": "Cube Product",
-      "nicotine-sugar": "Nicotine Sugar",
-      "motor": "Motor Product"
+      "cube": "cube",
+      "nicotine-sugar": "oi",
+      "motor": "motor"
     },
     "productEndHint": {
       "currentProductEnd": "{{productName}} showcase completed",
@@ -516,19 +516,71 @@
         }
       },
       "phase-06": {
-        "title": "Copywriting Visualization",
-        "desc": "Presenting copywriting content in a visualized way, exploring the combination of text and visuals.",
+        "title": "Text Visualization",
+        "desc": "Transforming brand narratives into reusable visual modules for channel materials, sales demos, and client communication.",
         "screens": {
           "intro": {
-            "content": "Making copywriting content more expressive through visual design, establishing organic connection between text and imagery."
+            "content": "Transforming brand narratives into reusable visual modules for channel materials, sales demos, and client communication."
           },
           "folder-01": {
-            "title": "Series 01",
-            "content": "First set of copywriting visualization, exploring visual expression of text."
+            "content": "Using coordinate positioning modules to compare solution differences — channels and clients instantly see 'why choose us.'"
           },
           "folder-02": {
-            "title": "Series 02",
-            "content": "Second set of copywriting visualization, deepening the integration of text and design."
+            "content": "Using radar charts to quantify experience dimensions like flavor, cleanliness, feel, power, draw, and style — enabling channels to compare multiple models at a glance."
+          },
+          "folder-03": {
+            "content": "Using 'device + dual pod solution' combo modules to package different use cases and specs into clear layouts, ready for channel presentation and display."
+          },
+          "folder-04": {
+            "content": "Using a modular info wall of feature highlights, structural selling points, ecosystem/community, and color SKUs — packaging the full product picture into a one-page channel brief."
+          },
+          "folder-05": {
+            "content": "Using a 'three-mode' parameter layering module to translate feel differences into clear options and benefits — letting clients choose by preference and channels explain by script."
+          },
+          "folder-06": {
+            "content": "Using a 'normal/silent' state-switching module to present usage scenarios (visible feedback vs. low disturbance) as instantly selectable selling points for scenario-based recommendations."
+          },
+          "folder-07": {
+            "content": "Using 'core selling point cards + 3-step usage flow' modular layout to explain functional candy differences and onboarding in one screen — easy for channel training and instant customer understanding."
+          },
+          "folder-08": {
+            "content": "Using a 'real user pain-point evidence wall' to condense frequent complaints about old categories into one-screen consensus, laying clear 'replacement reasons' for channels."
+          },
+          "folder-09": {
+            "content": "Using a 'Drops vs Pouches' comparison table module to standardize differences in usage, convenience, flavor, and social experience — instant understanding for clients, instant selling for channels."
+          },
+          "folder-10": {
+            "content": "Using 'high-frequency persona scenario cards' to package target users and use cases into deployable, trainable materials — helping channels quickly identify key audiences."
+          },
+          "folder-11": {
+            "content": "Using a 'consumption evolution timeline' module to connect global and local category migration paths — helping channels quickly grasp market education context and why new products are inevitable."
+          },
+          "folder-12": {
+            "content": "Using a 'trend alignment + product positioning' module to place Oi! within the next-gen evolution narrative — one screen explaining 'why now, why this.'"
+          },
+          "folder-13": {
+            "content": "Using 'demographic data rings + key mindset profile cards' to present target market age groups and purchase motivations in one screen — helping channels quickly lock in key audiences and talking points."
+          },
+          "folder-14": {
+            "content": "Using a 'product evolution ladder' comparison to explain experience upgrades and channel profit logic tier by tier — helping channels understand the shift from basic to touchscreen ecosystem."
+          },
+          "folder-15": {
+            "content": "Using 'core features + three theme showcases' modular layout to package touchscreen value (clear display, personalization, real-time info) into ready-to-use selling materials."
+          },
+          "folder-16": {
+            "content": "Using 'three-mode difference cards' to turn draw intensity and flavor experience choices into instantly selectable purchase scripts for quick channel recommendations."
+          },
+          "folder-17": {
+            "content": "Using 'audience manifesto posters + app community scenes' modular narrative to bind 'next-gen users' with brand social value in one screen — helping channels explain join reasons and retention."
+          },
+          "folder-18": {
+            "content": "Using 'app key path demos' modular pages to visually package registration, discovery, following, and friending flows — supporting channel training and quick customer onboarding."
+          },
+          "folder-19": {
+            "content": "Using 'near-field connection (NFC) scenario' modular selling points to present offline social triggers and instant interaction as instantly understandable functional value for in-store experience guidance."
+          },
+          "folder-20": {
+            "content": "Using 'membership benefits + point tasks + reward drops' modular benefits wall to visually package community retention and repurchase mechanisms into a one-screen benefits narrative — helping channels directly explain 'what you get by joining.'"
           }
         }
       }

@@ -434,26 +434,40 @@ const GalleryModule = () => {
     >
       {/* Header Section */}
       <header style={styles.header}>
-        {/* 面包屑导航 - 紧凑文本模式 */}
+        {/* 面包屑导航 - 按钮式设计（与 CaseIndex、GalleryHome 统一） */}
         <nav style={{
           marginBottom: isMobile ? '24px' : '40px',
-          fontSize: isMobile ? '0.75rem' : '0.9rem',
-          lineHeight: 1.4,
+          display: isMobile ? 'none' : 'flex', // 移动端隐藏
         }}>
-          <Link to="/" style={{
-            color: isDark ? '#666' : '#888',
-            textDecoration: 'none',
-          }}>{t('nav.home')}</Link>
-          <span style={{ color: isDark ? '#444' : '#ccc' }}> / </span>
-          <Link to="/gallery" style={{
-            color: isDark ? '#666' : '#888',
-            textDecoration: 'none',
-          }}>{t('nav.gallery')}</Link>
-          <span style={{ color: isDark ? '#444' : '#ccc' }}> / </span>
-          <span style={{
-            color: isDark ? '#aaa' : '#555',
-            fontWeight: '500',
-          }}>{moduleData.title}</span>
+          <Link 
+            to="/gallery/list" 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              textDecoration: 'none',
+              fontSize: '0.85rem',
+              color: isDark ? '#fff' : 'var(--color-text-main)',
+              background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+            }}
+          >
+            <span>←</span>
+            <span style={{ fontWeight: 500 }}>{t('nav.gallery')}</span>
+            <span style={{ opacity: 0.4, margin: '0 2px' }}>|</span>
+            <span style={{ opacity: 0.7 }}>{moduleData.title}</span>
+          </Link>
         </nav>
         
         <motion.div variants={itemVariants} style={styles.moduleNumber}>

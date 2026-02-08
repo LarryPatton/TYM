@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -342,6 +342,14 @@ const Gallery = () => {
       setCanEnter(true);
     }
   }, [progress]);
+  
+  // 🚀 缓存命中时直接跳过加载页（不等待动画）
+  useEffect(() => {
+    if (fromCache && !canEnter) {
+      console.log('[Gallery] 🚀 Cache hit! Skipping loading screen.');
+      setCanEnter(true);
+    }
+  }, [fromCache, canEnter]);
 
   // ========== 动画变体定义 ==========
   
@@ -689,7 +697,7 @@ const Gallery = () => {
                       inset: 0,
                       background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
                       pointerEvents: 'none',
-                      zIndex: 1,
+                      zIndex: 10, // 提高 z-index，确保在斜切图片之上
                     }} />
                   )}
                   
@@ -697,7 +705,7 @@ const Gallery = () => {
                   <div style={{ 
                     maxWidth: '600px', 
                     position: 'relative', 
-                    zIndex: 2,
+                    zIndex: 20, // 提高 z-index，确保在遮罩和图片之上
                   }}>
                     {/* 标签 - 左侧滑入 */}
                     <AnimatedLabel text={t('gallery.label')} isPrimary={true} />

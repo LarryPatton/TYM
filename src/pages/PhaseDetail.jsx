@@ -312,6 +312,14 @@ const PhaseDetail = () => {
     }
   }, [progress]);
   
+  // 🚀 缓存命中时直接跳过加载页（不等待动画）
+  useEffect(() => {
+    if (fromCache && !canEnter) {
+      console.log(`[PhaseDetail] 🚀 Cache hit for phase-${phaseId}! Skipping loading screen.`);
+      setCanEnter(true);
+    }
+  }, [fromCache, canEnter, phaseId]);
+  
   // 当 phaseId 变化时，重置预加载标志和进入状态
   useEffect(() => {
     setHasPreloaded(false);
@@ -1078,6 +1086,7 @@ const PhaseDetail = () => {
             duration={screenConfig.duration || 0.6}
             bgColor={screenConfig.bgColor || phaseBgColor || '#000'}
             dualMode={screenConfig.dualMode || false} // 双区域模式
+            caption={screenData?.content || ''}
           />
         );
 
@@ -1371,7 +1380,7 @@ const PhaseDetail = () => {
               <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
               {/* 当前屏幕标题 */}
               {(() => {
-                const currentScreenConfig = phase.screens?.[currentScreen - 1];
+                const currentScreenConfig = filteredScreens?.[currentScreen - 1];
                 const screenTitle = currentScreenConfig?.categoryLabel;
                 if (screenTitle) {
                   return (
@@ -1562,8 +1571,9 @@ const PhaseDetail = () => {
           totalScreens={filteredScreens.length} 
         />
 
-        {/* 布局调试面板 - 仅开发环境显示 */}
-        {isDev && !isMobile && (
+        {/* 布局调试面板 - 已禁用 */}
+        {/* 如需重新启用，将 false 改回 isDev && !isMobile */}
+        {false && (
           <LayoutDebugPanel
             currentScreenConfig={filteredScreens[currentScreen - 1]}
             phaseId={phase.id}

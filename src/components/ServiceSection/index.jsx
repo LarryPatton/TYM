@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { useScrollLock } from '../../contexts/ScrollLockContext';
 import { useTheme } from '../../hooks/useTheme';
 import ScrollIndicator from '../ScrollIndicator';
+import FrostedDotsBackground from '../FrostedDotsBackground';
 
 /**
  * 服务区域主组件 - Sticky Scroll Design
@@ -150,8 +151,12 @@ const ServiceSection = ({
             padding: '0 clamp(40px, 6vw, 80px)',
             borderRight: `1px solid ${colors.border}`,
             position: 'relative',
+            overflow: 'hidden',
           }}
         >
+          {/* 光斑背景 */}
+          <FrostedDotsBackground speed={2} />
+          
           {/* 滚动进度条 */}
           <div style={{
             position: 'absolute',
@@ -160,6 +165,7 @@ const ServiceSection = ({
             width: '3px',
             height: '100%',
             background: colors.progressBg,
+            zIndex: 1,
           }}>
             <motion.div
               style={{
@@ -179,6 +185,7 @@ const ServiceSection = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{ position: 'relative', zIndex: 1 }}
             >
               {/* 序号 */}
               <div style={{ 
@@ -248,10 +255,10 @@ const ServiceSection = ({
                       key={tag} 
                       style={{ 
                         padding: '6px 14px', 
-                        border: `1px solid ${colors.tagBorder}`, 
+                        border: isDark ? `1px solid ${colors.tagBorder}` : '1px solid #111', // 白色模式使用黑色细线
                         borderRadius: 'var(--radius-full)', 
                         fontSize: '0.85rem', 
-                        color: colors.tagText 
+                        color: isDark ? colors.tagText : '#333', // 白色模式文字更深
                       }}
                     >
                       {tag}
@@ -271,6 +278,7 @@ const ServiceSection = ({
             display: 'flex',
             gap: '12px',
             alignItems: 'center',
+            zIndex: 1,
           }}>
             {services.map((_, index) => (
               <motion.div
@@ -289,13 +297,20 @@ const ServiceSection = ({
             ))}
           </div>
 
-          {/* 滚动提示 */}
-          <ScrollIndicator
-            variant="default"
-            position="bottom-right"
-            color={colors.textLight}
-            opacity={activeIndex < services.length - 1 ? 1 : 0}
-          />
+          {/* 滚动提示 - 固定在左侧面板的右下角 */}
+          <div style={{ 
+            position: 'absolute', 
+            bottom: 'clamp(30px, 5vh, 50px)',
+            right: 'clamp(40px, 6vw, 80px)',
+            zIndex: 1,
+          }}>
+            <ScrollIndicator
+              variant="default"
+              position="inline"
+              color={colors.textLight}
+              opacity={activeIndex < services.length - 1 ? 1 : 0}
+            />
+          </div>
         </div>
 
         {/* Right: Image Gallery - 扩大区域 */}
@@ -307,7 +322,7 @@ const ServiceSection = ({
             alignItems: 'center',
             justifyContent: 'center',
             padding: 'clamp(20px, 3vw, 40px)',
-            background: colors.bgSecondary,
+            background: isDark ? 'rgba(10, 10, 10, 0.5)' : 'rgba(238, 238, 238, 0.1)', // 50% 透明度
             position: 'relative',
           }}
         >
@@ -481,28 +496,6 @@ const ServiceSection = ({
           ))}
         </div>
 
-          {/* 服务编号标签 */}
-          <motion.div
-            key={`label-${activeIndex}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'absolute',
-              top: 'clamp(20px, 4vh, 40px)',
-              right: 'clamp(20px, 4vw, 40px)',
-              padding: '8px 16px',
-              background: colors.indicatorBg,
-              borderRadius: 'var(--radius-full)',
-              color: colors.indicatorText,
-              fontSize: '0.8rem',
-              fontFamily: 'var(--font-mono, monospace)',
-              backdropFilter: 'blur(10px)',
-            }}
-          >
-            {String(activeIndex + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
-          </motion.div>
         </div>
       </div>
     </section>

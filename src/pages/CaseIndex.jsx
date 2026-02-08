@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
+import { useTheme } from '../hooks/useTheme';
 import { Link } from 'react-router-dom';
 
 const CaseIndex = () => {
   const { t, i18n } = useTranslation();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const isZh = i18n.language === 'zh' || i18n.language?.startsWith('zh');
   useTitle(t('case.pageTitle'));
 
@@ -223,29 +226,37 @@ const CaseIndex = () => {
             ←
           </Link>
           
-          {/* 面包屑导航 - 仅在桌面端显示 */}
-          <nav className="case-breadcrumb" style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-xs)',
-            fontSize: 'var(--text-sm)',
-          }}>
+          {/* 面包屑导航 - 按钮式设计（仅桌面端显示） */}
+          <nav className="case-breadcrumb">
             <Link 
               to="/work" 
               style={{
-                color: 'var(--color-text-muted)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
                 textDecoration: 'none',
-                transition: 'color 0.2s'
+                fontSize: 'var(--text-sm)',
+                color: 'var(--color-text-main)',
+                background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.2s ease',
               }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--color-text-muted)'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+              }}
             >
-              {t('nav.work')}
+              <span>←</span>
+              <span style={{ fontWeight: 500 }}>{t('nav.work')}</span>
+              <span style={{ opacity: 0.4, margin: '0 2px' }}>|</span>
+              <span style={{ opacity: 0.7 }}>{t('case.projectTitle')}</span>
             </Link>
-            <span style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>/</span>
-            <span style={{ color: 'var(--color-text-main)' }}>
-              {t('case.projectTitle')}
-            </span>
           </nav>
           
           {/* 居中标题 - 桌面端绝对定位居中，移动端正常流 */}

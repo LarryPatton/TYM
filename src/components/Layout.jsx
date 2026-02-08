@@ -203,7 +203,10 @@ const MobileDrawer = ({ isOpen, onClose, navLinks, isActive, t, currentPath }) =
               gap: '8px',
             }}>
               {navLinks.map((link, index) => {
-                const isCurrentActive = currentPath === link.path;
+                // 使用 startsWith 匹配子路径，但首页需要精确匹配
+                const isCurrentActive = link.path === '/' 
+                  ? currentPath === '/'
+                  : currentPath.startsWith(link.path);
                 return (
                   <motion.div
                     key={link.path}
@@ -294,15 +297,42 @@ const Layout = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const { theme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isInHeroArea, setIsInHeroArea] = useState(true); // 是否在 Hero 区域
   
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
   const isFullWidthPage = true; 
-  const hideFooter = location.pathname === '/work' || location.pathname === '/gallery';
+  // 首页和 work/gallery 页面隐藏 footer（首页有自己的 CTA 区域）
+  const hideFooter = location.pathname === '/' || location.pathname === '/work' || location.pathname === '/gallery';
   const hideHeader = location.pathname.includes('/work/the-case/');
+  
+  // 判断是否在首页
+  const isHomePage = location.pathname === '/';
+  
+  // 监听滚动，判断是否在 Hero 区域
+  useEffect(() => {
+    if (!isHomePage) {
+      setIsInHeroArea(false);
+      return;
+    }
+    
+    const handleScroll = () => {
+      // Hero 区域大约是一个视口高度
+      const heroHeight = window.innerHeight - 80; // 减去导航栏高度
+      setIsInHeroArea(window.scrollY < heroHeight * 0.8); // 滚动超过 80% Hero 高度后切换
+    };
+    
+    handleScroll(); // 初始检测
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
+  
+  // 导航栏是否透明（只在首页 Hero 区域且是亮色模式）
+  const isNavTransparent = isHomePage && isInHeroArea && theme === 'light';
   
   const isActive = (path) => {
     return location.pathname === path ? 'var(--color-text-main)' : 'var(--color-text-muted)';
@@ -333,15 +363,18 @@ const Layout = () => {
           position: 'sticky', 
           top: 0, 
           zIndex: 1000,
-          background: 'var(--color-bg)', 
+          // 首页 Hero 区域透明，其他情况有背景色
+          background: isNavTransparent ? 'transparent' : 'var(--color-bg)', 
           backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid var(--color-border)',
+          WebkitBackdropFilter: 'blur(10px)',
+          // 首页 Hero 区域用黑色细线，其他情况用默认边框色
+          borderBottom: isNavTransparent ? '1px solid var(--color-text-main)' : '1px solid var(--color-border)',
           padding: isMobile ? '0 var(--space-md)' : '0 40px',
           height: 'var(--nav-height)',
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease',
         }}>
           {/* 左侧 Logo */}
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', height: '44px' }}>
@@ -352,14 +385,17 @@ const Layout = () => {
           {!isMobile && (
             <div style={{ display: 'flex', gap: '40px' }}>
               {navLinks.map(link => {
-                const isCurrentActive = location.pathname === link.path;
+                // 使用 startsWith 匹配子路径，但首页需要精确匹配
+                const isCurrentActive = link.path === '/' 
+                  ? location.pathname === '/'
+                  : location.pathname.startsWith(link.path);
                 return (
                   <Link 
                     key={link.path}
                     to={link.path} 
                     style={{ 
                       textDecoration: 'none', 
-                      color: isActive(link.path), 
+                      color: isCurrentActive ? 'var(--color-text-main)' : 'var(--color-text-muted)', 
                       fontWeight: '500', 
                       fontSize: '1em', 
                       transition: 'color 0.2s',
@@ -381,8 +417,21 @@ const Layout = () => {
           {/* 右侧操作区域 */}
           {!isMobile ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <LanguageSwitcher variant="toggle" />
-              <ThemeToggle />
+              {/* 透明导航栏时，按钮使用黑色边框 */}
+              <div style={{ 
+                borderRadius: 'var(--radius-full)',
+                border: isNavTransparent ? '1px solid var(--color-text-main)' : '1px solid var(--color-border)',
+                transition: 'border-color 0.3s ease',
+              }}>
+                <LanguageSwitcher variant="toggle" />
+              </div>
+              <div style={{ 
+                borderRadius: '50%',
+                border: isNavTransparent ? '1px solid var(--color-text-main)' : 'none',
+                transition: 'border-color 0.3s ease',
+              }}>
+                <ThemeToggle showBorder={!isNavTransparent} />
+              </div>
               <Link to="/about" state={{ scrollTo: 'contact' }} style={{ textDecoration: 'none' }}>
                 <button style={{
                   padding: '10px 24px',

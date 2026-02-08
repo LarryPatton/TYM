@@ -1644,8 +1644,9 @@ export const phase06Config = {
     {
       id: 'folder-01',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 01',
+      categoryLabel: 'cube / 01',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-01.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1660,8 +1661,9 @@ export const phase06Config = {
     {
       id: 'folder-02',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 02',
+      categoryLabel: 'cube / 02',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-02.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1676,8 +1678,9 @@ export const phase06Config = {
     {
       id: 'folder-03',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 03',
+      categoryLabel: 'cube / 03',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-03.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1690,8 +1693,9 @@ export const phase06Config = {
     {
       id: 'folder-04',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 04',
+      categoryLabel: 'cube / 04',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-04.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1706,8 +1710,9 @@ export const phase06Config = {
     {
       id: 'folder-05',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 05',
+      categoryLabel: 'cube / 05',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-05.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1721,8 +1726,9 @@ export const phase06Config = {
     {
       id: 'folder-06',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Cube / 06',
+      categoryLabel: 'cube / 06',
       product: 'cube',
+      contentKey: 'case.phases.phase-06.screens.folder-06.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1737,8 +1743,9 @@ export const phase06Config = {
     {
       id: 'folder-07',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 01',
+      categoryLabel: 'oi / 01',
       product: 'nicotine-sugar',
+      contentKey: 'case.phases.phase-06.screens.folder-07.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1753,7 +1760,7 @@ export const phase06Config = {
     {
       id: 'folder-08',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 02',
+      categoryLabel: 'oi / 02',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1767,8 +1774,9 @@ export const phase06Config = {
     {
       id: 'folder-09',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 03',
+      categoryLabel: 'oi / 03',
       product: 'nicotine-sugar',
+      contentKey: 'case.phases.phase-06.screens.folder-09.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1783,8 +1791,9 @@ export const phase06Config = {
     {
       id: 'folder-10',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 04',
+      categoryLabel: 'oi / 04',
       product: 'nicotine-sugar',
+      contentKey: 'case.phases.phase-06.screens.folder-10.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1800,8 +1809,9 @@ export const phase06Config = {
     {
       id: 'folder-11',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 05',
+      categoryLabel: 'oi / 05',
       product: 'nicotine-sugar',
+      contentKey: 'case.phases.phase-06.screens.folder-11.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1820,7 +1830,7 @@ export const phase06Config = {
     {
       id: 'folder-12',
       type: 'auto-sequence-popup',
-      categoryLabel: '尼古丁糖 / 06',
+      categoryLabel: 'oi / 06',
       product: 'nicotine-sugar',
       interval: 300,
       duration: 0.6,
@@ -1837,7 +1847,7 @@ export const phase06Config = {
     {
       id: 'folder-13',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 01',
+      categoryLabel: 'motor / 01',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1853,7 +1863,7 @@ export const phase06Config = {
     {
       id: 'folder-14',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 02',
+      categoryLabel: 'motor / 02',
       product: 'motor',
       interval: 300,
       duration: 0.6,
@@ -1897,8 +1907,9 @@ export const phase06Config = {
     {
       id: 'folder-17',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 05',
+      categoryLabel: 'motor / 05',
       product: 'motor',
+      contentKey: 'case.phases.phase-06.screens.folder-17.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1912,8 +1923,9 @@ export const phase06Config = {
     {
       id: 'folder-18',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 06',
+      categoryLabel: 'motor / 06',
       product: 'motor',
+      contentKey: 'case.phases.phase-06.screens.folder-18.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1928,8 +1940,9 @@ export const phase06Config = {
     {
       id: 'folder-19',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 07',
+      categoryLabel: 'motor / 07',
       product: 'motor',
+      contentKey: 'case.phases.phase-06.screens.folder-19.content',
       interval: 300,
       duration: 0.6,
       images: [
@@ -1943,8 +1956,9 @@ export const phase06Config = {
     {
       id: 'folder-20',
       type: 'auto-sequence-popup',
-      categoryLabel: 'Motor / 08',
+      categoryLabel: 'motor / 08',
       product: 'motor',
+      contentKey: 'case.phases.phase-06.screens.folder-20.content',
       interval: 300,
       duration: 0.6,
       images: [

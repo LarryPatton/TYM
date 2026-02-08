@@ -93,24 +93,25 @@ const GalleryHome = () => {
       flexDirection: 'column',
       justifyContent: 'center',
     },
+    // 面包屑按钮式设计（与 CaseIndex 统一）
     breadcrumb: {
       display: isMobile ? 'none' : 'flex', // 移动端隐藏面包屑
+      marginBottom: '16px',
+    },
+    breadcrumbButton: {
+      display: 'flex',
       alignItems: 'center',
       gap: '8px',
-      fontSize: '0.75rem',
-      color: isDark ? '#555' : '#999',
-      marginBottom: '8px',
-    },
-    breadcrumbLink: {
-      color: isDark ? '#666' : '#888',
       textDecoration: 'none',
-      transition: 'color 0.2s ease',
-    },
-    breadcrumbSeparator: {
-      color: isDark ? '#444' : '#ccc',
-    },
-    breadcrumbCurrent: {
-      color: isDark ? '#888' : '#666',
+      fontSize: '0.85rem',
+      color: isDark ? '#fff' : 'var(--color-text-main)',
+      background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+      backdropFilter: 'blur(10px)',
+      WebkitBackdropFilter: 'blur(10px)',
+      padding: '8px 16px',
+      borderRadius: '20px',
+      border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
+      transition: 'all 0.2s ease',
     },
     headerTitle: {
       fontFamily: 'var(--font-serif)',
@@ -249,11 +250,23 @@ const GalleryHome = () => {
             {/* Header Section */}
             <motion.header variants={itemVariants} style={styles.header}>
               <div style={styles.headerContent}>
-                {/* 面包屑导航 */}
+                {/* 面包屑导航 - 按钮式设计 */}
                 <nav style={styles.breadcrumb}>
-                  <Link to="/" style={styles.breadcrumbLink}>{t('nav.home')}</Link>
-                  <span style={styles.breadcrumbSeparator}>/</span>
-                  <span style={styles.breadcrumbCurrent}>{t('gallery.title')}</span>
+                  <Link 
+                    to="/gallery" 
+                    style={styles.breadcrumbButton}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+                    }}
+                  >
+                    <span>←</span>
+                    <span style={{ fontWeight: 500 }}>{t('nav.gallery')}</span>
+                    <span style={{ opacity: 0.4, margin: '0 2px' }}>|</span>
+                    <span style={{ opacity: 0.7 }}>{t('gallery.list')}</span>
+                  </Link>
                 </nav>
                 <h1 style={styles.headerTitle}>{t('gallery.title')}</h1>
                 <p style={styles.headerDesc}>

@@ -12,6 +12,7 @@ import WechatModal from '../components/WechatModal';
 import ScrollIndicator from '../components/ScrollIndicator';
 import FrostedDotsBackground from '../components/FrostedDotsBackground';
 import LoadingScreen from '../components/LoadingScreen';
+import HeroTrailEffect from '../components/HeroTrailEffect';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
@@ -420,6 +421,14 @@ const Home = () => {
       setCanEnter(true);
     }
   }, [progress]);
+  
+  // 🚀 缓存命中时直接跳过加载页（不等待动画）
+  useEffect(() => {
+    if (fromCache && !canEnter) {
+      console.log('[Home] 🚀 Cache hit! Skipping loading screen.');
+      setCanEnter(true);
+    }
+  }, [fromCache, canEnter]);
 
   // ==================== 移动端：使用全新的分屏布局 ====================
   if (isMobile) {
@@ -484,6 +493,9 @@ const Home = () => {
               {/* 导航圆点 - 移动端隐藏 */}
               <HomeDotNavigation sections={homeSections} isMobile={isMobile} />
 
+              {/* 桌面端 Hero 区域鼠标拖尾特效 */}
+              {!isMobile && <HeroTrailEffect isMobile={isMobile} />}
+
       {/* 1. Hero Section - 全屏沉浸式 */}
       <motion.section 
         id="hero"
@@ -501,23 +513,48 @@ const Home = () => {
           background: 'transparent', // 让光斑背景显示
           position: 'relative',
           boxSizing: 'border-box',
-          overflow: 'hidden',
+          // 移除 overflow: hidden，允许背景向上延伸
         }}
       >
-        {/* Hero 区域光斑背景 */}
-        <FrostedDotsBackground />
+        {/* Hero 区域光斑背景 - 使用 fixed 定位覆盖导航栏 */}
+        <motion.div
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '100vh',
+            zIndex: -1, // 在内容之下
+            pointerEvents: 'none',
+          }}
+        >
+          <FrostedDotsBackground speed={2} />
+        </motion.div>
 
-        <div style={{ maxWidth: '1400px', width: '100%', position: 'relative', zIndex: 1 }}>
+        {/* 居中排版的文字区域 - 参考 airbag studio 风格 */}
+        <div style={{ 
+          width: '100%', 
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          position: 'relative', 
+          zIndex: 1,
+        }}>
           <motion.h1 
             variants={fadeInUp} 
             style={{ 
-              fontFamily: 'var(--font-serif)', 
-              fontSize: 'clamp(3.5rem, 12vw, 9rem)', 
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(4rem, 15vw, 12rem)', 
               fontWeight: '400', 
-              lineHeight: 'var(--line-height-tight)', 
-              marginBottom: '30px', 
+              lineHeight: 1, 
+              marginBottom: '20px', 
               letterSpacing: '-0.03em',
-              color: 'var(--color-text-main)'
+              color: 'var(--color-text-main)',
+              fontStyle: 'italic',
             }}
           >
             {t('home.heroName')}
@@ -525,11 +562,13 @@ const Home = () => {
           <motion.h2 
             variants={fadeInUp} 
             style={{ 
-              fontSize: 'clamp(1.3rem, 3vw, 2.5rem)', 
+              fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', 
               fontWeight: '400', 
               color: 'var(--color-text-muted)', 
-              marginBottom: '40px', 
-              fontFamily: 'var(--font-sans)' 
+              marginBottom: '50px', 
+              fontFamily: 'var(--font-sans)',
+              textTransform: 'uppercase',
+              letterSpacing: '3px',
             }}
           >
             {t('home.heroRole')}
@@ -537,72 +576,16 @@ const Home = () => {
           <motion.p 
             variants={fadeInUp} 
             style={{ 
-              fontSize: 'clamp(1.1rem, 2vw, 1.6rem)', 
+              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)', 
               color: 'var(--color-text-secondary)', 
-              maxWidth: '800px', 
-              lineHeight: 'var(--line-height-base)', 
-              marginBottom: '60px' 
+              maxWidth: '500px', 
+              lineHeight: 1.8, 
+              margin: '0 auto',
             }}
           >
             {t('home.heroDesc')}<br/>
             {t('home.heroDesc2')}
           </motion.p>
-          
-          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '15px', marginBottom: '60px', flexWrap: 'wrap' }}>
-            {t('home.heroTags', { returnObjects: true }).map(tag => (
-              <span 
-                key={tag} 
-                style={{ 
-                  padding: '10px 24px', 
-                  background: 'var(--color-surface)', 
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid var(--color-border)', 
-                  borderRadius: 'var(--radius-full)', 
-                  fontSize: 'clamp(0.85rem, 1vw, 1rem)', 
-                  fontWeight: '500', 
-                  color: 'var(--color-text-muted)' 
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
-
-          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            <button 
-              onClick={scrollToFeatured}
-              style={{ 
-                padding: '18px 48px', 
-                background: 'var(--color-text-main)', 
-                color: 'var(--color-bg)', 
-                border: 'none', 
-                borderRadius: 'var(--radius-full)', 
-                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-                cursor: 'pointer', 
-                transition: 'all 0.3s ease',
-                fontWeight: '500',
-                boxShadow: 'var(--shadow-md)'
-              }}
-            >
-              {t('home.viewFeaturedCases')}
-            </button>
-            <Link to="/contact">
-              <button 
-                style={{ 
-                  padding: '18px 48px', 
-                  background: 'transparent', 
-                  color: 'var(--color-text-main)', 
-                  border: '1px solid rgba(0,0,0,0.2)', 
-                  borderRadius: 'var(--radius-full)', 
-                  fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-                  cursor: 'pointer', 
-                  transition: 'all 0.3s ease' 
-                }}
-              >
-                {t('home.contactMe')}
-              </button>
-            </Link>
-          </motion.div>
         </div>
 
         {/* 滚动提示 */}
@@ -721,26 +704,27 @@ const Home = () => {
         style={{ 
           position: 'relative',
           height: '200vh', // Sticky 滚动高度
-          background: 'transparent', // 让光斑背景显示
         }}
       >
-        {/* Contact CTA 区域光斑背景 */}
-        <FrostedDotsBackground 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        />
-        
-        {/* Sticky 容器 */}
+        {/* 背景层 - sticky 固定 */}
         <div
           style={{
             position: 'sticky',
-            top: '80px', // 导航栏高度
+            top: '80px',
             height: 'calc(100vh - 80px)',
+            pointerEvents: 'none',
+          }}
+        >
+          <FrostedDotsBackground speed={2} />
+        </div>
+        
+        {/* 内容层 - 也是 sticky，叠加在背景上 */}
+        <div
+          style={{
+            position: 'sticky',
+            top: '80px',
+            height: 'calc(100vh - 80px)',
+            marginTop: 'calc(-100vh + 80px)', // 抵消背景层高度，让内容叠加在背景上
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -853,12 +837,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Footer 过渡区域 */}
-      <div style={{
-        height: '80px',
-        background: themeColors.footerGradient,
-      }} />
-
       {/* 微信二维码弹窗 */}
       <WechatModal 
         isOpen={wechatModalOpen} 
@@ -872,4 +850,5 @@ const Home = () => {
   );
 };
 
+// Force update check
 export default Home;
