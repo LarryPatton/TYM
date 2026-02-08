@@ -1,17 +1,37 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useLenisScrollProgress } from '../../hooks/useLenisScroll';
+
+// ========== 工具函数：线性插值（替代 framer-motion useTransform） ==========
+function interpolate(value, inputRange, outputRange) {
+  if (inputRange.length !== outputRange.length || inputRange.length < 2) {
+    return outputRange[0];
+  }
+  if (value <= inputRange[0]) return outputRange[0];
+  if (value >= inputRange[inputRange.length - 1]) return outputRange[outputRange.length - 1];
+  for (let i = 0; i < inputRange.length - 1; i++) {
+    if (value >= inputRange[i] && value <= inputRange[i + 1]) {
+      const t = (value - inputRange[i]) / (inputRange[i + 1] - inputRange[i]);
+      const out0 = outputRange[i];
+      const out1 = outputRange[i + 1];
+      if (typeof out0 === 'number' && typeof out1 === 'number') {
+        return out0 + (out1 - out0) * t;
+      }
+      return t < 0.5 ? out0 : out1;
+    }
+  }
+  return outputRange[outputRange.length - 1];
+}
 
 /**
- * ProductPairScrollScreen - 滚动卷轴配对展示组件
+ * ProductPairScrollScreen - 滚动卷轴配对展示组件（Lenis 驱动版）
  * 
  * 特点：
  * 1. 两行布局：10对图片分为上下两行（每行5对）
  * 2. 配对叠加：主体图（大）在前，变体图（小）在后，错位叠加
- * 3. 横向卷轴：纵向滚动驱动横向位移
- * 4. 聚焦高亮：中心对放大高亮，边缘虚化
- * 5. 智能缩放：主体图 120%，变体图 100%
- * 6. 透明背景，无边框
+ * 3. Lenis 平滑滚动驱动横向位移
+ * 4. 智能缩放：主体图 120%，变体图 100%
+ * 5. 透明背景，无边框
  * 
  * @param {Array} pairs - 配对数组 [{main: {src, label}, variant: {src, label}}]
  * @param {string} bgColor - 背景颜色
@@ -23,16 +43,13 @@ export const ProductPairScrollScreen = ({
   content,
   pairs = [],
   bgColor = '#000',
-  showLabel = true // 是否显示图片下方标签，默认显示
+  showLabel = true
 }) => {
   const containerRef = useRef(null);
   const { t } = useTranslation();
   
-  // 滚动进度监听
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  // Lenis 驱动的滚动进度（0~1 数值）
+  const { progress } = useLenisScrollProgress(containerRef, ["start start", "end end"]);
 
   if (pairs.length === 0) return null;
 
@@ -40,11 +57,14 @@ export const ProductPairScrollScreen = ({
   const row1Pairs = pairs.slice(0, 5);  // 前5对
   const row2Pairs = pairs.slice(5, 10); // 后5对
 
+  // 滚动提示透明度
+  const scrollHintOpacity = interpolate(progress, [0, 0.1], [1, 0]);
+
   return (
     <div 
       ref={containerRef}
       style={{
-        height: '300vh', // 足够的滚动空间
+        height: '300vh',
         position: 'relative',
         background: bgColor
       }}
@@ -61,8 +81,6 @@ export const ProductPairScrollScreen = ({
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        
-        {/* 屏幕标识和标题已移至左上角胶囊导航，此处不再显示 */}
 
         {/* 配对展示区域 */}
         <div style={{
@@ -78,7 +96,7 @@ export const ProductPairScrollScreen = ({
           {/* 第一行 */}
           <PairRow 
             pairs={row1Pairs} 
-            scrollYProgress={scrollYProgress}
+            progress={progress}
             rowIndex={0}
             showLabel={showLabel}
           />
@@ -86,14 +104,14 @@ export const ProductPairScrollScreen = ({
           {/* 第二行 */}
           <PairRow 
             pairs={row2Pairs} 
-            scrollYProgress={scrollYProgress}
+            progress={progress}
             rowIndex={1}
             showLabel={showLabel}
           />
         </div>
 
         {/* 滚动提示 */}
-        <motion.div 
+        <div 
           style={{
             position: 'absolute',
             bottom: '40px',
@@ -101,37 +119,36 @@ export const ProductPairScrollScreen = ({
             color: 'rgba(255,255,255,0.3)',
             letterSpacing: '2px',
             textTransform: 'uppercase',
-            opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0])
+            opacity: scrollHintOpacity,
+            transition: 'opacity 0.05s',
+            willChange: 'opacity'
           }}
         >
           {t('common.scrollToExplore')} →
-        </motion.div>
+        </div>
       </div>
     </div>
   );
 };
 
 /**
- * PairRow - 单行配对展示
+ * PairRow - 单行配对展示（Lenis 驱动）
  */
-const PairRow = ({ pairs, scrollYProgress, rowIndex, showLabel = true }) => {
+const PairRow = ({ pairs, progress, rowIndex, showLabel = true }) => {
   // 横向位移：滚动驱动从右向左移动
   // 第一行和第二行反向移动，增加视差感
   const direction = rowIndex === 0 ? 1 : -1;
-  const xOffset = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [direction * 30, direction * -30] // 从右30%到左-30%
-  );
+  const xOffset = interpolate(progress, [0, 1], [direction * 30, direction * -30]);
 
   return (
-    <motion.div
+    <div
       style={{
         display: 'flex',
         gap: '100px',
         alignItems: 'center',
         justifyContent: 'center',
-        x: xOffset
+        transform: `translateX(${xOffset}%)`,
+        willChange: 'transform'
       }}
     >
       {pairs.map((pair, index) => (
@@ -139,18 +156,17 @@ const PairRow = ({ pairs, scrollYProgress, rowIndex, showLabel = true }) => {
           key={`pair-${rowIndex}-${index}`}
           pair={pair}
           index={index}
-          scrollYProgress={scrollYProgress}
           showLabel={showLabel}
         />
       ))}
-    </motion.div>
+    </div>
   );
 };
 
 /**
- * PairCard - 单对卡片（主体图+变体图叠加）
+ * PairCard - 单对卡片（主体图+变体图叠加，无入场动画）
  */
-const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
+const PairCard = ({ pair, index, showLabel = true }) => {
   const { main, variant } = pair;
 
   // 检测文件名是否包含 -1
@@ -158,7 +174,7 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
   const variantScale = variant.src.includes('-1') ? 1 : 1.2;
 
   return (
-    <motion.div
+    <div
       style={{
         position: 'relative',
         width: '240px',
@@ -167,12 +183,9 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
         alignItems: 'center',
         justifyContent: 'center'
       }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
     >
       {/* 变体图（背景层，错位） */}
-      <motion.div
+      <div
         style={{
           position: 'absolute',
           top: '0',
@@ -180,8 +193,6 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
           opacity: 1,
           zIndex: 1
         }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.3 }}
       >
         <img
           src={`${import.meta.env.BASE_URL}${variant.src.replace(/^\//, '')}`}
@@ -194,22 +205,19 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
             filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.5))'
           }}
           onError={(e) => {
-            console.error('ProductPair image load error:', variant.src);
             e.target.style.display = 'none';
           }}
         />
-      </motion.div>
+      </div>
 
       {/* 主体图（前景层） */}
-      <motion.div
+      <div
         style={{
           position: 'absolute',
           top: '0',
           left: '0',
           zIndex: 2
         }}
-        whileHover={{ scale: 1.05, zIndex: 10 }}
-        transition={{ duration: 0.3 }}
       >
         <img
           src={`${import.meta.env.BASE_URL}${main.src.replace(/^\//, '')}`}
@@ -222,15 +230,14 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
             filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))'
           }}
           onError={(e) => {
-            console.error('ProductPair image load error:', main.src);
             e.target.style.display = 'none';
           }}
         />
-      </motion.div>
+      </div>
 
-      {/* 标签 - 仅在 showLabel 为 true 时显示 */}
+      {/* 标签 */}
       {showLabel && (
-        <motion.div
+        <div
           style={{
             position: 'absolute',
             bottom: '-30px',
@@ -244,9 +251,9 @@ const PairCard = ({ pair, index, scrollYProgress, showLabel = true }) => {
           }}
         >
           {main.label}
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

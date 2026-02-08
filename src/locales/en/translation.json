@@ -161,7 +161,10 @@
       "currentProductEnd": "{{productName}} showcase completed",
       "switchPrompt": "View More Products",
       "instruction": "Use the product tabs in the top-right to switch",
-      "arrowText": "{{count}} more products available"
+      "arrowText": "{{count}} more products available",
+      "current": "Current",
+      "viewProduct": "View Product",
+      "currentlyViewing": "Currently Viewing"
     },
     "phases": {
       "phase-01": {

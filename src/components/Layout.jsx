@@ -306,8 +306,8 @@ const Layout = () => {
   }, [location.pathname]);
 
   const isFullWidthPage = true; 
-  // 首页和 work/gallery 页面隐藏 footer（首页有自己的 CTA 区域）
-  const hideFooter = location.pathname === '/' || location.pathname === '/work' || location.pathname === '/gallery';
+  // 首页移动端、work/gallery 页面隐藏 footer
+  const hideFooter = (location.pathname === '/' && isMobile) || location.pathname === '/work' || location.pathname === '/gallery';
   const hideHeader = location.pathname.includes('/work/the-case/');
   
   // 判断是否在首页

@@ -289,6 +289,20 @@ const PhaseDetail = () => {
     
     return uniqueUrls;
   }, [phase]);
+
+  // Phase 06 专属：产品封面图映射
+  const productImages = useMemo(() => {
+    if (phaseId !== 'phase-06') return {};
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalize = (path) => path.startsWith('/') ? path.substring(1) : path;
+    const fullPath = (path) => `${baseUrl}${normalize(path)}`;
+
+    return {
+      'cube': fullPath('images/phase-06/covers/cube.png'), // 本地图片路径：public/images/phase-06/covers/cube.png
+      'nicotine-sugar': fullPath('images/phase-06/covers/nicotine-sugar.png'), // 本地图片路径：public/images/phase-06/covers/nicotine-sugar.png
+      'motor': fullPath('images/phase-06/covers/motor.png') // 本地图片路径：public/images/phase-06/covers/motor.png
+    };
+  }, [phaseId]);
   
   // 添加标志位，确保每个 Phase 只加载一次
   const [hasPreloaded, setHasPreloaded] = useState(false);
@@ -1087,6 +1101,7 @@ const PhaseDetail = () => {
             bgColor={screenConfig.bgColor || phaseBgColor || '#000'}
             dualMode={screenConfig.dualMode || false} // 双区域模式
             caption={screenData?.content || ''}
+            categoryLabel={screenConfig.categoryLabel}
           />
         );
 

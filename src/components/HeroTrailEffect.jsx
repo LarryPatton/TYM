@@ -134,11 +134,11 @@ const HeroTrailEffect = ({ isMobile }) => {
             }}
             style={{
               position: 'absolute',
-              width: '140px', // 缩小尺寸 (原280px)
+              width: '200px', // 尺寸+15%
               height: 'auto',
-              // 重新计算偏移: 假设宽140, 中心偏移-70; 高约80, 偏移-40
-              left: -70,
-              top: -40,
+              // 重新计算偏移: 宽160, 中心偏移-80; 高约90, 偏移-45
+              left: -80,
+              top: -45,
               rotate: item.rotation,
               boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
               borderRadius: '8px',

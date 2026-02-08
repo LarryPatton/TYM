@@ -13,6 +13,7 @@ import ScrollIndicator from '../components/ScrollIndicator';
 import FrostedDotsBackground from '../components/FrostedDotsBackground';
 import LoadingScreen from '../components/LoadingScreen';
 import HeroTrailEffect from '../components/HeroTrailEffect';
+import TypewriterHero from '../components/TypewriterHero';
 import { useScrollLock } from '../contexts/ScrollLockContext';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useTheme } from '../hooks/useTheme';
@@ -533,60 +534,13 @@ const Home = () => {
           <FrostedDotsBackground speed={2} />
         </motion.div>
 
-        {/* 居中排版的文字区域 - 参考 airbag studio 风格 */}
-        <div style={{ 
-          width: '100%', 
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          position: 'relative', 
-          zIndex: 1,
-        }}>
-          <motion.h1 
-            variants={fadeInUp} 
-            style={{ 
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(4rem, 15vw, 12rem)', 
-              fontWeight: '400', 
-              lineHeight: 1, 
-              marginBottom: '20px', 
-              letterSpacing: '-0.03em',
-              color: 'var(--color-text-main)',
-              fontStyle: 'italic',
-            }}
-          >
-            {t('home.heroName')}
-          </motion.h1>
-          <motion.h2 
-            variants={fadeInUp} 
-            style={{ 
-              fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', 
-              fontWeight: '400', 
-              color: 'var(--color-text-muted)', 
-              marginBottom: '50px', 
-              fontFamily: 'var(--font-sans)',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-            }}
-          >
-            {t('home.heroRole')}
-          </motion.h2>
-          <motion.p 
-            variants={fadeInUp} 
-            style={{ 
-              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)', 
-              color: 'var(--color-text-secondary)', 
-              maxWidth: '500px', 
-              lineHeight: 1.8, 
-              margin: '0 auto',
-            }}
-          >
-            {t('home.heroDesc')}<br/>
-            {t('home.heroDesc2')}
-          </motion.p>
-        </div>
+        {/* 居中排版的文字区域 - 打字机效果 */}
+        <TypewriterHero 
+          name={t('home.heroName')}
+          role={t('home.heroRole')}
+          desc1={t('home.heroDesc')}
+          desc2={t('home.heroDesc2')}
+        />
 
         {/* 滚动提示 */}
         <motion.div
