@@ -231,13 +231,13 @@
     --frosted-blob-3: rgba(100, 100, 100, 0.65); /* 更亮灰 */
     --frosted-blob-4: rgba(60, 60, 60, 0.55);    /* 深灰 */
     --frosted-blob-5: rgba(85, 85, 85, 0.6);     /* 中亮灰 */
-    --frosted-grain-opacity-1: 0.2;
-    --frosted-grain-opacity-2: 0.15;
-    --frosted-grain-opacity-3: 0.3;
-    --frosted-grain-opacity-4: 0.1;
-    --frosted-grain-blend-1: overlay;
+    --frosted-grain-opacity-1: 0.25;
+    --frosted-grain-opacity-2: 0.2;
+    --frosted-grain-opacity-3: 0.35;
+    --frosted-grain-opacity-4: 0.15;
+    --frosted-grain-blend-1: soft-light;
     --frosted-grain-blend-2: soft-light;
-    --frosted-grain-blend-3: overlay;
+    --frosted-grain-blend-3: soft-light;
     --frosted-gradient-overlay: rgba(30, 30, 30, 0.3);
   }
 

@@ -127,13 +127,13 @@ const FrostedDotsBackground = ({ className = '', style = {}, speed = 1.5 }) => {
       className={className}
       style={containerStyle}
     >
-      {/* 渐变光斑层 */}
+      {/* 渐变光斑层 - 增加 blur 减少色带 */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          filter: 'blur(80px)',
-          WebkitFilter: 'blur(80px)',
+          inset: '-10%', // 扩大范围防止边缘截断
+          filter: 'blur(120px)',
+          WebkitFilter: 'blur(120px)',
           pointerEvents: 'none',
         }}
       >

@@ -385,6 +385,11 @@ const Home = () => {
       }
     });
     
+    // 3. Hero 区域鼠标拖尾效果图片（trail 素材）
+    for (let i = 1; i <= 9; i++) {
+      urls.push(normalizeUrl(`/images/trail/Slide 16_9 - ${i}.png`));
+    }
+    
     // 去重并过滤空值
     const uniqueUrls = [...new Set(urls)].filter(url => url && url.trim() !== '');
     
@@ -772,13 +777,13 @@ const Home = () => {
             </a>
             <motion.button 
               onClick={() => setWechatModalOpen(true)}
-              whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.3)' }}
+              whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)' }}
               whileTap={{ scale: 0.98 }}
               style={{ 
                 padding: '20px 60px', 
                 background: 'transparent', 
                 color: themeColors.ctaText, 
-                border: `1px solid ${themeColors.ctaButtonBorder}`, 
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.4)' : 'var(--color-text-main)'}`, 
                 borderRadius: '100px', 
                 fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
                 cursor: 'pointer',

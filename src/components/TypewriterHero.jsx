@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import AnimatedSignature from './AnimatedSignature';
+import { useTheme } from '../hooks/useTheme';
 
 /**
  * 打字机效果 Hero 组件
  * 带有真实光标的逐字打出效果
  */
 const TypewriterHero = ({ name, role, desc1, desc2 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   // 打字状态
   const [nameIndex, setNameIndex] = useState(0);
   const [roleIndex, setRoleIndex] = useState(0);
@@ -137,6 +141,36 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
       position: 'relative', 
       zIndex: 1,
     }}>
+      {/* SVG 签名 - 绝对定位作为背景层，在名字上方显示，打字完成后出现 */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ 
+          opacity: phase === 'done' ? 1 : 0,
+          scale: phase === 'done' ? 1 : 0.9,
+        }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%) translateY(-30%)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        {phase === 'done' && (
+          <AnimatedSignature 
+            isDark={isDark} 
+            width={600} 
+            height={375} 
+            duration={0.8}
+            strokeWidth={1.5}
+            initialDelay={0.2}
+            style={{ opacity: 0.12 }}
+          />
+        )}
+      </motion.div>
+
       {/* 主标题 */}
       <h1 style={{ 
         fontFamily: 'var(--font-serif)',
