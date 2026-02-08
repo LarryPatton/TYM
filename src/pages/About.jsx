@@ -177,9 +177,9 @@ const About = () => {
         </div>
 
         {/* 内容区域 */}
-        <div style={{ flex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(40px, 5vw, 80px)', overflow: 'hidden' }}>
+        <div style={{ flex: 1, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(24px, 3vw, 48px)', overflow: 'hidden', boxSizing: 'border-box' }}>
           <AnimatePresence mode="wait">
-            {/* Section 1: Intro - 三栏并列布局 (方案 A) */}
+            {/* Section 1: Intro - 左右两栏布局 */}
             {activeSection === 0 && (
               <motion.div 
                 key="intro" 
@@ -189,16 +189,15 @@ const About = () => {
                 exit="exit" 
                 style={{ 
                   width: '100%', 
-                  maxWidth: '1200px',
-                  height: '100%',
+                  maxWidth: '1400px',
+                  maxHeight: '100%',
                   display: 'grid',
-                  gridTemplateColumns: '1fr minmax(160px, 200px) 1.3fr',
-                  gap: 'clamp(30px, 4vw, 60px)',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 'clamp(40px, 5vw, 80px)',
                   alignItems: 'center',
-                  padding: '20px 0',
                 }}
               >
-                {/* 左栏：签名动画 */}
+                {/* 左栏：大照片区域 */}
                 <motion.div 
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -207,98 +206,117 @@ const About = () => {
                     display: 'flex', 
                     justifyContent: 'center', 
                     alignItems: 'center',
+                    maxHeight: '100%',
                   }}
-                >
-                  <AnimatedSignature 
-                    isDark={isDark}
-                    width={Math.min(320, window.innerWidth * 0.22)}
-                    height={Math.min(200, window.innerWidth * 0.14)}
-                    duration={2.2}
-                    initialDelay={0.4}
-                    strokeWidth={1.2}
-                    showFill={true}
-                  />
-                </motion.div>
-
-                {/* 中栏：头像 */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  style={{ display: 'flex', justifyContent: 'center' }}
                 >
                   <div style={{ 
                     width: '100%', 
-                    maxWidth: '180px',
-                    aspectRatio: '3 / 4', 
-                    borderRadius: '14px', 
+                    maxWidth: '450px',
+                    aspectRatio: '4 / 5',
+                    maxHeight: 'min(600px, calc(100vh - 200px))',
+                    borderRadius: '0', 
                     overflow: 'hidden', 
                     background: colors.bgAlt, 
-                    border: `1px solid ${colors.border}`,
-                    boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.3)' : '0 20px 50px rgba(0,0,0,0.08)',
+                    position: 'relative',
                   }}>
                     <img 
                       src="/images/about/portrait.jpg" 
                       alt={t('about.greeting')} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        objectPosition: 'center top',
+                      }} 
                       onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} 
                     />
-                    <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted }}>
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: colors.textMuted, position: 'absolute', top: 0, left: 0 }}>
+                      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
                       </svg>
                     </div>
                   </div>
                 </motion.div>
 
-                {/* 右栏：文字介绍 */}
+                {/* 右栏：签名 + 文字介绍 */}
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    gap: 'clamp(20px, 2.5vw, 32px)',
+                  }}
                 >
-                  <h1 style={{ 
-                    fontFamily: 'var(--font-serif)', 
-                    fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', 
-                    fontWeight: '400', 
-                    marginBottom: 'clamp(16px, 2vw, 24px)', 
-                    lineHeight: 1.2, 
-                    color: colors.text 
-                  }}>
-                    {t('about.greeting')}
-                  </h1>
-                  <div style={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    gap: 'clamp(10px, 1.5vw, 16px)', 
-                    color: colors.textMuted, 
-                    fontSize: 'clamp(0.9rem, 1vw, 1.05rem)', 
-                    lineHeight: 1.7 
-                  }}>
-                    <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
-                    <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
-                    <p style={{ margin: 0 }}>{t('about.introLine3')}</p>
-                    <p style={{ margin: 0 }}>{t('about.introLine4')}</p>
-                  </div>
-                  <div style={{ marginTop: 'clamp(20px, 2.5vw, 32px)', display: 'flex', gap: '12px' }}>
-                    <motion.a 
-                      href="/resume.pdf" 
-                      target="_blank" 
-                      whileHover={{ scale: 1.03 }} 
-                      whileTap={{ scale: 0.98 }}
-                      style={{ 
-                        padding: 'clamp(10px, 1.2vw, 13px) clamp(20px, 2.5vw, 28px)', 
-                        background: colors.accent, 
-                        color: isDark ? '#000' : '#fff', 
-                        borderRadius: '100px', 
-                        fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', 
-                        fontWeight: '600', 
-                        textDecoration: 'none',
-                        boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
-                      }}
-                    >
-                      {t('about.downloadResume')}
-                    </motion.a>
+                  {/* 签名区域 */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    style={{ 
+                      display: 'flex', 
+                      justifyContent: 'flex-start', 
+                      alignItems: 'center',
+                    }}
+                  >
+                    <AnimatedSignature 
+                      isDark={isDark}
+                      width={Math.min(360, window.innerWidth * 0.25)}
+                      height={Math.min(140, window.innerWidth * 0.1)}
+                      duration={2.2}
+                      initialDelay={0.4}
+                      strokeWidth={1.2}
+                      showFill={true}
+                    />
+                  </motion.div>
+
+                  {/* 文字介绍区域 */}
+                  <div>
+                    <h1 style={{ 
+                      fontFamily: 'var(--font-serif)', 
+                      fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', 
+                      fontWeight: '400', 
+                      marginBottom: 'clamp(16px, 2vw, 24px)', 
+                      lineHeight: 1.2, 
+                      color: colors.text 
+                    }}>
+                      {t('about.greeting')}
+                    </h1>
+                    <div style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      gap: 'clamp(10px, 1.5vw, 16px)', 
+                      color: colors.textMuted, 
+                      fontSize: 'clamp(0.9rem, 1vw, 1.05rem)', 
+                      lineHeight: 1.7 
+                    }}>
+                      <p style={{ margin: 0 }}>{t('about.introLine1')}</p>
+                      <p style={{ margin: 0 }}>{t('about.introLine2')}</p>
+                      <p style={{ margin: 0 }}>{t('about.introLine3')}</p>
+                      <p style={{ margin: 0 }}>{t('about.introLine4')}</p>
+                    </div>
+                    <div style={{ marginTop: 'clamp(20px, 2.5vw, 32px)', display: 'flex', gap: '12px' }}>
+                      <motion.a 
+                        href="/resume.pdf" 
+                        target="_blank" 
+                        whileHover={{ scale: 1.03 }} 
+                        whileTap={{ scale: 0.98 }}
+                        style={{ 
+                          padding: 'clamp(10px, 1.2vw, 13px) clamp(20px, 2.5vw, 28px)', 
+                          background: colors.accent, 
+                          color: isDark ? '#000' : '#fff', 
+                          borderRadius: '100px', 
+                          fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', 
+                          fontWeight: '600', 
+                          textDecoration: 'none',
+                          boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
+                        }}
+                      >
+                        {t('about.downloadResume')}
+                      </motion.a>
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>

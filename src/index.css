@@ -1,5 +1,5 @@
 :root {
-    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
@@ -15,6 +15,8 @@
     /* Font Families */
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Inter', sans-serif;
+    --font-cn: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --font-cn-display: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     
     /* ----------------------------------------
        COLOR TOKENS - 亮色主题（默认）

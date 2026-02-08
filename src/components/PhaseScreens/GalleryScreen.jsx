@@ -1,10 +1,7 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
   SECTION_PADDING, 
   MAX_WIDTH_WIDE, 
-  sectionVariants, 
-  itemVariants, 
   ImagePlaceholder 
 } from './Common';
 
@@ -40,9 +37,7 @@ export const GalleryScreen = ({
         gridTemplateColumns: '1fr 1fr', 
         gap: 'var(--space-xl)'
       }}>
-        <motion.div 
-          whileHover={{ y: -10 }}
-          transition={{ duration: 0.3 }}
+        <div
           style={{ 
             aspectRatio: '16/9',
             overflow: 'hidden', 
@@ -57,10 +52,8 @@ export const GalleryScreen = ({
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             onError={(e) => e.target.style.display = 'none'}
           />
-        </motion.div>
-        <motion.div 
-          whileHover={{ y: -10 }}
-          transition={{ duration: 0.3 }}
+        </div>
+        <div
           style={{ 
             aspectRatio: '16/9',
             overflow: 'hidden', 
@@ -75,7 +68,7 @@ export const GalleryScreen = ({
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             onError={(e) => e.target.style.display = 'none'}
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* 原有三个素材 */}
@@ -85,9 +78,7 @@ export const GalleryScreen = ({
         gap: 'var(--space-xl)'
       }}>
         {/* 包装验证 - 左侧大图 */}
-        <motion.div 
-          whileHover={{ y: -10 }}
-          transition={{ duration: 0.3 }}
+        <div
           style={{ 
             aspectRatio: '3/4',
             overflow: 'hidden', 
@@ -115,13 +106,11 @@ export const GalleryScreen = ({
           }}>
             包装验证
           </div>
-        </motion.div>
+        </div>
 
         {/* 物料验证 - 右侧两张小图 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xl)' }}>
-          <motion.div 
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.3 }}
+          <div
             style={{ 
               flex: 1,
               overflow: 'hidden', 
@@ -136,10 +125,8 @@ export const GalleryScreen = ({
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               onError={(e) => e.target.style.display = 'none'}
             />
-          </motion.div>
-          <motion.div 
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.3 }}
+          </div>
+          <div
             style={{ 
               flex: 1,
               overflow: 'hidden', 
@@ -154,7 +141,7 @@ export const GalleryScreen = ({
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               onError={(e) => e.target.style.display = 'none'}
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
@@ -168,11 +155,8 @@ export const GalleryScreen = ({
       gap: 'var(--space-xl)'
     }} className="gallery-grid">
       {images.map((img, index) => (
-        <motion.div
+        <div
           key={index}
-          variants={itemVariants}
-          whileHover={{ y: -10 }}
-          transition={{ duration: 0.3 }}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -192,8 +176,7 @@ export const GalleryScreen = ({
                 alt={img.label || img.hint || `Gallery image ${index + 1}`}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 onError={(e) => {
-                  console.error('Gallery image load error:', img.src);
-                  e.target.style.display = 'none';
+                      e.target.style.display = 'none';
                 }}
               />
             ) : (
@@ -209,7 +192,7 @@ export const GalleryScreen = ({
               {img.label}
             </div>
           )}
-        </motion.div>
+        </div>
       ))}
     </div>
   );
@@ -230,16 +213,12 @@ export const GalleryScreen = ({
       background: bgAlt ? '#111111' : 'var(--phase-bg-color, #0a0a0a)',
       color: '#fff'
     }}>
-      <motion.div
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+      <div
         style={{ maxWidth: MAX_WIDTH_WIDE, width: '100%' }}
       >
         {/* 头部文本 */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-3xl)', maxWidth: '800px', margin: '0 auto var(--space-3xl) auto' }}>
-          <motion.div variants={itemVariants}>
+          <div>
             <div style={{
               fontSize: 'var(--text-xs)',
               color: 'rgba(255,255,255,0.5)',
@@ -268,12 +247,12 @@ export const GalleryScreen = ({
                 {content}
               </p>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* 画廊区域 */}
         {renderGalleryContent()}
-      </motion.div>
+      </div>
     </section>
   );
 };

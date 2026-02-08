@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useLenisScrollProgress } from '../../hooks/useLenisScroll';
 
 /**
  * DocumentFocusLensScreen - 文档 Focus Lens 展示组件
@@ -24,26 +25,20 @@ export const DocumentFocusLensScreen = ({
 }) => {
   const ref = useRef(null);
   
-  // 滚动监听配置
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"]
-  });
+  // Lenis 驱动的滚动进度
+  const { progress } = useLenisScrollProgress(ref, ["start start", "end end"]);
   
   const [activeIndex, setActiveIndex] = useState(0);
   const itemCount = images.length;
 
   // 滚动进度 → 激活索引映射
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // 将 0~0.85 的滚动进度映射到 0~(itemCount-1) 的索引
-      // 保留 15% 用于最后一张停留
-      const adjustedProgress = Math.min(latest / 0.85, 1);
-      const index = Math.round(adjustedProgress * (itemCount - 1));
-      setActiveIndex(Math.min(index, itemCount - 1));
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress, itemCount]);
+    // 将 0~0.85 的滚动进度映射到 0~(itemCount-1) 的索引
+    // 保留 15% 用于最后一张停留
+    const adjustedProgress = Math.min(progress / 0.85, 1);
+    const index = Math.round(adjustedProgress * (itemCount - 1));
+    setActiveIndex(Math.min(index, itemCount - 1));
+  }, [progress, itemCount]);
 
   if (images.length === 0) return null;
 

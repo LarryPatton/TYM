@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
+import { SECTION_PADDING, MAX_WIDTH_WIDE } from './Common';
+import { useLenisScrollProgress } from '../../hooks/useLenisScroll';
 
 /**
  * ============================================
@@ -9,7 +9,7 @@ import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
  * 设计概念:
  * - 展示工厂实拍的竖向图片（约 9:16 比例）
  * - 采用错落瀑布流布局，形成真实工业感
- * - 图片随机倾斜和视差滚动，增加动态感
+ * - Lenis 驱动视差滚动，无入场动画（防闪烁）
  * ============================================
  */
 
@@ -19,6 +19,19 @@ const seededRandom = (seed) => {
   return x - Math.floor(x);
 };
 
+// 线性插值
+function interpolate(value, inputRange, outputRange) {
+  if (value <= inputRange[0]) return outputRange[0];
+  if (value >= inputRange[inputRange.length - 1]) return outputRange[outputRange.length - 1];
+  for (let i = 0; i < inputRange.length - 1; i++) {
+    if (value >= inputRange[i] && value <= inputRange[i + 1]) {
+      const t = (value - inputRange[i]) / (inputRange[i + 1] - inputRange[i]);
+      return outputRange[i] + (outputRange[i + 1] - outputRange[i]) * t;
+    }
+  }
+  return outputRange[outputRange.length - 1];
+}
+
 export const FactoryGalleryScreen = ({
   screenNumber,
   screenLabel,
@@ -26,21 +39,18 @@ export const FactoryGalleryScreen = ({
   content,
   emphasis,
   images = [],
-  columns = 4, // 列数
+  columns = 4,
   bgAlt = false
 }) => {
   const containerRef = useRef(null);
   
-  // 滚动进度追踪
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  // Lenis 驱动的滚动进度
+  const { progress } = useLenisScrollProgress(containerRef, ["start end", "end start"]);
 
-  // 多层视差效果
-  const parallax1 = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const parallax2 = useTransform(scrollYProgress, [0, 1], [40, -80]);
-  const parallax3 = useTransform(scrollYProgress, [0, 1], [80, -40]);
+  // 多层视差效果（Lenis 驱动）
+  const parallax1 = interpolate(progress, [0, 1], [60, -60]);
+  const parallax2 = interpolate(progress, [0, 1], [40, -80]);
+  const parallax3 = interpolate(progress, [0, 1], [80, -40]);
 
   // 分配图片到列（瀑布流）
   const distributeToColumns = (items, numCols) => {
@@ -79,11 +89,7 @@ export const FactoryGalleryScreen = ({
         position: 'relative',
         zIndex: 10
       }}>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={itemVariants}
+        <div
           style={{
             marginBottom: 'var(--space-3xl)',
             textAlign: 'center'
@@ -122,7 +128,7 @@ export const FactoryGalleryScreen = ({
               {content}
             </p>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* 瀑布流画廊 */}
@@ -140,46 +146,33 @@ export const FactoryGalleryScreen = ({
           const parallaxY = getParallax(colIndex);
 
           return (
-            <motion.div
+            <div
               key={`col-${colIndex}`}
               style={{
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--space-lg)',
-                y: parallaxY,
+                transform: `translateY(${parallaxY}px)`,
+                willChange: 'transform',
                 marginTop: offsetY
               }}
             >
-              {column.map((image, imgIndex) => {
+              {column.map((image) => {
                 // 随机旋转角度
-                const rotation = (seededRandom(image.globalIndex * 13) - 0.5) * 6; // -3deg to +3deg
-                const delay = image.globalIndex * 0.05;
+                const rotation = (seededRandom(image.globalIndex * 13) - 0.5) * 6;
 
                 return (
-                  <motion.div
+                  <div
                     key={`img-${image.globalIndex}`}
-                    initial={{ opacity: 0, y: 50, rotate: rotation * 2 }}
-                    whileInView={{ opacity: 1, y: 0, rotate: rotation }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay,
-                      ease: "easeOut" 
-                    }}
-                    whileHover={{ 
-                      scale: 1.03,
-                      rotate: 0,
-                      zIndex: 20,
-                      transition: { duration: 0.2 }
-                    }}
                     style={{
                       position: 'relative',
                       borderRadius: 'var(--radius-md)',
                       overflow: 'hidden',
                       cursor: 'pointer',
                       boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                      transform: `rotate(${rotation}deg)`
+                      transform: `rotate(${rotation}deg)`,
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease'
                     }}
                   >
                     <img 
@@ -194,10 +187,9 @@ export const FactoryGalleryScreen = ({
                       }} 
                     />
                     
-                    {/* 渐变遮罩 + 标签 */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
+                    {/* 标签（hover 通过 CSS :hover 替代） */}
+                    <div
+                      className="factory-label-overlay"
                       style={{
                         position: 'absolute',
                         bottom: 0,
@@ -205,6 +197,7 @@ export const FactoryGalleryScreen = ({
                         right: 0,
                         padding: 'var(--space-lg) var(--space-md)',
                         background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
+                        opacity: 0,
                         transition: 'opacity 0.3s ease'
                       }}
                     >
@@ -215,22 +208,18 @@ export const FactoryGalleryScreen = ({
                       }}>
                         {image.label || `#${image.globalIndex + 1}`}
                       </span>
-                    </motion.div>
-                  </motion.div>
+                    </div>
+                  </div>
                 );
               })}
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
       {/* 强调信息 */}
       {emphasis && (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+        <div
           style={{
             textAlign: 'center',
             marginTop: 'var(--space-3xl)',
@@ -257,7 +246,7 @@ export const FactoryGalleryScreen = ({
               {emphasis}
             </span>
           </div>
-        </motion.div>
+        </div>
       )}
     </section>
   );

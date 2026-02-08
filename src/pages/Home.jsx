@@ -665,32 +665,32 @@ const Home = () => {
           height: '200vh', // Sticky 滚动高度
         }}
       >
-        {/* 背景层 - sticky 固定 */}
+        {/* 背景层 - sticky 固定，从顶部开始覆盖整个视口 */}
         <div
           style={{
             position: 'sticky',
-            top: '80px',
-            height: 'calc(100vh - 80px)',
+            top: '0',
+            height: '100vh',
             pointerEvents: 'none',
           }}
         >
           <FrostedDotsBackground speed={2} />
         </div>
         
-        {/* 内容层 - 也是 sticky，叠加在背景上 */}
+        {/* 内容层 - 也是 sticky，叠加在背景上，内容在导航栏下方 */}
         <div
           style={{
             position: 'sticky',
-            top: '80px',
-            height: 'calc(100vh - 80px)',
-            marginTop: 'calc(-100vh + 80px)', // 抵消背景层高度，让内容叠加在背景上
+            top: '0',
+            height: '100vh',
+            marginTop: '-100vh', // 抵消背景层高度，让内容叠加在背景上
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             padding: isMobile 
-              ? 'var(--space-3xl) var(--space-page-x)'
-              : 'clamp(60px, 10vh, 100px) clamp(40px, 8vw, 120px)', 
+              ? '80px var(--space-page-x) var(--space-3xl)'
+              : '80px clamp(40px, 8vw, 120px) clamp(60px, 10vh, 100px)', 
             textAlign: 'center', 
             color: themeColors.ctaText,
             overflow: 'hidden',

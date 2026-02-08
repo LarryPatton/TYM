@@ -304,17 +304,15 @@ const Layout = () => {
   const [logoTopIndex, setLogoTopIndex] = useState(0); // Logo 顶层图片索引（0 或 1）
   const [logoRotation, setLogoRotation] = useState(0); // 底层 Logo 旋转角度（持续累加）
   
-  // Logo 顶层图片交替动画 + 底层图片逆时针旋转
+  // Logo 顶层图片交替动画 + 底层图片逆时针旋转（两种主题都启用）
   useEffect(() => {
-    if (theme !== 'dark') return;
-    
     const interval = setInterval(() => {
       setLogoTopIndex(prev => (prev === 0 ? 1 : 0));
       setLogoRotation(prev => prev - 90); // 每次逆时针旋转 90 度
     }, 3000); // 每 3 秒切换一次
     
     return () => clearInterval(interval);
-  }, [theme]);
+  }, []);
   
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -480,7 +478,78 @@ const Layout = () => {
                 </span>
               </div>
             ) : (
-              <div style={{ fontWeight: '900', fontSize: isMobile ? '1.2em' : '1.5em', letterSpacing: '-1px', lineHeight: 1 }}>PORTFOLIO.</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '8px' }}>
+                {/* Logo 双层叠加容器 - 白色模式 */}
+                <div style={{ 
+                  position: 'relative',
+                  height: isMobile ? '28px' : '36px',
+                  width: 'auto',
+                }}>
+                  {/* 底层图片 - 逆时针持续旋转动画 */}
+                  <motion.img 
+                    src="/images/logo/logo_white_bottom.png" 
+                    alt="Portfolio Logo" 
+                    animate={{ 
+                      rotate: logoRotation,
+                    }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    style={{ 
+                      height: '100%', 
+                      width: 'auto',
+                      objectFit: 'contain',
+                      display: 'block',
+                    }} 
+                  />
+                  {/* 顶层图片1 - 交替显示 */}
+                  <motion.img 
+                    src="/images/logo/logo_white_top.png" 
+                    alt="" 
+                    initial={{ opacity: 1, scale: 1 }}
+                    animate={{ 
+                      opacity: logoTopIndex === 0 ? 1 : 0,
+                      scale: logoTopIndex === 0 ? 1 : 0.3,
+                    }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    style={{ 
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      height: '100%', 
+                      width: 'auto',
+                      objectFit: 'contain',
+                    }} 
+                  />
+                  {/* 顶层图片2 - 交替显示 */}
+                  <motion.img 
+                    src="/images/logo/logo_white_top2.png" 
+                    alt="" 
+                    initial={{ opacity: 0, scale: 0.3 }}
+                    animate={{ 
+                      opacity: logoTopIndex === 1 ? 1 : 0,
+                      scale: logoTopIndex === 1 ? 1 : 0.3,
+                    }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    style={{ 
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      height: '100%', 
+                      width: 'auto',
+                      objectFit: 'contain',
+                    }} 
+                  />
+                </div>
+                <span style={{ 
+                  fontFamily: "'Afacad', sans-serif",
+                  fontWeight: '600',
+                  fontSize: isMobile ? '1.4em' : '1.75em',
+                  letterSpacing: '0.02em',
+                  color: 'var(--color-text-main)',
+                  lineHeight: 1,
+                }}>
+                  LUMI TIAN
+                </span>
+              </div>
             )}
           </Link>
             

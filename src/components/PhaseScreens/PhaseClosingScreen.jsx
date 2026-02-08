@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 // ============================================
 // 屏幕: Phase 封底 (PhaseClosingScreen)
@@ -37,11 +36,7 @@ export const PhaseClosingScreen = ({
   const renderContent = () => (
     <>
       {/* 背景图片 */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+      <div
         style={{
           position: 'absolute',
           inset: 0,
@@ -59,8 +54,7 @@ export const PhaseClosingScreen = ({
             objectPosition: 'center'
           }}
           onError={(e) => {
-            console.error('Image load error:', bgImage);
-            e.target.style.display = 'none';
+              e.target.style.display = 'none';
           }}
         />
         {/* 底部渐变遮罩，让文字和按钮更清晰 */}
@@ -72,14 +66,10 @@ export const PhaseClosingScreen = ({
             : 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%)',
           pointerEvents: 'none'
         }} />
-      </motion.div>
+      </div>
 
       {/* 中心内容区域 - 标题 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+      <div
         style={{
           position: 'absolute',
           top: isMobile ? '30%' : '35%',
@@ -106,14 +96,10 @@ export const PhaseClosingScreen = ({
         }}>
           视觉系统已建立，为后续产品与传播提供坚实基础。
         </p>
-      </motion.div>
+      </div>
 
       {/* 导航按钮 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+      <div
         style={{
           position: 'absolute',
           bottom: isMobile ? '20%' : '25%',
@@ -198,7 +184,7 @@ export const PhaseClosingScreen = ({
             <span>→</span>
           </button>
         )}
-      </motion.div>
+      </div>
     </>
   );
 
@@ -255,11 +241,7 @@ export const PhaseClosingScreen = ({
       background: '#000'
     }}>
       {/* 背景图片 */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+      <div
         style={{
           position: 'absolute',
           inset: 0,
@@ -277,7 +259,6 @@ export const PhaseClosingScreen = ({
             objectPosition: 'center'
           }}
           onError={(e) => {
-            console.error('Image load error:', bgImage);
             e.target.style.display = 'none';
           }}
         />
@@ -288,17 +269,13 @@ export const PhaseClosingScreen = ({
           background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%)',
           pointerEvents: 'none'
         }} />
-      </motion.div>
+      </div>
 
       {/* 中心内容区域 - 标题 (位于 Logo 上方) */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+      <div
         style={{
           position: 'absolute',
-          top: '35%', // 位于屏幕上方 35% 处
+          top: '35%',
           left: 0,
           right: 0,
           zIndex: 10,
@@ -321,17 +298,13 @@ export const PhaseClosingScreen = ({
         }}>
           视觉系统已建立，为后续产品与传播提供坚实基础。
         </p>
-      </motion.div>
+      </div>
 
       {/* 导航按钮 (位于 Logo 下方) */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+      <div
         style={{
           position: 'absolute',
-          bottom: '25%', // 位于屏幕下方 25% 处
+          bottom: '25%',
           left: 0,
           right: 0,
           zIndex: 10,
@@ -397,7 +370,7 @@ export const PhaseClosingScreen = ({
             <span>→</span>
           </button>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 };
