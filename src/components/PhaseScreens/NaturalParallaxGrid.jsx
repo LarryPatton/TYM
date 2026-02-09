@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo, memo } from 'react';
 import { useLenis } from '../../contexts/LenisContext';
+import { useTranslation } from 'react-i18next';
 
 // 调试开关
 const DEBUG = false;
@@ -18,6 +19,8 @@ export const NaturalParallaxGrid = memo(({
   screenNumber,
   screenLabel,
   title,
+  content,
+  contentKey,
   groups = [],
   images = [],
   columns = 3,
@@ -29,8 +32,61 @@ export const NaturalParallaxGrid = memo(({
   compactMode = false
 }) => {
   const containerRef = useRef(null);
+  const captionRef = useRef(null);
   const rafRef = useRef(null);
   const scrollProgressRef = useRef(0);
+  
+  // 文案显示状态
+  const [textVisible, setTextVisible] = useState(false);
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const textTimersRef = useRef([]);
+  const hasTextTriggeredRef = useRef(false);
+  
+  const { t } = useTranslation();
+  
+  // 获取文案内容（优先使用 contentKey，其次使用 content）
+  const caption = contentKey ? t(contentKey) : (content || '');
+  
+  // 解析文案，识别高亮文本（「」内的内容 + 特定类型名词）
+  const parsedContent = useMemo(() => {
+    if (!caption) return [];
+    
+    // 需要高亮的类型名词列表
+    const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX'];
+    
+    const parts = [];
+    let currentIndex = 0;
+    
+    // 合并正则：匹配「...」或 "..." 或 "..." 或 特定关键词
+    const keywordsPattern = highlightKeywords.map(kw => `\\b${kw}\\b`).join('|');
+    const regex = new RegExp(`([「""])([^」""]+)([」""])|(${keywordsPattern})`, 'g');
+    let match;
+    
+    while ((match = regex.exec(caption)) !== null) {
+      // 添加普通文本
+      if (match.index > currentIndex) {
+        const text = caption.slice(currentIndex, match.index);
+        [...text].forEach(char => parts.push({ char, highlight: false }));
+      }
+      
+      // 添加高亮文本
+      const fullMatch = match[0];
+      [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // 添加剩余文本
+    if (currentIndex < caption.length) {
+      const text = caption.slice(currentIndex);
+      [...text].forEach(char => parts.push({ char, highlight: false }));
+    }
+    
+    return parts;
+  }, [caption]);
+  
+  // 是否有文案需要显示
+  const hasCaption = !!caption && parsedContent.length > 0;
   
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
@@ -43,6 +99,27 @@ export const NaturalParallaxGrid = memo(({
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+  
+  // 文案逐字显示（组件挂载时触发）
+  useEffect(() => {
+    if (!hasCaption || hasTextTriggeredRef.current) return;
+    
+    hasTextTriggeredRef.current = true;
+    setTextVisible(true);
+    
+    // 逐字显示
+    const charInterval = 30;
+    parsedContent.forEach((_, index) => {
+      const timer = setTimeout(() => {
+        setRevealedCharCount(prev => Math.max(prev, index + 1));
+      }, index * charInterval);
+      textTimersRef.current.push(timer);
+    });
+    
+    return () => {
+      textTimersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [hasCaption, parsedContent.length]);
 
   // 判断是否使用分组模式
   const isGrouped = groups.length > 0;
@@ -172,6 +249,48 @@ export const NaturalParallaxGrid = memo(({
         }}>
           {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel || '')}
           {title && <div style={{ marginTop: '8px', fontSize: '1rem', color: 'rgba(255,255,255,0.6)' }}>{title}</div>}
+        </div>
+      )}
+
+      {/* 顶部文案区 */}
+      {hasCaption && (
+        <div ref={captionRef} style={{
+          width: '100%',
+          maxWidth: '1100px',
+          margin: '0 auto clamp(24px, 3vh, 40px)',
+          padding: '0 32px',
+          boxSizing: 'border-box',
+          textAlign: 'center',
+          opacity: textVisible ? 1 : 0,
+          transition: 'opacity 0.3s ease-out'
+        }}>
+          <p style={{
+            margin: 0,
+            color: '#fff',
+            fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
+            lineHeight: 1.7,
+            letterSpacing: '0.04em',
+            fontWeight: 300
+          }}>
+            {parsedContent.map((item, i) => {
+              const isRevealed = i < revealedCharCount;
+              return (
+                <span
+                  key={i}
+                  style={{
+                    display: 'inline',
+                    color: item.highlight ? '#FF5722' : 'inherit',
+                    fontWeight: item.highlight ? 600 : 300,
+                    opacity: isRevealed ? 1 : 0,
+                    transition: `opacity 0.4s ease-out, color 0.3s ease`,
+                    whiteSpace: 'pre-wrap'
+                  }}
+                >
+                  {item.char}
+                </span>
+              );
+            })}
+          </p>
         </div>
       )}
 

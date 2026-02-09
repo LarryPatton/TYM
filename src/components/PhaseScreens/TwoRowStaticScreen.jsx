@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // 调试开关
 const DEBUG = false;
@@ -15,6 +16,8 @@ export const TwoRowStaticScreen = memo(({
   screenNumber,
   screenLabel,
   title,
+  content,
+  contentKey,
   layout,
   images = [],
   bgColor = '#000',
@@ -24,8 +27,61 @@ export const TwoRowStaticScreen = memo(({
   sequentialPopup = false
 }) => {
   const containerRef = useRef(null);
+  const captionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [visibleRows, setVisibleRows] = useState([]);
+  
+  // 文案显示状态
+  const [textVisible, setTextVisible] = useState(false);
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const textTimersRef = useRef([]);
+  const hasTextTriggeredRef = useRef(false);
+  
+  const { t } = useTranslation();
+  
+  // 获取文案内容（优先使用 contentKey，其次使用 content）
+  const caption = contentKey ? t(contentKey) : (content || '');
+  
+  // 解析文案，识别高亮文本（「」内的内容 + 特定类型名词）
+  const parsedContent = useMemo(() => {
+    if (!caption) return [];
+    
+    // 需要高亮的类型名词列表
+    const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX'];
+    
+    const parts = [];
+    let currentIndex = 0;
+    
+    // 合并正则：匹配「...」或 "..." 或 "..." 或 特定关键词
+    const keywordsPattern = highlightKeywords.map(kw => `\\b${kw}\\b`).join('|');
+    const regex = new RegExp(`([「""])([^」""]+)([」""])|(${keywordsPattern})`, 'g');
+    let match;
+    
+    while ((match = regex.exec(caption)) !== null) {
+      // 添加普通文本
+      if (match.index > currentIndex) {
+        const text = caption.slice(currentIndex, match.index);
+        [...text].forEach(char => parts.push({ char, highlight: false }));
+      }
+      
+      // 添加高亮文本
+      const fullMatch = match[0];
+      [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // 添加剩余文本
+    if (currentIndex < caption.length) {
+      const text = caption.slice(currentIndex);
+      [...text].forEach(char => parts.push({ char, highlight: false }));
+    }
+    
+    return parts;
+  }, [caption]);
+  
+  // 是否有文案需要显示
+  const hasCaption = !!caption && parsedContent.length > 0;
   
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
@@ -63,6 +119,27 @@ export const TwoRowStaticScreen = memo(({
       }, rowIndex * 600);
     });
   }, [isInView, sequentialPopup, layout?.rows?.length]);
+  
+  // 文案逐字显示（进入视口时触发）
+  useEffect(() => {
+    if (!hasCaption || !isInView || hasTextTriggeredRef.current) return;
+    
+    hasTextTriggeredRef.current = true;
+    setTextVisible(true);
+    
+    // 逐字显示
+    const charInterval = 30;
+    parsedContent.forEach((_, index) => {
+      const timer = setTimeout(() => {
+        setRevealedCharCount(prev => Math.max(prev, index + 1));
+      }, index * charInterval);
+      textTimersRef.current.push(timer);
+    });
+    
+    return () => {
+      textTimersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [hasCaption, isInView, parsedContent.length]);
 
   if (!layout || !layout.rows || images.length === 0) return null;
 
@@ -135,7 +212,47 @@ export const TwoRowStaticScreen = memo(({
 
   const renderContent = () => (
     <>
-      {title && (
+      {/* 顶部文案区（优先显示 contentKey 文案，其次显示 title） */}
+      {hasCaption ? (
+        <div ref={captionRef} style={{
+          width: '100%',
+          maxWidth: '900px',
+          padding: '0 32px',
+          boxSizing: 'border-box',
+          textAlign: 'center',
+          marginBottom: 'clamp(24px, 3vh, 40px)',
+          opacity: textVisible ? 1 : 0,
+          transition: 'opacity 0.3s ease-out'
+        }}>
+          <p style={{
+            margin: 0,
+            color: '#fff',
+            fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
+            lineHeight: 1.7,
+            letterSpacing: '0.04em',
+            fontWeight: 300
+          }}>
+            {parsedContent.map((item, i) => {
+              const isRevealed = i < revealedCharCount;
+              return (
+                <span
+                  key={i}
+                  style={{
+                    display: 'inline',
+                    color: item.highlight ? '#FF5722' : 'inherit',
+                    fontWeight: item.highlight ? 600 : 300,
+                    opacity: isRevealed ? 1 : 0,
+                    transition: `opacity 0.4s ease-out, color 0.3s ease`,
+                    whiteSpace: 'pre-wrap'
+                  }}
+                >
+                  {item.char}
+                </span>
+              );
+            })}
+          </p>
+        </div>
+      ) : title && (
         <h2 style={{
           fontSize: '1.5rem',
           fontWeight: 300,

@@ -54,6 +54,7 @@ export * from './RowByRowPopupGrid';
 export * from './ProductPairScrollScreen';
 export * from './TwoRowStaticScreen';
 export * from './NaturalParallaxGrid';
+export * from './ScrollTextBar';
 export { default as AutoSequencePopup } from './AutoSequencePopup';
 export { LayoutDebugPanel } from './LayoutDebugPanel';
 // export * from './LogoCurtainScreen'; // 移除引用

@@ -24,6 +24,17 @@ const AboutTypewriter = ({
   // 当前打字阶段
   const [phase, setPhase] = useState('greeting');
   
+  // 🌐 语言切换时重置状态：当 props 变化时，如果已完成打字则立即显示完整内容
+  useEffect(() => {
+    if (phase === 'done') {
+      setGreetingIndex(greeting.length);
+      setLine1Index(line1.length);
+      setLine2Index(line2.length);
+      setLine3Index(line3.length);
+      setLine4Index(line4.length);
+    }
+  }, [greeting, line1, line2, line3, line4, phase]);
+  
   // 打字速度配置（毫秒）
   const TYPING_SPEED = {
     greeting: 80,    // 标题打字稍慢

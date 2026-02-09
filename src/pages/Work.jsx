@@ -7,6 +7,7 @@ import { useImagePreloader } from '../hooks/useImagePreloader';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
+import WorkGalleryTypewriter from '../components/WorkGalleryTypewriter';
 
 // 倾斜切割背景组件 - 使用 clip-path 实现真正的斜切效果，带层叠进入动画
 const SlicedBackground = ({ phases, isDark }) => {
@@ -426,7 +427,7 @@ const Work = () => {
     }
   };
 
-  // 标签淡入（带左侧滑入）
+  // 标签淡入（带左侧滑入）- 不设置固定 delay，继承父容器的 delayChildren
   const labelReveal = {
     hidden: { opacity: 0, x: -20 },
     visible: { 
@@ -832,87 +833,16 @@ const Work = () => {
               }} />
             )}
             
-            {/* 前景内容 */}
-            <div style={{ 
-              maxWidth: '600px', 
-              position: 'relative', 
-              zIndex: 20, // 提高 z-index，确保在遮罩和图片之上
-            }}>
-              {/* 标签 */}
-              <AnimatedLabel text={t('work.featuredCaseStudy')} isPrimary={true} />
-              
-              {/* 标题 - 限制1行，防止英文换行过多 */}
-              <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
-                <AnimatedTitle 
-                  text={t('work.featured.title')}
-                  style={{ 
-                    fontFamily: 'var(--font-serif)', 
-                    fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
-                    lineHeight: 1.1,
-                    whiteSpace: 'nowrap', // 禁止换行，确保单行
-                    ...styles.title
-                  }}
-                />
-              </motion.div>
-              
-              {/* 描述 - 自然换行，空间足够显示完整内容 */}
-              <motion.p 
-                variants={descReveal}
-                style={{ 
-                  fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', 
-                  lineHeight: 1.8, 
-                  marginBottom: '40px', 
-                  maxWidth: '600px',
-                  ...styles.desc
-                }}
-              >
-                {t('work.featured.desc')}
-              </motion.p>
-              
-              {/* 标签组 */}
-              <motion.div 
-                variants={tagsContainer}
-                style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '50px' }}
-              >
-                {t('work.featured.tags', { returnObjects: true }).map(tag => (
-                  <motion.span 
-                    key={tag} 
-                    variants={tagItem}
-                    whileHover={{ scale: 1.05 }}
-                    style={{ 
-                      padding: '8px 20px', 
-                      borderRadius: '100px', 
-                      fontSize: '0.9rem',
-                      ...styles.tag
-                    }}
-                  >
-                    {tag}
-                  </motion.span>
-                ))}
-              </motion.div>
-              
-              {/* CTA */}
-              <motion.div 
-                variants={ctaReveal}
-                style={{ 
-                  fontSize: '1.1rem', 
-                  fontWeight: '500', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '12px',
-                  ...styles.cta
-                }}
-              >
-                {t('work.viewFullCase')} 
-                <motion.span 
-                  style={{ fontSize: '1.3rem', display: 'inline-block' }}
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  →
-                </motion.span>
-              </motion.div>
-            </div>
+            {/* 前景内容 - 打字机效果 */}
+            <WorkGalleryTypewriter
+              title={t('work.featured.title')}
+              description={t('work.featured.desc')}
+              ctaText={t('work.viewFullCase')}
+              tags={[]} // 移除标签组
+              styles={styles}
+              isDark={isDark}
+              startDelay={3500} // 等待斜切动画完成（3.5秒）
+            />
           </motion.div>
         </Link>
       )}

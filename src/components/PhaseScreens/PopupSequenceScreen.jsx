@@ -14,6 +14,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * - 改为垂直堆叠展示
  * - 禁用滚动驱动动画
  * - 简化为普通滚动浏览
+ * 
+ * 注：文案展示已改用 scroll-text-bar 组件，本组件不再处理文案
  * ============================================
  */
 
@@ -136,7 +138,12 @@ const MobilePopupSequence = ({ screenNumber, screenLabel, images, bgColor }) => 
 /**
  * 桌面端：滚动驱动的弹出动画
  */
-const DesktopPopupSequence = ({ screenNumber, screenLabel, images, bgColor }) => {
+const DesktopPopupSequence = ({ 
+  screenNumber, 
+  screenLabel, 
+  images, 
+  bgColor
+}) => {
   const containerRef = useRef(null);
   const imageCount = images.length;
   

@@ -8,6 +8,9 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
  * 可以透过遮罩看到底层的内容，边缘带有羽化渐变效果。
  * 
  * 修复：不再使用条件渲染切换组件，避免 DOM 重新挂载导致的闪烁
+ * 
+ * @param {Object} initialPosition - 初始光圈位置 { x: 0-1, y: 0-1 }，百分比坐标
+ *                                   例如 { x: 0.7, y: 0.15 } 表示右上角
  */
 export const FlashlightMaskV2 = ({
   children,
@@ -15,7 +18,8 @@ export const FlashlightMaskV2 = ({
   spotlightSize = 200,
   featherSize = 100,
   scrollProgress, // 可以是 MotionValue 或普通数值
-  backgroundColor = '#000'
+  backgroundColor = '#000',
+  initialPosition = null // 新增：初始光圈位置 { x: 0-1, y: 0-1 }
 }) => {
   const containerRef = useRef(null);
   const maskRef = useRef(null);
@@ -39,9 +43,31 @@ export const FlashlightMaskV2 = ({
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
   
+  // 新增：设置初始光圈位置
+  useEffect(() => {
+    if (!containerRef.current || isTouchDevice || !initialPosition) return;
+    
+    const timer = requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const initialX = rect.width * (initialPosition.x || 0.5);
+      const initialY = rect.height * (initialPosition.y || 0.5);
+      
+      mouseX.set(initialX);
+      mouseY.set(initialY);
+      setIsHovering(true); // 立即显示光圈
+    });
+    
+    return () => cancelAnimationFrame(timer);
+  }, [initialPosition, isTouchDevice, mouseX, mouseY]);
+  
   // 修复：组件挂载时直接检测鼠标位置（解决鼠标静止不动时手电筒不显示的问题）
   useEffect(() => {
     if (!containerRef.current || isTouchDevice) return;
+    
+    // 如果有 initialPosition，跳过自动检测（由上面的 useEffect 处理）
+    if (initialPosition) return;
     
     // 使用 RAF 确保 DOM 完全渲染后再检测
     const timer = requestAnimationFrame(() => {

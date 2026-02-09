@@ -20,6 +20,16 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
   // 当前打字阶段：'name' | 'role' | 'desc1' | 'desc2' | 'done'
   const [phase, setPhase] = useState('name');
   
+  // 🌐 语言切换时重置状态：当 props 变化时，如果已完成打字则立即显示完整内容
+  useEffect(() => {
+    if (phase === 'done') {
+      setNameIndex(name.length);
+      setRoleIndex(role.length);
+      setDesc1Index(desc1.length);
+      setDesc2Index(desc2.length);
+    }
+  }, [name, role, desc1, desc2, phase]);
+  
   // PORTFOLIO 显示状态
   const [showPortfolio, setShowPortfolio] = useState(true);
   // 是否在 Contact 区域（用于跳过动画延迟）

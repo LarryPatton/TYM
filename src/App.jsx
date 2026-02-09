@@ -8,7 +8,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Work from './pages/Work';
 import Gallery from './pages/Gallery';
-import About from './pages/About';
+import About from './pages/About/index';
 import CaseStudiesList from './pages/CaseStudiesList';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import CaseIndex from './pages/CaseIndex';

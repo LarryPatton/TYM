@@ -12,10 +12,10 @@ const WechatModal = ({ isOpen, onClose }) => {
   const isDark = theme === 'dark';
 
   // 微信号（可复制）
-  const wechatId = 'your_wechat_id';
+  const wechatId = 'LUMI_TIAN';
   
-  // 二维码图片路径（后续替换）
-  const qrCodeImage = '/images/wechat-qr.png';
+  // 二维码图片路径
+  const qrCodeImage = '/covers/shared/code.jpg';
 
   // ESC 键关闭
   useEffect(() => {

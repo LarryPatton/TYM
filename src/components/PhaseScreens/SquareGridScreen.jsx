@@ -16,8 +16,6 @@ const DEBUG = false;
 export const SquareGridScreen = memo(({
   screenNumber,
   screenLabel,
-  title,
-  content,
   images = [],
   columns: columnCount = 4,
   accessoryImages = [], 
@@ -27,7 +25,9 @@ export const SquareGridScreen = memo(({
   imageScale = 1,
   gap = null,
   rowGap = null,
-  columnGap = null
+  columnGap = null,
+  topPadding = null,  // 网格顶部间距配置（如 '100px', '10vh'）
+  parallaxOffset = 0  // 视差起始偏移量调整（负值=减少顶部空白，正值=增加）
 }) => {
   const containerRef = useRef(null);
   
@@ -65,17 +65,23 @@ export const SquareGridScreen = memo(({
     return { columns: tempColumns, rowCount: maxRowCount };
   }, [images, effectiveColumnCount]);
   
-  // 视差参数计算
+  // 视差参数计算（加入 parallaxOffset 调整）
   const { fastStart, fastEnd, slowStart, slowEnd } = useMemo(() => {
     const is6Row = rowCount >= 6;
     const is3Row = rowCount === 3;
+    
+    // 基础值
+    const baseFastStart = is6Row ? 100 : (is3Row ? 300 : (rowCount >= 4 ? 200 : 120));
+    const baseSlowStart = is6Row ? 50 : (is3Row ? 200 : (rowCount >= 4 ? 80 : 40));
+    
+    // 应用偏移量调整（负值减少顶部空白，正值增加）
     return {
-      fastStart: is6Row ? 100 : (is3Row ? 300 : (rowCount >= 4 ? 200 : 120)),
+      fastStart: baseFastStart + parallaxOffset,
       fastEnd: is6Row ? -1100 : (is3Row ? -300 : (rowCount >= 4 ? -200 : -120)),
-      slowStart: is6Row ? 50 : (is3Row ? 200 : (rowCount >= 4 ? 80 : 40)),
+      slowStart: baseSlowStart + parallaxOffset * 0.6,  // 慢速列按 60% 比例调整
       slowEnd: is6Row ? -900 : (is3Row ? -200 : (rowCount >= 4 ? -80 : -40))
     };
-  }, [rowCount]);
+  }, [rowCount, parallaxOffset]);
 
   // Grid 动画
   const gridRange = hasAccessories ? [0, 0.35] : [0, 1];
@@ -191,10 +197,11 @@ export const SquareGridScreen = memo(({
         {/* Background Grid */}
         <motion.div style={{
           position: 'absolute',
-          inset: 0,
-          margin: '0 auto',
+          top: topPadding || 0,  // 应用顶部间距配置
           left: 0,
           right: 0,
+          bottom: 0,
+          margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: `repeat(${effectiveColumnCount}, 1fr)`,
           rowGap: finalRowGap,

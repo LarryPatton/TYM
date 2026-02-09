@@ -26,7 +26,8 @@ export const IntroScreen = memo(({
   showScrollHint = true,
   enableFlashlight = true,
   spotlightSize = 280,
-  featherSize = 120
+  featherSize = 120,
+  flashlightInitialPosition = null // 初始光圈位置 { x: 0-1, y: 0-1 }
 }) => {
   const ref = useRef(null);
   const rafRef = useRef(null);
@@ -185,6 +186,7 @@ export const IntroScreen = memo(({
               featherSize={featherSize}
               scrollProgress={scrollState.curtainProgress}
               backgroundColor="#000"
+              initialPosition={flashlightInitialPosition}
             >
               <TextContent 
                 phaseNumber={phaseNumber}

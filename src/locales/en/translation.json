@@ -42,7 +42,33 @@
       "other": "Other"
     },
     "formDetails": "Project Details",
-    "formDetailsPlaceholder": "Please tell me about your goals, timeline, and any specific requirements...",
+    "formDetailsPlaceholder": "Any additional information you'd like to share...",
+    "formConsultType": "Consultation Type",
+    "formConsultTypeOptions": {
+      "brand": "Brand Design",
+      "packaging": "Packaging Design",
+      "ecommerce": "E-commerce Visual",
+      "other": "Other"
+    },
+    "formProjectStage": "Project Stage",
+    "formProjectStageOptions": {
+      "concept": "Initial Concept",
+      "plan": "Have a Plan",
+      "progress": "In Progress"
+    },
+    "formBudget": "Budget Range",
+    "formBudgetOptions": {
+      "under5k": "Under $5k",
+      "5to10k": "$5k - $10k",
+      "10to30k": "$10k - $30k",
+      "over30k": "$30k+"
+    },
+    "formTimeline": "Timeline",
+    "formTimelineOptions": {
+      "urgent": "Urgent",
+      "normal": "Normal",
+      "flexible": "Flexible"
+    },
     "submitting": "Sending...",
     "submit": "Send Message",
     "expertise": {
@@ -76,32 +102,76 @@
     },
     "work": {
       "item1": {
-        "year": "2024 - Present",
+        "period": "2024 – Present",
         "role": "Senior Brand Designer",
         "company": "Mozan Technology Co. Ltd."
       },
       "item2": {
-        "year": "2023 - 2024",
+        "period": "2023 – 2024",
         "role": "Visual Designer",
         "company": "Hetianyuan Co. Ltd."
       },
       "item3": {
-        "year": "2022 - 2023",
+        "period": "2022 – 2023",
         "role": "Art Teacher",
         "company": "Hohhot No.2 Middle School"
       }
     },
     "education": {
       "item1": {
-        "year": "2023 - Present",
+        "period": "2023 – Present",
         "degree": "Master of Fine Arts",
         "school": "Southwest University School of Fine Arts"
       },
       "item2": {
-        "year": "2018 - 2022",
+        "period": "2018 – 2022",
         "degree": "Bachelor of Arts",
         "school": "Southwest University School of Fine Arts"
       }
+    },
+    "typeLabel": {
+      "work": "Work",
+      "education": "Education"
+    },
+    "skillsOverview": {
+      "title": "Skills Overview",
+      "intro": "I specialize in structuring product and brand information into reusable visual systems, and implementing them across e-commerce platforms, marketing materials, and offline touchpoints.",
+      "modules": {
+        "brandVisual": {
+          "title": "Brand Visual System",
+          "desc": "Information Architecture + Narrative Modularization + Guideline Documentation",
+          "deliverables": "Visual Guidelines / Info Module Library / Collaboration Standards"
+        },
+        "cmfPackaging": {
+          "title": "CMF & Packaging",
+          "desc": "Layered and serialized rules, ensuring consistency from sampling to mass production",
+          "deliverables": "CMF Rules / Packaging Structure / Sampling Checklist"
+        },
+        "ecommerce": {
+          "title": "E-commerce Visual",
+          "desc": "Systematic iteration of main images & detail pages across platforms",
+          "deliverables": "Main Image System / Detail Page Hierarchy / Store Campaign Design"
+        },
+        "kvPoster": {
+          "title": "KV/Poster System",
+          "desc": "Templated key visuals and layout systems for continuous output",
+          "deliverables": "KV System / Poster Templates / Communication Kits"
+        },
+        "localization": {
+          "title": "Regional Localization",
+          "desc": "Language, compliance, and selling point adaptation with complete channel materials",
+          "deliverables": "Regional Material Packs / Training PPT Framework / Compliance Templates"
+        }
+      },
+      "proof": {
+        "label": "Proof",
+        "items": "Packaging Serialization | Multi-platform E-commerce | KV System Cases"
+      },
+      "tools": {
+        "label": "Tools",
+        "items": "PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ"
+      },
+      "deliverableLabel": "Deliverables"
     }
   },
   "case": {

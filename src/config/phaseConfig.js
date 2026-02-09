@@ -126,7 +126,7 @@ export const phase02Config = {
     screens: ['cmf-main', 'cmf-color', 'factory-keycaps', 'priority'],
     labels: ['Exploration', 'Memory', 'Details', 'Process']
   },
-  totalScreens: 12, // 删除产品终图后：12屏
+  totalScreens: 11, // 删除目录屏后：11屏
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境
@@ -138,21 +138,7 @@ export const phase02Config = {
       bgImage: `${MOBILE_COVER_BASE}/Desktop - 2.png`,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
-    // Screen 02: TOC - 目录列表 (sticky)
-    {
-      id: 'toc',
-      type: 'phase-toc',
-      categoryLabel: '目录',
-      images: [
-        `${PHASE02_BASE}/toc/toc-01.png`,
-        `${PHASE02_BASE}/toc/toc-02.png`,
-        `${PHASE02_BASE}/toc/toc-03.png`
-      ],
-      sticky: true,
-      stickyHeight: 200,
-      scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' }
-    },
-    // Screen 02.5: Popup Sequence - 目标用户代际弹出
+    // Screen 02: Popup Sequence - 目标用户代际弹出
     {
       id: 'user-generation',
       type: 'popup-sequence',
@@ -1184,7 +1170,7 @@ export const phase05Config = {
   titleKey: 'case.phases.phase-05.title',
   prev: 'phase-04',
   next: 'phase-06',
-  totalScreens: 13, // 15 - 3 + 1 = 13 (合并 Screen 04/05/06 为 kv-mixed-grid)
+  totalScreens: 15, // 15 - 3 + 1 + 2 = 15 (合并 Screen 04/05/06, 新增 motor/expo 文字条)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境
@@ -1195,6 +1181,7 @@ export const phase05Config = {
       imageHint: '零售场景与体验拓展',
       bgImage: `${MOBILE_COVER_BASE}/Desktop - 5.png`,
       enableFlashlight: true,
+      flashlightInitialPosition: { x: 0.7, y: 0.15 }, // 右上角初始光圈位置
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     
@@ -1203,6 +1190,7 @@ export const phase05Config = {
       id: 'kv-kiyomi',
       type: 'grouped-carousel',
       categoryLabel: 'KV / KIYOMI',
+      contentKey: 'case.phases.phase-05.screens.kv-kiyomi.content',
       showGroupLabel: false,
       showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
@@ -1284,7 +1272,7 @@ export const phase05Config = {
       sequentialPopup: true,
       showItemCount: false,
       scrollBehavior: { sticky: true, length: 'normal', intensity: 'medium' },
-      title: '尼古丁糖系列',
+      contentKey: 'case.phases.phase-05.screens.kv-nicotine-drops.content',
       layout: {
         rows: [
           { count: 5, scale: 1.4, aspectRatio: 0.71 },  // 上行：第一版（5张），A4竖版比例
@@ -1398,12 +1386,21 @@ export const phase05Config = {
       ]
     },
     
+    // Screen 06: 文字过渡条（上下白线边框分隔，文字淡入浮现）
+    {
+      id: 'scroll-text-intro-cube',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-05.screens.photo-cube.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
     // Screen 08: 实拍 - cube 产品（5×3网格）
     {
       id: 'photo-cube',
       type: 'square-grid',
       categoryLabel: '实拍 / CUBE',
       columns: 5,
+      parallaxOffset: -100,  
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       images: [
         { src: `${PHASE05_BASE}/photo/cube/img_v3_02q6_fcd6ca2a-8de7-4571-9989-03dffecb102g 1.png`, label: 'Cube-P1' },
@@ -1424,7 +1421,15 @@ export const phase05Config = {
       ]
     },
     
-    // Screen 09: 实拍 - motor 产品（3×2网格）
+    // Screen 09: 文字过渡条 - MOTOR
+    {
+      id: 'scroll-text-intro-motor',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-05.screens.photo-motor.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 10: 实拍 - motor 产品（3×2网格）
     {
       id: 'photo-motor',
       type: 'square-grid',
@@ -1446,6 +1451,7 @@ export const phase05Config = {
       id: 'photo-display',
       type: 'grouped-carousel',
       categoryLabel: '实拍 / 展架',
+      contentKey: 'case.phases.phase-05.screens.photo-display.content',
       showGroupLabel: false,
       showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
@@ -1487,6 +1493,7 @@ export const phase05Config = {
       id: 'photo-store',
       type: 'grouped-carousel',
       categoryLabel: '实拍 / 店面',
+      contentKey: 'case.phases.phase-05.screens.photo-store.content',
       showGroupLabel: false,
       showItemCount: false,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
@@ -1531,6 +1538,7 @@ export const phase05Config = {
       id: 'photo-packaging',
       type: 'natural-parallax-grid',
       categoryLabel: '实拍 / 包装',
+      contentKey: 'case.phases.phase-05.screens.photo-packaging.content',
       columns: 3,
       gap: '24px',
       rowGap: '4px',
@@ -1556,7 +1564,15 @@ export const phase05Config = {
       ]
     },
     
-    // Screen 11: 实拍 - 展会（横向切换展示）
+    // Screen 12: 文字过渡条 - 展会
+    {
+      id: 'scroll-text-intro-expo',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-05.screens.photo-expo.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 13: 实拍 - 展会（横向切换展示）
     {
       id: 'photo-expo',
       type: 'popup-sequence',
@@ -1574,6 +1590,7 @@ export const phase05Config = {
       id: 'mockups',
       type: 'natural-parallax-grid',
       categoryLabel: '效果图',
+      contentKey: 'case.phases.phase-05.screens.mockups.content',
       columns: 3,
       gap: '24px',
       rowGap: '4px',

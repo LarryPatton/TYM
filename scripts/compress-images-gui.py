@@ -813,7 +813,7 @@ class ImageCompressorGUI:
         """JPG二分查找压缩
         
         Returns:
-            (quality, size_kb, output_path, compression_info)
+            (quality, size_kb, actual_output_path, compression_info)
         """
         temp_file = Path(TEMP_PREVIEW_DIR) / f"test_{image_path.name}"
         
@@ -860,16 +860,31 @@ class ImageCompressorGUI:
                 pass
         
         # 生成最终文件
+        # 注意：compress_image_with_quality 可能会改变输出路径的扩展名（如PNG→JPG）
+        # 所以需要检查实际生成的文件路径
+        actual_output_path = output_path
         try:
             final_size = self.compress_image_with_quality(
                 image_path, output_path, best_quality, preserve_alpha=False
             )
+            # 检查实际文件是否在 output_path，如果不在则可能扩展名被改了
+            if not output_path.exists():
+                # compress_image_with_quality 可能将 .png 改为 .jpg
+                jpg_path = output_path.with_suffix('.jpg')
+                if jpg_path.exists():
+                    actual_output_path = jpg_path
+                    final_size = jpg_path.stat().st_size
+            else:
+                actual_output_path = output_path
         except:
             final_size = best_size
         
-        # 清理测试文件
+        # 清理测试文件（也检查可能被改名的测试文件）
         if temp_file.exists():
             temp_file.unlink()
+        temp_file_jpg = temp_file.with_suffix('.jpg')
+        if temp_file_jpg.exists() and temp_file_jpg != temp_file:
+            temp_file_jpg.unlink()
         
         # 构建compression_info
         target_reached = final_size <= target_size_bytes
@@ -885,7 +900,7 @@ class ImageCompressorGUI:
             'reduction': reduction
         }
         
-        return best_quality, final_size / 1024, output_path, compression_info
+        return best_quality, final_size / 1024, actual_output_path, compression_info
     
     def _compress_png_smart(self, image_path, output_path, target_size_bytes, preserve_alpha):
         """PNG智能压缩策略
@@ -1167,19 +1182,47 @@ class ImageCompressorGUI:
             messagebox.showwarning("提示", "找不到原图文件！")
             return
         
+        compressed_path = Path(self.compressed_image_path)
+        original_path = Path(self.current_file)
+        
+        # 检查是否发生了格式转换（PNG→JPG）
+        format_changed = compressed_path.suffix.lower() != original_path.suffix.lower()
+        
         # 确认操作
-        if not messagebox.askyesno("确认", "确定要用压缩后的图片覆盖原图吗？\n此操作不可撤销！"):
+        if format_changed:
+            confirm_msg = (
+                f"压缩后的格式已从 {original_path.suffix} 变为 {compressed_path.suffix}。\n\n"
+                f"• 原文件 {original_path.name} 将被删除\n"
+                f"• 新文件 {original_path.with_suffix(compressed_path.suffix).name} 将被创建\n\n"
+                "此操作不可撤销！确定要应用吗？"
+            )
+        else:
+            confirm_msg = "确定要用压缩后的图片覆盖原图吗？\n此操作不可撤销！"
+        
+        if not messagebox.askyesno("确认", confirm_msg):
             return
         
         try:
-            # 备份原图（可选）
-            # backup_path = self.current_file.with_suffix(self.current_file.suffix + '.bak')
-            # shutil.copy2(self.current_file, backup_path)
-            
-            # 覆盖原图
-            shutil.copy2(self.compressed_image_path, self.current_file)
-            
-            messagebox.showinfo("成功", "已成功应用压缩！原图已被覆盖。")
+            if format_changed:
+                # 格式发生变化：复制为新扩展名文件，并删除原文件
+                new_path = original_path.with_suffix(compressed_path.suffix)
+                shutil.copy2(compressed_path, new_path)
+                
+                # 删除原始文件（如果新路径和原路径不同）
+                if new_path != original_path and original_path.exists():
+                    original_path.unlink()
+                
+                # 更新当前文件引用
+                self.current_file = new_path
+                
+                messagebox.showinfo("成功", 
+                    f"已成功应用压缩！\n"
+                    f"原文件 {original_path.name} 已删除，\n"
+                    f"新文件 {new_path.name} 已保存。")
+            else:
+                # 格式未变：直接覆盖原图
+                shutil.copy2(compressed_path, original_path)
+                messagebox.showinfo("成功", "已成功应用压缩！原图已被覆盖。")
             
             # 清空显示
             self.clear_image_display()
@@ -1635,8 +1678,24 @@ class ImageCompressorGUI:
             success_count = 0
             for img_path in image_list:
                 temp_file = Path(TEMP_PREVIEW_DIR) / f"preview_{img_path.name}"
+                
+                # 也检查是否有格式转换后的文件（如 preview_xxx.jpg 对应原来的 xxx.png）
+                if not temp_file.exists():
+                    # 尝试查找不同扩展名的预览文件
+                    stem = f"preview_{img_path.stem}"
+                    for candidate in Path(TEMP_PREVIEW_DIR).glob(f"{stem}.*"):
+                        temp_file = candidate
+                        break
+                
                 if temp_file.exists():
-                    shutil.copy2(temp_file, img_path)
+                    if temp_file.suffix.lower() != img_path.suffix.lower():
+                        # 格式发生变化：复制为新扩展名，删除原文件
+                        new_path = img_path.with_suffix(temp_file.suffix)
+                        shutil.copy2(temp_file, new_path)
+                        if new_path != img_path and img_path.exists():
+                            img_path.unlink()
+                    else:
+                        shutil.copy2(temp_file, img_path)
                     success_count += 1
             
             messagebox.showinfo("成功", f"已成功应用 {success_count}/{len(image_list)} 个文件的压缩结果！")
@@ -2629,28 +2688,90 @@ class ImageCompressorGUI:
             messagebox.showwarning("提示", "请先勾选要保存的文件！")
             return
         
+        # 检查是否有格式转换的文件（PNG→JPG），给出额外提示
+        format_changed_count = sum(
+            1 for item in selected_items 
+            if self.batch_files_data[item].get('compression_info', {}).get('method', '') == 'PNG→JPG'
+        )
+        
+        confirm_msg = f"确定要用压缩后的图片覆盖选中的 {len(selected_items)} 个原图吗？\n此操作不可撤销！"
+        if format_changed_count > 0:
+            confirm_msg += f"\n\n⚠️ 其中 {format_changed_count} 个文件将从 PNG 转换为 JPG 格式：\n"
+            confirm_msg += "  • 原 .png 文件将被删除\n"
+            confirm_msg += "  • 新 .jpg 文件将保存到同目录"
+        
         # 确认操作
-        if not messagebox.askyesno("确认", f"确定要用压缩后的图片覆盖选中的 {len(selected_items)} 个原图吗？\n此操作不可撤销！"):
+        if not messagebox.askyesno("确认", confirm_msg):
             return
         
         try:
             success_count = 0
+            fail_count = 0
+            fail_files = []
             for item in selected_items:
                 data = self.batch_files_data[item]
                 preview_file = Path(data['preview_file'])
                 original_path = data['path']
+                compression_info = data.get('compression_info', {})
+                method = compression_info.get('method', '')
                 
-                if preview_file.exists():
-                    # 覆盖原图
-                    shutil.copy2(preview_file, original_path)
-                    success_count += 1
+                # 如果预览文件不存在，尝试查找可能被改名的文件（如 .png → .jpg）
+                if not preview_file.exists():
+                    # 尝试查找同名不同扩展名的文件
+                    stem = preview_file.stem
+                    parent = preview_file.parent
+                    found = False
+                    for candidate in parent.glob(f"{stem}.*"):
+                        if candidate.is_file():
+                            preview_file = candidate
+                            found = True
+                            print(f"[保存] 找到替代预览文件: {candidate}")
+                            break
+                    if not found:
+                        print(f"[保存] 预览文件不存在，跳过: {data['preview_file']}")
+                        fail_count += 1
+                        fail_files.append(original_path.name)
+                        # 更新状态
+                        values = list(self.batch_tree.item(item, 'values'))
+                        values[-1] = '✗ 预览不存在'
+                        self.batch_tree.item(item, values=values)
+                        continue
+                
+                # 判断是否发生了格式转换
+                format_changed = preview_file.suffix.lower() != original_path.suffix.lower()
+                
+                if format_changed:
+                    # 格式发生变化：需要复制为新扩展名文件，并删除原文件
+                    new_path = original_path.with_suffix(preview_file.suffix)
+                    shutil.copy2(preview_file, new_path)
                     
-                    # 更新状态
-                    values = list(self.batch_tree.item(item, 'values'))
-                    values[-1] = '✓ 已保存'
-                    self.batch_tree.item(item, values=values)
+                    # 删除原始文件（如果新路径和原路径不同）
+                    if new_path != original_path and original_path.exists():
+                        original_path.unlink()
+                    
+                    # 更新 data 中的路径为新路径
+                    self.batch_files_data[item]['path'] = new_path
+                    print(f"[保存] 格式转换: {original_path.name} → {new_path.name}")
+                else:
+                    # 格式未变：直接覆盖原图
+                    shutil.copy2(preview_file, original_path)
+                    print(f"[保存] 覆盖原图: {original_path.name}")
+                
+                success_count += 1
+                
+                # 更新状态
+                values = list(self.batch_tree.item(item, 'values'))
+                values[-1] = '✓ 已保存'
+                self.batch_tree.item(item, values=values)
             
-            messagebox.showinfo("成功", f"已成功保存 {success_count}/{len(selected_items)} 个文件！")
+            result_msg = f"已成功保存 {success_count}/{len(selected_items)} 个文件！"
+            if fail_count > 0:
+                result_msg += f"\n\n⚠️ {fail_count} 个文件保存失败（预览文件不存在）：\n"
+                result_msg += "\n".join(f"  • {f}" for f in fail_files[:10])
+                if len(fail_files) > 10:
+                    result_msg += f"\n  ... 等共 {len(fail_files)} 个"
+            
+            messagebox.showinfo("保存结果", result_msg)
             
         except Exception as e:
             messagebox.showerror("错误", f"保存失败：{str(e)}")

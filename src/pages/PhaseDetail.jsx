@@ -59,6 +59,7 @@ import {
   ProductPairScrollScreen, // 配对滚动展示组件
   TwoRowStaticScreen, // 两行静态展示组件
   NaturalParallaxGrid, // 自然滚动视差网格组件
+  ScrollTextBar, // 滚动驱动的横向文字过渡组件
   AutoSequencePopup, // 自动顺序弹出组件
   TransitionProvider,
   LayoutDebugPanel, // 布局调试面板
@@ -477,6 +478,7 @@ const PhaseDetail = () => {
             content={screenData?.content || ''}
             imageHint={config.imageHint}
             bgImage={config.bgImage}
+            flashlightInitialPosition={config.flashlightInitialPosition}
           />
         );
 
@@ -823,21 +825,34 @@ const PhaseDetail = () => {
           </section>
         );
 
+      case 'scroll-text-bar':
+        return (
+          <ScrollTextBar
+            key={screenConfig.id}
+            contentKey={screenConfig.contentKey}
+            content={screenData?.content || ''}
+            bgColor={screenConfig.bgColor || '#000'}
+            borderColor={screenConfig.borderColor}
+            fontSize={screenConfig.fontSize}
+            padding={screenConfig.padding}
+          />
+        );
+
       case 'square-grid':
         return (
           <SquareGridScreen
             key={screenConfig.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenData?.title || ''}
-            content={screenData?.content || ''}
             images={screenConfig.images || []}
-            columns={screenConfig.columns || 4} // 新增：列数配置
+            columns={screenConfig.columns || 4}
             accessoryImages={screenConfig.accessoryImages || []}
             accessoryBackImages={screenConfig.accessoryBackImages || []}
-            noBorder={screenConfig.noBorder || false} // 无边框样式
-            imageScale={screenConfig.imageScale} // 新增：图片缩放比例
-            gap={screenConfig.gap} // 新增：自定义间距
+            noBorder={screenConfig.noBorder || false}
+            imageScale={screenConfig.imageScale}
+            gap={screenConfig.gap}
+            topPadding={screenConfig.topPadding}
+            parallaxOffset={screenConfig.parallaxOffset || 0}  // 视差起始偏移量
             bgColor="#000"
           />
         );
@@ -849,6 +864,8 @@ const PhaseDetail = () => {
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={config.title || ''}
+            content={screenData?.content || ''}
+            contentKey={config.contentKey}
             groups={config.groups || []}
             images={config.images || []}
             columns={config.columns || 3}
@@ -1024,6 +1041,7 @@ const PhaseDetail = () => {
             screenLabel={screenLabel}
             title={screenData?.title || ''}
             content={screenData?.content || ''}
+            contentKey={config.contentKey}
             groups={config.groups || []}
             bgColor="#000"
             rowGap={config.rowGap || '24px'}
@@ -1054,6 +1072,8 @@ const PhaseDetail = () => {
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={config.title || screenData?.title || ''}
+            content={screenData?.content || ''}
+            contentKey={config.contentKey}
             layout={config.layout}
             images={config.images || []}
             bgColor="#000"
@@ -1085,6 +1105,8 @@ const PhaseDetail = () => {
             key={screenConfig.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
+            content={screenData?.content || ''}
+            contentKey={screenConfig.contentKey}
             images={screenConfig.images || []}
             bgColor="#000"
           />
@@ -1392,16 +1414,30 @@ const PhaseDetail = () => {
               <span>←</span>
               <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
               <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
-              <span style={{ opacity: 0.8 }}>Phase {phase.number}</span>
-              {/* 当前屏幕标题 */}
+              <span style={{ opacity: 0.8 }}>阶段 {phase.number}</span>
+              {/* 当前屏幕标题（KV/CMF/实拍 等类型名词高亮） */}
               {(() => {
                 const currentScreenConfig = filteredScreens?.[currentScreen - 1];
                 const screenTitle = currentScreenConfig?.categoryLabel;
                 if (screenTitle) {
+                  // 需要高亮的类型名词
+                  const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX', '实拍'];
+                  const keywordsPattern = highlightKeywords.join('|');
+                  const regex = new RegExp(`(${keywordsPattern})`, 'g');
+                  const parts = screenTitle.split(regex);
+                  
                   return (
                     <>
                       <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
-                      <span style={{ opacity: 0.7 }}>{screenTitle}</span>
+                      <span style={{ opacity: 0.9 }}>
+                        {parts.map((part, i) => 
+                          highlightKeywords.includes(part) ? (
+                            <span key={i} style={{ color: '#FF5722', fontWeight: 600 }}>{part}</span>
+                          ) : (
+                            <span key={i}>{part}</span>
+                          )
+                        )}
+                      </span>
                     </>
                   );
                 }

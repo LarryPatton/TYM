@@ -32,7 +32,7 @@
     "formName": "姓名",
     "formNamePlaceholder": "你的姓名",
     "formEmail": "邮箱",
-    "formEmailPlaceholder": "tian_yangmin@163.com",
+    "formEmailPlaceholder": "你的邮箱",
     "formProjectType": "项目类型",
     "formProjectTypeOptions": {
       "webDesign": "网页设计与开发",
@@ -42,7 +42,33 @@
       "other": "其他"
     },
     "formDetails": "项目详情",
-    "formDetailsPlaceholder": "请告诉我你的目标、时间表，以及任何具体要求…",
+    "formDetailsPlaceholder": "请补充其他需要说明的信息…",
+    "formConsultType": "咨询类型",
+    "formConsultTypeOptions": {
+      "brand": "品牌设计",
+      "packaging": "包装设计",
+      "ecommerce": "电商视觉",
+      "other": "其他"
+    },
+    "formProjectStage": "项目阶段",
+    "formProjectStageOptions": {
+      "concept": "初步构想",
+      "plan": "已有方案",
+      "progress": "正在推进"
+    },
+    "formBudget": "预算范围",
+    "formBudgetOptions": {
+      "under5k": "5k 以下",
+      "5to10k": "5k - 10k",
+      "10to30k": "10k - 30k",
+      "over30k": "30k 以上"
+    },
+    "formTimeline": "时间要求",
+    "formTimelineOptions": {
+      "urgent": "紧急",
+      "normal": "正常",
+      "flexible": "灵活"
+    },
     "submitting": "发送中…",
     "submit": "发送消息",
     "expertise": {
@@ -76,32 +102,76 @@
     },
     "work": {
       "item1": {
-        "year": "2024 – 至今",
+        "period": "2024 – 至今",
         "role": "高级品牌设计师",
         "company": "深圳市摩赞科技有限公司"
       },
       "item2": {
-        "year": "2023 – 2024",
+        "period": "2023 – 2024",
         "role": "视觉设计师",
         "company": "深圳市合天源有限公司"
       },
       "item3": {
-        "year": "2022 – 2023",
+        "period": "2022 – 2023",
         "role": "美术教师",
         "company": "呼和浩特第二中学初中部"
       }
     },
     "education": {
       "item1": {
-        "year": "2023 – 至今",
+        "period": "2023 – 至今",
         "degree": "美术学硕士",
         "school": "西南大学美术学院"
       },
       "item2": {
-        "year": "2018 – 2022",
+        "period": "2018 – 2022",
         "degree": "艺术学学士",
         "school": "西南大学美术学院"
       }
+    },
+    "typeLabel": {
+      "work": "工作",
+      "education": "教育"
+    },
+    "skillsOverview": {
+      "title": "能力概览",
+      "intro": "我擅长把产品与品牌信息结构化，做成可复用的视觉系统，并落地到电商平台、传播物料与线下触点。",
+      "modules": {
+        "brandVisual": {
+          "title": "品牌视觉系统",
+          "desc": "信息架构 + 叙事模块化 + 规范沉淀",
+          "deliverables": "视觉规范 / 信息模块库 / 协作口径"
+        },
+        "cmfPackaging": {
+          "title": "CMF & 包装",
+          "desc": "分层与系列化规则，控打样到量产一致",
+          "deliverables": "CMF规则 / 包装结构 / 打样对齐清单"
+        },
+        "ecommerce": {
+          "title": "电商转化视觉",
+          "desc": "多平台主图&详情页体系化迭代",
+          "deliverables": "主图体系 / 详情页信息层级 / 店铺活动装修"
+        },
+        "kvPoster": {
+          "title": "KV/海报系统",
+          "desc": "主视觉与版式系统模板化，支持持续输出",
+          "deliverables": "KV系统 / 海报模板 / 传播套件"
+        },
+        "localization": {
+          "title": "多区域本地化",
+          "desc": "语言、合规与卖点表达适配，渠道物料成套",
+          "deliverables": "区域物料包 / 培训PPT框架 / 合规模板"
+        }
+      },
+      "proof": {
+        "label": "Proof",
+        "items": "包装系列化案例｜多平台电商案例｜KV系统案例"
+      },
+      "tools": {
+        "label": "工具",
+        "items": "PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ"
+      },
+      "deliverableLabel": "交付物"
     }
   },
   "case": {
@@ -479,47 +549,45 @@
           },
           "kv-kiyomi": {
             "title": "KIYOMI 主视觉",
-            "content": "KIYOMI 品牌主视觉设计展示。"
+            "content": "用「系列海报版式系统」将主视觉、口号、产品与场景「模块化统一」，快速产出可铺满「线下触点」的高识别宣传物料。"
           },
           "kv-nicotine-drops": {
             "title": "尼古丁糖主视觉",
-            "content": "尼古丁糖产品系列主视觉设计。"
+            "content": "用「区域版本海报」+「场景用途分层」+「口味卡矩阵」的视觉套件，批量匹配「全球区域」与「渠道终端」的宣传需求。"
           },
           "kv-mixed-grid": {
-            "title": "混合产品主视觉",
-            "content": "CUBE、SPARK、MOTOR 系列混合主视觉展示。"
+            "title": "混合产品主视觉"
           },
           "kv-marquee-mix": {
-            "title": "M1·R15·烟油 主视觉",
-            "content": "M1、R15、烟油系列主视觉设计展示。"
+            "title": "M1·R15·烟油 主视觉"
           },
           "photo-cube": {
             "title": "CUBE 产品实拍",
-            "content": "CUBE 系列产品实拍展示。"
+            "content": "用「配色体系落地」+「工厂跟产」+「实拍验证」+「配件适配」的模块化交付，把设计从屏幕带到真实零售场景，为后续营销活动沉淀可直接使用的内容资产。"
           },
           "photo-motor": {
             "title": "MOTOR 产品实拍",
-            "content": "MOTOR 系列产品实拍展示。"
+            "content": "用「硅胶套保护配件」+「挂绳场景」的模块化周边设计，把便携与防护价值做成可搭售、可传播的营销资产，支持终端陈列与活动赠品体系。"
           },
           "photo-display": {
             "title": "展架实拍",
-            "content": "产品展架实拍展示。"
+            "content": "用「展示柜/货架陈列」+「终端卖点包装」+「跳跳卡装饰」的模块化零售物料，把不同产品的售卖信息系统化落地到终端，提升陈列吸引力与转化效率。"
           },
           "photo-store": {
             "title": "店面实拍",
-            "content": "零售店面实拍展示。"
+            "content": "用「跨国家门店实景验证」的模块化复盘，把物料在不同终端与陈列环境中的真实落地效果可视化呈现，帮助团队快速迭代并支持渠道复制铺设。"
           },
           "photo-packaging": {
             "title": "包装实拍",
-            "content": "产品包装实拍展示。"
+            "content": "用「包装系统打样」+「实拍校验」的模块化流程，把配色、工艺、信息层级与陈列效果在量产前一次性对齐，为渠道上架与营销投放提供可靠的成品资产。"
           },
           "photo-expo": {
             "title": "展会实拍",
-            "content": "展会现场实拍展示。"
+            "content": "用「展会空间视觉」+「互动装置」+「物料系统」的模块化落地，把品牌体验在海外展会现场快速搭建并统一呈现，支持获客、引导与渠道洽谈。"
           },
           "mockups": {
             "title": "效果图展示",
-            "content": "产品效果图与场景模拟。"
+            "content": "用「活动场景渲染」+「物料套件复用」的模块化效果图体系，把促销、展陈、渠道沟通所需的视觉快速落地，提升方案呈现质量与复用效率。"
           },
           "closing": {
             "title": "零售空间的成功落地标志着品牌系统的成熟",

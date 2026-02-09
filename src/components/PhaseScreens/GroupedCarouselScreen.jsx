@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useLenisScrollProgress } from '../../hooks/useLenisScroll';
+import { useTranslation } from 'react-i18next';
 
 // ========== 工具函数：线性插值（替代 framer-motion useTransform） ==========
 function interpolate(value, inputRange, outputRange) {
@@ -66,6 +67,7 @@ export const GroupedCarouselScreen = ({
   screenLabel,
   title,
   content,
+  contentKey,
   groups = [],
   bgColor = '#000',
   rowGap = '24px',
@@ -75,9 +77,109 @@ export const GroupedCarouselScreen = ({
   aspectRatio = '1 / 1'
 }) => {
   const containerRef = useRef(null);
+  const { t } = useTranslation();
   
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
+  
+  // 文案显示状态
+  const [textVisible, setTextVisible] = useState(false);
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const textTimersRef = useRef([]);
+  const hasTextTriggeredRef = useRef(false);
+  const captionRef = useRef(null); // 单独引用文案区域，用于 IntersectionObserver
+  
+  // 获取文案内容（优先使用 contentKey，其次使用 content）
+  const caption = contentKey ? t(contentKey) : (content || '');
+  
+  // 解析文案，识别高亮文本（「」内的内容 + 特定类型名词）
+  const parsedContent = useMemo(() => {
+    if (!caption) return [];
+    
+    // 需要高亮的类型名词列表
+    const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX'];
+    
+    const parts = [];
+    let currentIndex = 0;
+    
+    // 合并正则：匹配「...」或 "..." 或 "..." 或 特定关键词
+    const keywordsPattern = highlightKeywords.map(kw => `\\b${kw}\\b`).join('|');
+    const regex = new RegExp(`([「""])([^」""]+)([」""])|(${keywordsPattern})`, 'g');
+    let match;
+    
+    while ((match = regex.exec(caption)) !== null) {
+      // 添加普通文本
+      if (match.index > currentIndex) {
+        const text = caption.slice(currentIndex, match.index);
+        [...text].forEach(char => parts.push({ char, highlight: false }));
+      }
+      
+      // 添加高亮文本
+      const fullMatch = match[0];
+      [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // 添加剩余文本
+    if (currentIndex < caption.length) {
+      const text = caption.slice(currentIndex);
+      [...text].forEach(char => parts.push({ char, highlight: false }));
+    }
+    
+    return parts;
+  }, [caption]);
+  
+  // 文案逐字显示的 IntersectionObserver（观察文案区域本身，而非超高的外层容器）
+  useEffect(() => {
+    if (!caption || parsedContent.length === 0) return;
+    
+    const captionEl = captionRef.current;
+    if (!captionEl) {
+      // 如果文案 DOM 还没挂载，延迟 200ms 重试
+      const retryTimer = setTimeout(() => {
+        const el = captionRef.current;
+        if (el && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      }, 500);
+      return () => clearTimeout(retryTimer);
+    }
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          
+          // 逐字显示
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    observer.observe(captionEl);
+    
+    return () => {
+      observer.unobserve(captionEl);
+      textTimersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [caption, parsedContent.length]);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -188,6 +290,9 @@ export const GroupedCarouselScreen = ({
     );
   }
 
+  // 是否有文案需要显示
+  const hasCaption = !!caption && parsedContent.length > 0;
+
   // 桌面端：Lenis 驱动的滚动切换
   return (
     <div 
@@ -208,7 +313,8 @@ export const GroupedCarouselScreen = ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        boxSizing: 'border-box'
       }}>
         
         {showScreenLabel && screenNumber && (
@@ -227,7 +333,88 @@ export const GroupedCarouselScreen = ({
           </div>
         )}
 
-        {/* 分组指示器 */}
+        {/* 三区域整体容器（文案+图片+指示器），整体垂直居中 */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          maxHeight: '90vh',
+          gap: 'clamp(8px, 1.5vh, 16px)'
+        }}>
+          {/* 顶部文案区（仅有 caption 时显示） */}
+          {hasCaption && (
+            <div ref={captionRef} style={{
+              width: '100%',
+              maxWidth: '1100px',
+              padding: '0 32px',
+              boxSizing: 'border-box',
+              textAlign: 'center',
+              flexShrink: 0,
+              zIndex: 15,
+              opacity: textVisible ? 1 : 0,
+              transition: 'opacity 0.3s ease-out'
+            }}>
+              <p style={{
+                margin: 0,
+                color: '#fff',
+                fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
+                lineHeight: 1.7,
+                letterSpacing: '0.04em',
+                fontWeight: 300
+              }}>
+                {parsedContent.map((item, i) => {
+                  const isRevealed = i < revealedCharCount;
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: 'inline',
+                        color: item.highlight ? '#FF5722' : 'inherit',
+                        fontWeight: item.highlight ? 600 : 300,
+                        opacity: isRevealed ? 1 : 0,
+                        transition: `opacity 0.4s ease-out, color 0.3s ease`,
+                        whiteSpace: 'pre-wrap'
+                      }}
+                    >
+                      {item.char}
+                    </span>
+                  );
+                })}
+              </p>
+            </div>
+          )}
+
+          {/* 分组内容 */}
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: hasCaption ? '65vh' : '70vh',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            {groups.map((group, index) => (
+              <GroupScene
+                key={`group-${index}`}
+                group={group}
+                index={index}
+                progress={progress}
+                totalGroups={totalGroups}
+                getGroupRange={getGroupRange}
+                isLastGroup={index === totalGroups - 1}
+                rowGap={rowGap}
+                showGroupLabel={showGroupLabel}
+                showItemCount={showItemCount}
+                aspectRatio={aspectRatio}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 分组指示器（固定在底部） */}
         <GroupIndicator 
           groups={groups} 
           progress={progress} 
@@ -235,32 +422,6 @@ export const GroupedCarouselScreen = ({
           getGroupRange={getGroupRange}
           showLabel={true}
         />
-
-        {/* 分组内容 */}
-        <div style={{
-          position: 'relative',
-          width: '100%',
-          height: '75vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          {groups.map((group, index) => (
-            <GroupScene
-              key={`group-${index}`}
-              group={group}
-              index={index}
-              progress={progress}
-              totalGroups={totalGroups}
-              getGroupRange={getGroupRange}
-              isLastGroup={index === totalGroups - 1}
-              rowGap={rowGap}
-              showGroupLabel={showGroupLabel}
-              showItemCount={showItemCount}
-              aspectRatio={aspectRatio}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );

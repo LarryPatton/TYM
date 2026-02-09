@@ -7,61 +7,136 @@ import { useTheme } from '../hooks/useTheme';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import LoadingScreen from '../components/LoadingScreen';
+import WorkGalleryTypewriter from '../components/WorkGalleryTypewriter';
 
-// 倾斜切割背景组件 - 使用 clip-path 实现真正的斜切效果，带层叠进入动画
-const SlicedBackground = ({ phases, isDark }) => {
-  const sliceCount = phases.length;
-  const slantOffset = 15; // 倾斜偏移量 (百分比)
-  const leftShift = -8;   // 整体向左偏移，减小第一个区域面积
+// 两行动态列数背景组件 - 根据屏幕尺寸动态计算每行显示图片数量，确保裁剪不超过10%
+const FlyInStackBackground = ({ phases, isDark }) => {
+  const [imagesPerRow, setImagesPerRow] = useState(5); // 默认每行5张
   
-  // 计算每个切片的 clip-path（斜线从右上向左下）
-  const getClipPath = (index) => {
-    const totalSlices = sliceCount;
-    const sliceWidth = 100 / totalSlices;
-    
-    // 计算左右边界位置 - 顶部向右偏移，底部不偏移，整体向左移动
-    const leftTop = index * sliceWidth + slantOffset + leftShift;
-    const leftBottom = index * sliceWidth + leftShift;
-    const rightTop = (index + 1) * sliceWidth + slantOffset + leftShift;
-    const rightBottom = (index + 1) * sliceWidth + leftShift;
-    
-    // 第一个和最后一个切片需要特殊处理边界
-    if (index === 0) {
-      return `polygon(0% 0%, ${rightTop}% 0%, ${rightBottom}% 100%, 0% 100%)`;
-    }
-    if (index === totalSlices - 1) {
-      return `polygon(${leftTop}% 0%, 100% 0%, 100% 100%, ${leftBottom}% 100%)`;
-    }
-    return `polygon(${leftTop}% 0%, ${rightTop}% 0%, ${rightBottom}% 100%, ${leftBottom}% 100%)`;
-  };
+  // 图片原始宽高比
+  const IMAGE_ASPECT_RATIO = 856 / 1400; // ≈ 0.611
+  const MAX_CROP_RATIO = 0.10; // 最大裁剪比例 10%
+  const MIN_IMAGES_PER_ROW = 3;
+  const MAX_IMAGES_PER_ROW = 6;
+  const ROWS = 2; // 两行布局
   
-  // 【新】两阶段动画变体：先整张滑入堆叠，再统一变成斜切
-  const imageSlideIn = {
+  // 计算每行最优显示数量
+  useEffect(() => {
+    const calculateOptimalCount = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight - 60; // 扣除导航栏高度
+      const rowHeight = screenHeight / ROWS; // 每行高度
+      
+      // 图片在当前行高下的显示宽度
+      const imageDisplayWidth = rowHeight * IMAGE_ASPECT_RATIO;
+      
+      // 公式：N ≤ 屏幕宽度 / ((1 - 最大裁剪比) × 图片显示宽度)
+      const maxImages = Math.floor(screenWidth / ((1 - MAX_CROP_RATIO) * imageDisplayWidth));
+      
+      // 限制在 MIN 到 MAX 之间
+      const optimalCount = Math.max(MIN_IMAGES_PER_ROW, Math.min(MAX_IMAGES_PER_ROW, maxImages));
+      
+      console.log('[Gallery] Screen:', screenWidth, 'x', screenHeight, 
+                  '| Row height:', Math.round(rowHeight),
+                  '| Image width:', Math.round(imageDisplayWidth),
+                  '| Images per row:', optimalCount);
+      
+      setImagesPerRow(optimalCount);
+    };
+    
+    // 初始计算
+    calculateOptimalCount();
+    
+    // 监听窗口大小变化
+    window.addEventListener('resize', calculateOptimalCount);
+    return () => window.removeEventListener('resize', calculateOptimalCount);
+  }, []);
+  
+  // 将图片分成两行（确保两行数量一致）
+  // 计算每行实际可显示的数量：取素材总数的一半和计算值的较小者
+  const actualImagesPerRow = Math.min(imagesPerRow, Math.floor(phases.length / ROWS));
+  const row1Images = phases.slice(0, actualImagesPerRow);
+  const row2Images = phases.slice(actualImagesPerRow, actualImagesPerRow * 2);
+  const sliceWidth = 100 / actualImagesPerRow;
+  
+  console.log('[Gallery] Two rows:', actualImagesPerRow, 'images per row,', 
+              'Row1:', row1Images.length, 'Row2:', row2Images.length);
+  
+  // 从右向左滑入动画变体
+  const slideInVariants = {
     hidden: { 
-      x: '100%', // 初始位置：右侧外
-      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', // 完整矩形
+      x: '100%', // 从右侧外开始
+      opacity: 0,
     },
-    visible: (index) => ({ 
-      x: '0%', // 阶段1：滑入到正常位置（保持矩形）
-      clipPath: [
-        'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', // 滑入时保持矩形
-        'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', // 就位后仍是矩形
-        getClipPath(index), // 阶段2：所有就位后才变成斜切
-      ],
-      transition: { 
+    visible: (delay) => ({
+      x: '0%',
+      opacity: 1,
+      transition: {
         x: {
-          duration: 1.6, // 滑入时长
-          delay: index * 0.35, // 交错延迟
-          ease: [0.16, 1, 0.3, 1]
+          duration: 0.8,
+          delay: delay,
+          ease: [0.16, 1, 0.3, 1], // 平滑缓动
         },
-        clipPath: {
-          times: [0, 0.7, 1], // 0-70%保持矩形，70-100%变斜切
-          duration: 1.6 + 0.35 * 4 + 0.8, // 总时长：等所有图滑入 + 变形时间
-          delay: index * 0.35,
-          ease: [0.16, 1, 0.3, 1]
+        opacity: {
+          duration: 0.4,
+          delay: delay,
         }
       }
     })
+  };
+  
+  // 渲染单个图片（带滑入动画）
+  const renderImage = (phase, index, isFirstImage = false, rowIndex = 0) => {
+    // 计算交错延迟：同一列的两行图片接近同时出现，不同列依次延迟
+    const baseDelay = 0.3; // 基础延迟（等待加载完成）
+    const columnDelay = 0.12; // 每列间隔
+    const rowOffset = 0.05; // 上下行微小偏移
+    const delay = baseDelay + index * columnDelay + rowIndex * rowOffset;
+    
+    return (
+      <motion.div
+        key={phase.id}
+        custom={delay}
+        initial="hidden"
+        animate="visible"
+        variants={slideInVariants}
+        style={{
+          position: 'relative',
+          width: `${sliceWidth}%`,
+          height: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {phase.image ? (
+          <img
+            src={`${import.meta.env.BASE_URL}${phase.image.replace(/^\//, '')}`}
+            alt={phase.titleEn}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              // 第一张图左对齐（保留人脸），其他居中
+              objectPosition: isFirstImage ? 'left center' : 'center center',
+            }}
+          />
+        ) : (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: isDark
+              ? `linear-gradient(180deg, 
+                  hsl(${180 + index * 15}, 30%, 25%) 0%, 
+                  hsl(${180 + index * 15}, 25%, 15%) 100%)`
+              : `linear-gradient(180deg, 
+                  hsl(${200 + index * 12}, 15%, 85%) 0%, 
+                  hsl(${200 + index * 12}, 20%, 75%) 100%)`,
+          }} />
+        )}
+      </motion.div>
+    );
   };
   
   return (
@@ -69,76 +144,24 @@ const SlicedBackground = ({ phases, isDark }) => {
       position: 'absolute',
       inset: 0,
       overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
     }}>
-      {phases.map((phase, index) => (
-        <motion.div
-          key={phase.id}
-          custom={index}
-          initial="hidden"
-          animate="visible"
-          variants={imageSlideIn}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: index + 1, // 后一张叠在前一张上面
-          }}
-        >
-          {/* 图片或渐变背景 - 无遮罩，保持原始亮度 */}
-          {phase.image ? (
-            <img
-              src={`${import.meta.env.BASE_URL}${phase.image.replace(/^\//, '')}`}
-              alt={phase.titleEn}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-            />
-          ) : (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              background: isDark
-                ? `linear-gradient(180deg, 
-                    hsl(${180 + index * 15}, 30%, 25%) 0%, 
-                    hsl(${180 + index * 15}, 25%, 15%) 100%)`
-                : `linear-gradient(180deg, 
-                    hsl(${200 + index * 12}, 15%, 85%) 0%, 
-                    hsl(${200 + index * 12}, 20%, 75%) 100%)`,
-            }} />
-          )}
-        </motion.div>
-      ))}
+      {/* 第一行 */}
+      <div style={{
+        display: 'flex',
+        height: '50%',
+      }}>
+        {row1Images.map((phase, index) => renderImage(phase, index, index === 0, 0))}
+      </div>
       
-      {/* 斜线分隔线 - 从右上向左下 */}
-      {phases.slice(0, -1).map((_, index) => {
-        const sliceWidth = 100 / sliceCount;
-        const lineTopX = (index + 1) * sliceWidth + slantOffset + leftShift;  // 顶部向右偏移 + 整体左移
-        const lineBottomX = (index + 1) * sliceWidth + leftShift;              // 底部不偏移 + 整体左移
-        
-        return (
-          <svg
-            key={`line-${index}`}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none',
-            }}
-          >
-            <line
-              x1={`${lineTopX}%`}
-              y1="0%"
-              x2={`${lineBottomX}%`}
-              y2="100%"
-              stroke={isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.1)"}
-              strokeWidth="1"
-            />
-          </svg>
-        );
-      })}
+      {/* 第二行 */}
+      <div style={{
+        display: 'flex',
+        height: '50%',
+      }}>
+        {row2Images.map((phase, index) => renderImage(phase, index, false, 1))}
+      </div>
     </div>
   );
 };
@@ -276,11 +299,11 @@ const Gallery = () => {
   const isMobile = useIsMobile();
   useTitle(t('gallery.pageTitle'));
 
-  // 定义 gallery 数据用于艺术画廊斜切背景（使用占位图）
-  // 飞入素材配置 - 自动按数字顺序读取
-  // 移动端使用 /images/mobile/gallery/ 目录
-  // 桌面端使用 /covers/gallery/fly-in/ 目录
-  const galleryItems = Array.from({ length: 6 }, (_, i) => ({
+  // 定义 gallery 数据用于艺术画廊斜切背景
+  // 桌面端使用 /covers/gallery/fly-in/ 目录（10张）
+  // 移动端使用 /images/mobile/gallery/ 目录（6张）
+  const galleryItemCount = isMobile ? 6 : 10;
+  const galleryItems = Array.from({ length: galleryItemCount }, (_, i) => ({
     id: `gallery-${String(i + 1).padStart(2, '0')}`,
     titleEn: `Artwork ${String(i + 1).padStart(2, '0')}`,
     image: isMobile 
@@ -388,7 +411,7 @@ const Gallery = () => {
     }
   };
 
-  // 标签淡入（带左侧滑入）
+  // 标签淡入（带左侧滑入）- 不设置固定 delay，继承父容器的 delayChildren
   const labelReveal = {
     hidden: { opacity: 0, x: -20 },
     visible: { 
@@ -687,8 +710,8 @@ const Gallery = () => {
                     cursor: 'pointer',
                   }}
                 >
-                  {/* 倾斜切割背景 - 画廊版本 */}
-                  <SlicedBackground phases={galleryItems} isDark={isDark} />
+                  {/* 飞入叠加背景 - 画廊版本 */}
+                  <FlyInStackBackground phases={galleryItems} isDark={isDark} />
                   
                   {/* 左侧渐变遮罩 - 仅深色模式显示 */}
                   {isDark && (
@@ -701,64 +724,16 @@ const Gallery = () => {
                     }} />
                   )}
                   
-                  {/* 前景内容 */}
-                  <div style={{ 
-                    maxWidth: '600px', 
-                    position: 'relative', 
-                    zIndex: 20, // 提高 z-index，确保在遮罩和图片之上
-                  }}>
-                    {/* 标签 - 左侧滑入 */}
-                    <AnimatedLabel text={t('gallery.label')} isPrimary={true} />
-                    
-                    {/* 标题 - 逐字淡入 */}
-                    <motion.div variants={fadeInUp} style={{ marginBottom: '32px' }}>
-                      <AnimatedTitle 
-                        text={t('gallery.title')}
-                        style={{ 
-                          fontFamily: 'var(--font-serif)', 
-                          fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
-                          lineHeight: 1.1,
-                          ...styles.title
-                        }}
-                      />
-                    </motion.div>
-                    
-                    {/* 描述 - 淡入上移 */}
-                    <motion.p 
-                      variants={descReveal}
-                      style={{ 
-                        fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', 
-                        lineHeight: 1.8, 
-                        marginBottom: '50px', 
-                        maxWidth: '600px',
-                        ...styles.desc
-                      }}
-                    >
-                      {t('gallery.desc')}
-                    </motion.p>
-                    
-                    {/* CTA - 淡入 + 箭头动画 */}
-                    <motion.div 
-                      variants={ctaReveal}
-                      style={{ 
-                        fontSize: '1.1rem', 
-                        fontWeight: '500', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: '12px',
-                        ...styles.cta
-                      }}
-                    >
-                      {t('gallery.exploreWorks')} 
-                      <motion.span 
-                        style={{ fontSize: '1.3rem', display: 'inline-block' }}
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                      >
-                        →
-                      </motion.span>
-                    </motion.div>
-                  </div>
+                  {/* 前景内容 - 打字机效果 */}
+                  <WorkGalleryTypewriter
+                    title={t('gallery.title')}
+                    description={t('gallery.desc')}
+                    ctaText={t('gallery.exploreWorks')}
+                    tags={[]} // Gallery 页面没有标签组
+                    styles={styles}
+                    isDark={isDark}
+                    startDelay={2800} // 等待飞入动画完成（1.0 + 0.2*9 ≈ 2.8秒）
+                  />
                 </motion.div>
               </Link>
             )}

@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import BackToTop from './BackToTop';
 import LanguageSwitcher from './LanguageSwitcher';
+import WechatModal from './WechatModal';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
 // 主题切换按钮组件
-const ThemeToggle = ({ size = 18, compact = false }) => {
+const ThemeToggle = ({ size = 16, compact = false, showBorder = true }) => {
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
   
@@ -39,7 +40,8 @@ const ThemeToggle = ({ size = 18, compact = false }) => {
     toggleTheme(event);
   };
 
-  const buttonSize = compact ? '36px' : '44px';
+  // 紧凑模式用于移动端抽屉，默认用于桌面端导航栏
+  const buttonSize = compact ? '34px' : '34px';
   
   return (
     <motion.button
@@ -52,7 +54,7 @@ const ThemeToggle = ({ size = 18, compact = false }) => {
         minWidth: buttonSize,
         minHeight: buttonSize,
         borderRadius: '50%',
-        border: '1px solid var(--color-border)',
+        border: showBorder ? '1px solid var(--color-border)' : 'none',
         background: 'transparent',
         cursor: 'pointer',
         display: 'flex',
@@ -299,6 +301,7 @@ const Layout = () => {
   const isMobile = useIsMobile();
   const { theme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [wechatModalOpen, setWechatModalOpen] = useState(false); // 页脚微信弹窗状态
   const [isInHeroArea, setIsInHeroArea] = useState(true); // 是否在 Hero 区域
   const [isInContactArea, setIsInContactArea] = useState(false); // 是否在 Contact 区域
   const [logoTopIndex, setLogoTopIndex] = useState(0); // Logo 顶层图片索引（0 或 1）
@@ -417,14 +420,16 @@ const Layout = () => {
           transition: 'background-color 0.3s ease, border-color 0.3s ease',
         }}>
           {/* 左侧 Logo */}
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', height: '44px', marginLeft: theme === 'dark' ? '-8px' : '0' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', height: '40px' }}>
             {theme === 'dark' ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '10px', height: '100%' }}>
                 {/* Logo 双层叠加容器 */}
                 <div style={{ 
                   position: 'relative',
-                  height: isMobile ? '28px' : '36px',
+                  height: isMobile ? '26px' : '32px',
                   width: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}>
                   {/* 底层图片 - 逆时针持续旋转动画 */}
                   <motion.img 
@@ -492,12 +497,14 @@ const Layout = () => {
                 </span>
               </div>
             ) : (
-              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '10px', height: '100%' }}>
                 {/* Logo 双层叠加容器 - 白色模式 */}
                 <div style={{ 
                   position: 'relative',
-                  height: isMobile ? '28px' : '36px',
+                  height: isMobile ? '26px' : '32px',
                   width: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}>
                   {/* 底层图片 - 逆时针持续旋转动画 */}
                   <motion.img 
@@ -602,33 +609,45 @@ const Layout = () => {
 
           {/* 右侧操作区域 */}
           {!isMobile ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', height: '40px' }}>
               {/* 透明导航栏时，按钮使用黑色边框 */}
               <div style={{ 
+                height: '36px',
                 borderRadius: 'var(--radius-full)',
                 border: isNavTransparent ? '1px solid var(--color-text-main)' : '1px solid var(--color-border)',
                 transition: 'border-color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
               }}>
                 <LanguageSwitcher variant="toggle" />
               </div>
               <div style={{ 
+                height: '36px',
+                width: '36px',
                 borderRadius: '50%',
-                border: isNavTransparent ? '1px solid var(--color-text-main)' : 'none',
+                border: isNavTransparent ? '1px solid var(--color-text-main)' : '1px solid var(--color-border)',
                 transition: 'border-color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
-                <ThemeToggle showBorder={!isNavTransparent} />
+                <ThemeToggle showBorder={false} />
               </div>
-              <Link to="/about" state={{ scrollTo: 'contact' }} style={{ textDecoration: 'none' }}>
+              <Link to="/about" state={{ scrollTo: 'contact' }} style={{ textDecoration: 'none', height: '36px', display: 'flex', alignItems: 'center' }}>
                 <button style={{
-                  padding: '10px 24px',
+                  height: '36px',
+                  padding: '0 20px',
                   background: 'var(--color-primary)',
                   color: 'var(--color-text-inverse)',
                   border: 'none',
                   borderRadius: 'var(--radius-full)',
                   fontWeight: '500',
-                  fontSize: '0.9em',
+                  fontSize: '0.88em',
                   cursor: 'pointer',
-                  transition: 'transform 0.2s, background-color var(--transition-fast)'
+                  transition: 'transform 0.2s, background-color var(--transition-fast)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}>
                   {t('nav.contact')}
                 </button>
@@ -669,42 +688,99 @@ const Layout = () => {
       {/* 回到顶部按钮 */}
       <BackToTop />
 
-      {/* Footer */}
+      {/* Footer - 极简两行分离式 */}
       {!hideFooter && (
         <footer style={{ 
           borderTop: '1px solid var(--color-border)', 
           marginTop: 'auto', 
-          padding: isMobile ? '40px var(--space-md)' : '60px 0', 
+          padding: isMobile ? '32px var(--space-md)' : '48px 0', 
           textAlign: 'center', 
           color: 'var(--color-text-muted)', 
           fontSize: '0.9em', 
           background: 'var(--color-bg-subtle)',
           transition: 'background-color var(--transition-theme), border-color var(--transition-theme)',
           position: 'relative',
-          zIndex: 10, // 确保在全局背景之上
+          zIndex: 10,
         }}>
+          {/* 第一行：身份信息 */}
+          <div style={{ 
+            marginBottom: '16px',
+            fontWeight: '600',
+            fontSize: '1.1em',
+            color: 'var(--color-text-main)',
+            letterSpacing: '0.02em',
+          }}>
+            田阳敏 · 品牌设计师
+          </div>
+          
+          {/* 第二行：联系方式链接 */}
           <div style={{ 
             display: 'flex', 
             justifyContent: 'center', 
-            gap: isMobile ? '20px' : '40px', 
-            marginBottom: '30px', 
+            alignItems: 'center',
+            gap: isMobile ? '8px' : '12px', 
+            marginBottom: '20px', 
             flexWrap: 'wrap',
-            padding: isMobile ? '0 var(--space-sm)' : 0,
+            fontSize: '0.95em',
           }}>
-            <a href="mailto:hello@example.com" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontWeight: '500' }}>{t('footer.email')}</a>
-            <span style={{ color: 'var(--color-text-secondary)', cursor: 'pointer', fontWeight: '500' }}>{t('footer.wechat')}</span>
-            <a href="#" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontWeight: '500' }}>{t('footer.resume')}</a>
-            {!isMobile && (
-              <>
-                <a href="#" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontWeight: '500' }}>LinkedIn</a>
-                <a href="#" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontWeight: '500' }}>Twitter</a>
-              </>
-            )}
+            <a 
+              href="mailto:tian_yangmin@163.com" 
+              style={{ 
+                color: 'var(--color-text-secondary)', 
+                textDecoration: 'none', 
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--color-text-secondary)'}
+            >
+              邮箱
+            </a>
+            <span style={{ color: 'var(--color-border)' }}>·</span>
+            <span 
+              onClick={() => setWechatModalOpen(true)}
+              style={{ 
+                color: 'var(--color-text-secondary)', 
+                cursor: 'pointer',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--color-text-secondary)'}
+            >
+              微信
+            </span>
+            <span style={{ color: 'var(--color-border)' }}>·</span>
+            <a 
+              href="/resume.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ 
+                color: 'var(--color-text-secondary)', 
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--color-text-secondary)'}
+            >
+              简历 PDF（2026-02）
+            </a>
           </div>
-          <div style={{ marginBottom: '10px', fontWeight: 'bold', color: 'var(--color-text-main)' }}>PORTFOLIO.</div>
-          <div>{t('footer.copyright', { year: new Date().getFullYear() })}</div>
+          
+          {/* 第三行：版权信息 */}
+          <div style={{ 
+            fontSize: '0.85em',
+            color: 'var(--color-text-muted)',
+            fontFamily: 'var(--font-mono)',
+          }}>
+            © 2026 Lumi Tian. All rights reserved.
+          </div>
         </footer>
       )}
+      
+      {/* 页脚微信二维码弹窗 */}
+      <WechatModal 
+        isOpen={wechatModalOpen} 
+        onClose={() => setWechatModalOpen(false)} 
+      />
     </div>
   );
 };
