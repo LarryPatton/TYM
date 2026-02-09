@@ -1276,6 +1276,8 @@ const PhaseDetail = () => {
             onNavigate={navigate}
             sticky={config.sticky || false}
             stickyHeight={config.stickyHeight || 150}
+            enableBlinds={config.enableBlinds !== false}
+            blindsHeight={config.blindsHeight || 100}
           />
         );
       

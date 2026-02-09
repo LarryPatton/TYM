@@ -17,10 +17,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 // 百叶窗配置
 const BLINDS_CONFIG = {
-  count: 10,           // 条带数量
+  count: 15,           // 条带数量
   fromColor: '#000',   // 条带颜色（黑色，与上一屏背景融合）
-  animStart: 0,        // 动画开始进度
-  animEnd: 0.4         // 动画结束进度（在滚动 40% 时完成过渡）
+  animStart: 0.1,        // 动画开始进度
+  animEnd: 0.88         // 动画结束进度（在滚动 40% 时完成过渡）
 };
 
 export const PhaseClosingScreen = ({ 
@@ -30,20 +30,25 @@ export const PhaseClosingScreen = ({
   nextLabel = '下一阶段',                // 下一步按钮文字
   onNavigate,                           // 导航回调函数
   sticky = false,                       // 是否启用 sticky 效果
-  stickyHeight = 150,                   // sticky 模式下的滚动高度（单位 vh）
-  enableBlinds = true                   // 是否启用百叶窗过渡效果
+  stickyHeight = 50,                   // sticky 模式下的滚动高度（单位 vh）
+  enableBlinds = true,                  // 是否启用百叶窗过渡效果
+  blindsHeight = 100                    // 百叶窗过渡区高度（单位 vh），0 表示无额外高度
 }) => {
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
   
   // 滚动进度追踪（用于百叶窗动画）
-  // offset: 让动画更长，尾页出现更晚
-  // "start 200%": 尾页还在屏幕下方 1 屏时就开始动画
-  // "start 20%": 尾页顶部到达视口 80% 位置时动画完成
+  // 根据是否有过渡区高度，使用不同的 offset
+  const hasBlindsTransition = enableBlinds && blindsHeight > 0 && !isMobile;
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 200%", "start 20%"]
+    // 有过渡区时：动画在过渡区内完成
+    // 无过渡区时：动画在进入视口时完成
+    offset: hasBlindsTransition 
+      ? ["start end", "start start"]  // 从底部进入到顶部到达视口顶部
+      : ["start 150%", "start 50%"]   // 原有逻辑
   });
   
   useEffect(() => {
@@ -284,7 +289,55 @@ export const PhaseClosingScreen = ({
     );
   }
 
-  // 非 sticky 模式（带百叶窗过渡）
+  // 非 sticky 模式
+  // 如果有百叶窗高度，使用带过渡区的布局（hasBlindsTransition 已在上面定义）
+  if (hasBlindsTransition) {
+    return (
+      <div 
+        ref={containerRef}
+        style={{
+          height: `${100 + blindsHeight}vh`, // 尾页高度 + 过渡区高度
+          position: 'relative',
+          background: '#000'
+        }}
+      >
+        {/* 百叶窗过渡区（纯黑背景 + 百叶窗动画） */}
+        <div style={{
+          height: `${blindsHeight}vh`,
+          position: 'relative',
+          background: '#000'
+        }}>
+          {/* 百叶窗遮罩 - 覆盖整个过渡区 */}
+          <div style={{
+            position: 'sticky',
+            top: 0,
+            height: '100vh',
+            width: '100%',
+            overflow: 'hidden',
+            background: '#000'
+          }}>
+            {renderBlindsOverlay()}
+          </div>
+        </div>
+        
+        {/* 实际尾页内容（sticky 固定） */}
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          background: '#000'
+        }}>
+          {renderContent()}
+        </div>
+      </div>
+    );
+  }
+  
+  // 无过渡区的简单布局
   return (
     <section 
       ref={containerRef}
@@ -299,7 +352,7 @@ export const PhaseClosingScreen = ({
       }}
     >
       {renderContent()}
-      {renderBlindsOverlay()}
+      {enableBlinds && renderBlindsOverlay()}
     </section>
   );
 };
