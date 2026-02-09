@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/copy-404.js",
+    "build": "node scripts/build-i18n.cjs && vite build && node scripts/copy-404.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "i18n:build": "node scripts/build-i18n.cjs",
