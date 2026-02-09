@@ -42,33 +42,7 @@
       "other": "其他"
     },
     "formDetails": "项目详情",
-    "formDetailsPlaceholder": "请补充其他需要说明的信息…",
-    "formConsultType": "咨询类型",
-    "formConsultTypeOptions": {
-      "brand": "品牌设计",
-      "packaging": "包装设计",
-      "ecommerce": "电商视觉",
-      "other": "其他"
-    },
-    "formProjectStage": "项目阶段",
-    "formProjectStageOptions": {
-      "concept": "初步构想",
-      "plan": "已有方案",
-      "progress": "正在推进"
-    },
-    "formBudget": "预算范围",
-    "formBudgetOptions": {
-      "under5k": "5k 以下",
-      "5to10k": "5k - 10k",
-      "10to30k": "10k - 30k",
-      "over30k": "30k 以上"
-    },
-    "formTimeline": "时间要求",
-    "formTimelineOptions": {
-      "urgent": "紧急",
-      "normal": "正常",
-      "flexible": "灵活"
-    },
+    "formDetailsPlaceholder": "请告诉我你的目标、时间表，以及任何具体要求…",
     "submitting": "发送中…",
     "submit": "发送消息",
     "expertise": {
@@ -102,31 +76,36 @@
     },
     "work": {
       "item1": {
-        "period": "2024 – 至今",
+        "year": "2024 – 至今",
         "role": "高级品牌设计师",
-        "company": "深圳市摩赞科技有限公司"
+        "company": "深圳市摩赞科技有限公司",
+        "period": "2024 – 至今"
       },
       "item2": {
-        "period": "2023 – 2024",
+        "year": "2023 – 2024",
         "role": "视觉设计师",
-        "company": "深圳市合天源有限公司"
+        "company": "深圳市合天源有限公司",
+        "period": "2023 – 2024"
       },
       "item3": {
-        "period": "2022 – 2023",
+        "year": "2022 – 2023",
         "role": "美术教师",
-        "company": "呼和浩特第二中学初中部"
+        "company": "呼和浩特第二中学初中部",
+        "period": "2022 – 2023"
       }
     },
     "education": {
       "item1": {
-        "period": "2023 – 至今",
+        "year": "2023 – 至今",
         "degree": "美术学硕士",
-        "school": "西南大学美术学院"
+        "school": "西南大学美术学院",
+        "period": "2023 – 至今"
       },
       "item2": {
-        "period": "2018 – 2022",
+        "year": "2018 – 2022",
         "degree": "艺术学学士",
-        "school": "西南大学美术学院"
+        "school": "西南大学美术学院",
+        "period": "2018 – 2022"
       }
     },
     "typeLabel": {
@@ -163,6 +142,7 @@
           "deliverables": "区域物料包 / 培训PPT框架 / 合规模板"
         }
       },
+      "deliverableLabel": "交付物",
       "proof": {
         "label": "Proof",
         "items": "包装系列化案例｜多平台电商案例｜KV系统案例"
@@ -170,8 +150,33 @@
       "tools": {
         "label": "工具",
         "items": "PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ"
-      },
-      "deliverableLabel": "交付物"
+      }
+    },
+    "formConsultType": "咨询类型",
+    "formConsultTypeOptions": {
+      "brand": "品牌设计",
+      "packaging": "包装设计",
+      "ecommerce": "电商视觉",
+      "other": "其他"
+    },
+    "formProjectStage": "项目阶段",
+    "formProjectStageOptions": {
+      "concept": "初步构想",
+      "plan": "已有方案",
+      "progress": "正在推进"
+    },
+    "formBudget": "预算范围",
+    "formBudgetOptions": {
+      "under5k": "5k 以下",
+      "5to10k": "5k - 10k",
+      "10to30k": "10k - 30k",
+      "over30k": "30k 以上"
+    },
+    "formTimeline": "时间要求",
+    "formTimelineOptions": {
+      "urgent": "紧急",
+      "normal": "正常",
+      "flexible": "灵活"
     }
   },
   "case": {

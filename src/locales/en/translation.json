@@ -42,33 +42,7 @@
       "other": "Other"
     },
     "formDetails": "Project Details",
-    "formDetailsPlaceholder": "Any additional information you'd like to share...",
-    "formConsultType": "Consultation Type",
-    "formConsultTypeOptions": {
-      "brand": "Brand Design",
-      "packaging": "Packaging Design",
-      "ecommerce": "E-commerce Visual",
-      "other": "Other"
-    },
-    "formProjectStage": "Project Stage",
-    "formProjectStageOptions": {
-      "concept": "Initial Concept",
-      "plan": "Have a Plan",
-      "progress": "In Progress"
-    },
-    "formBudget": "Budget Range",
-    "formBudgetOptions": {
-      "under5k": "Under $5k",
-      "5to10k": "$5k - $10k",
-      "10to30k": "$10k - $30k",
-      "over30k": "$30k+"
-    },
-    "formTimeline": "Timeline",
-    "formTimelineOptions": {
-      "urgent": "Urgent",
-      "normal": "Normal",
-      "flexible": "Flexible"
-    },
+    "formDetailsPlaceholder": "Please tell me about your goals, timeline, and any specific requirements...",
     "submitting": "Sending...",
     "submit": "Send Message",
     "expertise": {
@@ -102,31 +76,36 @@
     },
     "work": {
       "item1": {
-        "period": "2024 – Present",
+        "year": "2024 - Present",
         "role": "Senior Brand Designer",
-        "company": "Mozan Technology Co. Ltd."
+        "company": "Mozan Technology Co. Ltd.",
+        "period": "2024 - Present"
       },
       "item2": {
-        "period": "2023 – 2024",
+        "year": "2023 - 2024",
         "role": "Visual Designer",
-        "company": "Hetianyuan Co. Ltd."
+        "company": "Hetianyuan Co. Ltd.",
+        "period": "2023 - 2024"
       },
       "item3": {
-        "period": "2022 – 2023",
+        "year": "2022 - 2023",
         "role": "Art Teacher",
-        "company": "Hohhot No.2 Middle School"
+        "company": "Hohhot No.2 Middle School",
+        "period": "2022 - 2023"
       }
     },
     "education": {
       "item1": {
-        "period": "2023 – Present",
+        "year": "2023 - Present",
         "degree": "Master of Fine Arts",
-        "school": "Southwest University School of Fine Arts"
+        "school": "Southwest University School of Fine Arts",
+        "period": "2023 - Present"
       },
       "item2": {
-        "period": "2018 – 2022",
+        "year": "2018 - 2022",
         "degree": "Bachelor of Arts",
-        "school": "Southwest University School of Fine Arts"
+        "school": "Southwest University School of Fine Arts",
+        "period": "2018 - 2022"
       }
     },
     "typeLabel": {
@@ -139,39 +118,65 @@
       "modules": {
         "brandVisual": {
           "title": "Brand Visual System",
-          "desc": "Information Architecture + Narrative Modularization + Guideline Documentation",
-          "deliverables": "Visual Guidelines / Info Module Library / Collaboration Standards"
+          "desc": "Information architecture + Narrative modularization + Standard documentation",
+          "deliverables": "Visual guidelines / Information module library / Collaboration standards"
         },
         "cmfPackaging": {
           "title": "CMF & Packaging",
-          "desc": "Layered and serialized rules, ensuring consistency from sampling to mass production",
-          "deliverables": "CMF Rules / Packaging Structure / Sampling Checklist"
+          "desc": "Layered serialization rules, ensuring consistency from sampling to mass production",
+          "deliverables": "CMF rules / Packaging structure / Sample alignment checklist"
         },
         "ecommerce": {
-          "title": "E-commerce Visual",
-          "desc": "Systematic iteration of main images & detail pages across platforms",
-          "deliverables": "Main Image System / Detail Page Hierarchy / Store Campaign Design"
+          "title": "E-commerce Visuals",
+          "desc": "Multi-platform hero images & detail pages systematic iteration",
+          "deliverables": "Hero image system / Detail page hierarchy / Store campaign decoration"
         },
         "kvPoster": {
           "title": "KV/Poster System",
-          "desc": "Templated key visuals and layout systems for continuous output",
-          "deliverables": "KV System / Poster Templates / Communication Kits"
+          "desc": "Templated key visuals and layout systems, supporting continuous output",
+          "deliverables": "KV system / Poster templates / Communication kit"
         },
         "localization": {
-          "title": "Regional Localization",
-          "desc": "Language, compliance, and selling point adaptation with complete channel materials",
-          "deliverables": "Regional Material Packs / Training PPT Framework / Compliance Templates"
+          "title": "Multi-region Localization",
+          "desc": "Language, compliance and selling point adaptation, complete channel materials",
+          "deliverables": "Regional material packages / Training PPT framework / Compliance templates"
         }
       },
+      "deliverableLabel": "Deliverables",
       "proof": {
         "label": "Proof",
-        "items": "Packaging Serialization | Multi-platform E-commerce | KV System Cases"
+        "items": "Packaging serialization cases｜Multi-platform e-commerce cases｜KV system cases"
       },
       "tools": {
         "label": "Tools",
         "items": "PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ"
-      },
-      "deliverableLabel": "Deliverables"
+      }
+    },
+    "formConsultType": "Consultation Type",
+    "formConsultTypeOptions": {
+      "brand": "Brand Design",
+      "packaging": "Packaging Design",
+      "ecommerce": "E-commerce Visual",
+      "other": "Other"
+    },
+    "formProjectStage": "Project Stage",
+    "formProjectStageOptions": {
+      "concept": "Initial Concept",
+      "plan": "Have a Plan",
+      "progress": "In Progress"
+    },
+    "formBudget": "Budget Range",
+    "formBudgetOptions": {
+      "under5k": "Under 5k",
+      "5to10k": "5k - 10k",
+      "10to30k": "10k - 30k",
+      "over30k": "Over 30k"
+    },
+    "formTimeline": "Timeline",
+    "formTimelineOptions": {
+      "urgent": "Urgent",
+      "normal": "Normal",
+      "flexible": "Flexible"
     }
   },
   "case": {
@@ -549,47 +554,45 @@
           },
           "kv-kiyomi": {
             "title": "KIYOMI Key Visual",
-            "content": "KIYOMI brand key visual design showcase."
+            "content": "Using a「poster layout system」to modularize key visuals, slogans, products, and scenes, enabling rapid production of high-recognition promotional materials for「offline touchpoints」."
           },
           "kv-nicotine-drops": {
             "title": "Nicotine Drops Key Visual",
-            "content": "Nicotine drops product series key visual design."
+            "content": "Using「regional posters」+「scene layering」+「flavor card matrix」visual kits to batch-match promotional needs across「global regions」and「channel terminals」."
           },
           "kv-mixed-grid": {
-            "title": "Mixed Products Key Visual",
-            "content": "CUBE, SPARK, MOTOR series mixed key visual showcase."
+            "title": "Mixed Products Key Visual"
           },
           "kv-marquee-mix": {
-            "title": "M1·R15·E-Liquid Key Visual",
-            "content": "M1, R15, E-Liquid series key visual design showcase."
+            "title": "M1·R15·E-Liquid Key Visual"
           },
           "photo-cube": {
             "title": "CUBE Product Photography",
-            "content": "CUBE series product photography showcase."
+            "content": "Through modular delivery of「color system implementation」+「factory follow-up」+「photography validation」+「accessory adaptation」, bringing design from screen to real retail scenarios, accumulating directly usable content assets for subsequent marketing activities."
           },
           "photo-motor": {
             "title": "MOTOR Product Photography",
-            "content": "MOTOR series product photography showcase."
+            "content": "Through modular accessory design of「silicone case protection」+「lanyard scenarios」, transforming portability and protection value into cross-sellable and shareable marketing assets, supporting terminal display and promotional gift systems."
           },
           "photo-display": {
             "title": "Display Stand Photography",
-            "content": "Product display stand photography showcase."
+            "content": "Through modular retail materials of「display cabinet/shelf display」+「terminal selling point packaging」+「wobbler decoration」, systematically implementing sales information for different products at terminals, enhancing display attractiveness and conversion."
           },
           "photo-store": {
             "title": "Store Photography",
-            "content": "Retail store photography showcase."
+            "content": "Through modular review of「cross-country store real-scene validation」, visualizing the actual implementation of materials in different terminals and display environments, helping teams iterate quickly and supporting channel replication."
           },
           "photo-packaging": {
             "title": "Packaging Photography",
-            "content": "Product packaging photography showcase."
+            "content": "Through modular process of「packaging system sampling」+「photography validation」, aligning color, craftsmanship, information hierarchy, and display effects before mass production, providing reliable finished assets for channel listing and marketing."
           },
           "photo-expo": {
             "title": "Exhibition Photography",
-            "content": "Exhibition photography showcase."
+            "content": "Through modular implementation of「exhibition space visuals」+「interactive installations」+「material systems」, rapidly building and uniformly presenting brand experiences at overseas exhibitions, supporting customer acquisition, guidance, and channel negotiations."
           },
           "mockups": {
             "title": "Mockups Showcase",
-            "content": "Product mockups and scene simulations."
+            "content": "Through modular mockup system of「event scene rendering」+「material kit reuse」, rapidly implementing visuals needed for promotions, displays, and channel communication, improving presentation quality and reuse efficiency."
           },
           "closing": {
             "title": "Successful retail implementation marks brand system maturity",

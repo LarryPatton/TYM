@@ -31,7 +31,7 @@ about.sendAnother,再发一条,Send Another
 about.formName,姓名,Name
 about.formNamePlaceholder,你的姓名,Your name
 about.formEmail,邮箱,Email
-about.formEmailPlaceholder,tian_yangmin@163.com,your@email.com
+about.formEmailPlaceholder,你的邮箱,your@email.com
 about.formProjectType,项目类型,Project Type
 about.formProjectTypeOptions.webDesign,网页设计与开发,Web Design & Development
 about.formProjectTypeOptions.mobileApp,移动应用设计,Mobile App Design
@@ -72,3 +72,51 @@ about.education.item1.school,西南大学美术学院,Southwest University Schoo
 about.education.item2.year,2018 – 2022,2018 - 2022
 about.education.item2.degree,艺术学学士,Bachelor of Arts
 about.education.item2.school,西南大学美术学院,Southwest University School of Fine Arts
+about.typeLabel.work,工作,Work
+about.typeLabel.education,教育,Education
+about.work.item1.period,2024 – 至今,2024 - Present
+about.work.item2.period,2023 – 2024,2023 - 2024
+about.work.item3.period,2022 – 2023,2022 - 2023
+about.education.item1.period,2023 – 至今,2023 - Present
+about.education.item2.period,2018 – 2022,2018 - 2022
+about.skillsOverview.title,能力概览,Skills Overview
+about.skillsOverview.intro,我擅长把产品与品牌信息结构化，做成可复用的视觉系统，并落地到电商平台、传播物料与线下触点。,"I specialize in structuring product and brand information into reusable visual systems, and implementing them across e-commerce platforms, marketing materials, and offline touchpoints."
+about.skillsOverview.modules.brandVisual.title,品牌视觉系统,Brand Visual System
+about.skillsOverview.modules.brandVisual.desc,信息架构 + 叙事模块化 + 规范沉淀,Information architecture + Narrative modularization + Standard documentation
+about.skillsOverview.modules.cmfPackaging.title,CMF & 包装,CMF & Packaging
+about.skillsOverview.modules.cmfPackaging.desc,分层与系列化规则，控打样到量产一致,"Layered serialization rules, ensuring consistency from sampling to mass production"
+about.skillsOverview.modules.ecommerce.title,电商转化视觉,E-commerce Visuals
+about.skillsOverview.modules.ecommerce.desc,多平台主图&详情页体系化迭代,Multi-platform hero images & detail pages systematic iteration
+about.skillsOverview.modules.kvPoster.title,KV/海报系统,KV/Poster System
+about.skillsOverview.modules.kvPoster.desc,主视觉与版式系统模板化，支持持续输出,"Templated key visuals and layout systems, supporting continuous output"
+about.skillsOverview.modules.localization.title,多区域本地化,Multi-region Localization
+about.skillsOverview.modules.localization.desc,语言、合规与卖点表达适配，渠道物料成套,"Language, compliance and selling point adaptation, complete channel materials"
+about.skillsOverview.modules.localization.deliverables,区域物料包 / 培训PPT框架 / 合规模板,Regional material packages / Training PPT framework / Compliance templates
+about.skillsOverview.modules.brandVisual.deliverables,视觉规范 / 信息模块库 / 协作口径,Visual guidelines / Information module library / Collaboration standards
+about.skillsOverview.modules.cmfPackaging.deliverables,CMF规则 / 包装结构 / 打样对齐清单,CMF rules / Packaging structure / Sample alignment checklist
+about.skillsOverview.modules.ecommerce.deliverables,主图体系 / 详情页信息层级 / 店铺活动装修,Hero image system / Detail page hierarchy / Store campaign decoration
+about.skillsOverview.modules.kvPoster.deliverables,KV系统 / 海报模板 / 传播套件,KV system / Poster templates / Communication kit
+about.skillsOverview.deliverableLabel,交付物,Deliverables
+about.skillsOverview.proof.label,Proof,Proof
+about.skillsOverview.proof.items,包装系列化案例｜多平台电商案例｜KV系统案例,Packaging serialization cases｜Multi-platform e-commerce cases｜KV system cases
+about.skillsOverview.tools.label,工具,Tools
+about.skillsOverview.tools.items,PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ,PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ
+about.formConsultType,咨询类型,Consultation Type
+about.formConsultTypeOptions.brand,品牌设计,Brand Design
+about.formConsultTypeOptions.packaging,包装设计,Packaging Design
+about.formConsultTypeOptions.ecommerce,电商视觉,E-commerce Visual
+about.formConsultTypeOptions.other,其他,Other
+about.formProjectStage,项目阶段,Project Stage
+about.formProjectStageOptions.concept,初步构想,Initial Concept
+about.formProjectStageOptions.plan,已有方案,Have a Plan
+about.formProjectStageOptions.progress,正在推进,In Progress
+about.formBudget,预算范围,Budget Range
+about.formBudgetOptions.under5k,5k 以下,Under 5k
+about.formBudgetOptions.5to10k,5k - 10k,5k - 10k
+about.formBudgetOptions.10to30k,10k - 30k,10k - 30k
+about.formBudgetOptions.over30k,30k 以上,Over 30k
+about.formTimeline,时间要求,Timeline
+about.formTimelineOptions.urgent,紧急,Urgent
+about.formTimelineOptions.normal,正常,Normal
+about.formTimelineOptions.flexible,灵活,Flexible
+
