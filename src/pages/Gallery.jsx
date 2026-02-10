@@ -88,9 +88,10 @@ const FlyInStackBackground = ({ phases, isDark }) => {
   // 渲染单个图片（带滑入动画）
   const renderImage = (phase, index, isFirstImage = false, rowIndex = 0) => {
     // 计算交错延迟：同一列的两行图片接近同时出现，不同列依次延迟
-    const baseDelay = 0.3; // 基础延迟（等待加载完成）
-    const columnDelay = 0.12; // 每列间隔
-    const rowOffset = 0.05; // 上下行微小偏移
+    // 调整为与 /work 页面一致的总时长（约 3.5s）
+    const baseDelay = 0.4; // 基础延迟（等待加载完成）
+    const columnDelay = 0.35; // 每列间隔（与 /work 的 0.35 一致）
+    const rowOffset = 0.08; // 上下行微小偏移
     const delay = baseDelay + index * columnDelay + rowIndex * rowOffset;
     
     return (
@@ -587,7 +588,8 @@ const Gallery = () => {
             animate="visible"
             variants={pageContainer}
             style={{ 
-              minHeight: '100vh',
+              height: 'calc(100vh - var(--nav-height))', // 单屏展示，扣除导航栏高度
+              overflow: 'hidden', // 禁止滚动
               position: 'relative',
               ...styles.page
             }}
@@ -713,18 +715,7 @@ const Gallery = () => {
                   {/* 飞入叠加背景 - 画廊版本 */}
                   <FlyInStackBackground phases={galleryItems} isDark={isDark} />
                   
-                  {/* 左侧渐变遮罩 - 仅深色模式显示 */}
-                  {isDark && (
-                    <div style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
-                      pointerEvents: 'none',
-                      zIndex: 10, // 提高 z-index，确保在斜切图片之上
-                    }} />
-                  )}
-                  
-                  {/* 前景内容 - 打字机效果 */}
+                  {/* 前景内容 - 打字机效果（遮罩已统一到 WorkGalleryTypewriter 组件内） */}
                   <WorkGalleryTypewriter
                     title={t('gallery.title')}
                     description={t('gallery.desc')}
@@ -732,7 +723,7 @@ const Gallery = () => {
                     tags={[]} // Gallery 页面没有标签组
                     styles={styles}
                     isDark={isDark}
-                    startDelay={2800} // 等待飞入动画完成（1.0 + 0.2*9 ≈ 2.8秒）
+                    startDelay={3500} // 等待飞入动画完成（与 /work 页面一致，约 3.5 秒）
                   />
                 </motion.div>
               </Link>

@@ -6,6 +6,7 @@ import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
 import SlicedImageDisplay from '../components/SlicedImageDisplay';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
 
 const GalleryHome = () => {
   const { t } = useTranslation();
@@ -74,8 +75,9 @@ const GalleryHome = () => {
   const styles = {
     page: {
       minHeight: '100vh',
-      backgroundColor: isDark ? '#0a0a0a' : '#fafafa',
-      color: isDark ? '#fff' : '#1a1a1a'
+      backgroundColor: 'transparent', // 透明背景，显示动态光斑
+      color: isDark ? '#fff' : '#1a1a1a',
+      position: 'relative',
     },
     header: {
       // 使用与模块卡片相同的布局结构实现对齐
@@ -129,18 +131,19 @@ const GalleryHome = () => {
     modulesGrid: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '2px', // 与斜切分隔线同样宽度 (strokeWidth="2")
-      backgroundColor: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.9)' // 与分隔线颜色一致
+      gap: 0, // 使用 border 分割，不需要 gap
+      backgroundColor: 'transparent' // 透明背景，显示动态光斑
     },
     moduleCard: {
-      backgroundColor: isDark ? '#0a0a0a' : '#fff',
+      backgroundColor: 'transparent', // 透明背景，显示动态光斑
       position: 'relative',
       overflow: 'hidden',
       cursor: 'pointer',
-      transition: 'background-color 0.3s ease'
+      transition: 'background-color 0.3s ease',
+      borderTop: '1px solid var(--color-text-main)', // 与导航栏底部同款黑色细线
     },
     moduleCardHover: {
-      backgroundColor: isDark ? '#151515' : '#f5f5f5'
+      backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)' // 轻微悬停效果
     },
     // 全宽布局：桌面端左右 35%:65%，移动端上下堆叠
     moduleInner: {
@@ -162,6 +165,7 @@ const GalleryHome = () => {
       width: isMobile ? '100%' : '35%',
       flexShrink: 0,
       order: isMobile ? 2 : 1, // 移动端文字在下
+      borderRight: isMobile ? 'none' : '1px solid var(--color-text-main)', // 与导航栏同款黑色细线
     },
     // 移动端：序号和标题放在一行
     mobileHeader: {
@@ -247,8 +251,19 @@ const GalleryHome = () => {
       variants={containerVariants}
       style={styles.page}
     >
-            {/* Header Section */}
-            <motion.header variants={itemVariants} style={styles.header}>
+      {/* 动态磨砂光斑背景 - 与 About 页面一致 */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0,
+        top: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
+      {/* Header Section */}
+      <motion.header variants={itemVariants} style={{ ...styles.header, position: 'relative', zIndex: 1 }}>
               <div style={styles.headerContent}>
                 {/* 面包屑导航 - 按钮式设计 */}
                 <nav style={styles.breadcrumb}>
@@ -275,8 +290,8 @@ const GalleryHome = () => {
               </div>
             </motion.header>
 
-            {/* Modules List */}
-            <motion.div variants={containerVariants} style={styles.modulesGrid}>
+      {/* Modules List */}
+      <motion.div variants={containerVariants} style={{ ...styles.modulesGrid, position: 'relative', zIndex: 1 }}>
               {moduleKeys.map((key, moduleIndex) => {
                 const module = t(`gallery.modules.${key}`, { returnObjects: true });
                 const config = moduleConfigs[key];

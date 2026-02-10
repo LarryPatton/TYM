@@ -330,6 +330,14 @@ const Layout = () => {
   const isHomePage = location.pathname === '/';
   // 判断是否在 About 页面
   const isAboutPage = location.pathname === '/about';
+  // 判断是否在 Gallery List 页面
+  const isGalleryListPage = location.pathname === '/gallery/list';
+  // 判断是否在 Case Index 页面
+  const isCasePage = location.pathname === '/work/the-case';
+  // 判断是否在 Gallery 模块子页面 (form-structure, material-texture, narrative-imagery)
+  const isGalleryModulePage = location.pathname.startsWith('/gallery/') && 
+    location.pathname !== '/gallery/list' &&
+    !location.pathname.startsWith('/gallery/list/');
   
   // 监听滚动，判断是否在 Hero 区域或 Contact 区域
   useEffect(() => {
@@ -372,9 +380,15 @@ const Layout = () => {
   // 导航栏是否透明
   // - 首页 Hero 区域或 Contact 区域（亮色模式）
   // - About 页面（亮色模式）
+  // - Gallery List 页面（亮色模式）
+  // - Case Index 页面（亮色模式）
+  // - Gallery 模块子页面（亮色模式）
   const isNavTransparent = theme === 'light' && (
     (isHomePage && (isInHeroArea || isInContactArea)) || 
-    isAboutPage
+    isAboutPage ||
+    isGalleryListPage ||
+    isCasePage ||
+    isGalleryModulePage
   );
   
   const isActive = (path) => {

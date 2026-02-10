@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
 import { Link } from 'react-router-dom';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
 
 const CaseIndex = () => {
   const { t, i18n } = useTranslation();
@@ -88,7 +89,8 @@ const CaseIndex = () => {
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      background: var(--color-bg);
+      background: transparent;
+      position: relative;
     }
     .case-header {
       display: flex;
@@ -200,7 +202,19 @@ const CaseIndex = () => {
   return (
     <>
       <style>{responsiveCSS}</style>
-      <div className="case-index-container">
+      
+      {/* 动态磨砂光斑背景 - 与 About 页面一致 */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0,
+        top: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
+      <div className="case-index-container" style={{ position: 'relative', zIndex: 1 }}>
         
         {/* 1. 头部：面包屑导航 + 标题 */}
         <header className="case-header">

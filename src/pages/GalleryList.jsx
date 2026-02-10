@@ -5,6 +5,7 @@ import { useTitle } from '../hooks/useTitle';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
 
 const GalleryList = () => {
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ const GalleryList = () => {
   // 样式配置
   const styles = {
     page: {
-      background: isDark ? '#0a0a0a' : '#f8f8f8',
+      background: 'transparent', // 透明背景，显示动态光斑
       color: isDark ? '#fff' : '#1a1a1a',
       minHeight: '100vh',
     },
@@ -93,7 +94,19 @@ const GalleryList = () => {
       <div style={{ 
         ...styles.page,
         padding: 'var(--space-md) 0',
+        position: 'relative',
       }}>
+        {/* 动态磨砂光斑背景 - 与 About 页面一致 */}
+        <div style={{ 
+          position: 'fixed', 
+          inset: 0,
+          top: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}>
+          <FrostedDotsBackground />
+        </div>
+        
         {/* 移动端头部 */}
         <div style={{ 
           padding: '0 var(--space-page-x)',
@@ -279,7 +292,19 @@ const GalleryList = () => {
     <div style={{ 
       ...styles.page,
       padding: '40px var(--space-page-x)',
+      position: 'relative',
     }}>
+      {/* 动态磨砂光斑背景 - 与 About 页面一致 */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0,
+        top: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
       {/* Header */}
       <div style={{ marginBottom: '60px' }}>
         <motion.h1 

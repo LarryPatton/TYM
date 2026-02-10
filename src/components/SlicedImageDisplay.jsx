@@ -215,7 +215,7 @@ const SlicedImageDisplay = ({
         );
       })}
       
-      {/* 斜线分隔线 - 深浅模式适配 */}
+      {/* 斜线分隔线 - 与导航栏同款黑色细线 */}
       {sliceStyles.slice(0, -1).map((style, index) => (
         <svg
           key={`line-${index}`}
@@ -228,22 +228,13 @@ const SlicedImageDisplay = ({
             zIndex: sliceCount + 10,
           }}
         >
-          {/* 主分隔线 - 深色模式用亮色，浅色模式用白色 */}
+          {/* 主分隔线 - 使用 var(--color-text-main) 与导航栏一致 */}
           <line
             x1={`${style.lineTopX}%`}
             y1="0%"
             x2={`${style.lineBottomX}%`}
             y2="100%"
-            stroke={isDark ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.95)"}
-            strokeWidth="2"
-          />
-          {/* 阴影线（增强立体感） - 深色模式用深色阴影，浅色模式用浅色阴影 */}
-          <line
-            x1={`${style.lineTopX + 0.2}%`}
-            y1="0%"
-            x2={`${style.lineBottomX + 0.2}%`}
-            y2="100%"
-            stroke={isDark ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.1)"}
+            stroke="var(--color-text-main)"
             strokeWidth="1"
           />
         </svg>

@@ -279,38 +279,37 @@ const Work = () => {
   // ========== 图片预加载逻辑 ==========
   
   // 定义 phases 数据用于倾斜背景（深度案例研究）
-  // 移动端使用 /images/mobile/work/ 目录
-  // 桌面端使用 /covers/work/phases/ 目录
+  // 移动端和桌面端统一使用 /images/mobile/work/ 目录
   const phases = [
     {
       id: 'phase-01',
       titleEn: 'Brand Identity',
-      image: isMobile ? '/images/mobile/work/Desktop - 1.png' : '/covers/work/phases/phase-01-cover.png',
+      image: '/images/mobile/work/Desktop - 1.png',
     },
     {
       id: 'phase-02',
       titleEn: 'Product A',
-      image: isMobile ? '/images/mobile/work/Desktop - 2.png' : '/covers/work/phases/phase-02-cover.png',
+      image: '/images/mobile/work/Desktop - 2.png',
     },
     {
       id: 'phase-03',
       titleEn: 'Product B',
-      image: isMobile ? '/images/mobile/work/Desktop - 3.png' : '/covers/work/phases/phase-03-cover.png',
+      image: '/images/mobile/work/Desktop - 3.png',
     },
     {
       id: 'phase-04',
       titleEn: 'Packaging',
-      image: isMobile ? '/images/mobile/work/Desktop - 4.png' : '/covers/work/phases/phase-04-cover.png',
+      image: '/images/mobile/work/Desktop - 4.png',
     },
     {
       id: 'phase-05',
       titleEn: 'Retail & Experience Expansion',
-      image: isMobile ? '/images/mobile/work/Desktop - 5.png' : '/covers/work/phases/phase-05-cover.png',
+      image: '/images/mobile/work/Desktop - 5.png',
     },
     {
       id: 'phase-06',
       titleEn: 'Copywriting Visualization',
-      image: isMobile ? '/images/mobile/work/Desktop - 6.png' : '/covers/work/phases/phase-06-cover.png',
+      image: '/images/mobile/work/Desktop - 6.png',
     }
   ];
 
@@ -697,7 +696,8 @@ const Work = () => {
             animate="visible"
             variants={pageContainer}
             style={{ 
-              minHeight: '100vh',
+              height: 'calc(100vh - var(--nav-height))', // 单屏展示，扣除导航栏高度
+              overflow: 'hidden', // 禁止滚动
               position: 'relative',
               ...styles.page
             }}
@@ -822,18 +822,7 @@ const Work = () => {
             {/* 倾斜切割背景 */}
             <SlicedBackground phases={phases} isDark={isDark} />
             
-            {/* 左侧渐变遮罩 - 仅深色模式显示 */}
-            {isDark && (
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 25%, rgba(10,10,10,0.4) 45%, transparent 60%)',
-                pointerEvents: 'none',
-                zIndex: 10, // 提高 z-index，确保在斜切图片之上
-              }} />
-            )}
-            
-            {/* 前景内容 - 打字机效果 */}
+            {/* 前景内容 - 打字机效果（遮罩已统一到 WorkGalleryTypewriter 组件内） */}
             <WorkGalleryTypewriter
               title={t('work.featured.title')}
               description={t('work.featured.desc')}

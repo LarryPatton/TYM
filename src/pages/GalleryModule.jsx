@@ -10,6 +10,7 @@ import { materialTextureWorks, getAllMediaTypes as getAllMediaTypes2, filterWork
 import { narrativeImageryWorks, getAllMediaTypes as getAllMediaTypes3, filterWorks as filterWorks3 } from '../data/narrativeImageryWorks';
 import { enrichWorks } from '../utils/workAdapter';
 import ImageViewer from '../components/ImageViewer';
+import FrostedDotsBackground from '../components/FrostedDotsBackground';
 
 const GalleryModule = () => {
   const { t } = useTranslation();
@@ -169,8 +170,9 @@ const GalleryModule = () => {
   const styles = {
     page: {
       minHeight: '100vh',
-      backgroundColor: isDark ? '#0a0a0a' : '#fafafa',
-      color: isDark ? '#fff' : '#1a1a1a'
+      backgroundColor: 'transparent', // 透明背景，显示动态光斑
+      color: isDark ? '#fff' : '#1a1a1a',
+      position: 'relative',
     },
     header: {
       padding: isMobile 
@@ -300,7 +302,7 @@ const GalleryModule = () => {
         : '50px clamp(40px, 8vw, 120px) 50px',
       maxWidth: '1800px',
       margin: '0 auto',
-      borderBottom: `1px solid ${isDark ? '#222' : '#e5e5e5'}`,
+      borderBottom: '1px solid var(--color-text-main)', // 与导航栏同款黑色细线
       // 移动端筛选器横向滚动
       ...(isMobile && {
         overflowX: 'auto',
@@ -432,8 +434,19 @@ const GalleryModule = () => {
       variants={containerVariants}
       style={styles.page}
     >
+      {/* 动态磨砂光斑背景 - 与 About 页面一致 */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0,
+        top: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground />
+      </div>
+      
       {/* Header Section */}
-      <header style={styles.header}>
+      <header style={{ ...styles.header, position: 'relative', zIndex: 1 }}>
         {/* 面包屑导航 - 按钮式设计（与 CaseIndex、GalleryHome 统一） */}
         <nav style={{
           marginBottom: isMobile ? '24px' : '40px',
@@ -491,7 +504,7 @@ const GalleryModule = () => {
       </header>
 
       {/* Media Filter Section */}
-      <motion.section variants={itemVariants} style={styles.filterSection}>
+      <motion.section variants={itemVariants} style={{ ...styles.filterSection, position: 'relative', zIndex: 1 }}>
         <div style={styles.filterLabel}>{t('gallery.filter.label')}</div>
         <div style={styles.mediaFilters}>
           {/* 全部选项 */}
@@ -529,7 +542,7 @@ const GalleryModule = () => {
       </motion.section>
 
       {/* Works Section */}
-      <section style={styles.worksSection}>
+      <section style={{ ...styles.worksSection, position: 'relative', zIndex: 1 }}>
         {/* Works Grid */}
         <motion.div 
           key={`${selectedMedia}-${aspectType}-${loading}`}
