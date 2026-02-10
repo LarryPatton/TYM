@@ -233,85 +233,186 @@ export const IntroScreen = memo(({
 IntroScreen.displayName = 'IntroScreen';
 
 /**
- * 文字内容组件
+ * 文字内容组件 - 带打字动画效果
+ * 排版层次：主题 → 标题 → 副标题
  */
-const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textOpacity }) => (
-  <div 
-    style={{ 
-      textAlign: 'center', 
-      maxWidth: '1000px',
-      padding: '0 var(--space-xl)',
-      width: '100%',
-      transform: `translateY(${textY}px)`,
-      opacity: textOpacity,
-      transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
-    }}
-  >
-    {/* Phase Label - 带截断线样式 */}
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '20px',
-      marginBottom: '40px',
-    }}>
-      <div style={{
-        width: '60px',
-        height: '1px',
-        background: 'rgba(255,255,255,0.3)',
-      }} />
-      <span style={{
-        fontSize: '0.9rem',
-        letterSpacing: '0.3em',
-        color: '#fff',
-        opacity: 0.6,
-        fontWeight: '500',
-        fontFamily: 'var(--font-sans)',
-      }}>
-        阶段 {phaseNumber}
+const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textOpacity }) => {
+  const [animationPhase, setAnimationPhase] = useState(0);
+  const [revealedChars, setRevealedChars] = useState({ theme: 0, title: 0, subtitle: 0, content: 0 });
+  const hasTriggeredRef = useRef(false);
+  const timersRef = useRef([]);
+  
+  // 解析标题：如果包含冒号，分为标题和副标题
+  const parseTitle = (title) => {
+    if (!title) return { mainTitle: '', subtitle: '' };
+    // 匹配中文冒号或英文冒号
+    const colonMatch = title.match(/[:：]/);
+    if (colonMatch) {
+      const colonIndex = title.indexOf(colonMatch[0]);
+      return {
+        mainTitle: title.substring(0, colonIndex).trim(),
+        subtitle: title.substring(colonIndex + 1).trim()
+      };
+    }
+    return { mainTitle: title, subtitle: '' };
+  };
+  
+  const { mainTitle, subtitle } = parseTitle(titleZh);
+  const theme = `阶段 ${phaseNumber}`;
+  
+  // 触发打字动画
+  useEffect(() => {
+    if (hasTriggeredRef.current) return;
+    hasTriggeredRef.current = true;
+    
+    const charInterval = 50; // 每个字符的间隔（毫秒）
+    const phaseDelay = 300; // 每个阶段之间的延迟
+    
+    // 阶段 1: 主题
+    let delay = 500; // 初始延迟
+    [...theme].forEach((_, i) => {
+      const timer = setTimeout(() => {
+        setRevealedChars(prev => ({ ...prev, theme: i + 1 }));
+      }, delay + i * charInterval);
+      timersRef.current.push(timer);
+    });
+    
+    // 阶段 2: 标题
+    delay += theme.length * charInterval + phaseDelay;
+    [...mainTitle].forEach((_, i) => {
+      const timer = setTimeout(() => {
+        setRevealedChars(prev => ({ ...prev, title: i + 1 }));
+      }, delay + i * charInterval);
+      timersRef.current.push(timer);
+    });
+    
+    // 阶段 3: 副标题
+    delay += mainTitle.length * charInterval + phaseDelay;
+    [...subtitle].forEach((_, i) => {
+      const timer = setTimeout(() => {
+        setRevealedChars(prev => ({ ...prev, subtitle: i + 1 }));
+      }, delay + i * charInterval);
+      timersRef.current.push(timer);
+    });
+    
+    // 阶段 4: 内容
+    delay += subtitle.length * charInterval + phaseDelay;
+    [...(content || '')].forEach((_, i) => {
+      const timer = setTimeout(() => {
+        setRevealedChars(prev => ({ ...prev, content: i + 1 }));
+      }, delay + i * 25); // 内容打字速度更快
+      timersRef.current.push(timer);
+    });
+    
+    return () => {
+      timersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [theme, mainTitle, subtitle, content]);
+  
+  // 渲染带打字效果的文字
+  const renderTypingText = (text, revealedCount, style = {}) => {
+    return [...text].map((char, i) => (
+      <span
+        key={i}
+        style={{
+          opacity: i < revealedCount ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+          ...style
+        }}
+      >
+        {char}
       </span>
+    ));
+  };
+  
+  return (
+    <div 
+      style={{ 
+        textAlign: 'center', 
+        maxWidth: '1000px',
+        padding: '0 var(--space-xl)',
+        width: '100%',
+        transform: `translateY(${textY}px)`,
+        opacity: textOpacity,
+        transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
+      }}
+    >
+      {/* 主题 - Phase Label 带截断线（优化：灰色分隔线，间距调整） */}
       <div style={{
-        width: '60px',
-        height: '1px',
-        background: 'rgba(255,255,255,0.3)',
-      }} />
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '16px',
+        marginBottom: '40px',
+      }}>
+        <div style={{
+          width: '48px',
+          height: '1px',
+          background: '#666',
+        }} />
+        <span style={{
+          fontSize: '0.85rem',
+          letterSpacing: '0.25em',
+          color: '#999',
+          fontWeight: '400',
+          fontFamily: 'var(--font-sans)',
+          textTransform: 'uppercase',
+        }}>
+          {renderTypingText(theme, revealedChars.theme)}
+        </span>
+        <div style={{
+          width: '48px',
+          height: '1px',
+          background: '#666',
+        }} />
+      </div>
+
+      {/* 标题 - 主标题（如 "产品 B"） */}
+      <h1 style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+        fontWeight: '400',
+        lineHeight: 1.1,
+        marginBottom: subtitle ? '16px' : '48px',
+        letterSpacing: '0.08em',
+        color: '#fff'
+      }}>
+        {renderTypingText(mainTitle, revealedChars.title)}
+      </h1>
+
+      {/* 副标题 - 如果有的话（如 "一致性中的差异化"） */}
+      {subtitle && (
+        <h2 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+          fontWeight: '300',
+          lineHeight: 1.3,
+          marginBottom: '48px',
+          letterSpacing: '0.06em',
+          color: '#fff',
+          opacity: 0.85
+        }}>
+          {renderTypingText(subtitle, revealedChars.subtitle)}
+        </h2>
+      )}
+
+      {/* 内容描述 */}
+      <p style={{
+        fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
+        lineHeight: 1.9,
+        maxWidth: '680px',
+        margin: '0 auto',
+        color: '#fff',
+        opacity: 0.75,
+        fontWeight: '300',
+        fontFamily: 'var(--font-sans)',
+        letterSpacing: '0.02em'
+      }}>
+        {renderTypingText(content || '', revealedChars.content)}
+      </p>
     </div>
-
-    {/* Chinese Title - 作为主标题 */}
-    <h1 style={{
-      fontFamily: 'var(--font-serif)',
-      fontSize: 'clamp(2.8rem, 7vw, 5rem)',
-      fontWeight: '400',
-      lineHeight: 1.2,
-      marginBottom: '48px',
-      letterSpacing: '0.1em',
-      color: '#fff'
-    }}>
-      {titleZh}
-    </h1>
-
-    <div style={{
-      width: '1px',
-      height: '48px',
-      background: 'rgba(255,255,255,0.3)',
-      margin: '0 auto 48px auto'
-    }} />
-
-    <p style={{
-      fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-      lineHeight: 1.9,
-      maxWidth: '680px',
-      margin: '0 auto',
-      color: '#fff',
-      opacity: 0.75,
-      fontWeight: '300',
-      fontFamily: 'var(--font-sans)',
-      letterSpacing: '0.02em'
-    }}>
-      {content}
-    </p>
-  </div>
-));
+  );
+});
 
 TextContent.displayName = 'TextContent';
 

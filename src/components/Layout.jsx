@@ -340,18 +340,23 @@ const Layout = () => {
     location.pathname !== '/gallery/list' &&
     !location.pathname.startsWith('/gallery/list/');
   
-  // 监听滚动，判断是否在 Hero 区域或 Contact 区域
+  // 合作品牌区域状态
+  const [isInPartnersArea, setIsInPartnersArea] = useState(false);
+
+  // 监听滚动，判断是否在 Hero 区域、Contact 区域或合作品牌区域
   useEffect(() => {
     // About 页面不需要监听滚动，始终透明
     if (isAboutPage) {
       setIsInHeroArea(false);
       setIsInContactArea(false);
+      setIsInPartnersArea(false);
       return;
     }
     
     if (!isHomePage) {
       setIsInHeroArea(false);
       setIsInContactArea(false);
+      setIsInPartnersArea(false);
       return;
     }
     
@@ -371,6 +376,39 @@ const Layout = () => {
       } else {
         setIsInContactArea(false);
       }
+
+      // 检测是否在合作品牌区域 - 通过检查PartnersSection组件
+      const partnersSection = document.querySelector('section[data-partners-section]') || 
+                             document.querySelector('[data-testid="partners-section"]');
+      if (!partnersSection) {
+        // 尝试通过其他方法找到合作品牌区域
+        const allSections = document.querySelectorAll('section');
+        let foundPartnersSection = null;
+        allSections.forEach(section => {
+          // 检查是否包含合作品牌相关的内容
+          if (section.textContent && (
+            section.textContent.includes('合作品牌') || 
+            section.textContent.includes('Partners') ||
+            section.textContent.includes('Trusted By')
+          )) {
+            foundPartnersSection = section;
+          }
+        });
+        
+        if (foundPartnersSection) {
+          const rect = foundPartnersSection.getBoundingClientRect();
+          const navHeight = 80;
+          const isInPartners = rect.top <= navHeight && rect.bottom > navHeight;
+          setIsInPartnersArea(isInPartners);
+        } else {
+          setIsInPartnersArea(false);
+        }
+      } else {
+        const rect = partnersSection.getBoundingClientRect();
+        const navHeight = 80;
+        const isInPartners = rect.top <= navHeight && rect.bottom > navHeight;
+        setIsInPartnersArea(isInPartners);
+      }
     };
     
     handleScroll(); // 初始检测
@@ -379,13 +417,13 @@ const Layout = () => {
   }, [isHomePage, isAboutPage]);
   
   // 导航栏是否透明
-  // - 首页 Hero 区域或 Contact 区域（亮色模式）
+  // - 首页 Hero 区域、Contact 区域或合作品牌区域（亮色模式）
   // - About 页面（亮色模式）
   // - Gallery List 页面（亮色模式）
   // - Case Index 页面（亮色模式）
   // - Gallery 模块子页面（亮色模式）
   const isNavTransparent = theme === 'light' && (
-    (isHomePage && (isInHeroArea || isInContactArea)) || 
+    (isHomePage && (isInHeroArea || isInContactArea || isInPartnersArea)) || 
     isAboutPage ||
     isGalleryListPage ||
     isCasePage ||

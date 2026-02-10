@@ -139,7 +139,7 @@ const Home = () => {
   // ===== 百叶窗过渡统一配置 =====
   const BLINDS_CONFIG = {
     // 尺寸
-    height: "70vh",
+    height: "60vh",
     blindsCount: 13,
     // 统一颜色 token
     colors: {
@@ -149,7 +149,7 @@ const Home = () => {
     },
     // 统一字体样式
     textStyle: {
-      fontSize: 'clamp(4rem, 15vw, 12rem)',
+      fontSize: 'clamp(3rem, 10vw, 8rem)',
       fontWeight: '400',
       letterSpacing: '-0.02em',
       textTransform: 'uppercase',
@@ -656,6 +656,27 @@ const Home = () => {
 
       {/* 4. Trust Area - 合作品牌 - 全屏飞入+收束效果 */}
       <PartnersSection partners={partnersData} />
+
+      {/* Partners 到 Contact 的百叶窗过渡 - 移动端隐藏 */}
+      {!isMobile && (
+        <BlindsTransition
+          fromColor={BLINDS_CONFIG.colors.from}
+          toColor={BLINDS_CONFIG.colors.to}
+          blindsCount={BLINDS_CONFIG.blindsCount}
+          height={BLINDS_CONFIG.height}
+        >
+          <div style={{
+            ...BLINDS_CONFIG.textStyle,
+            fontFamily: 'var(--font-serif)',        // 🎯 使用优雅的衬线字体
+            fontWeight: '300',                      // 更轻的字重，符合衬线字体特点
+            letterSpacing: '0.02em',               // 稍微增加字母间距
+            fontStyle: 'normal',                    // 确保非斜体
+            color: BLINDS_CONFIG.colors.textColor,
+          }}>
+            {t('home.sectionContact')}
+          </div>
+        </BlindsTransition>
+      )}
 
       {/* 5. Contact CTA - Sticky 全屏沉浸式 */}
       <section 

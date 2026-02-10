@@ -280,11 +280,11 @@
     },
     "phases": {
       "phase-01": {
-        "title": "Brand Identity System",
-        "desc": "Establishing a stable and long-term usable visual foundation in the early stage when product direction is not yet clear.",
+        "title": "VI System: Brand Visual Identity & Foundation Standards",
+        "desc": "Establishing unified standards and collaborative language for multi-touchpoint brand expansion through an executable VI specification and asset library.",
         "screens": {
           "intro": {
-            "content": "In the early stage when the brand has not yet clarified its product scale and communication methods, the primary goal is not to 'design comprehensively', but to establish a visual foundation that is stable enough for long-term use."
+            "content": "Establishing unified standards and collaborative language for multi-touchpoint brand expansion through an executable VI specification and asset library."
           },
           "core-principles": {
             "title": "CORE PRINCIPLES",
@@ -371,11 +371,11 @@
         }
       },
       "phase-02": {
-        "title": "Product A: From Concept to Launch",
-        "desc": "The complete design process of the first product, from concept exploration to final launch.",
+        "title": "CUBE: Product System from Positioning to Mass Production",
+        "desc": "Translating audience positioning and product strategy into a mass-producible product system, connecting the full path from concept to delivery.",
         "screens": {
           "intro": {
-            "content": "This is a complete product design practice from concept to launch. The project covers design decisions, execution verification, and final launch.",
+            "content": "Translating audience positioning and product strategy into a mass-producible product system, connecting the full path from concept to delivery.",
             "emphasis": "This is a product that is truly used."
           },
           "user-generation": {
@@ -444,11 +444,11 @@
         }
       },
       "phase-03": {
-        "title": "Product B: Consistency with Variation",
-        "desc": "How the second product achieves differentiation while maintaining brand consistency.",
+        "title": "MOTOR: Version Expansion & Experience Upgrade within Series Consistency",
+        "desc": "Establishing an expandable version iteration framework and experience upgrade components while maintaining series recognition consistency.",
         "screens": {
           "intro": {
-            "content": "Building on the existing brand system and first product, the second product's design focus is no longer 'starting from zero', but how to make reasonable changes while maintaining consistency."
+            "content": "Establishing an expandable version iteration framework and experience upgrade components while maintaining series recognition consistency."
           },
           "concept-comparison": {
             "title": "Comparison is the most direct way to judge differences",
@@ -517,11 +517,11 @@
         }
       },
       "phase-04": {
-        "title": "Packaging & Marketing Extensions",
-        "desc": "Extending the brand visual system to packaging, marketing, and more touchpoints.",
+        "title": "Regional Marketing: Cross-Market Visual & KV Kit System",
+        "desc": "Achieving rapid adaptation and scalable production of cross-market communication assets through modular KV kits and systematic rules.",
         "screens": {
           "intro": {
-            "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
+            "content": "Achieving rapid adaptation and scalable production of cross-market communication assets through modular KV kits and systematic rules."
           },
           "packaging-intro": {
             "content": "Using a modular「tiered pricing packaging system (bag/round box/tin box)」design to split the same product into entry-level, mainstream, and premium packaging solutions, balancing market entry, brand recognition, and premium positioning."
@@ -577,11 +577,11 @@
         }
       },
       "phase-05": {
-        "title": "Retail & Experience Expansion",
-        "desc": "Applying the brand system to retail spaces and user experience scenarios, ensuring offline touchpoints align with the overall brand.",
+        "title": "Offline Scenarios: Retail Space & Terminal Material System",
+        "desc": "Extending the brand system to retail spaces and terminal materials, establishing replicable offline execution standards.",
         "screens": {
           "intro": {
-            "content": "As the brand extends from products to spaces, design needs to maintain system integrity and recognition in three-dimensional environments."
+            "content": "Extending the brand system to retail spaces and terminal materials, establishing replicable offline execution standards."
           },
           "kv-kiyomi": {
             "title": "KIYOMI Key Visual",
@@ -632,11 +632,11 @@
         }
       },
       "phase-06": {
-        "title": "Text Visualization",
-        "desc": "Transforming brand narratives into reusable visual modules for channel materials, sales demos, and client communication.",
+        "title": "Text Visualization: Transforming Narratives into Reusable Visual Modules",
+        "desc": "Modularizing complex narratives and selling points into a reusable visual component library, improving communication efficiency and material reusability.",
         "screens": {
           "intro": {
-            "content": "Transforming brand narratives into reusable visual modules for channel materials, sales demos, and client communication."
+            "content": "Modularizing complex narratives and selling points into a reusable visual component library, improving communication efficiency and material reusability."
           },
           "folder-01": {
             "content": "Using coordinate positioning modules to compare solution differences — channels and clients instantly see 'why choose us.'"
@@ -910,27 +910,27 @@
     "partners": {
       "partner-01": {
         "name": "MORE",
-        "desc": "Brand Visual System"
+        "desc": "Brand VI System Building"
       },
       "partner-02": {
         "name": "ZMR",
-        "desc": "Brand Identity Design"
+        "desc": "Brand Full-Service Continuation"
       },
       "partner-03": {
         "name": "LANSWE",
-        "desc": "Product Packaging Design"
+        "desc": "E-commerce Visual & Packaging"
       },
       "partner-04": {
         "name": "SKYWORTH",
-        "desc": "Brand Visual Upgrade"
+        "desc": "E-commerce Main Images & Details"
       },
       "partner-05": {
         "name": "ScaleAlpha.Ai",
-        "desc": "Brand Visual System"
+        "desc": "Brand Identity & UI Optimization"
       },
       "partner-06": {
         "name": "PUENLIGHT",
-        "desc": "Brand Identity Design"
+        "desc": "Brand Visual & Pitch Presentation"
       }
     },
     "cases": {

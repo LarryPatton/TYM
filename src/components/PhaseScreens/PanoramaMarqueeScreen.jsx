@@ -109,9 +109,10 @@ export const PanoramaMarqueeScreen = ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center', // 垂直居中
+        justifyContent: 'flex-start', // 从顶部开始布局
         overflow: 'hidden',
-        padding: '0'
+        padding: '0',
+        paddingTop: 'clamp(80px, 10vh, 120px)' // 预留导航栏空间
       }}
     >
       {/* 顶部文案 - 使用统一的 CAPTION 样式 */}
@@ -119,8 +120,8 @@ export const PanoramaMarqueeScreen = ({
         <div style={{
           width: '100%',
           maxWidth: 'var(--caption-max-width, 1100px)',
-          margin: '0 auto clamp(24px, 3vh, 40px)',
-          padding: 'var(--caption-padding, 0 32px 40px)',
+          margin: '0 auto clamp(16px, 2vh, 32px)',
+          padding: '0 32px',
           boxSizing: 'border-box',
           textAlign: 'center',
           opacity: textVisible ? 1 : 0,

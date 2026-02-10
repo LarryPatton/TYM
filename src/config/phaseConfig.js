@@ -635,6 +635,8 @@ export const phase03Config = {
       scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
       stickyHeight: 200, // 滚动 200vh 后离开
       showGradient: false,
+      rowHeights: [170, 170, 170], 
+      containerPadding: '20px 0 60px 0', // 上移容器（减少顶部 padding，增加底部 padding）
       images: [
         // Row 1: Group 01/a (7张)
         { src: `${PHASE03_BASE}/product/cards/Group 483.png`, label: 'Card A-1' },
@@ -722,16 +724,21 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/panorama-popup/Frame 99.png`, label: 'Panorama 5' }
       ]
     },
-    // Screen 07: 跑马灯 + 场景 + 轮播 (共17张)
+    // Screen 07: 三行跑马灯 - 口味与色彩适配 (与周边区相同的组件类型)
     {
       id: 'panorama-marquee',
-      type: 'panorama-marquee',
+      type: 'three-row-marquee',
       categoryLabel: '口味/口味与色彩适配',
       contentKey: 'case.phases.phase-03.screens.panorama-marquee.content',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
-      stickyHeight: 180, // 滚动 180vh 后离开
-      // 横条跑马灯
-      marqueeImages: [
+      stickyHeight: 200, // 滚动 200vh 后离开
+      showGradient: false,
+      rowGap: '6px', // 三行间距更小
+      rowHeights: [170, 170, 170], // 每行高度缩小（默认 220, 200, 220）
+
+
+
+      images: [
         { src: `${PHASE03_BASE}/marquee/marquee-01.png`, label: 'Marquee 1' },
         { src: `${PHASE03_BASE}/marquee/marquee-02.png`, label: 'Marquee 2' },
         { src: `${PHASE03_BASE}/marquee/marquee-03.png`, label: 'Marquee 3' },
@@ -742,19 +749,6 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/marquee/marquee-08.png`, label: 'Marquee 8' },
         { src: `${PHASE03_BASE}/marquee/marquee-09.png`, label: 'Marquee 9' },
         { src: `${PHASE03_BASE}/marquee/marquee-10.png`, label: 'Marquee 10' }
-      ],
-      // 竖向场景图 (~1400×1880)
-      sceneImages: [
-        { src: `${PHASE03_BASE}/scene/scene-01.png`, label: 'Scene 1' },
-        { src: `${PHASE03_BASE}/scene/scene-02.png`, label: 'Scene 2' },
-        { src: `${PHASE03_BASE}/scene/scene-03.png`, label: 'Scene 3' }
-      ],
-      // 宽横图轮播 (~3580×2012)
-      carouselImages: [
-        { src: `${PHASE03_BASE}/carousel/carousel-01.png`, label: 'Wide 1' },
-        { src: `${PHASE03_BASE}/carousel/carousel-02.png`, label: 'Wide 2' },
-        { src: `${PHASE03_BASE}/carousel/carousel-03.png`, label: 'Wide 3' },
-        { src: `${PHASE03_BASE}/carousel/carousel-04.png`, label: 'Wide 4' }
       ]
     },
     // Screen 12a: 文字过渡条 - 口味资源库 文案

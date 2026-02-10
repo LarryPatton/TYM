@@ -3,6 +3,7 @@ import { motion, useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../hooks/useTheme';
 import ScrollIndicator from '../ScrollIndicator';
+import FrostedDotsBackground from '../FrostedDotsBackground';
 
 /**
  * 合作品牌区域 - Sticky Scroll + 滚动渐进出现效果
@@ -90,20 +91,34 @@ const PartnersSection = ({ partners }) => {
       style={{
         position: 'relative',
         height: `${stickyScrollHeight}vh`,
-        background: colors.bg,
+        background: 'transparent', // 让动态背景显示
       }}
     >
-      {/* Sticky 容器 - 考虑导航栏高度 */}
+      {/* 动态背景 - 使用 fixed 定位覆盖导航栏 */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+        }}
+      >
+        <FrostedDotsBackground speed={2} />
+      </div>
+
+      {/* Sticky 容器 - 透明导航栏，背景层叠加 */}
       <div
         style={{
           position: 'sticky',
-          top: `${navHeight}px`,
-          height: `calc(100vh - ${navHeight}px)`,
+          top: 0, // 紧贴顶部，导航栏透明时无需留空间
+          height: '100vh',
           overflow: 'hidden',
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
           gap: 'clamp(16px, 2vh, 24px)',
-          padding: 'clamp(20px, 2.5vh, 32px) clamp(40px, 6vw, 80px)',
+          padding: 'clamp(100px, 12vh, 140px) clamp(40px, 6vw, 80px) clamp(20px, 2.5vh, 32px)', // 顶部预留空间给透明导航栏
           boxSizing: 'border-box',
         }}
       >
@@ -284,17 +299,6 @@ const PartnersSection = ({ partners }) => {
                       {t(`home.partners.${partner.id}.desc`)}
                     </p>
                   </div>
-                  <span style={{
-                    padding: '4px 10px',
-                    background: 'rgba(255,255,255,0.15)',
-                    backdropFilter: 'blur(10px)',
-                    borderRadius: '100px',
-                    fontSize: '0.7rem',
-                    color: '#fff',
-                    fontFamily: 'var(--font-mono, monospace)',
-                  }}>
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
                 </div>
 
                 {/* 高亮边框 */}

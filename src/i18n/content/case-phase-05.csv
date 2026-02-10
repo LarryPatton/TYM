@@ -1,7 +1,7 @@
 key,zh,en
-case.phases.phase-05.title,零售场景与体验扩展,Retail & Experience Expansion
-case.phases.phase-05.desc,"将品牌系统应用到零售空间与用户体验场景中，确保线下触点与整体品牌保持一致。","Applying the brand system to retail spaces and user experience scenarios, ensuring offline touchpoints align with the overall brand."
-case.phases.phase-05.screens.intro.content,"当品牌从产品延展到空间，设计需要在三维环境中继续保持系统的完整性与识别度。","As the brand extends from products to spaces, design needs to maintain system integrity and recognition in three-dimensional environments."
+case.phases.phase-05.title,线下场景：零售空间与终端物料系统,Offline Scenarios: Retail Space & Terminal Material System
+case.phases.phase-05.desc,"将品牌系统延展到零售空间与终端物料，沉淀可复制铺设的线下执行标准。","Extending the brand system to retail spaces and terminal materials, establishing replicable offline execution standards."
+case.phases.phase-05.screens.intro.content,"将品牌系统延展到零售空间与终端物料，沉淀可复制铺设的线下执行标准。","Extending the brand system to retail spaces and terminal materials, establishing replicable offline execution standards."
 case.phases.phase-05.screens.kv-kiyomi.title,KIYOMI 主视觉,KIYOMI Key Visual
 case.phases.phase-05.screens.kv-kiyomi.content,"用「系列海报版式系统」将主视觉、口号、产品与场景「模块化统一」，快速产出可铺满「线下触点」的高识别宣传物料。","Using a「poster layout system」to modularize key visuals, slogans, products, and scenes, enabling rapid production of high-recognition promotional materials for「offline touchpoints」."
 case.phases.phase-05.screens.kv-nicotine-drops.title,尼古丁糖主视觉,Nicotine Drops Key Visual

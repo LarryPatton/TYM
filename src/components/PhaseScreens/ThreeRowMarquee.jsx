@@ -27,7 +27,12 @@ export const ThreeRowMarquee = ({
   showGradient = true, // 新增 prop 控制渐变遮罩
   // 文案支持
   content = '',
-  contentKey = ''
+  contentKey = '',
+  // 可配置参数
+  rowGap = null, // 三行之间的间距，如 '20px' 或 '2vh'
+  rowHeights = null, // 每行高度数组，如 [220, 200, 220]
+  rowDurations = null, // 每行动画速度数组（秒），如 [50, 38, 28]
+  containerPadding = null // 整体容器的内边距，如 '40px 0'
 }) => {
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
@@ -160,24 +165,38 @@ export const ThreeRowMarquee = ({
   const denseGap = 20;
   const mobileGap = 16; // 移动端间距
 
-  const h1 = isMobile ? mobileHeight : (isDense ? denseHeight1 : defaultHeight1);
-  const h2 = isMobile ? mobileHeight : (isDense ? denseHeight2 : defaultHeight2);
-  const h3 = isMobile ? mobileHeight : (isDense ? denseHeight3 : defaultHeight3);
+  // 使用自定义 rowHeights 或默认值
+  const customHeights = rowHeights && rowHeights.length >= 3 ? rowHeights : null;
+  const h1 = isMobile ? mobileHeight : (customHeights ? customHeights[0] : (isDense ? denseHeight1 : defaultHeight1));
+  const h2 = isMobile ? mobileHeight : (customHeights ? customHeights[1] : (isDense ? denseHeight2 : defaultHeight2));
+  const h3 = isMobile ? mobileHeight : (customHeights ? customHeights[2] : (isDense ? denseHeight3 : defaultHeight3));
   const g = isMobile ? mobileGap : (isDense ? denseGap : defaultGap);
   
   // 移动端动画速度减慢 1.5 倍
   const mobileSpeedMultiplier = isMobile ? 1.5 : 1;
+  
+  // 使用自定义 rowDurations 或默认值
+  const defaultDurations = [50, 38, 28];
+  const customDurations = rowDurations && rowDurations.length >= 3 ? rowDurations : defaultDurations;
+  const d1 = customDurations[0] * mobileSpeedMultiplier;
+  const d2 = customDurations[1] * mobileSpeedMultiplier;
+  const d3 = customDurations[2] * mobileSpeedMultiplier;
 
   // 配置 - 优化后的参数
   const rowConfigs = [
-    { images: row1Images, direction: 'left', duration: 50 * mobileSpeedMultiplier, gap: g, height: h1 },   // 慢
-    { images: row2Images, direction: 'right', duration: 38 * mobileSpeedMultiplier, gap: Math.round(g * 0.8), height: h2 },  // 中
+    { images: row1Images, direction: 'left', duration: d1, gap: g, height: h1 },   // 慢
+    { images: row2Images, direction: 'right', duration: d2, gap: Math.round(g * 0.8), height: h2 },  // 中
     // 第三行仅在桌面端显示
-    ...(isMobile ? [] : [{ images: row3Images, direction: 'left', duration: 28 * mobileSpeedMultiplier, gap: g, height: h3 }])
+    ...(isMobile ? [] : [{ images: row3Images, direction: 'left', duration: d3, gap: g, height: h3 }])
   ];
 
   // 显示文案（优先使用 content，如果为空则不显示）
   const hasContent = content && content.trim().length > 0;
+  
+  // 计算容器间距和内边距
+  const computedRowGap = rowGap || (isDense ? '1.5vh' : '20px');
+  const computedPadding = containerPadding || (isDense ? '0' : '40px 0');
+  const computedPaddingBottom = !containerPadding && isDense ? '5vh' : undefined;
 
   return (
     <div style={{
@@ -186,10 +205,10 @@ export const ThreeRowMarquee = ({
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      gap: isDense ? '1.5vh' : '20px', // Dense 模式下缩小行间距
-      padding: isDense ? '0' : '40px 0',
+      gap: computedRowGap,
+      padding: computedPadding,
       overflow: 'hidden',
-      paddingBottom: isDense ? '5vh' : undefined
+      paddingBottom: computedPaddingBottom
     }}>
       {/* 顶部文案区域 - 使用全局 CAPTION TOKENS */}
       {hasContent && (

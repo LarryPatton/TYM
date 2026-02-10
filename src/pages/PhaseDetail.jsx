@@ -802,6 +802,10 @@ const PhaseDetail = () => {
                   showGradient={screenConfig.showGradient !== false}
                   content={screenData?.content || ''}
                   contentKey={screenConfig.contentKey}
+                  rowGap={screenConfig.rowGap}
+                  rowHeights={screenConfig.rowHeights}
+                  rowDurations={screenConfig.rowDurations}
+                  containerPadding={screenConfig.containerPadding}
                 />
               </div>
             </div>
@@ -827,6 +831,10 @@ const PhaseDetail = () => {
               showGradient={screenConfig.showGradient !== false} // 默认 true，配置为 false 时关闭
               content={screenData?.content || ''}
               contentKey={screenConfig.contentKey}
+              rowGap={screenConfig.rowGap}
+              rowHeights={screenConfig.rowHeights}
+              rowDurations={screenConfig.rowDurations}
+              containerPadding={screenConfig.containerPadding}
             />
           </section>
         );
