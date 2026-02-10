@@ -21,7 +21,9 @@ export const phase01Config = {
       type: 'intro',
       categoryLabel: '引言',
       imageHint: '品牌标志单独展示 / 标志 + 视觉关键词',
-      bgImage: `${MOBILE_COVER_BASE}/Desktop - 1.png`
+      bgImage: `${MOBILE_COVER_BASE}/Desktop - 1.png`,
+      enableFlashlight: true,
+      flashlightInitialPosition: { x: 0.32, y: 0.2 } // 上中偏左（ZMR建筑）
     },
     {
       id: 'core-principles',
@@ -136,6 +138,8 @@ export const phase02Config = {
       categoryLabel: '引言',
       imageHint: 'Concept to Launch',
       bgImage: `${MOBILE_COVER_BASE}/Desktop - 2.png`,
+      enableFlashlight: true,
+      flashlightInitialPosition: { x: 0.32, y: 0.27 }, // 左上（人物脸部+烟雾）
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     // Screen 02: Popup Sequence - 目标用户代际弹出
@@ -392,6 +396,8 @@ export const phase03Config = {
       categoryLabel: '引言',
       imageHint: 'Product B Hero Shot',
       bgImage: `${MOBILE_COVER_BASE}/Desktop - 3.png`,
+      enableFlashlight: true,
+      flashlightInitialPosition: { x: 0.32, y: 0.55 }, // 左中（手持设备）
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     // Screen 02: 概念对比 - 两张近方形图 (1942×1938, 1559×1821)
@@ -818,6 +824,7 @@ export const phase04Config = {
       imageHint: '包装与营销系统化扩展',
       bgImage: `${MOBILE_COVER_BASE}/Desktop - 4.png`,
       enableFlashlight: true,
+      flashlightInitialPosition: { x: 0.7, y: 0.55 }, // 右下（迪拜帆船酒店）
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     

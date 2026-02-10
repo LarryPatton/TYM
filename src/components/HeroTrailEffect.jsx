@@ -16,7 +16,11 @@ const HeroTrailEffect = ({ isMobile }) => {
   // 关键区域避让：是否在屏幕中心区域 (30%宽 x 20%高)
   const isInsideRestrictedArea = (x, y) => {
     const { innerWidth, innerHeight } = window;
-    // 中心区域宽度 50% (加大避让范围，确保标题文字绝对清晰)
+    
+    // 1. 顶部导航栏区域避让（顶部 80px）
+    if (y < 80) return true;
+    
+    // 2. 中心区域避让 - 宽度 50%, 高度 40%
     const restrictWidth = innerWidth * 0.5;
     const restrictHeight = innerHeight * 0.4;
     // 中心点
@@ -36,8 +40,8 @@ const HeroTrailEffect = ({ isMobile }) => {
     if (isMobile) return;
 
     const handleMouseMove = (e) => {
-      // 仅在首屏（Hero区域范围）有效
-      if (window.scrollY > window.innerHeight * 1.2) return;
+      // 仅在首屏（Hero区域范围）有效 - 改为 0.9 倍视口高度，避免触发到百叶窗区域
+      if (window.scrollY > window.innerHeight * 0.1) return;
 
       const now = Date.now();
       const { clientX, clientY } = e;
