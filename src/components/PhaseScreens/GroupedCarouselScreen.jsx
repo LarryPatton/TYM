@@ -617,30 +617,36 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
       {customLayout ? (
         (() => {
           const rowCount = customLayout.rows.length;
-          const multiRowScale = rowCount > 1 ? (customLayout.multiRowScale || 0.7) : 1;
-          const customRowGap = customLayout.rowGap || (rowCount > 1 ? '8px' : rowGap);
+          const customRowGap = customLayout.rowGap || '16px';
+          const colGap = customLayout.colGap || '12px';
+          const maxCols = Math.max(...customLayout.rows.map(r => r.count));
+          const mainScale = customLayout.mainScale ?? 0.85;
+          const subScale = customLayout.subScale ?? 1.0;
+          const subOffsetX = customLayout.subOffset?.x || 0;
+          const subOffsetY = customLayout.subOffset?.y || 0;
           return (
             <div style={{
               display: 'flex',
               flexDirection: 'column',
               gap: customRowGap,
-              width: '90%',
+              width: '92%',
+              maxWidth: '1400px',
               padding: '0 24px',
-              maxHeight: rowCount > 1 ? '65vh' : 'auto'
+              boxSizing: 'border-box'
             }}>
               {customLayout.rows.map((rowConfig, rowIndex) => {
                 const rowImages = images.slice(
                   customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0),
                   customLayout.rows.slice(0, rowIndex + 1).reduce((sum, r) => sum + r.count, 0)
                 );
-                const adjustedScale = rowConfig.scale * multiRowScale;
                 return (
                   <div
                     key={`row-${rowIndex}`}
                     style={{
-                      display: 'flex',
-                      gap: rowCount > 1 ? '12px' : '16px',
-                      justifyContent: 'center',
+                      display: 'grid',
+                      gridTemplateColumns: `repeat(${rowConfig.count}, 1fr)`,
+                      gap: colGap,
+                      justifyItems: 'center',
                       alignItems: 'center'
                     }}
                   >
@@ -650,30 +656,49 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
                         <div
                           key={`img-${index}-${globalIndex}`}
                           style={{
-                            width: `${adjustedScale * 120}px`,
-                            height: `${adjustedScale * 120}px`,
-                            overflow: 'hidden',
-                            background: 'transparent',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: 'var(--radius-image, 12px)'
+                            width: '100%',
+                            aspectRatio: '1 / 1',
+                            position: 'relative'
                           }}
                         >
+                          {/* 衬底图（subSrc）— 通过 subScale 控制大小，translate 控制偏移 */}
+                          {img.subSrc && (
+                            <img
+                              src={`${import.meta.env.BASE_URL}${img.subSrc.replace(/^\//, '')}`}
+                              alt={`${img.label || 'Image'} - sub`}
+                              style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                width: `${subScale * 100}%`,
+                                height: `${subScale * 100}%`,
+                                objectFit: 'contain',
+                                display: 'block',
+                                borderRadius: 'var(--radius-image, 12px)',
+                                transform: `translate(calc(-50% + ${subOffsetX}px), calc(-50% + ${subOffsetY}px))`,
+                                zIndex: 1
+                              }}
+                              onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                          )}
+                          {/* 主图 — 通过 mainScale 控制大小，居中在上层 */}
                           <img
                             src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
                             alt={img.label || `Image ${globalIndex + 1}`}
                             style={{
-                              width: '100%',
-                              height: '100%',
+                              position: 'absolute',
+                              top: '50%',
+                              left: '50%',
+                              width: `${mainScale * 100}%`,
+                              height: `${mainScale * 100}%`,
                               objectFit: 'contain',
                               display: 'block',
                               borderRadius: 'var(--radius-image, 12px)',
-                              filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.5))'
+                              filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.5))',
+                              transform: 'translate(-50%, -50%)',
+                              zIndex: 2
                             }}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
+                            onError={(e) => { e.target.style.display = 'none'; }}
                           />
                         </div>
                       );

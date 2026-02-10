@@ -44,7 +44,7 @@ const DesignSystem = () => {
               <div>
                 <div style={{ fontSize: 'var(--text-h1)', fontFamily: 'var(--font-serif)', lineHeight: 'var(--line-height-tight)' }}>Ag</div>
                 <div style={{ marginTop: 'var(--space-sm)', fontFamily: 'monospace', color: 'var(--color-text-muted)' }}>var(--font-serif)</div>
-                <div style={{ marginTop: 'var(--space-xs)', fontFamily: 'var(--font-sans)' }}>Playfair Display</div>
+                <div style={{ marginTop: 'var(--space-xs)', fontFamily: 'var(--font-sans)' }}>DM Serif Display</div>
               </div>
               <div>
                 <div style={{ fontSize: 'var(--text-h1)', fontFamily: 'var(--font-sans)', lineHeight: 'var(--line-height-tight)' }}>Ag</div>

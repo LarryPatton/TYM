@@ -316,7 +316,7 @@ const LoadingScreen = ({
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
               style={{
-                fontFamily: "'Afacad', var(--font-sans)",
+                fontFamily: "var(--font-sans)",
                 fontWeight: '600',
                 fontSize: '1.5rem',
                 letterSpacing: '0.05em',

@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect, useMemo, memo } from 'react';
+import React, { useRef, useState, useEffect, useMemo, useCallback, memo } from 'react';
+import { motion } from 'framer-motion';
 import { useLenis } from '../../contexts/LenisContext';
 import FlashlightMask from './FlashlightMask';
 import ScrollIndicator from '../ScrollIndicator';
@@ -10,11 +11,10 @@ const DEBUG = false;
 // 屏幕 01: 阶阶段引导页 (IntroScreen)
 // 优化版：使用纯 CSS 动画替代 framer-motion useScroll/useTransform
 // 
-// 优化策略：
-// 1. 使用 IntersectionObserver + scroll 事件替代 useScroll
-// 2. 使用 CSS transition 替代 framer-motion 动画
-// 3. 使用 requestAnimationFrame 节流滚动事件
-// 4. 使用 React.memo 优化子组件
+// 三段式序列动画：
+// 1. typing    - 打字机动画进行中，手电筒隐藏，滚动锁定
+// 2. flashlight - 手电筒淡入展示，滚动锁定，1.2s 后进入下一阶段
+// 3. scrollable - 滚动解锁，ScrollHint 淡入，用户自由交互
 // ============================================
 export const IntroScreen = memo(({
   phaseNumber, 
@@ -35,6 +35,14 @@ export const IntroScreen = memo(({
   
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
+  
+  // ====== 三段式序列动画状态机 ======
+  // 'typing'     → 打字机动画中，手电筒隐藏，滚动锁定
+  // 'flashlight' → 手电筒淡入展示中，滚动锁定
+  // 'scrollable' → 滚动解锁，完全可交互
+  const [introPhase, setIntroPhase] = useState('typing');
+  const flashlightTimerRef = useRef(null);
+  
   // 滚动进度状态（只在关键节点更新）
   const [scrollState, setScrollState] = useState({
     curtainProgress: 0,    // 0-1，幕布揭示进度
@@ -56,6 +64,51 @@ export const IntroScreen = memo(({
   
   // 获取 Lenis 实例
   const { lenis, isReady: lenisReady } = useLenis();
+  
+  // ====== 阶段转换：typing → flashlight ======
+  const handleTypingComplete = useCallback(() => {
+    if (shouldEnableFlashlight) {
+      // 桌面端有手电筒：进入 flashlight 阶段
+      setIntroPhase('flashlight');
+    } else {
+      // 移动端无手电筒：延迟 1.2s 后直接进入 scrollable
+      flashlightTimerRef.current = setTimeout(() => {
+        setIntroPhase('scrollable');
+      }, 1200);
+    }
+  }, [shouldEnableFlashlight]);
+  
+  // ====== 阶段转换：flashlight → scrollable（1.2s 延迟）======
+  useEffect(() => {
+    if (introPhase === 'flashlight') {
+      flashlightTimerRef.current = setTimeout(() => {
+        setIntroPhase('scrollable');
+      }, 1200);
+    }
+    return () => {
+      if (flashlightTimerRef.current) {
+        clearTimeout(flashlightTimerRef.current);
+      }
+    };
+  }, [introPhase]);
+  
+  // ====== Lenis 滚动锁定/解锁 ======
+  useEffect(() => {
+    if (!lenis || !lenisReady) return;
+    
+    if (introPhase === 'scrollable') {
+      lenis.start();
+      if (DEBUG) console.log('[IntroScreen] Lenis unlocked (scrollable)');
+    } else {
+      lenis.stop();
+      if (DEBUG) console.log('[IntroScreen] Lenis locked (', introPhase, ')');
+    }
+    
+    // 组件卸载时确保解锁滚动
+    return () => {
+      lenis.start();
+    };
+  }, [introPhase, lenis, lenisReady]);
   
   // 滚动监听 - 使用 Lenis 事件
   useEffect(() => {
@@ -116,6 +169,12 @@ export const IntroScreen = memo(({
   
   // 计算 clipPath
   const curtainClipPath = `inset(0% 0% ${scrollState.curtainProgress * 100}% 0%)`;
+  
+  // 手电筒层是否可见（typing 阶段隐藏）
+  const flashlightVisible = introPhase !== 'typing';
+  
+  // ScrollHint 是否可见（仅 scrollable 阶段显示）
+  const scrollHintVisible = introPhase === 'scrollable';
 
   return (
     <section ref={ref} style={{
@@ -187,6 +246,7 @@ export const IntroScreen = memo(({
               scrollProgress={scrollState.curtainProgress}
               backgroundColor="#000"
               initialPosition={flashlightInitialPosition}
+              visible={flashlightVisible}
             >
               <TextContent 
                 phaseNumber={phaseNumber}
@@ -195,8 +255,9 @@ export const IntroScreen = memo(({
                 content={content}
                 textY={scrollState.textY}
                 textOpacity={scrollState.textOpacity}
+                onComplete={handleTypingComplete}
               />
-              {showScrollHint && <ScrollHint />}
+              {showScrollHint && <ScrollHint visible={scrollHintVisible} />}
             </FlashlightMask>
           </div>
         ) : (
@@ -220,8 +281,9 @@ export const IntroScreen = memo(({
               content={content}
               textY={scrollState.textY}
               textOpacity={scrollState.textOpacity}
+              onComplete={handleTypingComplete}
             />
-            {showScrollHint && <ScrollHint />}
+            {showScrollHint && <ScrollHint visible={scrollHintVisible} />}
           </div>
         )}
 
@@ -233,19 +295,24 @@ export const IntroScreen = memo(({
 IntroScreen.displayName = 'IntroScreen';
 
 /**
- * 文字内容组件 - 带打字动画效果
- * 排版层次：主题 → 标题 → 副标题
+ * 文字内容组件 - 带打字动画效果（参考 AboutTypewriter 实现）
+ * 使用 substring 逐字显示 + framer-motion 闪烁光标
+ * 排版层次：主题(阶段标签) → 标题 → 副标题 → 内容
+ * @param {Function} onComplete - 所有打字动画完成后的回调
  */
-const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textOpacity }) => {
-  const [animationPhase, setAnimationPhase] = useState(0);
-  const [revealedChars, setRevealedChars] = useState({ theme: 0, title: 0, subtitle: 0, content: 0 });
-  const hasTriggeredRef = useRef(false);
-  const timersRef = useRef([]);
+const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textOpacity, onComplete }) => {
+  // 各行打字索引
+  const [themeIndex, setThemeIndex] = useState(0);
+  const [titleIndex, setTitleIndex] = useState(0);
+  const [subtitleIndex, setSubtitleIndex] = useState(0);
+  const [contentIndex, setContentIndex] = useState(0);
+  
+  // 当前打字阶段：'idle' → 'theme' → 'title' → 'subtitle' → 'content' → 'done'
+  const [phase, setPhase] = useState('idle');
   
   // 解析标题：如果包含冒号，分为标题和副标题
   const parseTitle = (title) => {
     if (!title) return { mainTitle: '', subtitle: '' };
-    // 匹配中文冒号或英文冒号
     const colonMatch = title.match(/[:：]/);
     if (colonMatch) {
       const colonIndex = title.indexOf(colonMatch[0]);
@@ -259,70 +326,111 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
   
   const { mainTitle, subtitle } = parseTitle(titleZh);
   const theme = `阶段 ${phaseNumber}`;
+  const contentText = content || '';
   
-  // 触发打字动画
+  // 打字速度配置（毫秒）
+  const TYPING_SPEED = {
+    theme: 60,         // 阶段标签
+    title: 80,         // 主标题稍慢，更有仪式感
+    subtitle: 50,      // 副标题
+    content: 25,       // 内容快速打出
+    pauseBetween: 300,  // 段落间停顿
+  };
+  
+  // 初始延迟后开始打字
   useEffect(() => {
-    if (hasTriggeredRef.current) return;
-    hasTriggeredRef.current = true;
-    
-    const charInterval = 50; // 每个字符的间隔（毫秒）
-    const phaseDelay = 300; // 每个阶段之间的延迟
-    
-    // 阶段 1: 主题
-    let delay = 500; // 初始延迟
-    [...theme].forEach((_, i) => {
-      const timer = setTimeout(() => {
-        setRevealedChars(prev => ({ ...prev, theme: i + 1 }));
-      }, delay + i * charInterval);
-      timersRef.current.push(timer);
-    });
-    
-    // 阶段 2: 标题
-    delay += theme.length * charInterval + phaseDelay;
-    [...mainTitle].forEach((_, i) => {
-      const timer = setTimeout(() => {
-        setRevealedChars(prev => ({ ...prev, title: i + 1 }));
-      }, delay + i * charInterval);
-      timersRef.current.push(timer);
-    });
-    
-    // 阶段 3: 副标题
-    delay += mainTitle.length * charInterval + phaseDelay;
-    [...subtitle].forEach((_, i) => {
-      const timer = setTimeout(() => {
-        setRevealedChars(prev => ({ ...prev, subtitle: i + 1 }));
-      }, delay + i * charInterval);
-      timersRef.current.push(timer);
-    });
-    
-    // 阶段 4: 内容
-    delay += subtitle.length * charInterval + phaseDelay;
-    [...(content || '')].forEach((_, i) => {
-      const timer = setTimeout(() => {
-        setRevealedChars(prev => ({ ...prev, content: i + 1 }));
-      }, delay + i * 25); // 内容打字速度更快
-      timersRef.current.push(timer);
-    });
-    
-    return () => {
-      timersRef.current.forEach(timer => clearTimeout(timer));
-    };
-  }, [theme, mainTitle, subtitle, content]);
+    const timer = setTimeout(() => setPhase('theme'), 500);
+    return () => clearTimeout(timer);
+  }, []);
   
-  // 渲染带打字效果的文字
-  const renderTypingText = (text, revealedCount, style = {}) => {
-    return [...text].map((char, i) => (
-      <span
-        key={i}
+  // 阶段标签打字
+  useEffect(() => {
+    if (phase !== 'theme') return;
+    if (themeIndex < theme.length) {
+      const timer = setTimeout(() => setThemeIndex(themeIndex + 1), TYPING_SPEED.theme);
+      return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => setPhase('title'), TYPING_SPEED.pauseBetween);
+      return () => clearTimeout(timer);
+    }
+  }, [themeIndex, theme, phase]);
+  
+  // 主标题打字
+  useEffect(() => {
+    if (phase !== 'title') return;
+    if (titleIndex < mainTitle.length) {
+      const timer = setTimeout(() => setTitleIndex(titleIndex + 1), TYPING_SPEED.title);
+      return () => clearTimeout(timer);
+    } else {
+      // 有副标题则继续，否则跳到 content 或 done
+      const nextPhase = subtitle ? 'subtitle' : (contentText ? 'content' : 'done');
+      const timer = setTimeout(() => {
+        setPhase(nextPhase);
+        if (nextPhase === 'done') onComplete?.();
+      }, TYPING_SPEED.pauseBetween);
+      return () => clearTimeout(timer);
+    }
+  }, [titleIndex, mainTitle, subtitle, contentText, phase, onComplete]);
+  
+  // 副标题打字
+  useEffect(() => {
+    if (phase !== 'subtitle') return;
+    if (subtitleIndex < subtitle.length) {
+      const timer = setTimeout(() => setSubtitleIndex(subtitleIndex + 1), TYPING_SPEED.subtitle);
+      return () => clearTimeout(timer);
+    } else {
+      const nextPhase = contentText ? 'content' : 'done';
+      const timer = setTimeout(() => {
+        setPhase(nextPhase);
+        if (nextPhase === 'done') onComplete?.();
+      }, TYPING_SPEED.pauseBetween);
+      return () => clearTimeout(timer);
+    }
+  }, [subtitleIndex, subtitle, contentText, phase, onComplete]);
+  
+  // 内容打字
+  useEffect(() => {
+    if (phase !== 'content') return;
+    if (contentIndex < contentText.length) {
+      const timer = setTimeout(() => setContentIndex(contentIndex + 1), TYPING_SPEED.content);
+      return () => clearTimeout(timer);
+    } else {
+      setPhase('done');
+      onComplete?.();
+    }
+  }, [contentIndex, contentText, phase, onComplete]);
+  
+  // framer-motion 光标闪烁动画
+  const cursorVariants = {
+    blink: {
+      opacity: [1, 0, 1],
+      transition: { duration: 0.8, repeat: Infinity, ease: 'linear' },
+    },
+  };
+  
+  // 光标组件 - 与 AboutTypewriter 一致的实现
+  const Cursor = ({ show, size = 'normal' }) => {
+    if (!show) return null;
+    const height = size === 'large' 
+      ? 'clamp(2.5rem, 7vw, 4.5rem)' 
+      : size === 'medium' 
+        ? 'clamp(1rem, 3vw, 1.8rem)' 
+        : 'clamp(0.8rem, 1.5vw, 1rem)';
+    const width = size === 'large' ? '3px' : '2px';
+    return (
+      <motion.span
+        variants={cursorVariants}
+        animate="blink"
         style={{
-          opacity: i < revealedCount ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-          ...style
+          display: 'inline-block',
+          width,
+          height,
+          backgroundColor: '#fff',
+          marginLeft: '3px',
+          verticalAlign: 'middle',
         }}
-      >
-        {char}
-      </span>
-    ));
+      />
+    );
   };
   
   return (
@@ -337,13 +445,14 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
         transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
       }}
     >
-      {/* 主题 - Phase Label 带截断线（优化：灰色分隔线，间距调整） */}
+      {/* 主题 - Phase Label 带截断线 */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '16px',
         marginBottom: '40px',
+        minHeight: '1.5em',
       }}>
         <div style={{
           width: '48px',
@@ -351,14 +460,15 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
           background: '#666',
         }} />
         <span style={{
-          fontSize: '0.85rem',
+          fontSize: '1.1rem',
           letterSpacing: '0.25em',
           color: '#999',
           fontWeight: '400',
           fontFamily: 'var(--font-sans)',
           textTransform: 'uppercase',
         }}>
-          {renderTypingText(theme, revealedChars.theme)}
+          {theme.substring(0, themeIndex)}
+          <Cursor show={phase === 'theme'} size="small" />
         </span>
         <div style={{
           width: '48px',
@@ -367,7 +477,7 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
         }} />
       </div>
 
-      {/* 标题 - 主标题（如 "产品 B"） */}
+      {/* 标题 - 主标题 */}
       <h1 style={{
         fontFamily: 'var(--font-serif)',
         fontSize: 'clamp(3rem, 8vw, 5.5rem)',
@@ -375,41 +485,54 @@ const TextContent = memo(({ phaseNumber, titleEn, titleZh, content, textY, textO
         lineHeight: 1.1,
         marginBottom: subtitle ? '16px' : '48px',
         letterSpacing: '0.08em',
-        color: '#fff'
+        color: '#fff',
+        minHeight: '1.2em',
+        visibility: phase === 'idle' || phase === 'theme' ? 'hidden' : 'visible',
       }}>
-        {renderTypingText(mainTitle, revealedChars.title)}
+        {mainTitle.substring(0, titleIndex)}
+        <Cursor show={phase === 'title'} size="large" />
       </h1>
 
-      {/* 副标题 - 如果有的话（如 "一致性中的差异化"） */}
+      {/* 副标题 */}
       {subtitle && (
         <h2 style={{
           fontFamily: 'var(--font-serif)',
-          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+          fontSize: 'clamp(0.95rem, 2.5vw, 1.6rem)',
           fontWeight: '300',
           lineHeight: 1.3,
           marginBottom: '48px',
-          letterSpacing: '0.06em',
+          letterSpacing: '0.03em',
           color: '#fff',
-          opacity: 0.85
+          opacity: 0.85,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          minHeight: '1.5em',
+          visibility: ['idle', 'theme', 'title'].includes(phase) ? 'hidden' : 'visible',
         }}>
-          {renderTypingText(subtitle, revealedChars.subtitle)}
+          {subtitle.substring(0, subtitleIndex)}
+          <Cursor show={phase === 'subtitle'} size="medium" />
         </h2>
       )}
 
       {/* 内容描述 */}
-      <p style={{
-        fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-        lineHeight: 1.9,
-        maxWidth: '680px',
-        margin: '0 auto',
-        color: '#fff',
-        opacity: 0.75,
-        fontWeight: '300',
-        fontFamily: 'var(--font-sans)',
-        letterSpacing: '0.02em'
-      }}>
-        {renderTypingText(content || '', revealedChars.content)}
-      </p>
+      {contentText && (
+        <p style={{
+          fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
+          lineHeight: 1.9,
+          maxWidth: '680px',
+          margin: '0 auto',
+          color: '#fff',
+          opacity: 0.75,
+          fontWeight: '300',
+          fontFamily: 'var(--font-sans)',
+          letterSpacing: '0.02em',
+          minHeight: '1.9em',
+          visibility: ['idle', 'theme', 'title', 'subtitle'].includes(phase) ? 'hidden' : 'visible',
+        }}>
+          {contentText.substring(0, contentIndex)}
+          <Cursor show={phase === 'content'} />
+        </p>
+      )}
     </div>
   );
 });
@@ -418,17 +541,24 @@ TextContent.displayName = 'TextContent';
 
 /**
  * 滚动提示组件
+ * @param {boolean} visible - 控制组件是否可见（淡入/淡出）
  */
-const ScrollHint = memo(() => (
-  <ScrollIndicator
-    variant="reveal"
-    position="bottom-center"
-    color="#fff"
-    layout="vertical"
-    style={{
-      bottom: '40px',
-    }}
-  />
+const ScrollHint = memo(({ visible = true }) => (
+  <div style={{
+    opacity: visible ? 1 : 0,
+    transition: 'opacity 0.6s ease-out',
+    pointerEvents: visible ? 'auto' : 'none',
+  }}>
+    <ScrollIndicator
+      variant="reveal"
+      position="bottom-center"
+      color="#fff"
+      layout="vertical"
+      style={{
+        bottom: '40px',
+      }}
+    />
+  </div>
 ));
 
 ScrollHint.displayName = 'ScrollHint';

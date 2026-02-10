@@ -1,5 +1,5 @@
 :root {
-    font-family: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
@@ -13,10 +13,11 @@
        ======================================== */
 
     /* Font Families */
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Inter', sans-serif;
-    --font-cn: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-    --font-cn-display: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+    --font-sans: 'Inter', 'Noto Sans SC', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-cn: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;           /* 正文中文 */
+    --font-cn-display: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;   /* 标题/展示中文 */
     
     /* ----------------------------------------
        COLOR TOKENS - 亮色主题（默认）
@@ -592,4 +593,13 @@
   /* 鼠标悬浮时显示下划线 */
   .nav-link-underline:hover .nav-underline {
     width: 100%;
+  }
+
+  /* ========================================
+     TYPING CURSOR BLINK - 打字机光标闪烁
+     ======================================== */
+  
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }

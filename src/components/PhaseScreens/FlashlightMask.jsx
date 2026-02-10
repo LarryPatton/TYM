@@ -11,6 +11,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
  * 
  * @param {Object} initialPosition - 初始光圈位置 { x: 0-1, y: 0-1 }，百分比坐标
  *                                   例如 { x: 0.7, y: 0.15 } 表示右上角
+ * @param {boolean} visible - 控制手电筒效果是否可见（typing 阶段为 false，淡入隐藏）
  */
 export const FlashlightMaskV2 = ({
   children,
@@ -19,7 +20,8 @@ export const FlashlightMaskV2 = ({
   featherSize = 100,
   scrollProgress, // 可以是 MotionValue 或普通数值
   backgroundColor = '#000',
-  initialPosition = null // 新增：初始光圈位置 { x: 0-1, y: 0-1 }
+  initialPosition = null, // 初始光圈位置 { x: 0-1, y: 0-1 }
+  visible = true // 控制手电筒交互层整体可见性
 }) => {
   const containerRef = useRef(null);
   const maskRef = useRef(null);
@@ -38,33 +40,38 @@ export const FlashlightMaskV2 = ({
   
   const totalSpotlightSize = spotlightSize + featherSize * 2;
   
+  // 有 initialPosition 时，光圈始终可见（不依赖鼠标 hover）
+  const hasInitialPosition = !!initialPosition;
+  
   // 检测是否为触摸设备
   useEffect(() => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
   
-  // 新增：设置初始光圈位置
+  // 新增：设置初始光圈位置（仅在 visible 后才执行）
+  // 使用 ref 跟踪是否已经设置过初始位置，避免重复设置
+  const initialPosSetRef = useRef(false);
+  
   useEffect(() => {
-    if (!containerRef.current || isTouchDevice || !initialPosition) return;
+    if (!containerRef.current || isTouchDevice || !initialPosition || !visible) return;
     
-    const timer = requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const initialX = rect.width * (initialPosition.x || 0.5);
-      const initialY = rect.height * (initialPosition.y || 0.5);
-      
-      mouseX.set(initialX);
-      mouseY.set(initialY);
-      setIsHovering(true); // 立即显示光圈
-    });
+    // visible 变为 true 后立即同步设置初始位置（不延迟 RAF）
+    const rect = containerRef.current.getBoundingClientRect();
+    const initialX = rect.width * (initialPosition.x || 0.5);
+    const initialY = rect.height * (initialPosition.y || 0.5);
     
-    return () => cancelAnimationFrame(timer);
-  }, [initialPosition, isTouchDevice, mouseX, mouseY]);
+    // 直接跳到目标位置（不走 spring 动画），确保首帧就在正确位置
+    mouseX.jump(initialX);
+    mouseY.jump(initialY);
+    smoothX.jump(initialX);
+    smoothY.jump(initialY);
+    
+    initialPosSetRef.current = true;
+  }, [initialPosition, isTouchDevice, mouseX, mouseY, smoothX, smoothY, visible]);
   
   // 修复：组件挂载时直接检测鼠标位置（解决鼠标静止不动时手电筒不显示的问题）
   useEffect(() => {
-    if (!containerRef.current || isTouchDevice) return;
+    if (!containerRef.current || isTouchDevice || !visible) return;
     
     // 如果有 initialPosition，跳过自动检测（由上面的 useEffect 处理）
     if (initialPosition) return;
@@ -170,8 +177,9 @@ export const FlashlightMaskV2 = ({
     const updateMask = () => {
       if (!maskRef.current) return;
       
-      // 只有在 hover 且进度未超过阈值时才显示手电筒效果
-      if (!isHovering || currentProgress > 0.35) {
+      // 有 initialPosition 时不依赖 isHovering，光圈始终显示
+      const shouldShow = (isHovering || hasInitialPosition) && currentProgress <= 0.35;
+      if (!shouldShow) {
         maskRef.current.style.maskImage = 'none';
         maskRef.current.style.webkitMaskImage = 'none';
         return;
@@ -200,7 +208,7 @@ export const FlashlightMaskV2 = ({
       unsubX();
       unsubY();
     };
-  }, [smoothX, smoothY, isHovering, spotlightSize, totalSpotlightSize, currentProgress]);
+  }, [smoothX, smoothY, isHovering, hasInitialPosition, visible, spotlightSize, totalSpotlightSize, currentProgress]);
   
   // 处理鼠标移动
   const handleMouseMove = useCallback((e) => {
@@ -227,17 +235,27 @@ export const FlashlightMaskV2 = ({
   const flashlightOpacity = Math.max(0, 1 - currentProgress * 3);
   
   // 判断是否应该显示手电筒相关的视觉元素
-  const showFlashlightEffects = isHovering && currentProgress < 0.35;
+  // visible=false 时强制隐藏所有效果
+  // 有 initialPosition 时即使鼠标不在屏幕上也显示光圈
+  const showFlashlightEffects = visible && (isHovering || hasInitialPosition) && currentProgress < 0.35;
   
   return (
     <div
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      onTouchMove={handleTouchMove}
-      onTouchStart={() => setIsHovering(true)}
-      onTouchEnd={() => setIsHovering(false)}
+      onMouseMove={visible ? handleMouseMove : undefined}
+      onMouseEnter={visible ? () => setIsHovering(true) : undefined}
+      onMouseLeave={visible ? () => {
+        setIsHovering(false);
+        // 鼠标离开时，如果有 initialPosition，光圈弹回初始位置
+        if (initialPosition && containerRef.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          mouseX.set(rect.width * (initialPosition.x || 0.5));
+          mouseY.set(rect.height * (initialPosition.y || 0.5));
+        }
+      } : undefined}
+      onTouchMove={visible ? handleTouchMove : undefined}
+      onTouchStart={visible ? () => setIsHovering(true) : undefined}
+      onTouchEnd={visible ? () => setIsHovering(false) : undefined}
       style={{
         position: 'absolute',
         inset: 0,
@@ -256,8 +274,8 @@ export const FlashlightMaskV2 = ({
             : 'var(--color-bg-alt)',
           backgroundColor: '#000', // 图片周围填充纯黑背景
           zIndex: 0,
-          opacity: flashlightOpacity, // 手电筒透视图片随进度淡出
-          transition: 'opacity 0.3s ease-out'
+          opacity: visible ? flashlightOpacity : 0, // visible=false 时完全隐藏底图
+          transition: 'opacity 0.6s ease-out' // 淡入时间较长，营造渐显效果
         }}
       />
       

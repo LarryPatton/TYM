@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
@@ -9,13 +9,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * - 多张透明图片在同一位置依次弹出
  * - 滚动驱动的序列动画
  * - 全屏尺寸展示，保持图片比例
+ * - 支持顶部 caption 文字区域（带逐字淡入 + 高亮关键词）
  * 
  * 移动端优化:
  * - 改为垂直堆叠展示
  * - 禁用滚动驱动动画
  * - 简化为普通滚动浏览
- * 
- * 注：文案展示已改用 scroll-text-bar 组件，本组件不再处理文案
  * ============================================
  */
 
@@ -23,7 +22,9 @@ export const PopupSequenceScreen = ({
   screenNumber,
   screenLabel,
   images = [],
-  bgColor = '#000'
+  bgColor = '#000',
+  content = '',
+  contentKey
 }) => {
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
@@ -48,6 +49,7 @@ export const PopupSequenceScreen = ({
         screenLabel={screenLabel}
         images={images}
         bgColor={bgColor}
+        content={content}
       />
     );
   }
@@ -59,6 +61,7 @@ export const PopupSequenceScreen = ({
       screenLabel={screenLabel}
       images={images}
       bgColor={bgColor}
+      content={content}
     />
   );
 };
@@ -142,16 +145,55 @@ const DesktopPopupSequence = ({
   screenNumber, 
   screenLabel, 
   images, 
-  bgColor
+  bgColor,
+  content = ''
 }) => {
   const containerRef = useRef(null);
   const imageCount = images.length;
+  const hasCaption = !!content;
   
   // 滚动进度追踪
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
+
+  // 解析 content 中的「」高亮标记
+  const parsedContent = useMemo(() => {
+    if (!content) return [];
+    const result = [];
+    const regex = /「([^」]+)」/g;
+    let currentIndex = 0;
+    let match;
+    while ((match = regex.exec(content)) !== null) {
+      const text = content.slice(currentIndex, match.index);
+      if (text) {
+        for (const char of text) result.push({ char, highlight: false });
+      }
+      // 加上「」和中间内容，全部高亮
+      for (const char of match[0]) result.push({ char, highlight: true });
+      currentIndex = match.index + match[0].length;
+    }
+    if (currentIndex < content.length) {
+      const text = content.slice(currentIndex);
+      for (const char of text) result.push({ char, highlight: false });
+    }
+    return result;
+  }, [content]);
+
+  // 逐字显示计数器，基于滚动进度
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const totalChars = parsedContent.length;
+
+  useEffect(() => {
+    if (!hasCaption || totalChars === 0) return;
+    const unsubscribe = scrollYProgress.on('change', (v) => {
+      // 在前 30% 的滚动中逐字揭示所有文字
+      const progress = Math.min(v / 0.3, 1);
+      setRevealedCharCount(Math.floor(progress * totalChars));
+    });
+    return unsubscribe;
+  }, [scrollYProgress, totalChars, hasCaption]);
 
   return (
     <div 
@@ -169,6 +211,7 @@ const DesktopPopupSequence = ({
         height: '100vh',
         width: '100%',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'
@@ -191,11 +234,58 @@ const DesktopPopupSequence = ({
           </motion.div>
         )}
 
+        {/* 顶部 caption 文字区 */}
+        {hasCaption && (
+          <div style={{
+            width: '90vw',
+            maxWidth: '1200px',
+            padding: '0 24px',
+            marginTop: '70px',
+            marginBottom: '16px',
+            flexShrink: 0,
+            zIndex: 10
+          }}>
+            <p style={{
+              margin: 0,
+              color: '#fff',
+              fontSize: 'clamp(0.95rem, 1.6vh, 1.25rem)',
+              lineHeight: 1.5,
+              letterSpacing: '0.01em',
+              textAlign: 'center'
+            }}>
+              {parsedContent.map((item, i) => {
+                const isRevealed = i < revealedCharCount;
+                return (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'inline-block',
+                      color: item.highlight ? '#FF5722' : 'inherit',
+                      fontWeight: item.highlight ? 600 : 400,
+                      opacity: isRevealed ? 1 : 0,
+                      transform: isRevealed ? 'translateY(0)' : 'translateY(8px)',
+                      filter: isRevealed ? 'blur(0)' : 'blur(4px)',
+                      transition: `
+                        opacity 0.5s ease-out,
+                        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        filter 0.5s ease-out
+                      `,
+                      whiteSpace: 'pre-wrap'
+                    }}
+                  >
+                    {item.char}
+                  </span>
+                );
+              })}
+            </p>
+          </div>
+        )}
+
         {/* 图片层叠容器 */}
         <div style={{
           position: 'relative',
           width: '90vw',
-          height: '80vh',
+          height: hasCaption ? '70vh' : '80vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'

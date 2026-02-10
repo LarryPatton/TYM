@@ -227,7 +227,7 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
             }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
             style={{
-              fontFamily: "'Afacad', var(--font-sans)",
+              fontFamily: "var(--font-sans)",
               fontSize: 'clamp(0.8rem, 1vw, 0.95rem)',
               fontWeight: '400',
               letterSpacing: '0.1em',
@@ -312,7 +312,7 @@ const TypewriterHero = ({ name, role, desc1, desc2 }) => {
                 }}
                 style={{
                   display: 'inline-block',
-                  fontFamily: "'Afacad', var(--font-sans)",
+                  fontFamily: "var(--font-sans)",
                   fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)',
                   fontWeight: '500',
                   letterSpacing: '0.2em',

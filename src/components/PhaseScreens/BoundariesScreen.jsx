@@ -83,47 +83,6 @@ const BoundariesScreen = ({
         margin: '0 auto',
         width: '100%'
       }}>
-        {/* 顶部文案区域 */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={itemVariants}
-          style={{
-            marginBottom: 'var(--space-4xl)'
-          }}
-        >
-          <div style={{
-            fontSize: 'var(--text-xs)',
-            color: 'rgba(255,255,255,0.5)',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: 'var(--space-lg)'
-          }}>
-            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
-          </div>
-          
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '400',
-            marginBottom: 'var(--space-xl)',
-            lineHeight: 1.2,
-            maxWidth: '800px'
-          }}>
-            {title}
-          </h2>
-          
-          <p style={{
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: 'var(--text-body-lg)',
-            lineHeight: 1.6,
-            maxWidth: '600px'
-          }}>
-            {content}
-          </p>
-        </motion.div>
-
         {/* 三张边界图片 - 交错布局 */}
         <div style={{
           display: 'grid',

@@ -1684,6 +1684,7 @@ const PhaseDetail = () => {
             labels={phase.processFlow.labels}
             allScreens={phase.processFlow.allScreens}
             phaseId={phase.id}
+            visible={currentScreen > 1}
           />
         )}
         

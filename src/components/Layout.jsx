@@ -539,7 +539,7 @@ const Layout = () => {
                   />
                 </div>
                 <span style={{ 
-                  fontFamily: "'Afacad', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontWeight: '600',
                   fontSize: isMobile ? '1.4em' : '1.75em',
                   letterSpacing: '0.02em',
@@ -614,7 +614,7 @@ const Layout = () => {
                   />
                 </div>
                 <span style={{ 
-                  fontFamily: "'Afacad', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontWeight: '600',
                   fontSize: isMobile ? '1.4em' : '1.75em',
                   letterSpacing: '0.02em',

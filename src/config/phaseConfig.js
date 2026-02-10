@@ -129,11 +129,21 @@ export const phase02Config = {
   prev: 'phase-01',
   next: 'phase-03',
   processFlow: {
-    // 按素材文件夹绑定：cmf/main → cmf/color-sequence → factory → priority
-    screens: ['cmf-main', 'cmf-color', 'factory-keycaps', 'priority'],
-    labels: ['Exploration', 'Memory', 'Details', 'Process']
+    // 7 个分类锚点：人群→定位→CMF→工厂→包装→周边→产品
+    screens: ['user-generation', 'boundaries', 'cmf-main', 'factory-keycaps', 'priority', 'consistency', 'component-assembly'],
+    labels: ['人群', '定位', 'CMF', '工厂', '包装', '周边', '产品'],
+    // 用于范围检测的所有屏幕（确保滚动到任意屏幕时锚点都能正确高亮）
+    allScreens: [
+      'user-generation',
+      'boundaries',
+      'cmf-main', 'cmf-color',
+      'factory-keycaps', 'factory-backplate',
+      'priority',
+      'consistency',
+      'component-assembly'
+    ]
   },
-  totalScreens: 11, // 删除目录屏后：11屏
+  totalScreens: 10, // 删除目录屏+packaging屏后：10屏
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境
@@ -151,7 +161,7 @@ export const phase02Config = {
     {
       id: 'user-generation',
       type: 'popup-sequence',
-      categoryLabel: '用户代际',
+      categoryLabel: '人群 / 用户代际',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE02_BASE}/popup/popup-01.png`, label: 'Gen Z' },
@@ -160,11 +170,18 @@ export const phase02Config = {
         { src: `${PHASE02_BASE}/popup/popup-04.png`, label: 'All Generations' }
       ]
     },
+    // Screen 02a: 文字过渡条 - 边界张力 文案
+    {
+      id: 'scroll-text-boundaries',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-02.screens.boundaries.content',
+      padding: '40px 24px 40px 24px'
+    },
     // Screen 03: Boundaries - 提出张力
     {
       id: 'boundaries',
       type: 'boundaries',
-      categoryLabel: '边界张力',
+      categoryLabel: '定位 / 边界张力',
       images: [
         { src: `${PHASE02_BASE}/boundaries/boundary-01.png`, label: '资源边界' },
         { src: `${PHASE02_BASE}/boundaries/boundary-02.png`, label: '市场边界' },
@@ -178,7 +195,7 @@ export const phase02Config = {
     {
       id: 'cmf-main',
       type: 'square-grid',
-      categoryLabel: 'CMF / 主体探索',
+      categoryLabel: 'CMF / 主题探索',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 6, // 每行5-6张
       noBorder: true, // 无边框样式
@@ -267,24 +284,32 @@ export const phase02Config = {
     {
       id: 'priority',
       type: 'grouped-carousel',
-      categoryLabel: '产品优先级',
+      categoryLabel: '包装 / 超级符号在包装上的应用',
       showGroupLabel: false,
       showItemCount: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       groups: [
         {
           label: 'Standard Series',
+          layout: {
+            rows: [{ count: 5, scale: 1 }, { count: 5, scale: 1 }],
+            rowGap: '20px',
+            colGap: '16px',
+            mainScale: 1.1,
+            subScale: 1,
+            subOffset: { x: 14, y: 10 }
+          },
           images: [
-            { src: `${PHASE02_BASE}/priority/cube-01.png`, label: 'Base' },
-            { src: `${PHASE02_BASE}/priority/cube-02.png`, label: 'Variant 2' },
-            { src: `${PHASE02_BASE}/priority/cube-03.png`, label: 'Variant 3' },
-            { src: `${PHASE02_BASE}/priority/cube-04.png`, label: 'Variant 4' },
-            { src: `${PHASE02_BASE}/priority/cube-05.png`, label: 'Variant 5' },
-            { src: `${PHASE02_BASE}/priority/cube-06.png`, label: 'Variant 6' },
-            { src: `${PHASE02_BASE}/priority/cube-07.png`, label: 'Variant 7' },
-            { src: `${PHASE02_BASE}/priority/cube-08.png`, label: 'Variant 8' },
-            { src: `${PHASE02_BASE}/priority/cube-09.png`, label: 'Variant 9' },
-            { src: `${PHASE02_BASE}/priority/cube-10.png`, label: 'Variant 10' }
+            { src: `${PHASE02_BASE}/priority/cube-01.png`, label: 'Base', subSrc: `${PHASE02_BASE}/packaging/pkg-01.png` },
+            { src: `${PHASE02_BASE}/priority/cube-02.png`, label: 'Variant 2', subSrc: `${PHASE02_BASE}/packaging/pkg-02.png` },
+            { src: `${PHASE02_BASE}/priority/cube-03.png`, label: 'Variant 3', subSrc: `${PHASE02_BASE}/packaging/pkg-03.png` },
+            { src: `${PHASE02_BASE}/priority/cube-04.png`, label: 'Variant 4', subSrc: `${PHASE02_BASE}/packaging/pkg-04.png` },
+            { src: `${PHASE02_BASE}/priority/cube-05.png`, label: 'Variant 5', subSrc: `${PHASE02_BASE}/packaging/pkg-05.png` },
+            { src: `${PHASE02_BASE}/priority/cube-06.png`, label: 'Variant 6', subSrc: `${PHASE02_BASE}/packaging/pkg-06.png` },
+            { src: `${PHASE02_BASE}/priority/cube-07.png`, label: 'Variant 7', subSrc: `${PHASE02_BASE}/packaging/pkg-07.png` },
+            { src: `${PHASE02_BASE}/priority/cube-08.png`, label: 'Variant 8', subSrc: `${PHASE02_BASE}/packaging/pkg-08.png` },
+            { src: `${PHASE02_BASE}/priority/cube-09.png`, label: 'Variant 9', subSrc: `${PHASE02_BASE}/packaging/pkg-09.png` },
+            { src: `${PHASE02_BASE}/priority/cube-10.png`, label: 'Variant 10', subSrc: `${PHASE02_BASE}/packaging/pkg-10.png` }
           ]
         },
         {
@@ -299,31 +324,11 @@ export const phase02Config = {
       ],
       bgAlt: true
     },
-    // Screen 06: Packaging - 系统扩展 (两行5列正方形)
-    {
-      id: 'packaging',
-      type: 'square-grid',
-      categoryLabel: '包装系统',
-      columns: 5,
-      scrollBehavior: { sticky: true, length: 'medium', intensity: 'medium' },
-      images: [
-        { src: `${PHASE02_BASE}/packaging/pkg-01.png`, label: 'Package Design 1' },
-        { src: `${PHASE02_BASE}/packaging/pkg-02.png`, label: 'Package Design 2' },
-        { src: `${PHASE02_BASE}/packaging/pkg-03.png`, label: 'Package Design 3' },
-        { src: `${PHASE02_BASE}/packaging/pkg-04.png`, label: 'Package Design 4' },
-        { src: `${PHASE02_BASE}/packaging/pkg-05.png`, label: 'Package Design 5' },
-        { src: `${PHASE02_BASE}/packaging/pkg-06.png`, label: 'Package Design 6' },
-        { src: `${PHASE02_BASE}/packaging/pkg-07.png`, label: 'Package Design 7' },
-        { src: `${PHASE02_BASE}/packaging/pkg-08.png`, label: 'Package Design 8' },
-        { src: `${PHASE02_BASE}/packaging/pkg-09.png`, label: 'Package Design 9' },
-        { src: `${PHASE02_BASE}/packaging/pkg-10.png`, label: 'Package Design 10' }
-      ]
-    },
     // Screen 07: Consistency - 方法论内化
     {
       id: 'consistency',
       type: 'consistency-mosaic',
-      categoryLabel: '一致性应用',
+      categoryLabel: '周边 / 产品周边扩展',
       scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
       images: [
         { src: `${PHASE02_BASE}/consistency/app-01.png`, label: 'Application 1' },
@@ -359,7 +364,7 @@ export const phase02Config = {
     {
       id: 'component-assembly',
       type: 'component-assembly',
-      categoryLabel: '组件拼装',
+      categoryLabel: '产品 / 产品速读',
       stickyHeight: 200, // 滚动200vh后离开
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' }
     },

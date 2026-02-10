@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const ProcessAnchor = ({ screens, labels, phaseId, allScreens }) => {
+const ProcessAnchor = ({ screens, labels, phaseId, allScreens, visible = true }) => {
   const [activeStep, setActiveStep] = useState(0); // 默认选中第一个
   const [isMobile, setIsMobile] = useState(false);
   
@@ -71,7 +71,11 @@ const ProcessAnchor = ({ screens, labels, phaseId, allScreens }) => {
     return (
       <motion.div
         initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ 
+          opacity: visible ? 1 : 0, 
+          y: visible ? 0 : -10,
+          pointerEvents: visible ? 'auto' : 'none'
+        }}
         transition={{ duration: 0.3 }}
         style={{
           position: 'fixed',
@@ -125,11 +129,16 @@ const ProcessAnchor = ({ screens, labels, phaseId, allScreens }) => {
     );
   }
 
-  // 桌面端：完整的步骤导航 - 始终显示
+  // 桌面端：完整的步骤导航 - 受 visible 控制
   return (
     <motion.div
       initial={{ opacity: 0, y: -20, x: '-50%' }}
-      animate={{ opacity: 1, y: 0, x: '-50%' }}
+      animate={{ 
+        opacity: visible ? 1 : 0, 
+        y: visible ? 0 : -20, 
+        x: '-50%',
+        pointerEvents: visible ? 'auto' : 'none'
+      }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed',
