@@ -15,10 +15,10 @@ export const ScrollTextBar = memo(({
   contentKey,
   content,
   bgColor = '#000',
-  textColor = '#fff',
-  highlightColor = '#FF5722',
+  textColor = 'var(--caption-color, #fff)',
+  highlightColor = 'var(--caption-color-highlight, #FF5722)',
   borderColor = 'rgba(255, 255, 255, 0.2)',
-  fontSize = 'clamp(0.95rem, 2vw, 1.25rem)',
+  fontSize = 'var(--caption-font-size, clamp(1.1rem, 2.2vw, 1.5rem))',
   padding = '40px 24px',
   typingSpeed = 25  // 打字速度（毫秒/字）
 }) => {
@@ -122,10 +122,10 @@ export const ScrollTextBar = memo(({
           style={{
             margin: 0,
             fontSize,
-            fontWeight: 300,
-            letterSpacing: '0.04em',
+            fontWeight: 'var(--caption-font-weight, 300)',
+            letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
             color: textColor,
-            lineHeight: 1.8
+            lineHeight: 'var(--caption-line-height, 1.7)'
           }}
         >
           {parsedChars.map((item, i) => {
@@ -136,9 +136,9 @@ export const ScrollTextBar = memo(({
                 style={{
                   display: 'inline',
                   color: item.highlight ? highlightColor : 'inherit',
-                  fontWeight: item.highlight ? 600 : 300,
+                  fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
                   opacity: isRevealed ? 1 : 0,
-                  transition: 'opacity 0.3s ease-out',
+                  transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
                   whiteSpace: 'pre-wrap'
                 }}
               >

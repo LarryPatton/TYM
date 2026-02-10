@@ -212,12 +212,12 @@ export const TwoRowStaticScreen = memo(({
 
   const renderContent = () => (
     <>
-      {/* 顶部文案区（优先显示 contentKey 文案，其次显示 title） */}
+      {/* 顶部文案区 - 使用全局 CAPTION TOKENS */}
       {hasCaption ? (
         <div ref={captionRef} style={{
           width: '100%',
-          maxWidth: '900px',
-          padding: '0 32px',
+          maxWidth: 'var(--caption-max-width, 1100px)',
+          padding: 'var(--caption-padding, 0 32px 40px)',
           boxSizing: 'border-box',
           textAlign: 'center',
           marginBottom: 'clamp(24px, 3vh, 40px)',
@@ -226,11 +226,11 @@ export const TwoRowStaticScreen = memo(({
         }}>
           <p style={{
             margin: 0,
-            color: '#fff',
-            fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
-            lineHeight: 1.7,
-            letterSpacing: '0.04em',
-            fontWeight: 300
+            color: 'var(--caption-color, #fff)',
+            fontSize: 'var(--caption-font-size)',
+            lineHeight: 'var(--caption-line-height, 1.7)',
+            letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
+            fontWeight: 'var(--caption-font-weight, 300)'
           }}>
             {parsedContent.map((item, i) => {
               const isRevealed = i < revealedCharCount;
@@ -239,10 +239,10 @@ export const TwoRowStaticScreen = memo(({
                   key={i}
                   style={{
                     display: 'inline',
-                    color: item.highlight ? '#FF5722' : 'inherit',
-                    fontWeight: item.highlight ? 600 : 300,
+                    color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
+                    fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
                     opacity: isRevealed ? 1 : 0,
-                    transition: `opacity 0.4s ease-out, color 0.3s ease`,
+                    transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
                     whiteSpace: 'pre-wrap'
                   }}
                 >

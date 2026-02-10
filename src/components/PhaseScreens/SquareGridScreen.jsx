@@ -12,6 +12,8 @@ const DEBUG = false;
  * 2. 使用 useMemo 缓存计算结果
  * 3. 移动端完全禁用 framer-motion 动画
  * 4. 使用 IntersectionObserver 替代移动端的 whileInView
+ * 
+ * 注：文案显示统一使用 ScrollTextBar 组件，不在本组件内显示
  */
 export const SquareGridScreen = memo(({
   screenNumber,

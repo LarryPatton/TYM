@@ -53,6 +53,7 @@ export * from './PopupSequenceScreen';
 export * from './RowByRowPopupGrid';
 export * from './ProductPairScrollScreen';
 export * from './TwoRowStaticScreen';
+export * from './TwoColumnShowcase';
 export * from './NaturalParallaxGrid';
 export * from './ScrollTextBar';
 export { default as AutoSequencePopup } from './AutoSequencePopup';

@@ -147,6 +147,24 @@
     --text-xs: 0.75rem;
 
     /* ----------------------------------------
+       CAPTION TOKENS - 详情页文案专用样式
+       用于 Phase 详情页的逐字显示文案
+       ---------------------------------------- */
+    --caption-font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    --caption-font-size-mobile: clamp(0.95rem, 3vw, 1.1rem);
+    --caption-line-height: 1.7;
+    --caption-letter-spacing: 0.04em;
+    --caption-font-weight: 300;
+    --caption-font-weight-highlight: 600;
+    --caption-color: #ffffff;
+    --caption-color-highlight: #FF5722;
+    --caption-max-width: 1100px;
+    --caption-padding: 0 32px 40px;
+    --caption-padding-mobile: 0 16px 24px;
+    --caption-char-interval: 30ms;
+    --caption-fade-transition: opacity 0.4s ease-out, color 0.3s ease;
+
+    /* ----------------------------------------
        TRANSITION TOKENS - 过渡
        ---------------------------------------- */
     --transition-fast: 150ms ease;

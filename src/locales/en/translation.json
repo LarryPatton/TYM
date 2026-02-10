@@ -495,49 +495,52 @@
           "intro": {
             "content": "As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
           },
+          "packaging-intro": {
+            "content": "Using a modular「tiered pricing packaging system (bag/round box/tin box)」design to split the same product into entry-level, mainstream, and premium packaging solutions, balancing market entry, brand recognition, and premium positioning."
+          },
           "packaging-bag-series": {
             "title": "Bag Series Packaging",
             "content": "Bag product packaging design showcase."
           },
           "packaging-grid": {
-            "title": "Packaging Form System",
-            "content": "Plastic box, tin box, bullet box series packaging showcase."
+            "title": "Tiered Pricing Packaging System",
+            "content": "Using a modular「tiered pricing packaging system (bag/round box/tin box)」design to split the same product into entry-level, mainstream, and premium packaging solutions, balancing market entry, brand recognition, and premium positioning."
           },
           "kv-marquee": {
-            "title": "Key Visual Marquee",
-            "content": "Brand key visual three-row marquee display."
+            "title": "Key Visual System",
+            "content": "Using a modular「Key Visual System」design to unify the core propositions of multiple products/campaigns into consistent motion effects and layout language, supporting continuous website storytelling and highly recognizable brand presentation."
           },
           "kv-popup": {
             "title": "Key Visual Fullscreen",
-            "content": "Brand key visual fullscreen sequence display."
+            "content": "Using a modular「Key Visual System」design to unify the core propositions of multiple products/campaigns into consistent motion effects and layout language, supporting continuous website storytelling and highly recognizable brand presentation."
           },
           "products-oil": {
             "title": "E-Liquid Product Series",
-            "content": "E-Liquid product series grid showcase."
+            "content": "Using a modular「localized packaging system」design to split the same e-liquid product into reusable and adjustable packaging units based on export market language formats, nicotine content labeling, and flavor identification systems, meeting multi-country compliance requirements and local aesthetic preferences."
           },
           "products-nano": {
             "title": "Nano Product Series",
-            "content": "Nano product series compact showcase."
+            "content": "Using a modular「craft and color system within fixed molds」design to achieve differentiated visual expression for multiple products through combinations of surface treatments, CMF color schemes, and pattern printing, within the constraints of shared mold structures."
           },
           "products-kiyomi": {
             "title": "Kiyomi Product Series",
-            "content": "Kiyomi product pair scroll showcase."
+            "content": "Using a full-chain design approach of「craft upgrades + 3D proofing verification + supporting packaging systems」to transform concept designs into mass production standards, ensuring products maintain visual consistency and brand recognition after craft upgrades."
           },
           "products-spark": {
             "title": "Spark Product Series",
-            "content": "Spark product and packaging pair showcase."
+            "content": "Using a modular design of「localized compliance information + language formats + flavor identification」to adapt the same product to packaging versions that meet local standards based on different export market regulations and consumer preferences."
           },
           "products-addone": {
             "title": "Addone Product Series",
-            "content": "Addone product and packaging row showcase."
+            "content": "Using a modular design of「Indonesian localized compliance packaging + series color identification」to meet Indonesian market regulatory labeling requirements while establishing visual connections between series products through unified color language."
           },
           "products-mingcang": {
             "title": "Mingcang Product Series",
-            "content": "Mingcang product series grid showcase."
+            "content": "Using a「CMF concept layering」design method to achieve differentiated positioning for different price tiers and target audiences through combinations of materials, craftsmanship, and color schemes within a unified product form."
           },
           "products-mistflow": {
             "title": "Mist Flow Product Series",
-            "content": "Mist Flow product centered showcase."
+            "content": "Using a design strategy of「packaging structure information hierarchy + key selling point identification」to present product core selling points and usage information according to visual priority, ensuring efficient information communication on retail shelves and e-commerce detail pages."
           },
           "closing": {
             "title": "As the system matures, design begins to truly integrate into the brand's daily operations",

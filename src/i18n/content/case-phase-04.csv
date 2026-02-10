@@ -2,27 +2,28 @@ key,zh,en
 case.phases.phase-04.title,包装与营销的系统化扩展,Packaging & Marketing Extensions
 case.phases.phase-04.desc,"将品牌视觉系统延展到包装、营销与更多触点。","Extending the brand visual system to packaging, marketing, and more touchpoints."
 case.phases.phase-04.screens.intro.content,"当产品逐步进入市场，品牌视觉不再只存在于理想条件下，而需要在真实环境与多样场景中持续保持清晰与一致。","As products enter the market, brand visuals no longer exist only under ideal conditions, but need to maintain clarity and consistency across real environments and diverse scenarios."
+case.phases.phase-04.screens.packaging-intro.content,"用「分层定价包装体系（袋装/圆盒/铁盒）」的模块化设计，把同一产品按入门-主流-高端拆成清晰可扩展的包装方案，兼顾开市场、建认知与拉升品牌档次。","Using a modular「tiered pricing packaging system (bag/round box/tin box)」design to split the same product into entry-level, mainstream, and premium packaging solutions, balancing market entry, brand recognition, and premium positioning."
 case.phases.phase-04.screens.packaging-bag-series.title,袋装系列包装,Bag Series Packaging
 case.phases.phase-04.screens.packaging-bag-series.content,袋装产品包装设计展示。,Bag product packaging design showcase.
-case.phases.phase-04.screens.packaging-grid.title,包装形态系统,Packaging Form System
-case.phases.phase-04.screens.packaging-grid.content,"胶盒装、铁盒装、子弹盒系列包装展示。","Plastic box, tin box, bullet box series packaging showcase."
-case.phases.phase-04.screens.kv-marquee.title,主视觉跑马灯,Key Visual Marquee
-case.phases.phase-04.screens.kv-marquee.content,品牌主视觉三行流动展示。,Brand key visual three-row marquee display.
+case.phases.phase-04.screens.packaging-grid.title,分层定价包装体系,Tiered Pricing Packaging System
+case.phases.phase-04.screens.packaging-grid.content,"用「分层定价包装体系（袋装/圆盒/铁盒）」的模块化设计，把同一产品按入门-主流-高端拆成清晰可扩展的包装方案，兼顾开市场、建认知与拉升品牌档次。","Using a modular「tiered pricing packaging system (bag/round box/tin box)」design to split the same product into entry-level, mainstream, and premium packaging solutions, balancing market entry, brand recognition, and premium positioning."
+case.phases.phase-04.screens.kv-marquee.title,主视觉呈现,Key Visual System
+case.phases.phase-04.screens.kv-marquee.content,"用「主视觉 KV 系统」的模块化设计，把多产品/多活动的核心主张统一到同一动效与版式语言中，支撑官网连续叙事与高识别品牌呈现。","Using a modular「Key Visual System」design to unify the core propositions of multiple products/campaigns into consistent motion effects and layout language, supporting continuous website storytelling and highly recognizable brand presentation."
 case.phases.phase-04.screens.kv-popup.title,主视觉全屏展示,Key Visual Fullscreen
-case.phases.phase-04.screens.kv-popup.content,品牌主视觉全屏切换展示。,Brand key visual fullscreen sequence display.
+case.phases.phase-04.screens.kv-popup.content,"用「主视觉 KV 系统」的模块化设计，把多产品/多活动的核心主张统一到同一动效与版式语言中，支撑官网连续叙事与高识别品牌呈现。","Using a modular「Key Visual System」design to unify the core propositions of multiple products/campaigns into consistent motion effects and layout language, supporting continuous website storytelling and highly recognizable brand presentation."
 case.phases.phase-04.screens.products-oil.title,烟油产品系列,E-Liquid Product Series
-case.phases.phase-04.screens.products-oil.content,烟油产品系列网格展示。,E-Liquid product series grid showcase.
+case.phases.phase-04.screens.products-oil.content,"用「本地化包装系统」的模块化设计，把同一烟油产品按出口市场的语言版式、尼古丁含量标注、口味识别系统等差异，拆分为可复用、易调整的包装单元，满足多国合规要求与本地审美偏好。","Using a modular「localized packaging system」design to split the same e-liquid product into reusable and adjustable packaging units based on export market language formats, nicotine content labeling, and flavor identification systems, meeting multi-country compliance requirements and local aesthetic preferences."
 case.phases.phase-04.screens.products-nano.title,Nano 产品系列,Nano Product Series
-case.phases.phase-04.screens.products-nano.content,Nano 产品系列密集展示。,Nano product series compact showcase.
+case.phases.phase-04.screens.products-nano.content,"用「既定模具下的工艺与配色体系」的模块化设计，在共用模具结构约束下，通过表面工艺、CMF 配色与图案印刷的组合变化，实现多产品差异化视觉表达。","Using a modular「craft and color system within fixed molds」design to achieve differentiated visual expression for multiple products through combinations of surface treatments, CMF color schemes, and pattern printing, within the constraints of shared mold structures."
 case.phases.phase-04.screens.products-kiyomi.title,Kiyomi 产品系列,Kiyomi Product Series
-case.phases.phase-04.screens.products-kiyomi.content,Kiyomi 产品配对滚动展示。,Kiyomi product pair scroll showcase.
+case.phases.phase-04.screens.products-kiyomi.content,"用「工艺升级 + 3D 打样验证 + 配套包装系统」的全链路设计，将概念方案落地为量产标准，确保产品在工艺升级后仍能保持视觉一致性与品牌识别度。","Using a full-chain design approach of「craft upgrades + 3D proofing verification + supporting packaging systems」to transform concept designs into mass production standards, ensuring products maintain visual consistency and brand recognition after craft upgrades."
 case.phases.phase-04.screens.products-spark.title,Spark 产品系列,Spark Product Series
-case.phases.phase-04.screens.products-spark.content,Spark 产品与包装配对展示。,Spark product and packaging pair showcase.
+case.phases.phase-04.screens.products-spark.content,"用「本地化合规信息 + 语言版式 + 口味识别」的模块化设计，把同一产品按不同出口市场的法规要求与消费者偏好，适配为符合当地标准的包装版本。","Using a modular design of「localized compliance information + language formats + flavor identification」to adapt the same product to packaging versions that meet local standards based on different export market regulations and consumer preferences."
 case.phases.phase-04.screens.products-addone.title,Addone 产品系列,Addone Product Series
-case.phases.phase-04.screens.products-addone.content,Addone 产品与包装分行展示。,Addone product and packaging row showcase.
+case.phases.phase-04.screens.products-addone.content,"用「印尼本地化合规包装 + 系列配色识别」的模块化设计，满足印尼市场的法规标注要求，同时通过统一的配色语言建立系列产品的视觉关联。","Using a modular design of「Indonesian localized compliance packaging + series color identification」to meet Indonesian market regulatory labeling requirements while establishing visual connections between series products through unified color language."
 case.phases.phase-04.screens.products-mingcang.title,Mingcang 产品系列,Mingcang Product Series
-case.phases.phase-04.screens.products-mingcang.content,Mingcang 产品系列网格展示。,Mingcang product series grid showcase.
+case.phases.phase-04.screens.products-mingcang.content,"用「CMF 概念分层」的设计方法，通过材质、工艺与配色的组合变化，在统一的产品形态下实现不同价格档位与目标人群的差异化定位。","Using a「CMF concept layering」design method to achieve differentiated positioning for different price tiers and target audiences through combinations of materials, craftsmanship, and color schemes within a unified product form."
 case.phases.phase-04.screens.products-mistflow.title,Mist Flow 产品系列,Mist Flow Product Series
-case.phases.phase-04.screens.products-mistflow.content,Mist Flow 产品居中展示。,Mist Flow product centered showcase.
+case.phases.phase-04.screens.products-mistflow.content,"用「包装结构信息层级 + 关键卖点标识」的设计策略，把产品核心卖点与使用信息按视觉优先级呈现，确保货架陈列与电商详情页的高效信息传达。","Using a design strategy of「packaging structure information hierarchy + key selling point identification」to present product core selling points and usage information according to visual priority, ensuring efficient information communication on retail shelves and e-commerce detail pages."
 case.phases.phase-04.screens.closing.title,"随着系统逐步成熟，设计开始真正融入品牌的日常运作","As the system matures, design begins to truly integrate into the brand's daily operations"
 case.phases.phase-04.screens.closing.content,"这一阶段的完成，也为后续品牌发展提供了稳定基础。",The completion of this phase also provides a stable foundation for subsequent brand development.

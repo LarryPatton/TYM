@@ -13,6 +13,11 @@ export const phase01Config = {
   titleEn: 'Brand Identity 0–1',
   titleKey: 'case.phases.phase-01.title',
   next: 'phase-02',
+  // 顶部胶囊导航配置
+  processFlow: {
+    screens: ['core-principles', 'logo-structure', 'color-reveal', 'typography', 'validation'],
+    labels: ['理念', 'Logo', '色彩', '字体', '验证']
+  },
   totalScreens: 11, // 更新总屏幕数 (10 -> 11)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
@@ -386,6 +391,11 @@ export const phase03Config = {
   titleKey: 'case.phases.phase-03.title',
   prev: 'phase-02',
   next: 'phase-04',
+  // 顶部胶囊导航配置
+  processFlow: {
+    screens: ['concept-comparison', 'component-showcase', 'slide-grid', 'product-grid', 'product-matrix'],
+    labels: ['概念', '组件', '幻灯片', '产品', '矩阵']
+  },
   totalScreens: 13, // 新增一屏：document-focus
   bgColor: '#000000', // 统一背景色 - 纯黑
   screens: [
@@ -813,7 +823,12 @@ export const phase04Config = {
   titleKey: 'case.phases.phase-04.title',
   prev: 'phase-03',
   next: 'phase-05',
-  totalScreens: 11, // 删除 Screen 11-13 后：11屏（01 Intro + 02-10 Products + 11 Closing）
+  // 左上角胶囊导航配置
+  processFlow: {
+    screens: ['packaging-bag-series', 'kv-marquee', 'products-oil', 'products-nano', 'products-kiyomi', 'products-spark', 'products-addone', 'products-mingcang', 'products-mistflow'],
+    labels: ['包装', 'KV', '烟油', 'Nano', 'Kiyomi', 'Spark', 'Addone', 'Mingcang', 'Mist Flow']
+  },
+  totalScreens: 12, // 添加 scroll-text-bar 后：12屏
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境 (with reveal + flashlight effects)
@@ -828,7 +843,15 @@ export const phase04Config = {
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
     
-    // Screen 02: 袋装系列 - 3列2行独立展示（更大图片尺寸）
+    // Screen 02: 文字过渡条 - 分层定价包装体系
+    {
+      id: 'scroll-text-intro-packaging',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.packaging-intro.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 03: 袋装系列 - 3列2行独立展示（更大图片尺寸）
     {
       id: 'packaging-bag-series',
       type: 'square-grid',
@@ -850,7 +873,7 @@ export const phase04Config = {
     {
       id: 'packaging-grid',
       type: 'square-grid',
-      categoryLabel: '包装 / 形态系统',
+      categoryLabel: '包装 / 分层定价包装体系',
       columns: 5,
       noBorder: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
@@ -882,7 +905,8 @@ export const phase04Config = {
     {
       id: 'kv-marquee',
       type: 'three-row-marquee',
-      categoryLabel: 'KV / 跑马灯',
+      categoryLabel: 'KV / 主视觉呈现',
+      contentKey: 'case.phases.phase-04.screens.kv-marquee.content',
       scrollBehavior: { sticky: true, length: 'medium', intensity: 'low' },
       stickyHeight: 200, // sticky 停留的滚动高度 (vh)
       showGradient: false,
@@ -918,7 +942,15 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 06: 产品系列 A - 烟油方形网格 (透明素材，无边框)
+    // Screen 06a: 文字过渡条 - 烟油产品文案
+    {
+      id: 'scroll-text-intro-oil',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.products-oil.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 06b: 产品系列 A - 烟油方形网格 (透明素材，无边框)
     {
       id: 'products-oil',
       type: 'square-grid',
@@ -941,7 +973,15 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 07: 产品系列 B - Nano方形网格 (2行6列，密集展示)
+    // Screen 07a: 文字过渡条 - Nano 产品文案
+    {
+      id: 'scroll-text-intro-nano',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.products-nano.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 07b: 产品系列 B - Nano方形网格 (2行6列，密集展示)
     {
       id: 'products-nano',
       type: 'square-grid',
@@ -966,7 +1006,15 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 08: 产品系列 C - Kiyomi配对滚动展示（两行布局：每行5对）
+    // Screen 08a: 文字过渡条 - Kiyomi 产品文案
+    {
+      id: 'scroll-text-intro-kiyomi',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.products-kiyomi.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 08b: 产品系列 C - Kiyomi配对滚动展示（两行布局：每行5对）
     {
       id: 'products-kiyomi',
       type: 'product-pair-scroll',
@@ -1027,7 +1075,15 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 09: 产品系列 D - Spark 产品配对展示（2行×5列视差滚动）
+    // Screen 09a: 文字过渡条 - Spark 产品文案
+    {
+      id: 'scroll-text-intro-spark',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.products-spark.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 09b: 产品系列 D - Spark 产品配对展示（2行×5列视差滚动）
     {
       id: 'products-spark',
       type: 'product-pair-scroll',
@@ -1088,7 +1144,7 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 10a: Addone 系列 - 分行展示（product 上行 + package 下行，纯纵向滚动）
+    // Screen 10: Addone 系列 - 分行展示（product 上行 + package 下行，纯纵向滚动）
     {
       id: 'products-addone',
       type: 'two-row-static',
@@ -1117,7 +1173,15 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 10b: Mingcang 系列 - 网格展示（type1 + type2）
+    // Screen 10c: 文字过渡条 - Mingcang 产品文案
+    {
+      id: 'scroll-text-intro-mingcang',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.products-mingcang.content',
+      padding: '40px 24px 40px 24px'
+    },
+    
+    // Screen 10d: Mingcang 系列 - 网格展示（type1 + type2）
     {
       id: 'products-mingcang',
       type: 'square-grid',
@@ -1140,13 +1204,17 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 10c: Mist Flow 系列 - 居中展示（2张）
+    // Screen 10e: Mist Flow 系列 - 两列展示（顶部文案 + 左右两图）
     {
       id: 'products-mistflow',
-      type: 'square-grid',
+      type: 'two-column-showcase',
       categoryLabel: '产品 / Mist Flow',
-      columns: 2,
+      contentKey: 'case.phases.phase-04.screens.products-mistflow.content',
       scrollBehavior: { sticky: false, length: 'short', intensity: 'low' },
+      gap: '60px',
+      imageScale: 0.85,
+      topPadding: '100px',
+      imagePadding: '40px 60px',
       images: [
         { src: `${PHASE04_BASE}/2-products/6-mist flow/13.png`, label: 'Mist-1' },
         { src: `${PHASE04_BASE}/2-products/6-mist flow/14.png`, label: 'Mist-2' }
@@ -1177,6 +1245,11 @@ export const phase05Config = {
   titleKey: 'case.phases.phase-05.title',
   prev: 'phase-04',
   next: 'phase-06',
+  // 顶部胶囊导航配置
+  processFlow: {
+    screens: ['kv-kiyomi', 'kv-nicotine-drops', 'kv-mixed', 'photo-cube', 'photo-display', 'mockups'],
+    labels: ['KV/KIYOMI', 'KV/尼古丁', 'KV/混合', '实拍', '展架', '效果图']
+  },
   totalScreens: 15, // 15 - 3 + 1 + 2 = 15 (合并 Screen 04/05/06, 新增 motor/expo 文字条)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [

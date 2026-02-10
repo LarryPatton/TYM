@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 /**
@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
  * - 方向交错: 第1/3行向左 ←, 第2行向右 →
  * - 速度交错: 第1行 60s(慢), 第2行 45s(中), 第3行 30s(快)
  * - 透明底 PNG 支持
+ * - 顶部文案支持（逐字显示 + 高亮）
  * 
  * 移动端优化：
  * - 两行模式（隐藏第三行）
@@ -17,15 +18,26 @@ import { motion } from 'framer-motion';
  * 
  * @param {Array} images - 图片数组 [{src, label}]
  * @param {string} bgColor - 背景颜色
+ * @param {string} content - 文案内容
  */
 export const ThreeRowMarquee = ({
   images = [], 
   bgColor = '#000',
   isDense = false, // 新增 prop 控制密度
-  showGradient = true // 新增 prop 控制渐变遮罩
+  showGradient = true, // 新增 prop 控制渐变遮罩
+  // 文案支持
+  content = '',
+  contentKey = ''
 }) => {
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
+  
+  // 文案逐字显示状态
+  const [textVisible, setTextVisible] = useState(false);
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const textTimersRef = useRef([]);
+  const hasTextTriggeredRef = useRef(false);
+  const captionRef = useRef(null);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -35,6 +47,95 @@ export const ThreeRowMarquee = ({
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+  
+  // 解析文案，识别高亮文本（「」内的内容 + 特定类型名词）
+  const parsedContent = useMemo(() => {
+    if (!content) return [];
+    
+    // 需要高亮的类型名词列表
+    const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX'];
+    
+    const parts = [];
+    let currentIndex = 0;
+    
+    // 合并正则：匹配「...」或 "..." 或 "..." 或 特定关键词
+    const keywordsPattern = highlightKeywords.map(kw => `\\b${kw}\\b`).join('|');
+    const regex = new RegExp(`([「""])([^」""]+)([」""])|(${keywordsPattern})`, 'g');
+    let match;
+    
+    while ((match = regex.exec(content)) !== null) {
+      // 添加普通文本
+      if (match.index > currentIndex) {
+        const text = content.slice(currentIndex, match.index);
+        [...text].forEach(char => parts.push({ char, highlight: false }));
+      }
+      
+      // 添加高亮文本
+      const fullMatch = match[0];
+      [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // 添加剩余文本
+    if (currentIndex < content.length) {
+      const text = content.slice(currentIndex);
+      [...text].forEach(char => parts.push({ char, highlight: false }));
+    }
+    
+    return parts;
+  }, [content]);
+  
+  // 文案逐字显示的 IntersectionObserver
+  useEffect(() => {
+    if (!content || parsedContent.length === 0) return;
+    
+    const captionEl = captionRef.current;
+    if (!captionEl) {
+      // 如果文案 DOM 还没挂载，延迟重试
+      const retryTimer = setTimeout(() => {
+        const el = captionRef.current;
+        if (el && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      }, 500);
+      return () => clearTimeout(retryTimer);
+    }
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          
+          // 逐字显示
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    observer.observe(captionEl);
+    
+    return () => {
+      observer.unobserve(captionEl);
+      textTimersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [content, parsedContent.length]);
   
   // 动态计算每行图片数量，确保适应任意数量的图片 (如 10张, 14张等)
   const total = images.length;
@@ -75,6 +176,9 @@ export const ThreeRowMarquee = ({
     ...(isMobile ? [] : [{ images: row3Images, direction: 'left', duration: 28 * mobileSpeedMultiplier, gap: g, height: h3 }])
   ];
 
+  // 显示文案（优先使用 content，如果为空则不显示）
+  const hasContent = content && content.trim().length > 0;
+
   return (
     <div style={{
       width: '100%',
@@ -87,6 +191,51 @@ export const ThreeRowMarquee = ({
       overflow: 'hidden',
       paddingBottom: isDense ? '5vh' : undefined
     }}>
+      {/* 顶部文案区域 - 使用全局 CAPTION TOKENS */}
+      {hasContent && (
+        <div 
+          ref={captionRef}
+          style={{
+            width: '100%',
+            maxWidth: 'var(--caption-max-width, 1100px)',
+            padding: isMobile ? 'var(--caption-padding-mobile, 0 16px 24px)' : 'var(--caption-padding, 0 32px 40px)',
+            boxSizing: 'border-box',
+            textAlign: 'center',
+            margin: '0 auto',
+            opacity: textVisible ? 1 : 0,
+            transition: 'opacity 0.3s ease-out'
+          }}
+        >
+          <p style={{
+            margin: 0,
+            color: 'var(--caption-color, #fff)',
+            fontSize: isMobile ? 'var(--caption-font-size-mobile)' : 'var(--caption-font-size)',
+            lineHeight: 'var(--caption-line-height, 1.7)',
+            letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
+            fontWeight: 'var(--caption-font-weight, 300)'
+          }}>
+            {parsedContent.map((item, i) => {
+              const isRevealed = i < revealedCharCount;
+              return (
+                <span
+                  key={i}
+                  style={{
+                    display: 'inline',
+                    color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
+                    fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
+                    opacity: isRevealed ? 1 : 0,
+                    transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
+                    whiteSpace: 'pre-wrap'
+                  }}
+                >
+                  {item.char}
+                </span>
+              );
+            })}
+          </p>
+        </div>
+      )}
+      
       {rowConfigs.map((config, rowIndex) => (
         <MarqueeRow
           key={rowIndex}

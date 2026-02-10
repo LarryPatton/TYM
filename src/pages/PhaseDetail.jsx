@@ -60,6 +60,7 @@ import {
   TwoRowStaticScreen, // 两行静态展示组件
   NaturalParallaxGrid, // 自然滚动视差网格组件
   ScrollTextBar, // 滚动驱动的横向文字过渡组件
+  TwoColumnShowcase, // 两列图片展示组件
   AutoSequencePopup, // 自动顺序弹出组件
   TransitionProvider,
   LayoutDebugPanel, // 布局调试面板
@@ -798,6 +799,8 @@ const PhaseDetail = () => {
                   images={screenConfig.images || []}
                   bgColor="#000"
                   showGradient={screenConfig.showGradient !== false}
+                  content={screenData?.content || ''}
+                  contentKey={screenConfig.contentKey}
                 />
               </div>
             </div>
@@ -821,6 +824,8 @@ const PhaseDetail = () => {
               images={screenConfig.images || []}
               bgColor="#000" // 统一纯黑背景
               showGradient={screenConfig.showGradient !== false} // 默认 true，配置为 false 时关闭
+              content={screenData?.content || ''}
+              contentKey={screenConfig.contentKey}
             />
           </section>
         );
@@ -844,6 +849,8 @@ const PhaseDetail = () => {
             key={screenConfig.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
+            content={screenData?.content || ''}
+            contentKey={screenConfig.contentKey}
             images={screenConfig.images || []}
             columns={screenConfig.columns || 4}
             accessoryImages={screenConfig.accessoryImages || []}
@@ -1081,6 +1088,23 @@ const PhaseDetail = () => {
             stickyHeight={config.stickyHeight || 150}
             showItemCount={config.showItemCount !== false}
             sequentialPopup={config.sequentialPopup || false}
+          />
+        );
+
+      case 'two-column-showcase':
+        return (
+          <TwoColumnShowcase
+            key={config.id}
+            screenNumber={screenNumber}
+            screenLabel={screenLabel}
+            content={screenData?.content || ''}
+            contentKey={config.contentKey}
+            images={config.images || []}
+            bgColor={config.bgColor || '#000'}
+            gap={config.gap}
+            imageScale={config.imageScale}
+            topPadding={config.topPadding}
+            imagePadding={config.imagePadding}
           />
         );
 
@@ -1417,13 +1441,43 @@ const PhaseDetail = () => {
               <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
               <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
               <span style={{ opacity: 0.8 }}>阶段 {phase.number}</span>
-              {/* 当前屏幕标题（KV/CMF/实拍 等类型名词高亮） */}
+              {/* 当前屏幕标题（斜线前的类型名词高亮） */}
               {(() => {
                 const currentScreenConfig = filteredScreens?.[currentScreen - 1];
                 const screenTitle = currentScreenConfig?.categoryLabel;
                 if (screenTitle) {
                   // 需要高亮的类型名词
-                  const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX', '实拍'];
+                  const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX', '实拍', '包装', '产品'];
+                  
+                  // 用斜线分割，只对第一部分应用高亮
+                  const slashIndex = screenTitle.indexOf(' / ');
+                  if (slashIndex > -1) {
+                    const prefix = screenTitle.substring(0, slashIndex);
+                    const suffix = screenTitle.substring(slashIndex);
+                    
+                    // 对前缀部分应用高亮
+                    const keywordsPattern = highlightKeywords.join('|');
+                    const regex = new RegExp(`(${keywordsPattern})`, 'g');
+                    const prefixParts = prefix.split(regex);
+                    
+                    return (
+                      <>
+                        <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
+                        <span style={{ opacity: 0.9 }}>
+                          {prefixParts.map((part, i) => 
+                            highlightKeywords.includes(part) ? (
+                              <span key={i} style={{ color: '#FF5722', fontWeight: 600 }}>{part}</span>
+                            ) : (
+                              <span key={i}>{part}</span>
+                            )
+                          )}
+                          <span>{suffix}</span>
+                        </span>
+                      </>
+                    );
+                  }
+                  
+                  // 无斜线时，整体应用高亮逻辑
                   const keywordsPattern = highlightKeywords.join('|');
                   const regex = new RegExp(`(${keywordsPattern})`, 'g');
                   const parts = screenTitle.split(regex);
