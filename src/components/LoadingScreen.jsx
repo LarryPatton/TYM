@@ -361,10 +361,11 @@ const LoadingScreen = ({
                   fontFamily: 'var(--font-sans)',
                 }}
               >
-                {displayProgress < 30 && t('loading.loadingAssets')}
-                {displayProgress >= 30 && displayProgress < 70 && t('loading.preparingExperience')}
-                {displayProgress >= 70 && displayProgress < 95 && t('loading.almostReady')}
-                {displayProgress >= 95 && t('loading.welcome')}
+                {displayProgress < 20 && t('loading.text1')}
+                {displayProgress >= 20 && displayProgress < 40 && t('loading.text2')}
+                {displayProgress >= 40 && displayProgress < 60 && t('loading.text3')}
+                {displayProgress >= 60 && displayProgress < 85 && t('loading.text4')}
+                {displayProgress >= 85 && t('loading.text5')}
               </div>
             </motion.div>
           </motion.div>

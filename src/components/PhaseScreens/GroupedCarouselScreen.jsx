@@ -74,7 +74,8 @@ export const GroupedCarouselScreen = ({
   showGroupLabel = true,
   showItemCount = true,
   showScreenLabel = false,
-  aspectRatio = '1 / 1'
+  aspectRatio = '1 / 1',
+  imageScale = 1 // 图片缩放比例
 }) => {
   const containerRef = useRef(null);
   const { t } = useTranslation();
@@ -343,7 +344,7 @@ export const GroupedCarouselScreen = ({
           maxHeight: '90vh',
           gap: 'clamp(8px, 1.5vh, 16px)'
         }}>
-          {/* 顶部文案区 - 使用全局 CAPTION TOKENS */}
+          {/* 顶部文案区 - 使用全局 CAPTION TOKENS，按逗号分两行 */}
           {hasCaption && (
             <div ref={captionRef} style={{
               width: '100%',
@@ -356,33 +357,54 @@ export const GroupedCarouselScreen = ({
               opacity: textVisible ? 1 : 0,
               transition: 'opacity 0.3s ease-out'
             }}>
-              <p style={{
-                margin: 0,
-                color: 'var(--caption-color, #fff)',
-                fontSize: 'var(--caption-font-size)',
-                lineHeight: 'var(--caption-line-height, 1.7)',
-                letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
-                fontWeight: 'var(--caption-font-weight, 300)'
-              }}>
-                {parsedContent.map((item, i) => {
-                  const isRevealed = i < revealedCharCount;
+              {(() => {
+                // 按逗号分割：逗号前为第一行，逗号后为第二行
+                const commaIndex = caption.indexOf('，');
+                const lines = commaIndex > -1 
+                  ? [caption.slice(0, commaIndex + 1), caption.slice(commaIndex + 1)]
+                  : [caption];
+                
+                // 为每行生成 parsedContent
+                let charOffset = 0;
+                return lines.map((line, lineIdx) => {
+                  const lineStart = charOffset;
+                  charOffset += line.length;
+                  
+                  // 获取该行对应的 parsedContent
+                  const lineContent = parsedContent.slice(lineStart, charOffset);
+                  
                   return (
-                    <span
-                      key={i}
-                      style={{
-                        display: 'inline',
-                        color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
-                        fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
-                        opacity: isRevealed ? 1 : 0,
-                        transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
-                        whiteSpace: 'pre-wrap'
-                      }}
-                    >
-                      {item.char}
-                    </span>
+                    <p key={lineIdx} style={{
+                      margin: lineIdx === 0 ? '0 0 8px 0' : 0,
+                      color: 'var(--caption-color, #fff)',
+                      fontSize: 'var(--caption-font-size)',
+                      lineHeight: 'var(--caption-line-height, 1.7)',
+                      letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
+                      fontWeight: 'var(--caption-font-weight, 300)'
+                    }}>
+                      {lineContent.map((item, i) => {
+                        const globalIndex = lineStart + i;
+                        const isRevealed = globalIndex < revealedCharCount;
+                        return (
+                          <span
+                            key={i}
+                            style={{
+                              display: 'inline',
+                              color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
+                              fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
+                              opacity: isRevealed ? 1 : 0,
+                              transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
+                              whiteSpace: 'pre-wrap'
+                            }}
+                          >
+                            {item.char}
+                          </span>
+                        );
+                      })}
+                    </p>
                   );
-                })}
-              </p>
+                });
+              })()}
             </div>
           )}
 
@@ -409,6 +431,7 @@ export const GroupedCarouselScreen = ({
                 showGroupLabel={showGroupLabel}
                 showItemCount={showItemCount}
                 aspectRatio={aspectRatio}
+                imageScale={imageScale}
               />
             ))}
           </div>
@@ -510,7 +533,7 @@ const IndicatorDot = ({ index, label, progress, range, showLabel = true }) => {
 /**
  * 单组场景（Lenis 驱动版 - 横向切换 + 停顿）
  */
-const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true, aspectRatio = '1 / 1' }) => {
+const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true, aspectRatio = '1 / 1', imageScale = 1 }) => {
   const range = getGroupRange(index);
   
   // 基于 Lenis progress 计算各属性值
@@ -666,19 +689,20 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
           display: 'grid',
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
           gap: isLastGroup ? '24px' : '16px',
-          maxWidth: isLastGroup ? '90%' : '1200px',
-          width: '90%',
+          maxWidth: isLastGroup ? '90%' : `${imageScale * 1200}px`,
+          width: `${imageScale * 90}%`,
           padding: '0 24px'
         }}>
           {images.map((img, imgIndex) => {
-            const hasVariantSuffix = img.src.includes('-1');
-            const imageScale = hasVariantSuffix ? 1 : 1.2;
+            // aspectRatio 为 'auto' 时，使用 img 原始比例；否则使用传入的比例
+            const useAuto = aspectRatio === 'auto';
             
             return (
               <div
                 key={`img-${index}-${imgIndex}`}
                 style={{
-                  aspectRatio: aspectRatio,
+                  aspectRatio: useAuto ? 'auto' : aspectRatio,
+                  maxHeight: useAuto ? '60vh' : undefined,
                   overflow: 'hidden',
                   background: 'transparent',
                   display: 'flex',
@@ -691,8 +715,10 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
                   src={`${import.meta.env.BASE_URL}${img.src.replace(/^\//, '')}`}
                   alt={img.label || `Image ${imgIndex + 1}`}
                   style={{
-                    width: `${imageScale * 100}%`,
-                    height: `${imageScale * 100}%`,
+                    maxWidth: '100%',
+                    maxHeight: useAuto ? '60vh' : '100%',
+                    width: useAuto ? 'auto' : '100%',
+                    height: useAuto ? 'auto' : '100%',
                     objectFit: 'contain',
                     display: 'block',
                     borderRadius: 'var(--radius-image, 12px)',

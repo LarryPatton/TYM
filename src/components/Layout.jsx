@@ -302,6 +302,7 @@ const Layout = () => {
   const { theme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [wechatModalOpen, setWechatModalOpen] = useState(false); // 页脚微信弹窗状态
+  const [emailCopied, setEmailCopied] = useState(false); // 邮箱复制成功状态
   const [isInHeroArea, setIsInHeroArea] = useState(true); // 是否在 Hero 区域
   const [isInContactArea, setIsInContactArea] = useState(false); // 是否在 Contact 区域
   const [logoTopIndex, setLogoTopIndex] = useState(0); // Logo 顶层图片索引（0 或 1）
@@ -737,18 +738,24 @@ const Layout = () => {
             flexWrap: 'wrap',
             fontSize: '0.95em',
           }}>
-            <a 
-              href="mailto:tian_yangmin@163.com" 
+            <span 
+              onClick={() => {
+                navigator.clipboard.writeText('tian_yangmin@163.com').then(() => {
+                  setEmailCopied(true);
+                  setTimeout(() => setEmailCopied(false), 2000);
+                });
+              }}
               style={{ 
                 color: 'var(--color-text-secondary)', 
-                textDecoration: 'none', 
+                cursor: 'pointer',
                 transition: 'color 0.2s',
+                position: 'relative',
               }}
               onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
               onMouseLeave={(e) => e.target.style.color = 'var(--color-text-secondary)'}
             >
-              邮箱
-            </a>
+              {emailCopied ? '已复制 ✓' : '邮箱'}
+            </span>
             <span style={{ color: 'var(--color-border)' }}>·</span>
             <span 
               onClick={() => setWechatModalOpen(true)}

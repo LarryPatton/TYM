@@ -13,11 +13,11 @@
     "contactTitle": "Contact",
     "emailLabel": "Email",
     "wechatLabel": "WeChat",
-    "greeting": "Hi, I'm Tian Yang.",
-    "introLine1": "A designer specializing in brand visual and product design.",
-    "introLine2": "My work focuses on building brands from 0–1: visual identity systems, product CMF, packaging, and marketing visuals. Between order and sensibility, I value clear, sustainable expression.",
-    "introLine3": "Over the past year, I've been deeply involved in the full process from system building to product launch in a startup brand environment. Rather than isolated outputs, I focus on how systems are repeatedly used, validated, and evolved in real scenarios.",
-    "introLine4": "For me, design is not about choosing forms, but a continuous practice based on judgment, experience, and long-term perspective.",
+    "greeting": "Hi, I'm Tian Yangmin.",
+    "introLine1": "A designer focused on systematic brand visuals and multi-touchpoint implementation.",
+    "introLine2": "I specialize in building brand systems from 0-1, covering visual identity, product CMF, packaging, and marketing visuals, turning them into reusable and iterable design assets.",
+    "introLine3": "In startup brand projects, I've been involved in the entire process from system building to multi-product launches, focusing on validation, iteration, and long-term consistency of design in real-world scenarios.",
+    "introLine4": "For me, design is not about choosing forms, but about continuously solving problems and establishing order based on judgment and experience.",
     "downloadResume": "Download Resume",
     "contactMe": "Get in Touch",
     "letsTalk": "Let's Talk.",
@@ -149,7 +149,35 @@
       },
       "tools": {
         "label": "Tools",
-        "items": "PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ"
+        "professional": {
+          "label": "Professional (Graphic / UI / Illustration / 3D / Editing)",
+          "items": [
+            "Photoshop",
+            "Illustrator",
+            "Procreate",
+            "Vectornator",
+            "Figma",
+            "Blender",
+            "ZBrush",
+            "Nomad",
+            "Substance Painter",
+            "Eevee / Cycles",
+            "CapCut"
+          ]
+        },
+        "efficiency": {
+          "label": "General Efficiency (Office / AI)",
+          "items": [
+            "Word / PPT / Excel",
+            "Notion",
+            "Canva",
+            "GPT",
+            "MJ",
+            "DeepSeek",
+            "Kimi",
+            "Nano Banana"
+          ]
+        }
       }
     },
     "formConsultType": "Consultation Type",
@@ -434,47 +462,47 @@
           },
           "slide-grid": {
             "title": "Slide Presentation",
-            "content": "Product design specification slide grid showcase."
+            "content": "Using a modular「multi-country KV kit」key visual system to replace target audiences, scenes, and language information within the same brand framework, enabling rapid adaptation and unified communication across different markets."
           },
           "paired-document-grid": {
             "title": "Paired Document Display",
-            "content": "Design document paired grid showcase."
+            "content": "Using a「flavor KV serialization template」to split the same communication framework by flavor into batch-expandable key visual assets, achieving instant recognition, unified style, and supporting high-frequency updates for channels and social media."
           },
           "fly-in-gallery": {
             "title": "Product Gallery",
-            "content": "Product multi-angle fly-in showcase."
+            "content": "Using a modular「sticker graphic asset pack」design to turn key selling points, flavor identification, and brand symbols into quickly printable offline materials, supporting terminal decoration, promotional giveaways, and community outreach."
           },
           "grouped-carousel": {
             "title": "Product Group Display",
-            "content": "Product series grouped carousel showcase."
+            "content": "Using a modular exploration of「accessory case CMF divergence + texture material library + pendant matching」to transform protection and portability needs into a mass-producible, co-brandable, campaign-ready accessory system, extending daily product use and brand expression."
           },
           "cards-marquee": {
             "title": "Cards Marquee",
-            "content": "Product cards three-row marquee showcase."
+            "content": "Using a modular「silk-screen pattern library + position specification」design to reserve a quickly replaceable decorative layer on product surfaces, supporting seasonal editions, brand collaborations, and small-batch trials while maintaining brand tonality."
           },
           "square-grid": {
             "title": "Product Grid",
-            "content": "Square product grid scroll reveal showcase."
+            "content": "Using a full-chain management of「style convergence + prototype-to-production follow-up + packaging kit」to converge exploratory results into viable style combinations, ensuring every launched SKU has clear positioning and complete supporting materials."
           },
           "panorama-full": {
             "title": "Panorama Display",
-            "content": "Ultra-wide panorama product showcase."
+            "content": "Using a「one-page product module」information aggregation design to integrate core product specs, key selling points, and visual presentation in a single-screen quick-view format, suitable for internal training, channel briefings, and sales materials."
           },
           "panorama-marquee": {
             "title": "Marquee Mixed Display",
-            "content": "Marquee, scene and carousel mixed showcase."
+            "content": "Using a modular「disposable pod packaging + flavor card + UI pattern reuse」design to connect multi-flavor standardized packaging with information components, achieving shelf recognition, flavor readability, and supporting combined social media and retail communications."
           },
           "product-grid-36": {
             "title": "Product Matrix",
-            "content": "6×6 product grid matrix showcase."
+            "content": "Using a systematic「flavor resource library」management to consolidate flavor colors, icons, names, descriptions, and scent classifications into a reusable dataset, supporting efficient production of packaging design, marketing materials, and multi-language adaptation."
           },
           "document-focus": {
             "title": "Document Focus",
-            "content": "Design document focus lens showcase."
+            "content": "Using a terminal design of「display rack structure + information layering + flavor display logic」to create a replicable retail standard for product display, ensuring consistent brand presentation, clear information, and smooth customer guidance across different stores and channels."
           },
           "gallery-upper": {
             "title": "Systematic documentation of design specifications",
-            "content": "Complete design guidelines ensure the brand can be consistently expressed at any touchpoint.",
+            "content": "Using a hybrid shooting approach of「AI-generated model street photography + real-life scene photography」to transform social media content production into a fast-combinable, on-demand asset pipeline, supporting high-frequency content updates across multiple platforms.",
             "emphasis": "Specifications are the guarantee of consistency"
           },
           "gallery-lower": {
@@ -1022,11 +1050,11 @@
     }
   },
   "loading": {
-    "loadingAssets": "Loading assets...",
-    "preparingExperience": "Preparing experience...",
-    "almostReady": "Almost ready...",
-    "welcome": "Welcome!",
-    "loadingExperience": "Loading experience..."
+    "text1": "Buffering inspiration...",
+    "text2": "Aligning the plan...",
+    "text3": "Details on the way, hang tight.",
+    "text4": "Organizing key points, be right back.",
+    "text5": "Tidying up the info before handing it over."
   },
   "work": {
     "pageTitle": "Work",

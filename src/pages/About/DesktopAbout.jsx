@@ -504,50 +504,103 @@ const SkillsOverviewPanel = ({ skillsOverview, colors, isDark }) => {
         ))}
       </div>
 
-      {/* 技术栈/工具 - 标题 + 标签样式 */}
+      {/* 技术栈/工具 - 分组展示 */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9, duration: 0.4 }}
         style={{ marginTop: '20px' }}
       >
-        {/* 工具标题 */}
+        {/* 工具总标题 */}
         <h3 style={{
           fontSize: '0.75rem',
           fontWeight: '600',
           color: isDark ? '#fff' : colors.text,
           textTransform: 'uppercase',
           letterSpacing: '2px',
-          marginBottom: '12px',
+          marginBottom: '16px',
         }}>
           {skillsOverview.tools.label}
         </h3>
         
-        {/* 工具标签列表 */}
-        <div style={{ 
-          display: 'flex', 
-          flexWrap: 'wrap', 
-          gap: '8px',
-        }}>
-          {skillsOverview.tools.items.split(' / ').map((tool, index) => (
-            <motion.span
-              key={tool}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.0 + index * 0.05, duration: 0.3 }}
-              style={{
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-mono)',
-                color: isDark ? '#ccc' : colors.textMuted,
-                padding: '4px 10px',
-                borderRadius: '4px',
-                background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
-              }}
-            >
-              {tool.trim()}
-            </motion.span>
-          ))}
+        {/* 专业向工具组 */}
+        <div style={{ marginBottom: '16px' }}>
+          <div style={{
+            fontSize: '0.7rem',
+            color: colors.textMuted,
+            marginBottom: '8px',
+            fontWeight: '500',
+          }}>
+            {skillsOverview.tools.professional?.label}
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '6px',
+          }}>
+            {(Array.isArray(skillsOverview.tools.professional?.items) 
+              ? skillsOverview.tools.professional.items 
+              : []
+            ).map((tool, index) => (
+              <motion.span
+                key={tool}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.0 + index * 0.03, duration: 0.3 }}
+                style={{
+                  fontSize: '0.7rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: isDark ? '#ccc' : colors.textMuted,
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                }}
+              >
+                {tool}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+        
+        {/* 通用效率工具组 */}
+        <div>
+          <div style={{
+            fontSize: '0.7rem',
+            color: colors.textMuted,
+            marginBottom: '8px',
+            fontWeight: '500',
+          }}>
+            {skillsOverview.tools.efficiency?.label}
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '6px',
+          }}>
+            {(Array.isArray(skillsOverview.tools.efficiency?.items) 
+              ? skillsOverview.tools.efficiency.items 
+              : []
+            ).map((tool, index) => (
+              <motion.span
+                key={tool}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2 + index * 0.03, duration: 0.3 }}
+                style={{
+                  fontSize: '0.7rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: isDark ? '#ccc' : colors.textMuted,
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                }}
+              >
+                {tool}
+              </motion.span>
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>

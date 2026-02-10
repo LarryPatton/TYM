@@ -31,6 +31,8 @@ import DataStorytellingDemo from './pages/demos/DataStorytellingDemo';
 import LiquidThemeDemo from './pages/demos/LiquidThemeDemo';
 import InteractiveBackgroundDemo from './pages/demos/InteractiveBackgroundDemo';
 import ColorRevealDemo from './pages/demos/ColorRevealDemo';
+import PhaseClosingDemo from './pages/demos/PhaseClosingDemo';
+import DialogStylesDemo from './pages/demos/DialogStylesDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
 import AboutLayoutPreview from './pages/AboutLayoutPreview';
@@ -81,6 +83,8 @@ function App() {
             <Route path="demo/data-storytelling" element={<DataStorytellingDemo />} />
             <Route path="demo/liquid-theme" element={<LiquidThemeDemo />} />
             <Route path="demo/interactive-background" element={<InteractiveBackgroundDemo />} />
+            <Route path="demo/phase-closing" element={<PhaseClosingDemo />} />
+            <Route path="demo/dialog-styles" element={<DialogStylesDemo />} />
             <Route path="showcase-demos/color-reveal" element={<ColorRevealDemo />} />
 
             {/* Gallery Routes - Nested Structure */}

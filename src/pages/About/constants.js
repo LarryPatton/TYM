@@ -188,7 +188,14 @@ export const getAboutData = (t) => ({
     },
     tools: {
       label: t('about.skillsOverview.tools.label'),
-      items: t('about.skillsOverview.tools.items'),
+      professional: {
+        label: t('about.skillsOverview.tools.professional.label'),
+        items: t('about.skillsOverview.tools.professional.items', { returnObjects: true }),
+      },
+      efficiency: {
+        label: t('about.skillsOverview.tools.efficiency.label'),
+        items: t('about.skillsOverview.tools.efficiency.items', { returnObjects: true }),
+      },
     },
     deliverableLabel: t('about.skillsOverview.deliverableLabel'),
   },

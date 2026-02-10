@@ -1,55 +1,235 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../hooks/useTheme';
+import FrostedDotsBackground from '../FrostedDotsBackground';
 
 // ============================================
-// 屏幕: Phase 封底 (PhaseClosingScreen)
-// 布局: 全屏背景图 + 中心文案 + 底部导航按钮
-// 用途: 作为每个 Phase 的最后一屏，提供阶段总结和导航
-// 支持: sticky 模式 - 整屏固定，滚动一定距离后释放
-// 新增: 百叶窗入场过渡效果
-// 
-// 移动端优化:
-// - 禁用 sticky 效果
-// - 禁用百叶窗效果
-// - 调整按钮布局为垂直堆叠
-// - 调整文字大小和间距
+// 屏幕: Phase 封底 (PhaseClosingScreen) - 方案A 极简无边框
+// 布局: Logo + 打字机效果总结语 + 导航按钮
+// 用途: 作为每个 Phase 的最后一屏，AI助手与用户交流
+// 特性: 动态磨砂背景、打字机效果、百叶窗过渡
 // ============================================
 
 // 百叶窗配置
 const BLINDS_CONFIG = {
-  count: 15,           // 条带数量
-  fromColor: '#000',   // 条带颜色（黑色，与上一屏背景融合）
-  animStart: 0.1,        // 动画开始进度
-  animEnd: 0.88         // 动画结束进度（在滚动 40% 时完成过渡）
+  count: 15,
+  fromColor: '#000',
+  animStart: 0.1,
+  animEnd: 0.88
+};
+
+// 6个 Phase 的总结语（中英文）
+const PHASE_SUMMARIES = {
+  'phase-01': {
+    zh: '想让品牌"看起来像同一个人"？我先把视觉语法写清楚，让每一次输出都有据可循。',
+    en: 'Want your brand to look like one consistent identity? I start by defining the visual grammar, so every output follows a clear logic.',
+  },
+  'phase-02': {
+    zh: '从概念到落地：你说"好看"还不够？那就把定位与 CMF 一路推到打样量产，用结果证明它能落地。',
+    en: 'From concept to execution: "Good-looking" isn\'t enough? I push positioning and CMF all the way to sampling and production — proving it works in the real world.',
+  },
+  'phase-03': {
+    zh: '一致性与差异化管理：系列要升级又不能变味？我在同一套骨架里做分化，让变化像进化，而不是推翻。',
+    en: 'Consistency vs. differentiation: Need to upgrade the series without losing its essence? I evolve within the same framework — change as evolution, not revolution.',
+  },
+  'phase-04': {
+    zh: '传播视觉系统化：跨市场、跨语言怎么不跑偏？把传播做成 KV 套件，让品牌在不同场景里都说同一种语气。',
+    en: 'Visual communication system: How to stay on-brand across markets and languages? I turn campaigns into KV kits — same voice, different stages.',
+  },
+  'phase-05': {
+    zh: '空间与终端物料体系：线下最挑剔，细节会"露馅"。我把空间、陈列、物料模块化，让识别度在动线里依然稳。',
+    en: 'Space & retail materials: Offline is unforgiving — details will give you away. I modularize space, displays, and materials to keep recognition steady throughout the journey.',
+  },
+  'phase-06': {
+    zh: '信息太多没人看？我把叙事压缩成视觉模块，让渠道好讲、客户好懂、团队好对齐。',
+    en: 'Too much info, no one reads? I compress narratives into visual modules — easy to pitch, easy to understand, easy to align.',
+  },
+};
+
+/**
+ * 打字机效果组件
+ */
+const TypewriterText = ({ 
+  text, 
+  speed = 55, 
+  delay = 600,
+  onComplete,
+  isDark,
+}) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+  const indexRef = useRef(0);
+  
+  useEffect(() => {
+    setDisplayedText('');
+    indexRef.current = 0;
+    setIsTyping(false);
+    setShowCursor(true);
+    
+    const startTimeout = setTimeout(() => {
+      setIsTyping(true);
+    }, delay);
+    
+    return () => clearTimeout(startTimeout);
+  }, [text, delay]);
+  
+  useEffect(() => {
+    if (!isTyping) return;
+    
+    if (indexRef.current < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(text.slice(0, indexRef.current + 1));
+        indexRef.current += 1;
+      }, speed);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false);
+      onComplete?.();
+    }
+  }, [isTyping, displayedText, text, speed, onComplete]);
+  
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
+    return () => clearInterval(cursorInterval);
+  }, []);
+  
+  return (
+    <span>
+      {displayedText}
+      <motion.span
+        animate={{ opacity: showCursor ? 1 : 0 }}
+        transition={{ duration: 0.1 }}
+        style={{
+          display: 'inline-block',
+          width: '2px',
+          height: '1.1em',
+          background: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)',
+          marginLeft: '2px',
+          verticalAlign: 'text-bottom',
+        }}
+      />
+    </span>
+  );
+};
+
+/**
+ * Logo 动画组件
+ */
+const AnimatedLogo = ({ size = 64, isDark }) => {
+  const [logoTopIndex, setLogoTopIndex] = useState(0);
+  const [logoRotation, setLogoRotation] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLogoTopIndex(prev => (prev === 0 ? 1 : 0));
+      setLogoRotation(prev => prev - 90);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  const logoPrefix = isDark ? 'logo_black' : 'logo_white';
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      style={{ position: 'relative', width: size, height: size }}
+    >
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_bottom.png`}
+        alt="Logo" 
+        animate={{ rotate: logoRotation }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} 
+      />
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_top.png`}
+        alt="" 
+        animate={{ opacity: logoTopIndex === 0 ? 1 : 0, scale: logoTopIndex === 0 ? 1 : 0.3 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} 
+      />
+      <motion.img 
+        src={`/images/logo/${logoPrefix}_top2.png`}
+        alt="" 
+        animate={{ opacity: logoTopIndex === 1 ? 1 : 0, scale: logoTopIndex === 1 ? 1 : 0.3 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} 
+      />
+    </motion.div>
+  );
 };
 
 export const PhaseClosingScreen = ({ 
-  bgImage,                              // 背景图片路径
-  nextPhase,                            // 下一阶段信息 { id, titleZh }
-  backLabel = '返回目录',                // 返回按钮文字
-  nextLabel = '下一阶段',                // 下一步按钮文字
-  onNavigate,                           // 导航回调函数
-  sticky = false,                       // 是否启用 sticky 效果
-  stickyHeight = 50,                   // sticky 模式下的滚动高度（单位 vh）
-  enableBlinds = true,                  // 是否启用百叶窗过渡效果
-  blindsHeight = 100                    // 百叶窗过渡区高度（单位 vh），0 表示无额外高度
+  phaseId = 'phase-01',           // Phase ID，用于获取对应的总结语
+  bgImage,                        // 背景图片（保留兼容，但不再使用）
+  nextPhase,                      // 下一阶段信息 { id, titleZh }
+  backLabel = '返回目录',
+  nextLabel = '下一阶段',
+  onNavigate,
+  sticky = false,
+  stickyHeight = 50,
+  enableBlinds = true,
+  blindsHeight = 100
 }) => {
-  // 移动端检测
+  const { theme } = useTheme();
+  const { i18n } = useTranslation();
+  const isDark = theme === 'dark';
+  const lang = i18n.language === 'en' ? 'en' : 'zh';
+  
   const [isMobile, setIsMobile] = useState(false);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [shouldStartTyping, setShouldStartTyping] = useState(false); // 控制何时开始打字
   const containerRef = useRef(null);
   
-  // 滚动进度追踪（用于百叶窗动画）
-  // 根据是否有过渡区高度，使用不同的 offset
-  const hasBlindsTransition = enableBlinds && blindsHeight > 0 && !isMobile;
+  // 获取当前 Phase 的总结语
+  const summary = PHASE_SUMMARIES[phaseId]?.[lang] || PHASE_SUMMARIES['phase-01'][lang];
   
+  // 打字完成回调
+  const handleTypingComplete = useCallback(() => {
+    setIsTypingComplete(true);
+  }, []);
+  
+  // 滚动进度追踪
+  const hasBlindsTransition = enableBlinds && blindsHeight > 0 && !isMobile;
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // 有过渡区时：动画在过渡区内完成
-    // 无过渡区时：动画在进入视口时完成
     offset: hasBlindsTransition 
-      ? ["start end", "start start"]  // 从底部进入到顶部到达视口顶部
-      : ["start 150%", "start 50%"]   // 原有逻辑
+      ? ["start end", "start start"]
+      : ["start 150%", "start 50%"]
   });
+  
+  // 监听滚动进度，百叶窗过渡完成后（进度 > 0.9）才开始打字
+  // 当用户滑离开再滑回来时，重置状态重新播放
+  useEffect(() => {
+    if (!hasBlindsTransition) {
+      // 无百叶窗过渡时，直接开始打字
+      setShouldStartTyping(true);
+      return;
+    }
+    
+    const unsubscribe = scrollYProgress.on('change', (value) => {
+      // 当滚动进度超过 90%（百叶窗基本完成）时开始打字
+      if (value > 0.9) {
+        if (!shouldStartTyping) {
+          setShouldStartTyping(true);
+        }
+      } else if (value < 0.5) {
+        // 当用户滑离开（进度 < 50%）时，重置所有状态
+        if (shouldStartTyping || isTypingComplete) {
+          setShouldStartTyping(false);
+          setIsTypingComplete(false);
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [scrollYProgress, hasBlindsTransition, shouldStartTyping, isTypingComplete]);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -60,166 +240,167 @@ export const PhaseClosingScreen = ({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 生成百叶窗条带
+  // 百叶窗条带
   const blinds = Array.from({ length: BLINDS_CONFIG.count }, (_, i) => i);
 
-  // 内容渲染函数（支持移动端适配）
+  // 方案 A 极简无边框内容渲染
   const renderContent = () => (
     <>
-      {/* 背景图片 */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%'
-        }}
-      >
-        <img 
-          src={`${import.meta.env.BASE_URL}${bgImage.replace(/^\//, '')}`}
-          alt="Phase Closing"
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover',
-            objectPosition: 'center'
-          }}
-          onError={(e) => {
-              e.target.style.display = 'none';
-          }}
-        />
-        {/* 底部渐变遮罩，让文字和按钮更清晰 */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: isMobile 
-            ? 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)'
-            : 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%)',
-          pointerEvents: 'none'
-        }} />
-      </div>
-
-      {/* 中心内容区域 - 标题 */}
-      <div
-        style={{
-          position: 'absolute',
-          top: isMobile ? '30%' : '35%',
-          left: 0,
-          right: 0,
-          zIndex: 10,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          transform: 'translateY(-50%)',
-          padding: isMobile ? '0 24px' : '0'
-        }}
-      >
-        <p style={{
-          fontSize: isMobile ? '1.1rem' : 'var(--text-h3)',
-          fontWeight: '300',
-          color: '#fff',
-          maxWidth: isMobile ? '100%' : '600px',
-          lineHeight: '1.6',
-          letterSpacing: isMobile ? '0.5px' : '1px',
-          margin: 0
-        }}>
-          视觉系统已建立，为后续产品与传播提供坚实基础。
-        </p>
-      </div>
-
-      {/* 导航按钮 */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: isMobile ? '20%' : '25%',
-          left: 0,
-          right: 0,
-          zIndex: 10,
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: isMobile ? '12px' : 'var(--space-xl)',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: isMobile ? '0 24px' : '0'
-        }}
-      >
-        <button
-          onClick={() => onNavigate?.('/work/the-case')}
+      {/* 动态磨砂背景 */}
+      <FrostedDotsBackground />
+      
+      {/* 中心内容区域 */}
+      <div style={{
+        position: 'relative',
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        padding: isMobile ? '0 24px' : '0 40px',
+      }}>
+        {/* Logo 动画 */}
+        <AnimatedLogo size={isMobile ? 56 : 64} isDark={isDark} />
+        
+        {/* 总结语文案 - 打字机效果 */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           style={{
-            padding: isMobile ? '12px 28px' : '14px 36px',
-            background: 'rgba(255, 255, 255, 0.15)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.4)',
-            borderRadius: 'var(--radius-full)',
-            color: '#fff',
-            fontSize: isMobile ? '0.85rem' : 'var(--text-sm)',
-            fontWeight: '500',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            width: isMobile ? '100%' : 'auto',
-            maxWidth: isMobile ? '280px' : 'none'
-          }}
-          onMouseEnter={(e) => {
-            if (!isMobile) {
-              e.target.style.background = 'rgba(255,255,255,0.25)';
-              e.target.style.borderColor = '#fff';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!isMobile) {
-              e.target.style.background = 'rgba(255,255,255,0.15)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.4)';
-            }
+            maxWidth: isMobile ? '100%' : 440,
+            textAlign: 'center',
+            marginTop: isMobile ? 20 : 24,
           }}
         >
-          {backLabel}
-        </button>
+          <p style={{
+            fontSize: isMobile ? '0.95rem' : '1.05rem',
+            fontWeight: '400',
+            lineHeight: 1.9,
+            color: isDark ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.75)',
+            margin: 0,
+            letterSpacing: '0.02em',
+            minHeight: isMobile ? '6em' : '4.5em',
+          }}>
+            {/* 只有当 shouldStartTyping 为 true 时才渲染打字机 */}
+            {shouldStartTyping && (
+              <TypewriterText
+                text={summary}
+                speed={45}
+                delay={300}
+                onComplete={handleTypingComplete}
+                isDark={isDark}
+              />
+            )}
+          </p>
+        </motion.div>
+        
+        {/* 导航按钮 - 打字完成后逐个显示 */}
+        <div style={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: isMobile ? 12 : 16,
+          marginTop: isMobile ? 32 : 48,
+          width: isMobile ? '100%' : 'auto',
+          maxWidth: isMobile ? 280 : 'none',
+        }}>
+          {/* 第一个按钮：返回目录 */}
+          <AnimatePresence>
+            {isTypingComplete && (
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                onClick={() => onNavigate?.('/work/the-case')}
+                style={{
+                  padding: isMobile ? '12px 24px' : '12px 28px',
+                  background: isDark 
+                    ? 'rgba(255, 255, 255, 0.06)' 
+                    : 'rgba(0, 0, 0, 0.04)',
+                  border: isDark 
+                    ? '1px solid rgba(255,255,255,0.15)' 
+                    : '1px solid rgba(0,0,0,0.1)',
+                  borderRadius: 'var(--radius-full)',
+                  color: isDark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s ease, border-color 0.2s ease',
+                  width: isMobile ? '100%' : 'auto',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isMobile) {
+                    e.target.style.background = isDark 
+                      ? 'rgba(255, 255, 255, 0.1)' 
+                      : 'rgba(0, 0, 0, 0.08)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isMobile) {
+                    e.target.style.background = isDark 
+                      ? 'rgba(255, 255, 255, 0.06)' 
+                      : 'rgba(0, 0, 0, 0.04)';
+                  }
+                }}
+              >
+                {backLabel}
+              </motion.button>
+            )}
+          </AnimatePresence>
 
-        {nextPhase && (
-          <button
-            onClick={() => onNavigate?.(`/work/the-case/${nextPhase.id}`)}
-            style={{
-              padding: isMobile ? '12px 28px' : '14px 36px',
-              background: '#fff',
-              border: '1px solid #fff',
-              borderRadius: 'var(--radius-full)',
-              color: '#0a0a0a',
-              fontSize: isMobile ? '0.85rem' : 'var(--text-sm)',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              width: isMobile ? '100%' : 'auto',
-              maxWidth: isMobile ? '280px' : 'none'
-            }}
-            onMouseEnter={(e) => {
-              if (!isMobile) {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isMobile) {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = 'none';
-              }
-            }}
-          >
-            <span>{isMobile ? nextPhase.titleZh : `${nextLabel}: ${nextPhase.titleZh}`}</span>
-            <span>→</span>
-          </button>
-        )}
+          {/* 第二个按钮：下一阶段（延迟出现） */}
+          <AnimatePresence>
+            {isTypingComplete && nextPhase && (
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, ease: 'easeOut', delay: 0.3 }}
+                onClick={() => onNavigate?.(`/work/the-case/${nextPhase.id}`)}
+                style={{
+                  padding: isMobile ? '12px 24px' : '12px 28px',
+                  background: isDark ? '#fff' : '#1a1a1a',
+                  border: 'none',
+                  borderRadius: 'var(--radius-full)',
+                  color: isDark ? '#1a1a1a' : '#fff',
+                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  width: isMobile ? '100%' : 'auto',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isMobile) {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = isDark 
+                      ? '0 10px 30px rgba(255,255,255,0.15)' 
+                      : '0 10px 30px rgba(0,0,0,0.15)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isMobile) {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }
+                }}
+              >
+                <span>{isMobile ? nextPhase.titleZh : `${nextLabel}: ${nextPhase.titleZh}`}</span>
+                <span>→</span>
+              </motion.button>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </>
   );
 
-  // 百叶窗遮罩层渲染
+  // 百叶窗遮罩层
   const renderBlindsOverlay = () => {
     if (isMobile || !enableBlinds) return null;
     
@@ -244,7 +425,7 @@ export const PhaseClosingScreen = ({
     );
   };
 
-  // 移动端：禁用 sticky 效果和百叶窗，使用简单布局
+  // 移动端布局
   if (isMobile) {
     return (
       <section style={{
@@ -254,14 +435,14 @@ export const PhaseClosingScreen = ({
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        background: '#000'
+        background: 'var(--frosted-bg)',
       }}>
         {renderContent()}
       </section>
     );
   }
 
-  // 桌面端 Sticky 模式（带百叶窗过渡）
+  // 桌面端 Sticky 模式
   if (sticky) {
     return (
       <div 
@@ -269,7 +450,7 @@ export const PhaseClosingScreen = ({
         style={{
           height: `${stickyHeight}vh`,
           position: 'relative',
-          background: '#000'
+          background: 'var(--frosted-bg)',
         }}
       >
         <section style={{
@@ -280,7 +461,6 @@ export const PhaseClosingScreen = ({
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          background: '#000'
         }}>
           {renderContent()}
           {renderBlindsOverlay()}
@@ -289,25 +469,23 @@ export const PhaseClosingScreen = ({
     );
   }
 
-  // 非 sticky 模式
-  // 如果有百叶窗高度，使用带过渡区的布局（hasBlindsTransition 已在上面定义）
+  // 带百叶窗过渡的布局
   if (hasBlindsTransition) {
     return (
       <div 
         ref={containerRef}
         style={{
-          height: `${100 + blindsHeight}vh`, // 尾页高度 + 过渡区高度
+          height: `${100 + blindsHeight}vh`,
           position: 'relative',
-          background: '#000'
+          background: 'var(--frosted-bg)',
         }}
       >
-        {/* 百叶窗过渡区（纯黑背景 + 百叶窗动画） */}
+        {/* 百叶窗过渡区 */}
         <div style={{
           height: `${blindsHeight}vh`,
           position: 'relative',
           background: '#000'
         }}>
-          {/* 百叶窗遮罩 - 覆盖整个过渡区 */}
           <div style={{
             position: 'sticky',
             top: 0,
@@ -320,7 +498,7 @@ export const PhaseClosingScreen = ({
           </div>
         </div>
         
-        {/* 实际尾页内容（sticky 固定） */}
+        {/* 尾页内容 */}
         <div style={{
           position: 'sticky',
           top: 0,
@@ -329,7 +507,6 @@ export const PhaseClosingScreen = ({
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          background: '#000'
         }}>
           {renderContent()}
         </div>
@@ -348,7 +525,6 @@ export const PhaseClosingScreen = ({
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        background: '#000'
       }}
     >
       {renderContent()}

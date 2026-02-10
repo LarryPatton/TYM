@@ -473,24 +473,96 @@ const SkillsScreen = ({ t, colors, isDark, skillsOverview }) => {
         marginBottom: '14px',
       }} />
 
-      {/* 工具 */}
-      <div style={{
-        fontSize: '0.7rem',
-        color: colors.textMuted,
-        textAlign: 'center',
-        lineHeight: 1.5,
-      }}>
-        <span style={{
+      {/* 工具 - 分组展示 */}
+      <div>
+        {/* 工具总标题 */}
+        <div style={{
+          fontSize: '0.7rem',
           fontWeight: '600',
           color: colors.textLight,
           textTransform: 'uppercase',
           letterSpacing: '1px',
+          marginBottom: '12px',
+          textAlign: 'center',
         }}>
-          {skillsOverview.tools.label}:
-        </span>{' '}
-        <span style={{ fontFamily: 'var(--font-mono)' }}>
-          {skillsOverview.tools.items}
-        </span>
+          {skillsOverview.tools.label}
+        </div>
+        
+        {/* 专业向工具组 */}
+        <div style={{ marginBottom: '12px' }}>
+          <div style={{
+            fontSize: '0.65rem',
+            color: colors.textMuted,
+            marginBottom: '6px',
+            textAlign: 'center',
+          }}>
+            {skillsOverview.tools.professional?.label}
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '4px',
+            justifyContent: 'center',
+          }}>
+            {(Array.isArray(skillsOverview.tools.professional?.items) 
+              ? skillsOverview.tools.professional.items 
+              : []
+            ).map((tool, index) => (
+              <span
+                key={tool}
+                style={{
+                  fontSize: '0.65rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: isDark ? '#ccc' : colors.textMuted,
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                }}
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {/* 通用效率工具组 */}
+        <div>
+          <div style={{
+            fontSize: '0.65rem',
+            color: colors.textMuted,
+            marginBottom: '6px',
+            textAlign: 'center',
+          }}>
+            {skillsOverview.tools.efficiency?.label}
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '4px',
+            justifyContent: 'center',
+          }}>
+            {(Array.isArray(skillsOverview.tools.efficiency?.items) 
+              ? skillsOverview.tools.efficiency.items 
+              : []
+            ).map((tool, index) => (
+              <span
+                key={tool}
+                style={{
+                  fontSize: '0.65rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: isDark ? '#ccc' : colors.textMuted,
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                }}
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

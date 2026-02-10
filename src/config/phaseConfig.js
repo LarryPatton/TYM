@@ -391,12 +391,47 @@ export const phase03Config = {
   titleKey: 'case.phases.phase-03.title',
   prev: 'phase-02',
   next: 'phase-04',
-  // 顶部胶囊导航配置
+  // 顶部胶囊导航配置 - 右侧显示分类（去重后8个），点击跳转到该分类的第一个屏幕
   processFlow: {
-    screens: ['concept-comparison', 'component-showcase', 'slide-grid', 'product-grid', 'product-matrix'],
-    labels: ['概念', '组件', '幻灯片', '产品', '矩阵']
+    // 用于胶囊显示和跳转的目标屏幕（去重后）
+    screens: [
+      'concept-comparison',  // 概念
+      'component-showcase',  // 包装
+      'slide-grid',          // 营销（第一个）
+      'fly-in-gallery',      // 周边（第一个）
+      'panorama-full',       // 产品
+      'panorama-marquee',    // 口味（第一个）
+      'document-focus',      // 终端
+      'gallery-upper'        // 社媒
+    ],
+    // 用于范围检测的所有屏幕（确保滚动到任意屏幕时胶囊都显示）
+    allScreens: [
+      'concept-comparison',
+      'component-showcase',
+      'slide-grid',
+      'paired-document-grid',
+      'fly-in-gallery',
+      'grouped-carousel',
+      'cards-marquee',
+      'square-grid',
+      'panorama-full',
+      'panorama-marquee',
+      'product-grid-36',
+      'document-focus',
+      'gallery-upper'
+    ],
+    labels: [
+      '概念',
+      '包装',
+      '营销',
+      '周边',
+      '产品',
+      '口味',
+      '终端',
+      '社媒'
+    ]
   },
-  totalScreens: 13, // 新增一屏：document-focus
+  totalScreens: 14, // 新增一屏：scroll-text-gallery-upper
   bgColor: '#000000', // 统一背景色 - 纯黑
   screens: [
     // Screen 01: Intro - 全屏背景 (4983×2804, 16:9) with reveal effect
@@ -414,7 +449,7 @@ export const phase03Config = {
     {
       id: 'concept-comparison',
       type: 'comparison',
-      categoryLabel: '概念对比',
+      categoryLabel: '概念/概念对比',
       leftHint: 'Concept A',
       rightHint: 'Concept B',
       leftLabel: 'Approach A',
@@ -430,7 +465,7 @@ export const phase03Config = {
     {
       id: 'component-showcase',
       type: 'component-showcase',
-      categoryLabel: '组件展示',
+      categoryLabel: '包装/包装体系',
       scrollBehavior: { sticky: false, length: 'medium', intensity: 'medium' },
       // 主图组 - 横向大图 1955×1404
       mainImages: [
@@ -447,11 +482,18 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/components/detail/detail-05.png`, label: 'Assembly' }
       ]
     },
-    // Screen 04: 三列幻灯片网格 - 9张 16:9 幻灯片
+    // Screen 04a: 文字过渡条 - 区域KV 文案
+    {
+      id: 'scroll-text-slide-grid',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.slide-grid.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 04b: 三列幻灯片网格 - 9张 16:9 幻灯片（不同区域KV）
     {
       id: 'slide-grid',
       type: 'slide-grid',
-      categoryLabel: '幻灯片展示',
+      categoryLabel: '营销/不同区域KV',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/slides/Slide 16_9 - 1.png`, label: 'Slide 1' },
@@ -465,11 +507,18 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/slides/Slide 16_9 - 9.png`, label: 'Slide 9' }
       ]
     },
-    // Screen 05: 三列配对文档网格 - 9组共18张 A4 文档
+    // Screen 05a: 文字过渡条 - 口味KV 文案
+    {
+      id: 'scroll-text-paired-doc',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.paired-document-grid.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 05b: 三列配对文档网格 - 9组共18张 A4 文档（不同口味KV）
     {
       id: 'paired-document-grid',
       type: 'paired-document-grid',
-      categoryLabel: '配对文档',
+      categoryLabel: '营销/不同口味KV',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       imageGroups: [
         { images: [
@@ -510,11 +559,18 @@ export const phase03Config = {
         ]}
       ]
     },
-    // Screen 05: 等高飞入画廊 - 7张图片同时飞入展示
+    // Screen 06a: 文字过渡条 - 贴纸资产文案
+    {
+      id: 'scroll-text-fly-in',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.fly-in-gallery.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 06b: 等高飞入画廊 - 7张图片同时飞入展示（贴纸图形资产包）
     {
       id: 'fly-in-gallery',
       type: 'fly-in-gallery',
-      categoryLabel: '产品画廊',
+      categoryLabel: '周边/贴纸图形资产包',
       scrollBehavior: { sticky: true, length: 'medium', intensity: 'medium' },
       stickyHeight: 180, // 滚动 180vh 后离开
       imageHeight: '38vh', // 缩小图片高度
@@ -528,11 +584,11 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/wide/fly-07.png`, label: 'View 7' }
       ]
     },
-    // Screen 07: 分组轮播 - 3组产品图 (3+8+4=15张)
+    // Screen 07: 分组轮播 - 3组产品图 (3+8+4=15张)（周边壳套设计）
     {
       id: 'grouped-carousel',
       type: 'grouped-carousel',
-      categoryLabel: '产品分组',
+      categoryLabel: '周边/周边壳套设计',
       showGroupLabel: false,
       showItemCount: false,
       aspectRatio: '3 / 4', // 竖向产品图，避免被截断
@@ -574,7 +630,8 @@ export const phase03Config = {
     {
       id: 'cards-marquee',
       type: 'three-row-marquee',
-      categoryLabel: '卡片跑马灯',
+      categoryLabel: '周边/壳套丝印图样设计',
+      contentKey: 'case.phases.phase-03.screens.cards-marquee.content',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
       stickyHeight: 200, // 滚动 200vh 后离开
       showGradient: false,
@@ -605,11 +662,18 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/cards/Group 494.png`, label: 'Card C-7' }
       ]
     },
-    // Screen 09: Square 网格滚动渐现 - 12张方形图 4×3
+    // Screen 09a: 文字过渡条 - 款式收敛 文案
+    {
+      id: 'scroll-text-square-grid',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.square-grid.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 09b: Square 网格滚动渐现 - 12张方形图 4×3
     {
       id: 'square-grid',
       type: 'square-grid',
-      categoryLabel: '产品网格',
+      categoryLabel: '周边/壳套款式收敛',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
         { src: `${PHASE03_BASE}/product/square/Frame 1430105683.png`, label: 'Product 1' },
@@ -642,12 +706,11 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/strip-back/Group 535.png`, label: 'Back 5' }  // 粉→粉
       ]
     },
-    // Screen 07: 移除 (内容已合并至上方)
-    // Screen 08: 全景展示 - 多图自动弹出
+    // Screen 08: 全景展示 - 多图自动弹出（产品速读 - 组件内已有文案）
     {
       id: 'panorama-full',
       type: 'auto-sequence-popup',
-      categoryLabel: '全景展示',
+      categoryLabel: '产品/产品速读',
       interval: 300,
       duration: 0.6,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
@@ -663,7 +726,8 @@ export const phase03Config = {
     {
       id: 'panorama-marquee',
       type: 'panorama-marquee',
-      categoryLabel: '跑马灯混合',
+      categoryLabel: '口味/口味与色彩适配',
+      contentKey: 'case.phases.phase-03.screens.panorama-marquee.content',
       scrollBehavior: { sticky: true, length: 'long', intensity: 'medium' },
       stickyHeight: 180, // 滚动 180vh 后离开
       // 横条跑马灯
@@ -693,11 +757,18 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/carousel/carousel-04.png`, label: 'Wide 4' }
       ]
     },
-    // Screen 12: 6×6 正方形网格 - 36张产品图 (1052×1052)
+    // Screen 12a: 文字过渡条 - 口味资源库 文案
+    {
+      id: 'scroll-text-product-grid-36',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.product-grid-36.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 12b: 6×6 正方形网格 - 36张产品图 (1052×1052)
     {
       id: 'product-grid-36',
       type: 'square-grid',
-      categoryLabel: '产品矩阵',
+      categoryLabel: '口味/口味资源库',
       columns: 6,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
@@ -739,23 +810,51 @@ export const phase03Config = {
         { src: `${PHASE03_BASE}/product/grid-36/Frame 1430105697.png`, label: 'Grid 36' }
       ]
     },
-    // Screen 12.5: 文档聚焦展示 - 3张文档图片 (新增)
+    // Screen 12.5: 终端展架展示 - 使用分组轮播组件
     {
       id: 'document-focus',
-      type: 'document-focus-lens',
-      categoryLabel: '文档聚焦',
+      type: 'grouped-carousel',
+      categoryLabel: '终端/展架展示',
+      contentKey: 'case.phases.phase-03.screens.document-focus.content',
+      showGroupLabel: false,
+      showItemCount: false,
+      aspectRatio: 'auto', // 自适应图片原始比例
+      imageScale: 0.6, // 缩小图片尺寸以完整显示
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
-      images: [
-        { src: `${PHASE03_BASE}/document-focus/focus-01.png`, label: 'Document Focus 1' },
-        { src: `${PHASE03_BASE}/document-focus/focus-02.png`, label: 'Document Focus 2' },
-        { src: `${PHASE03_BASE}/document-focus/focus-03.png`, label: 'Document Focus 3' }
+      groups: [
+        {
+          label: '展架 A',
+          images: [
+            { src: `${PHASE03_BASE}/document-focus/focus-01.png`, label: '展架 1' }
+          ]
+        },
+        {
+          label: '展架 B',
+          images: [
+            { src: `${PHASE03_BASE}/document-focus/focus-02.png`, label: '展架 2' }
+          ]
+        },
+        {
+          label: '展架 C',
+          images: [
+            { src: `${PHASE03_BASE}/document-focus/focus-03.png`, label: '展架 3' }
+          ]
+        }
       ]
     },
-    // Screen 13: 瀑布流 (上) - 9张 A4 竖向 (1592×2253) - 使用分组视差瀑布流
+    // Screen 12.6: 文字过渡条 - 社交媒体素材制作 文案
+    {
+      id: 'scroll-text-gallery-upper',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-03.screens.gallery-upper.content',
+      padding: '40px 24px 40px 24px'
+    },
+    // Screen 13: 瀑布流画廊 - 社交媒体素材制作
     {
       id: 'gallery-upper',
       type: 'natural-parallax-grid',
-      categoryLabel: '瀑布流画廊',
+      categoryLabel: '社媒/社交媒体素材制作',
+      hideContent: true, // 文案已移至独立的 scroll-text-bar 显示
       maxWidth: '1400px',
       columns: 3,
       gap: '20px',

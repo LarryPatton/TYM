@@ -85,10 +85,15 @@ const AboutTypewriter = ({
       const timer = setTimeout(() => setLine3Index(line3Index + 1), TYPING_SPEED.line);
       return () => clearTimeout(timer);
     } else {
-      const timer = setTimeout(() => setPhase('line4'), TYPING_SPEED.pauseBetween);
+      // 如果 line4 为空，直接完成；否则继续到 line4
+      const nextPhase = (line4 && line4.trim()) ? 'line4' : 'done';
+      const timer = setTimeout(() => {
+        setPhase(nextPhase);
+        if (nextPhase === 'done') onComplete?.();
+      }, TYPING_SPEED.pauseBetween);
       return () => clearTimeout(timer);
     }
-  }, [line3Index, line3, phase]);
+  }, [line3Index, line3, line4, phase, onComplete]);
 
   // Line4 打字效果
   useEffect(() => {
@@ -186,15 +191,17 @@ const AboutTypewriter = ({
           <Cursor show={phase === 'line3'} />
         </p>
 
-        {/* Line 4 */}
-        <p style={{ 
-          margin: 0,
-          minHeight: '1.7em',
-          visibility: phase === 'done' || phase === 'line4' ? 'visible' : 'hidden',
-        }}>
-          {line4.substring(0, line4Index)}
-          <Cursor show={phase === 'line4' || phase === 'done'} />
-        </p>
+        {/* Line 4 - 仅在有内容时渲染 */}
+        {line4 && line4.trim() && (
+          <p style={{ 
+            margin: 0,
+            minHeight: '1.7em',
+            visibility: phase === 'done' || phase === 'line4' ? 'visible' : 'hidden',
+          }}>
+            {line4.substring(0, line4Index)}
+            <Cursor show={phase === 'line4' || phase === 'done'} />
+          </p>
+        )}
       </div>
     </div>
   );

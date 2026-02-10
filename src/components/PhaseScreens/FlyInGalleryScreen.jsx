@@ -46,51 +46,6 @@ export const FlyInGalleryScreen = ({
           padding: '0 var(--space-xl)'
         }}
       >
-        {/* 头部文本 - 可选 */}
-        {(title || screenNumber) && (
-          <div style={{ 
-            textAlign: 'center', 
-            marginBottom: 'var(--space-3xl)', 
-            maxWidth: '800px', 
-            margin: '0 auto var(--space-3xl) auto' 
-          }}>
-            <div>
-              {screenNumber && (
-                <div style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'rgba(255,255,255,0.5)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px',
-                  marginBottom: 'var(--space-lg)'
-                }}>
-                  {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
-                </div>
-              )}
-              {title && (
-                <h2 style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'var(--text-h2)',
-                  fontWeight: '400',
-                  marginBottom: 'var(--space-lg)',
-                  lineHeight: 'var(--line-height-snug)',
-                  color: '#fff'
-                }}>
-                  {title}
-                </h2>
-              )}
-              {content && (
-                <p style={{
-                  color: 'rgba(255,255,255,0.7)',
-                  fontSize: 'var(--text-body-lg)',
-                  lineHeight: 'var(--line-height-relaxed)'
-                }}>
-                  {content}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-
         {/* 交错瀑布流布局容器 */}
         <div style={{
           display: 'flex',
@@ -186,69 +141,6 @@ export const FlyInGalleryScreen = ({
           )}
         </div>
 
-        {/* 图片标签 - 可选显示，两行分开 */}
-        {images.some(img => img.label) && (
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 'var(--space-md)',
-            marginTop: 'var(--space-2xl)'
-          }}>
-            {/* 第一行标签 */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: 'var(--space-3xl)',
-                paddingLeft: '5%'
-              }}
-            >
-              {firstRow.map((img, index) => (
-                img.label && (
-                  <span
-                    key={`label1-${index}`}
-                    style={{
-                      fontSize: 'var(--text-sm)',
-                      color: 'rgba(255,255,255,0.6)',
-                      textAlign: 'center',
-                      minWidth: '80px'
-                    }}
-                  >
-                    {img.label}
-                  </span>
-                )
-              ))}
-            </div>
-            {/* 第二行标签 */}
-            {secondRow.length > 0 && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: 'var(--space-2xl)',
-                  paddingRight: '5%'
-                }}
-              >
-                {secondRow.map((img, index) => (
-                  img.label && (
-                    <span
-                      key={`label2-${index}`}
-                      style={{
-                        fontSize: 'var(--text-sm)',
-                        color: 'rgba(255,255,255,0.5)',
-                        textAlign: 'center',
-                        minWidth: '70px'
-                      }}
-                    >
-                      {img.label}
-                    </span>
-                  )
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </section>
   );

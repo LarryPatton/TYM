@@ -12,11 +12,11 @@ about.educationTitle,教育背景,Education
 about.contactTitle,联系方式,Contact
 about.emailLabel,邮箱,Email
 about.wechatLabel,微信,WeChat
-about.greeting,你好，我是甜羊。,"Hi, I'm Tian Yang."
-about.introLine1,我是一名专注品牌视觉与产品设计的设计师。,A designer specializing in brand visual and product design.
-about.introLine2,我的工作聚焦品牌从 0–1 的构建：视觉识别系统、产品 CMF、包装与营销视觉的整体设计。在秩序与感性之间，我更在意清晰、可持续的表达。,"My work focuses on building brands from 0–1: visual identity systems, product CMF, packaging, and marketing visuals. Between order and sensibility, I value clear, sustainable expression."
-about.introLine3,过去一年里，我在初创品牌环境中深度参与从体系搭建到多款产品落地的全链路过程。相比单点输出，我更关注系统在真实场景中的反复使用、验证与演进。,"Over the past year, I've been deeply involved in the full process from system building to product launch in a startup brand environment. Rather than isolated outputs, I focus on how systems are repeatedly used, validated, and evolved in real scenarios."
-about.introLine4,对我而言，设计不是形式的选择，而是一种基于判断、经验与长期视角的持续实践。,"For me, design is not about choosing forms, but a continuous practice based on judgment, experience, and long-term perspective."
+about.greeting,你好，我是田阳敏。,"Hi, I'm Tian Yangmin."
+about.introLine1,一名专注于品牌系统化视觉与多触点落地的设计师。,A designer focused on systematic brand visuals and multi-touchpoint implementation.
+about.introLine2,我擅长从 0-1 搭建品牌系统，覆盖视觉识别、产品 CMF、包装与营销视觉，并将其落到可复用、可迭代的设计资产中。,"I specialize in building brand systems from 0-1, covering visual identity, product CMF, packaging, and marketing visuals, turning them into reusable and iterable design assets."
+about.introLine3,在初创品牌项目里，我参与从体系搭建到多款产品落地的全流程，更关注设计在真实场景中的验证、迭代与长期一致性。,"In startup brand projects, I've been involved in the entire process from system building to multi-product launches, focusing on validation, iteration, and long-term consistency of design in real-world scenarios."
+about.introLine4,对我而言，设计不是形式的选择，而是基于判断与经验，持续解决问题并建立秩序。,"For me, design is not about choosing forms, but about continuously solving problems and establishing order based on judgment and experience."
 about.downloadResume,下载简历,Download Resume
 about.contactMe,联系我,Get in Touch
 about.letsTalk,我们聊聊,Let's Talk.
@@ -100,7 +100,27 @@ about.skillsOverview.deliverableLabel,交付物,Deliverables
 about.skillsOverview.proof.label,Proof,Proof
 about.skillsOverview.proof.items,包装系列化案例｜多平台电商案例｜KV系统案例,Packaging serialization cases｜Multi-platform e-commerce cases｜KV system cases
 about.skillsOverview.tools.label,工具,Tools
-about.skillsOverview.tools.items,PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ,PS / AI / Figma / Blender / Substance Painter / PR + GPT/MJ
+about.skillsOverview.tools.professional.label,专业向（平面 / UI / 插画 / 3D / 剪辑）,Professional (Graphic / UI / Illustration / 3D / Editing)
+about.skillsOverview.tools.professional.items[0],Photoshop,Photoshop
+about.skillsOverview.tools.professional.items[1],Illustrator,Illustrator
+about.skillsOverview.tools.professional.items[2],Procreate,Procreate
+about.skillsOverview.tools.professional.items[3],Vectornator,Vectornator
+about.skillsOverview.tools.professional.items[4],Figma,Figma
+about.skillsOverview.tools.professional.items[5],Blender,Blender
+about.skillsOverview.tools.professional.items[6],ZBrush,ZBrush
+about.skillsOverview.tools.professional.items[7],Nomad,Nomad
+about.skillsOverview.tools.professional.items[8],Substance Painter,Substance Painter
+about.skillsOverview.tools.professional.items[9],Eevee / Cycles,Eevee / Cycles
+about.skillsOverview.tools.professional.items[10],剪映,CapCut
+about.skillsOverview.tools.efficiency.label,通用效率（办公 / AI）,General Efficiency (Office / AI)
+about.skillsOverview.tools.efficiency.items[0],Word / PPT / Excel,Word / PPT / Excel
+about.skillsOverview.tools.efficiency.items[1],Notion,Notion
+about.skillsOverview.tools.efficiency.items[2],Canva,Canva
+about.skillsOverview.tools.efficiency.items[3],GPT,GPT
+about.skillsOverview.tools.efficiency.items[4],MJ,MJ
+about.skillsOverview.tools.efficiency.items[5],DeepSeek,DeepSeek
+about.skillsOverview.tools.efficiency.items[6],Kimi,Kimi
+about.skillsOverview.tools.efficiency.items[7],Nano Banana,Nano Banana
 about.formConsultType,咨询类型,Consultation Type
 about.formConsultTypeOptions.brand,品牌设计,Brand Design
 about.formConsultTypeOptions.packaging,包装设计,Packaging Design

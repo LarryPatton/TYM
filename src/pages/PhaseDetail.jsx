@@ -693,6 +693,7 @@ const PhaseDetail = () => {
             screenLabel={screenLabel}
             title={screenData?.title || ''}
             content={screenData?.content || ''}
+            contentKey={screenConfig.contentKey}
             images={screenConfig.images || []}
             bgColor="#000"
           />
@@ -871,7 +872,7 @@ const PhaseDetail = () => {
             screenNumber={screenNumber}
             screenLabel={screenLabel}
             title={config.title || ''}
-            content={screenData?.content || ''}
+            content={config.hideContent ? '' : (screenData?.content || '')}
             contentKey={config.contentKey}
             groups={config.groups || []}
             images={config.images || []}
@@ -1055,6 +1056,7 @@ const PhaseDetail = () => {
             showGroupLabel={config.showGroupLabel !== false}
             showItemCount={config.showItemCount !== false}
             aspectRatio={config.aspectRatio || '1 / 1'}
+            imageScale={config.imageScale || 1}
           />
         );
 
@@ -1290,6 +1292,7 @@ const PhaseDetail = () => {
         return (
           <PhaseClosingScreen
             key={config.id}
+            phaseId={phase.id}
             bgImage={config.bgImage}
             nextPhase={nextPhaseConfig ? {
               id: nextPhaseConfig.id,
@@ -1441,59 +1444,36 @@ const PhaseDetail = () => {
               <span style={{ fontWeight: 500 }}>{t('case.backToToc')}</span>
               <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
               <span style={{ opacity: 0.8 }}>阶段 {phase.number}</span>
-              {/* 当前屏幕标题（斜线前的类型名词高亮） */}
+              {/* 当前屏幕标题（斜线前高亮，斜线后不高亮） */}
               {(() => {
                 const currentScreenConfig = filteredScreens?.[currentScreen - 1];
                 const screenTitle = currentScreenConfig?.categoryLabel;
                 if (screenTitle) {
-                  // 需要高亮的类型名词
-                  const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX', '实拍', '包装', '产品'];
-                  
-                  // 用斜线分割，只对第一部分应用高亮
-                  const slashIndex = screenTitle.indexOf(' / ');
-                  if (slashIndex > -1) {
+                  // 检查是否包含斜线（支持 " / " 和 "/" 两种格式）
+                  const slashMatch = screenTitle.match(/\s*\/\s*/);
+                  if (slashMatch) {
+                    const slashIndex = screenTitle.indexOf(slashMatch[0]);
                     const prefix = screenTitle.substring(0, slashIndex);
                     const suffix = screenTitle.substring(slashIndex);
-                    
-                    // 对前缀部分应用高亮
-                    const keywordsPattern = highlightKeywords.join('|');
-                    const regex = new RegExp(`(${keywordsPattern})`, 'g');
-                    const prefixParts = prefix.split(regex);
                     
                     return (
                       <>
                         <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
                         <span style={{ opacity: 0.9 }}>
-                          {prefixParts.map((part, i) => 
-                            highlightKeywords.includes(part) ? (
-                              <span key={i} style={{ color: '#FF5722', fontWeight: 600 }}>{part}</span>
-                            ) : (
-                              <span key={i}>{part}</span>
-                            )
-                          )}
-                          <span>{suffix}</span>
+                          {/* 斜线前：高亮显示 */}
+                          <span style={{ color: '#FF5722', fontWeight: 600 }}>{prefix}</span>
+                          {/* 斜线及后续：正常显示 */}
+                          <span style={{ opacity: 0.7 }}>{suffix}</span>
                         </span>
                       </>
                     );
                   }
                   
-                  // 无斜线时，整体应用高亮逻辑
-                  const keywordsPattern = highlightKeywords.join('|');
-                  const regex = new RegExp(`(${keywordsPattern})`, 'g');
-                  const parts = screenTitle.split(regex);
-                  
+                  // 无斜线时，正常显示
                   return (
                     <>
                       <span style={{ opacity: 0.5, margin: '0 4px' }}>|</span>
-                      <span style={{ opacity: 0.9 }}>
-                        {parts.map((part, i) => 
-                          highlightKeywords.includes(part) ? (
-                            <span key={i} style={{ color: '#FF5722', fontWeight: 600 }}>{part}</span>
-                          ) : (
-                            <span key={i}>{part}</span>
-                          )
-                        )}
-                      </span>
+                      <span style={{ opacity: 0.9 }}>{screenTitle}</span>
                     </>
                   );
                 }
@@ -1694,6 +1674,7 @@ const PhaseDetail = () => {
           <ProcessAnchor 
             screens={phase.processFlow.screens}
             labels={phase.processFlow.labels}
+            allScreens={phase.processFlow.allScreens}
             phaseId={phase.id}
           />
         )}
