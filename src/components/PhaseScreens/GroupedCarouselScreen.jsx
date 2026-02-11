@@ -240,7 +240,7 @@ export const GroupedCarouselScreen = ({
               transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
               viewport={{ once: true, margin: "-10%" }}
             >
-              {group.label && (
+              {showGroupLabel && (group.labelKey ? t(group.labelKey) : group.label) && (
                 <h3 style={{
                   fontSize: '1rem',
                   fontWeight: 400,
@@ -250,7 +250,7 @@ export const GroupedCarouselScreen = ({
                   textTransform: 'uppercase',
                   textAlign: 'center'
                 }}>
-                  {group.label}
+                  {group.labelKey ? t(group.labelKey) : group.label}
                 </h3>
               )}
               
@@ -454,6 +454,7 @@ export const GroupedCarouselScreen = ({
  * 分组指示器（Lenis 驱动）
  */
 const GroupIndicator = ({ groups, progress, totalGroups, getGroupRange, showLabel = true }) => {
+  const { t } = useTranslation();
   return (
     <div style={{
       position: 'absolute',
@@ -471,7 +472,7 @@ const GroupIndicator = ({ groups, progress, totalGroups, getGroupRange, showLabe
           <IndicatorDot
             key={`indicator-${index}`}
             index={index}
-            label={group.label}
+            label={group.labelKey ? t(group.labelKey) : group.label}
             progress={progress}
             range={range}
             showLabel={showLabel}
@@ -534,6 +535,8 @@ const IndicatorDot = ({ index, label, progress, range, showLabel = true }) => {
  * 单组场景（Lenis 驱动版 - 横向切换 + 停顿）
  */
 const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLastGroup, rowGap = '24px', showGroupLabel = true, showItemCount = true, aspectRatio = '1 / 1', imageScale = 1 }) => {
+  const { t } = useTranslation();
+  const resolvedLabel = group.labelKey ? t(group.labelKey) : group.label;
   const range = getGroupRange(index);
   
   // 基于 Lenis progress 计算各属性值
@@ -600,7 +603,7 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
       }}
     >
       {/* 组标题 */}
-      {showGroupLabel && group.label && (
+      {showGroupLabel && resolvedLabel && (
         <h3 style={{
           fontSize: '1.5rem',
           fontWeight: 300,
@@ -609,7 +612,7 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
           letterSpacing: '4px',
           textTransform: 'uppercase'
         }}>
-          {group.label}
+          {resolvedLabel}
         </h3>
       )}
       
@@ -620,7 +623,7 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
           const customRowGap = customLayout.rowGap || '16px';
           const colGap = customLayout.colGap || '12px';
           const maxCols = Math.max(...customLayout.rows.map(r => r.count));
-          const mainScale = customLayout.mainScale ?? 0.85;
+          const mainScale = customLayout.mainScale ?? 1.0;
           const subScale = customLayout.subScale ?? 1.0;
           const subOffsetX = customLayout.subOffset?.x || 0;
           const subOffsetY = customLayout.subOffset?.y || 0;
@@ -629,8 +632,8 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
               display: 'flex',
               flexDirection: 'column',
               gap: customRowGap,
-              width: '92%',
-              maxWidth: '1400px',
+              width: '100%',
+              alignItems: 'center',
               padding: '0 24px',
               boxSizing: 'border-box'
             }}>
@@ -639,6 +642,10 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
                   customLayout.rows.slice(0, rowIndex).reduce((sum, r) => sum + r.count, 0),
                   customLayout.rows.slice(0, rowIndex + 1).reduce((sum, r) => sum + r.count, 0)
                 );
+                // 使用 scale 控制每行的宽度：scale=1 为基线（92%/1400px），越大越宽
+                const rowScale = rowConfig.scale || 1;
+                const rowWidthPercent = Math.min(90 + rowScale * 2, 98);
+                const rowMaxWidthPx = 1280 + rowScale * 120;
                 return (
                   <div
                     key={`row-${rowIndex}`}
@@ -646,6 +653,8 @@ const GroupScene = ({ group, index, progress, totalGroups, getGroupRange, isLast
                       display: 'grid',
                       gridTemplateColumns: `repeat(${rowConfig.count}, 1fr)`,
                       gap: colGap,
+                      width: `${rowWidthPercent}%`,
+                      maxWidth: `${rowMaxWidthPx}px`,
                       justifyItems: 'center',
                       alignItems: 'center'
                     }}

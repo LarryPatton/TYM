@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-02-02T16:51:18.967731",
+  "generated": "2026-02-11T12:34:09.792275",
   "modules": {
     "form-structure": {
       "displayName": "Form & Structure",
@@ -13,10 +13,10 @@
               "filename": "xieyi-renwu-001.png",
               "path": "/gallery/form-structure/写意人物/xieyi-renwu-001.png",
               "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-001.png",
-              "fileSize": 1333970,
+              "fileSize": 319296,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:42.904734",
+              "lastModified": "2026-02-10T09:47:36.983248",
               "dimensions": {
                 "width": 980,
                 "height": 1400
@@ -28,10 +28,10 @@
               "filename": "xieyi-renwu-002.png",
               "path": "/gallery/form-structure/写意人物/xieyi-renwu-002.png",
               "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-002.png",
-              "fileSize": 1309721,
+              "fileSize": 302607,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-01T21:26:42.929302",
+              "lastModified": "2026-02-10T09:47:38.183778",
               "dimensions": {
                 "width": 980,
                 "height": 1400
@@ -88,10 +88,10 @@
               "filename": "xieyi-renwu-006.png",
               "path": "/gallery/form-structure/写意人物/xieyi-renwu-006.png",
               "relativePath": "gallery/form-structure/写意人物/xieyi-renwu-006.png",
-              "fileSize": 1568306,
+              "fileSize": 310785,
               "format": "png",
               "index": 6,
-              "lastModified": "2026-02-02T15:23:57.468491",
+              "lastModified": "2026-02-10T09:47:40.105981",
               "dimensions": {
                 "width": 980,
                 "height": 1400
@@ -448,10 +448,10 @@
               "filename": "baimiao-001.png",
               "path": "/gallery/form-structure/白描/baimiao-001.png",
               "relativePath": "gallery/form-structure/白描/baimiao-001.png",
-              "fileSize": 1083877,
+              "fileSize": 268756,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:43.288387",
+              "lastModified": "2026-02-10T09:47:37.556063",
               "dimensions": {
                 "width": 980,
                 "height": 1400
@@ -478,10 +478,10 @@
               "filename": "baimiao-003.png",
               "path": "/gallery/form-structure/白描/baimiao-003.png",
               "relativePath": "gallery/form-structure/白描/baimiao-003.png",
-              "fileSize": 1413752,
+              "fileSize": 299706,
               "format": "png",
               "index": 3,
-              "lastModified": "2026-02-01T21:26:43.314930",
+              "lastModified": "2026-02-10T09:47:39.434206",
               "dimensions": {
                 "width": 980,
                 "height": 1400
@@ -518,10 +518,10 @@
               "filename": "liti-001.png",
               "path": "/gallery/form-structure/立体/liti-001.png",
               "relativePath": "gallery/form-structure/立体/liti-001.png",
-              "fileSize": 1252473,
+              "fileSize": 1219792,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:43.646926",
+              "lastModified": "2026-02-10T09:45:46.257575",
               "dimensions": {
                 "width": 1291,
                 "height": 1400
@@ -548,10 +548,10 @@
               "filename": "liti-003.png",
               "path": "/gallery/form-structure/立体/liti-003.png",
               "relativePath": "gallery/form-structure/立体/liti-003.png",
-              "fileSize": 1503941,
+              "fileSize": 408961,
               "format": "png",
               "index": 3,
-              "lastModified": "2026-02-01T21:26:43.670968",
+              "lastModified": "2026-02-10T09:45:49.792266",
               "dimensions": {
                 "width": 809,
                 "height": 1400
@@ -568,10 +568,10 @@
               "filename": "sumiao-001.png",
               "path": "/gallery/form-structure/素描/sumiao-001.png",
               "relativePath": "gallery/form-structure/素描/sumiao-001.png",
-              "fileSize": 1570259,
+              "fileSize": 306927,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:43.378509",
+              "lastModified": "2026-02-10T09:47:38.834620",
               "dimensions": {
                 "width": 932,
                 "height": 1400
@@ -583,10 +583,10 @@
               "filename": "sumiao-002.png",
               "path": "/gallery/form-structure/素描/sumiao-002.png",
               "relativePath": "gallery/form-structure/素描/sumiao-002.png",
-              "fileSize": 1077589,
+              "fileSize": 1071752,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-01T21:26:43.391029",
+              "lastModified": "2026-02-10T09:45:45.982100",
               "dimensions": {
                 "width": 932,
                 "height": 1400
@@ -606,7 +606,7 @@
               "fileSize": 2377975,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-02T15:24:19.660666",
+              "lastModified": "2026-02-10T09:45:58.837728",
               "dimensions": {
                 "width": 1615,
                 "height": 1400
@@ -638,10 +638,10 @@
               "filename": "zonghe-cailiao-002.png",
               "path": "/gallery/form-structure/综合材料/zonghe-cailiao-002.png",
               "relativePath": "gallery/form-structure/综合材料/zonghe-cailiao-002.png",
-              "fileSize": 1085825,
+              "fileSize": 1061219,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-02T15:24:11.226087",
+              "lastModified": "2026-02-10T09:45:47.976538",
               "dimensions": {
                 "width": 1156,
                 "height": 1400
@@ -658,10 +658,10 @@
               "filename": "diaosu-001.png",
               "path": "/gallery/form-structure/雕塑/diaosu-001.png",
               "relativePath": "gallery/form-structure/雕塑/diaosu-001.png",
-              "fileSize": 1459232,
+              "fileSize": 1529220,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:43.411428",
+              "lastModified": "2026-02-10T09:45:45.908550",
               "dimensions": {
                 "width": 1331,
                 "height": 1000
@@ -786,10 +786,10 @@
               "filename": "banhua-03-001.png",
               "path": "/gallery/material-texture/板绘3/banhua-03-001.png",
               "relativePath": "gallery/material-texture/板绘3/banhua-03-001.png",
-              "fileSize": 1126645,
+              "fileSize": 231038,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:43.993342",
+              "lastModified": "2026-02-10T09:44:54.557376",
               "dimensions": {
                 "width": 1400,
                 "height": 1400
@@ -801,10 +801,10 @@
               "filename": "banhua-03-002.png",
               "path": "/gallery/material-texture/板绘3/banhua-03-002.png",
               "relativePath": "gallery/material-texture/板绘3/banhua-03-002.png",
-              "fileSize": 1542248,
+              "fileSize": 284821,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-01T21:26:44.010368",
+              "lastModified": "2026-02-10T09:44:53.865719",
               "dimensions": {
                 "width": 1400,
                 "height": 1400
@@ -816,10 +816,10 @@
               "filename": "banhua-03-003.png",
               "path": "/gallery/material-texture/板绘3/banhua-03-003.png",
               "relativePath": "gallery/material-texture/板绘3/banhua-03-003.png",
-              "fileSize": 1502228,
+              "fileSize": 319399,
               "format": "png",
               "index": 3,
-              "lastModified": "2026-02-02T15:24:09.189415",
+              "lastModified": "2026-02-10T09:44:53.186520",
               "dimensions": {
                 "width": 1400,
                 "height": 1400
@@ -836,10 +836,10 @@
               "filename": "banhua-04-001.png",
               "path": "/gallery/material-texture/板绘4/banhua-04-001.png",
               "relativePath": "gallery/material-texture/板绘4/banhua-04-001.png",
-              "fileSize": 1114303,
+              "fileSize": 207553,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-01T21:26:44.047657",
+              "lastModified": "2026-02-10T09:44:58.450825",
               "dimensions": {
                 "width": 988,
                 "height": 1400
@@ -851,10 +851,10 @@
               "filename": "banhua-04-002.png",
               "path": "/gallery/material-texture/板绘4/banhua-04-002.png",
               "relativePath": "gallery/material-texture/板绘4/banhua-04-002.png",
-              "fileSize": 1507016,
+              "fileSize": 267316,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-01T21:26:44.062678",
+              "lastModified": "2026-02-10T09:44:55.732863",
               "dimensions": {
                 "width": 973,
                 "height": 1400
@@ -866,10 +866,10 @@
               "filename": "banhua-04-003.png",
               "path": "/gallery/material-texture/板绘4/banhua-04-003.png",
               "relativePath": "gallery/material-texture/板绘4/banhua-04-003.png",
-              "fileSize": 1551763,
+              "fileSize": 276443,
               "format": "png",
               "index": 3,
-              "lastModified": "2026-02-02T15:24:09.799481",
+              "lastModified": "2026-02-10T09:44:56.444139",
               "dimensions": {
                 "width": 1169,
                 "height": 1400
@@ -896,10 +896,10 @@
               "filename": "banhua-04-005.png",
               "path": "/gallery/material-texture/板绘4/banhua-04-005.png",
               "relativePath": "gallery/material-texture/板绘4/banhua-04-005.png",
-              "fileSize": 1163177,
+              "fileSize": 263444,
               "format": "png",
               "index": 5,
-              "lastModified": "2026-02-01T21:26:44.111609",
+              "lastModified": "2026-02-10T09:44:55.060650",
               "dimensions": {
                 "width": 727,
                 "height": 1400
@@ -934,7 +934,7 @@
               "fileSize": 2087066,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-02T15:24:17.153300",
+              "lastModified": "2026-02-10T09:43:11.590369",
               "dimensions": {
                 "width": 2576,
                 "height": 1400
@@ -949,7 +949,7 @@
               "fileSize": 1551403,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-02T15:24:10.052053",
+              "lastModified": "2026-02-10T09:43:05.577562",
               "dimensions": {
                 "width": 1067,
                 "height": 1400
@@ -961,10 +961,10 @@
               "filename": "banhua-05-003.png",
               "path": "/gallery/material-texture/板绘5/banhua-05-003.png",
               "relativePath": "gallery/material-texture/板绘5/banhua-05-003.png",
-              "fileSize": 1188912,
+              "fileSize": 1113722,
               "format": "png",
               "index": 3,
-              "lastModified": "2026-02-01T21:26:44.196091",
+              "lastModified": "2026-02-10T09:43:05.271934",
               "dimensions": {
                 "width": 808,
                 "height": 1400
@@ -996,10 +996,10 @@
               "filename": "shuicai-01-002.png",
               "path": "/gallery/material-texture/水彩1/shuicai-01-002.png",
               "relativePath": "gallery/material-texture/水彩1/shuicai-01-002.png",
-              "fileSize": 2765884,
+              "fileSize": 565892,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-02T15:24:16.967227",
+              "lastModified": "2026-02-10T09:44:59.987532",
               "dimensions": {
                 "width": 1404,
                 "height": 1000
@@ -1096,10 +1096,10 @@
               "filename": "sefen-01-001.png",
               "path": "/gallery/material-texture/色粉1/sefen-01-001.png",
               "relativePath": "gallery/material-texture/色粉1/sefen-01-001.png",
-              "fileSize": 1465509,
+              "fileSize": 282761,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-02T15:24:16.123972",
+              "lastModified": "2026-02-10T09:44:59.131261",
               "dimensions": {
                 "width": 1421,
                 "height": 1000
@@ -1146,10 +1146,10 @@
               "filename": "sefen-02-002.png",
               "path": "/gallery/material-texture/色粉2/sefen-02-002.png",
               "relativePath": "gallery/material-texture/色粉2/sefen-02-002.png",
-              "fileSize": 1531063,
+              "fileSize": 309457,
               "format": "png",
               "index": 2,
-              "lastModified": "2026-02-02T15:24:16.412291",
+              "lastModified": "2026-02-10T09:44:57.145502",
               "dimensions": {
                 "width": 955,
                 "height": 1400
@@ -1226,10 +1226,10 @@
               "filename": "sefen-03-001.png",
               "path": "/gallery/material-texture/色粉3/sefen-03-001.png",
               "relativePath": "gallery/material-texture/色粉3/sefen-03-001.png",
-              "fileSize": 1544096,
+              "fileSize": 293932,
               "format": "png",
               "index": 1,
-              "lastModified": "2026-02-02T15:24:17.782298",
+              "lastModified": "2026-02-10T09:44:57.836623",
               "dimensions": {
                 "width": 963,
                 "height": 1400
@@ -1482,6 +1482,341 @@
       "displayName": "Narrative Imagery",
       "description": "",
       "subcategories": {
+        "产品摄影": {
+          "displayName": "产品摄影",
+          "files": [
+            {
+              "filename": "ea5d6bb7ed9dfd66ddb0b3303bcc6113.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/ea5d6bb7ed9dfd66ddb0b3303bcc6113.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/ea5d6bb7ed9dfd66ddb0b3303bcc6113.JPG",
+              "fileSize": 15851082,
+              "format": "jpg",
+              "index": 1,
+              "lastModified": "2026-02-11T11:55:31.126183",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8271.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8271.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8271.JPG",
+              "fileSize": 7928411,
+              "format": "jpg",
+              "index": 2,
+              "lastModified": "2026-02-11T11:55:28.922517",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8272.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8272.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8272.JPG",
+              "fileSize": 10371742,
+              "format": "jpg",
+              "index": 3,
+              "lastModified": "2026-02-11T11:55:29.150072",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8283.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8283.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8283.JPG",
+              "fileSize": 11602310,
+              "format": "jpg",
+              "index": 4,
+              "lastModified": "2026-02-11T11:55:31.375933",
+              "dimensions": {
+                "width": 3456,
+                "height": 4608
+              },
+              "aspectRatio": "3456:4608",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8290.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8290.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8290.JPG",
+              "fileSize": 13223021,
+              "format": "jpg",
+              "index": 5,
+              "lastModified": "2026-02-11T11:55:30.862134",
+              "dimensions": {
+                "width": 3990,
+                "height": 5321
+              },
+              "aspectRatio": "3990:5321",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8293.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8293.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8293.JPG",
+              "fileSize": 8759539,
+              "format": "jpg",
+              "index": 6,
+              "lastModified": "2026-02-11T11:55:30.654236",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8296.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8296.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8296.JPG",
+              "fileSize": 13114635,
+              "format": "jpg",
+              "index": 7,
+              "lastModified": "2026-02-11T11:55:31.258236",
+              "dimensions": {
+                "width": 2592,
+                "height": 4608
+              },
+              "aspectRatio": "2592:4608",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8311.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8311.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8311.JPG",
+              "fileSize": 11481929,
+              "format": "jpg",
+              "index": 8,
+              "lastModified": "2026-02-11T11:55:29.048050",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8316.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8316.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8316.JPG",
+              "fileSize": 10913743,
+              "format": "jpg",
+              "index": 9,
+              "lastModified": "2026-02-11T11:55:29.255602",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8518.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8518.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8518.JPG",
+              "fileSize": 11302820,
+              "format": "jpg",
+              "index": 10,
+              "lastModified": "2026-02-11T11:55:30.971157",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8521.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8521.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8521.JPG",
+              "fileSize": 7740601,
+              "format": "jpg",
+              "index": 11,
+              "lastModified": "2026-02-11T11:55:30.732085",
+              "dimensions": {
+                "width": 3024,
+                "height": 4536
+              },
+              "aspectRatio": "3024:4536",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8542.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8542.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8542.JPG",
+              "fileSize": 15410565,
+              "format": "jpg",
+              "index": 12,
+              "lastModified": "2026-02-11T11:55:30.062100",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8549.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8549.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8549.JPG",
+              "fileSize": 12143304,
+              "format": "jpg",
+              "index": 13,
+              "lastModified": "2026-02-11T11:55:29.489683",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8552.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8552.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8552.JPG",
+              "fileSize": 15213292,
+              "format": "jpg",
+              "index": 14,
+              "lastModified": "2026-02-11T11:55:30.435080",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8566.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8566.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8566.JPG",
+              "fileSize": 11026405,
+              "format": "jpg",
+              "index": 15,
+              "lastModified": "2026-02-11T11:55:29.703226",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8583.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8583.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8583.JPG",
+              "fileSize": 9390684,
+              "format": "jpg",
+              "index": 16,
+              "lastModified": "2026-02-11T11:55:29.917289",
+              "dimensions": {
+                "width": 3024,
+                "height": 4033
+              },
+              "aspectRatio": "3024:4033",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8591.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8591.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8591.JPG",
+              "fileSize": 9342594,
+              "format": "jpg",
+              "index": 17,
+              "lastModified": "2026-02-11T11:55:30.291478",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8593.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8593.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8593.JPG",
+              "fileSize": 13831207,
+              "format": "jpg",
+              "index": 18,
+              "lastModified": "2026-02-11T11:55:30.568085",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8616.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8616.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8616.JPG",
+              "fileSize": 12004095,
+              "format": "jpg",
+              "index": 19,
+              "lastModified": "2026-02-11T11:55:29.374661",
+              "dimensions": {
+                "width": 3024,
+                "height": 4033
+              },
+              "aspectRatio": "3024:4033",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8628.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8628.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8628.JPG",
+              "fileSize": 11426430,
+              "format": "jpg",
+              "index": 20,
+              "lastModified": "2026-02-11T11:55:29.597706",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8631.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8631.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8631.JPG",
+              "fileSize": 14657284,
+              "format": "jpg",
+              "index": 21,
+              "lastModified": "2026-02-11T11:55:30.201125",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            },
+            {
+              "filename": "IMG_8639.JPG",
+              "path": "/gallery/narrative-imagery/产品摄影/IMG_8639.JPG",
+              "relativePath": "gallery/narrative-imagery/产品摄影/IMG_8639.JPG",
+              "fileSize": 10639893,
+              "format": "jpg",
+              "index": 22,
+              "lastModified": "2026-02-11T11:55:29.825322",
+              "dimensions": {
+                "width": 3024,
+                "height": 4032
+              },
+              "aspectRatio": "3024:4032",
+              "orientation": "portrait"
+            }
+          ]
+        },
         "灰蓝横": {
           "displayName": "灰蓝横",
           "files": [
@@ -2223,14 +2558,14 @@
           ]
         }
       },
-      "totalFiles": 46,
-      "lastModified": "2026-02-01T21:45:50.752032"
+      "totalFiles": 68,
+      "lastModified": "2026-02-11T12:07:13.690127"
     }
   },
   "statistics": {
     "totalModules": 3,
-    "totalSubcategories": 38,
-    "totalFiles": 134,
-    "totalSize": 103279041
+    "totalSubcategories": 39,
+    "totalFiles": 156,
+    "totalSize": 339507637
   }
 }

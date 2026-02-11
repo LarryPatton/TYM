@@ -19,36 +19,55 @@ const BLINDS_CONFIG = {
   animEnd: 0.88
 };
 
-// 6个 Phase 的总结语（中英文）
-const PHASE_SUMMARIES = {
-  'phase-01': {
-    zh: '想让品牌"看起来像同一个人"？我先把视觉语法写清楚，让每一次输出都有据可循。',
-    en: 'Want your brand to look like one consistent identity? I start by defining the visual grammar, so every output follows a clear logic.',
-  },
-  'phase-02': {
-    zh: '从概念到落地：你说"好看"还不够？那就把定位与 CMF 一路推到打样量产，用结果证明它能落地。',
-    en: 'From concept to execution: "Good-looking" isn\'t enough? I push positioning and CMF all the way to sampling and production — proving it works in the real world.',
-  },
-  'phase-03': {
-    zh: '一致性与差异化管理：系列要升级又不能变味？我在同一套骨架里做分化，让变化像进化，而不是推翻。',
-    en: 'Consistency vs. differentiation: Need to upgrade the series without losing its essence? I evolve within the same framework — change as evolution, not revolution.',
-  },
-  'phase-04': {
-    zh: '传播视觉系统化：跨市场、跨语言怎么不跑偏？把传播做成 KV 套件，让品牌在不同场景里都说同一种语气。',
-    en: 'Visual communication system: How to stay on-brand across markets and languages? I turn campaigns into KV kits — same voice, different stages.',
-  },
-  'phase-05': {
-    zh: '空间与终端物料体系：线下最挑剔，细节会"露馅"。我把空间、陈列、物料模块化，让识别度在动线里依然稳。',
-    en: 'Space & retail materials: Offline is unforgiving — details will give you away. I modularize space, displays, and materials to keep recognition steady throughout the journey.',
-  },
-  'phase-06': {
-    zh: '信息太多没人看？我把叙事压缩成视觉模块，让渠道好讲、客户好懂、团队好对齐。',
-    en: 'Too much info, no one reads? I compress narratives into visual modules — easy to pitch, easy to understand, easy to align.',
-  },
+// 获取 Phase 总结语的 i18n key
+const getClosingSummaryKey = (phaseId) => {
+  // 将 phase-01 转换为 case.phases.phase-01.screens.phase-closing.summary 格式
+  // 对于 phase-02 ~ phase-06，使用 closing.summary 格式
+  if (phaseId === 'phase-01') {
+    return `case.phases.${phaseId}.screens.phase-closing.summary`;
+  }
+  return `case.phases.${phaseId}.screens.closing.summary`;
 };
 
 /**
- * 打字机效果组件
+ * 解析文本，识别「」包裹的高亮内容
+ * 返回 { char, highlight } 数组
+ */
+const parseTextWithHighlight = (text) => {
+  if (!text) return [];
+  
+  const parts = [];
+  let currentIndex = 0;
+  
+  // 正则匹配：匹配「...」
+  const regex = /「([^」]+)」/g;
+  let match;
+  
+  while ((match = regex.exec(text)) !== null) {
+    // 添加普通文本
+    if (match.index > currentIndex) {
+      const normalText = text.slice(currentIndex, match.index);
+      [...normalText].forEach(char => parts.push({ char, highlight: false }));
+    }
+    
+    // 添加高亮文本（保留引号）
+    const fullMatch = match[0];
+    [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+    
+    currentIndex = match.index + match[0].length;
+  }
+  
+  // 添加剩余文本
+  if (currentIndex < text.length) {
+    const remainingText = text.slice(currentIndex);
+    [...remainingText].forEach(char => parts.push({ char, highlight: false }));
+  }
+  
+  return parts;
+};
+
+/**
+ * 打字机效果组件（支持高亮）
  */
 const TypewriterText = ({ 
   text, 
@@ -57,13 +76,16 @@ const TypewriterText = ({
   onComplete,
   isDark,
 }) => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedCount, setDisplayedCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const indexRef = useRef(0);
   
+  // 解析文本为带高亮标记的字符数组
+  const parsedContent = React.useMemo(() => parseTextWithHighlight(text), [text]);
+  
   useEffect(() => {
-    setDisplayedText('');
+    setDisplayedCount(0);
     indexRef.current = 0;
     setIsTyping(false);
     setShowCursor(true);
@@ -78,17 +100,17 @@ const TypewriterText = ({
   useEffect(() => {
     if (!isTyping) return;
     
-    if (indexRef.current < text.length) {
+    if (indexRef.current < parsedContent.length) {
       const timeout = setTimeout(() => {
-        setDisplayedText(text.slice(0, indexRef.current + 1));
         indexRef.current += 1;
+        setDisplayedCount(indexRef.current);
       }, speed);
       return () => clearTimeout(timeout);
     } else {
       setIsTyping(false);
       onComplete?.();
     }
-  }, [isTyping, displayedText, text, speed, onComplete]);
+  }, [isTyping, displayedCount, parsedContent.length, speed, onComplete]);
   
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -97,9 +119,23 @@ const TypewriterText = ({
     return () => clearInterval(cursorInterval);
   }, []);
   
+  // 高亮颜色配置
+  const highlightColor = '#FF5722'; // 深橙色
+  const normalColor = isDark ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.75)';
+  
   return (
     <span>
-      {displayedText}
+      {parsedContent.slice(0, displayedCount).map((item, i) => (
+        <span
+          key={i}
+          style={{
+            color: item.highlight ? highlightColor : normalColor,
+            fontWeight: item.highlight ? 600 : 400,
+          }}
+        >
+          {item.char}
+        </span>
+      ))}
       <motion.span
         animate={{ opacity: showCursor ? 1 : 0 }}
         transition={{ duration: 0.1 }}
@@ -178,17 +214,17 @@ export const PhaseClosingScreen = ({
   blindsHeight = 100
 }) => {
   const { theme } = useTheme();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isDark = theme === 'dark';
-  const lang = i18n.language === 'en' ? 'en' : 'zh';
   
   const [isMobile, setIsMobile] = useState(false);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [shouldStartTyping, setShouldStartTyping] = useState(false); // 控制何时开始打字
   const containerRef = useRef(null);
   
-  // 获取当前 Phase 的总结语
-  const summary = PHASE_SUMMARIES[phaseId]?.[lang] || PHASE_SUMMARIES['phase-01'][lang];
+  // 获取当前 Phase 的总结语（从 i18n CSV 文件读取）
+  const summaryKey = getClosingSummaryKey(phaseId);
+  const summary = t(summaryKey);
   
   // 打字完成回调
   const handleTypingComplete = useCallback(() => {

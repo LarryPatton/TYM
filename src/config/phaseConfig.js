@@ -187,9 +187,17 @@ export const phase02Config = {
         { src: `${PHASE02_BASE}/boundaries/boundary-02.png`, label: '市场边界' },
         { src: `${PHASE02_BASE}/boundaries/boundary-03.png`, label: '目标边界' },
         { src: `${PHASE02_BASE}/boundaries/boundary-04.png`, label: '品牌边界' },
-        { src: `${PHASE02_BASE}/boundaries/boundary-05.png`, label: '设计边界' }
+        { src: `${PHASE02_BASE}/boundaries/boundary-05.png`, label: '设计边界' },
+        { src: `${PHASE02_BASE}/boundaries/boundary-06.png`, label: '边界总览' }
       ],
       scrollBehavior: { sticky: false, length: 'longer', intensity: 'low' }
+    },
+    // Screen 03a-text: 文字过渡条 - CMF 主体探索 文案
+    {
+      id: 'scroll-text-cmf-main',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-02.screens.cmf-main.content',
+      padding: '40px 24px 40px 24px'
     },
     // Screen 03a: CMF Main - 主体探索 (2行网格，透明正方形)
     {
@@ -218,6 +226,7 @@ export const phase02Config = {
       id: 'cmf-color',
       type: 'gallery',
       categoryLabel: 'CMF / 色彩序列',
+      contentKey: 'case.phases.phase-02.screens.cmf-color.content',
       columns: 4,
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       bgAlt: true,
@@ -240,6 +249,7 @@ export const phase02Config = {
     {
       id: 'factory-keycaps',
       type: 'factory-gallery',
+      contentKey: 'case.phases.phase-02.screens.factory-keycaps.content',
       categoryLabel: '工厂 / 按键',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 4,
@@ -262,6 +272,7 @@ export const phase02Config = {
     {
       id: 'factory-backplate',
       type: 'factory-gallery',
+      contentKey: 'case.phases.phase-02.screens.factory-backplate.content',
       categoryLabel: '工厂 / 背板',
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' },
       columns: 4,
@@ -280,17 +291,19 @@ export const phase02Config = {
         { src: `${PHASE02_BASE}/factory/backplate/backplate-11.png`, label: 'Backplate 11' }
       ]
     },
-    // Screen 05: Priority - 重建理解 (Grouped Carousel)
+    // Screen 05: Priority - 超级符号在包装上的应用 (Grouped Carousel)
     {
       id: 'priority',
       type: 'grouped-carousel',
       categoryLabel: '包装 / 超级符号在包装上的应用',
+      contentKey: 'case.phases.phase-02.screens.priority.content',
       showGroupLabel: false,
       showItemCount: false,
       scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       groups: [
         {
           label: 'Standard Series',
+          labelKey: 'case.phases.phase-02.screens.priority.groups.0.label',
           layout: {
             rows: [{ count: 5, scale: 1 }, { count: 5, scale: 1 }],
             rowGap: '20px',
@@ -314,6 +327,7 @@ export const phase02Config = {
         },
         {
           label: 'Special Variants',
+          labelKey: 'case.phases.phase-02.screens.priority.groups.1.label',
           images: [
             { src: `${PHASE02_BASE}/priority/cube-07b.png`, label: 'Variant 07' },
             { src: `${PHASE02_BASE}/priority/cube-08b.png`, label: 'Variant 08' },
@@ -324,7 +338,15 @@ export const phase02Config = {
       ],
       bgAlt: true
     },
-    // Screen 07: Consistency - 方法论内化
+    // Screen 06b: Consistency Transition - 周边过渡条 (Scroll Text Bar)
+    {
+      id: 'consistency-transition',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-02.screens.consistency-transition.content',
+      bgColor: '#000',
+      scrollBehavior: { sticky: false, length: 'short', intensity: 'none' }
+    },
+    // Screen 07: Consistency - 产品周边扩展
     {
       id: 'consistency',
       type: 'consistency-mosaic',
@@ -360,13 +382,21 @@ export const phase02Config = {
       ],
       bgAlt: true
     },
-    // Screen 08: Component Assembly - 组件拼装展示 (sticky)
+    // Screen 08: Component Assembly - 产品速读 (auto-sequence-popup)
     {
       id: 'component-assembly',
-      type: 'component-assembly',
+      type: 'auto-sequence-popup',
       categoryLabel: '产品 / 产品速读',
-      stickyHeight: 200, // 滚动200vh后离开
-      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' }
+      contentKey: 'case.phases.phase-02.screens.component-assembly.content',
+      interval: 300,
+      duration: 0.6,
+      images: [
+        { src: `${PHASE02_BASE}/product-quickread/Frame 90.png`, label: 'Frame 90' },
+        { src: `${PHASE02_BASE}/product-quickread/Frame 91.png`, label: 'Frame 91' },
+        { src: `${PHASE02_BASE}/product-quickread/Frame 92.png`, label: 'Frame 92' },
+        { src: `${PHASE02_BASE}/product-quickread/Frame 93.png`, label: 'Frame 93' },
+        { src: `${PHASE02_BASE}/product-quickread/Frame 94.png`, label: 'Frame 94' }
+      ]
     },
     // Screen 09: Closing - 收束与行动意图
     {
@@ -450,21 +480,49 @@ export const phase03Config = {
       flashlightInitialPosition: { x: 0.32, y: 0.55 }, // 左中（手持设备）
       scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
     },
-    // Screen 02: 概念对比 - 两张近方形图 (1942×1938, 1559×1821)
+    // Screen 02: 概念对比 - 弹出组件展示产品差异
     {
       id: 'concept-comparison',
-      type: 'comparison',
-      categoryLabel: '概念/概念对比',
-      leftHint: 'Concept A',
-      rightHint: 'Concept B',
-      leftLabel: 'Approach A',
-      rightLabel: 'Approach B',
-      images: [
-        { src: `${PHASE03_BASE}/concept/concept-a.png`, label: 'Concept A' },
-        { src: `${PHASE03_BASE}/concept/concept-b.png`, label: 'Concept B' }
+      type: 'auto-sequence-popup',
+      categoryLabel: '概念对比',
+      interval: 400, // 弹出间隔
+      duration: 0.8, // 动画持续时间
+      bgColor: '#000',
+      structuredContent: [
+        {
+          type: 'intro',
+          text: '这一屏用「产品1 vs 产品2」的对照，把沿用的品牌骨架与新增的体验表达拆开说明，让差异一眼可读。'
+        },
+        {
+          type: 'section',
+          title: '不变：延续品牌系统的骨架',
+          items: [
+            '统一 Logo 位置与露出逻辑',
+            '统一斜纹/纹理语言作为系列识别',
+            '统一整体比例与关键结构边界（在同一系统里迭代）'
+          ]
+        },
+        {
+          type: 'section',
+          title: '变化：通过 CMF 与细节做「合理升级」',
+          items: [
+            '两条风格路线对比：理性功能导向的工业科技风 vs 情绪感知导向的未来消费电子风',
+            '边框与金属件：黑色磨砂金属边框 vs 银色镜面金属边框',
+            '背板处理：低饱和度金属漆背板 vs 高饱和度金属漆背板',
+            '配色策略：在同一系统中扩展更丰富、更情绪化的颜色组合'
+          ]
+        }
       ],
-      imageOffsetY: -60, // 图片 Y 轴偏移量，负值向上，正值向下
-      scrollBehavior: { sticky: false, length: 'normal', intensity: 'low' }
+      images: [
+        { src: `${PHASE03_BASE}/concept-popup/6.png`, label: '延续品牌系统的骨架' },
+        { src: `${PHASE03_BASE}/concept-popup/7.png`, label: '通过 CMF 与细节做合理升级' },
+        { src: `${PHASE03_BASE}/concept-popup/8.png`, label: '理性功能导向的工业科技风' },
+        { src: `${PHASE03_BASE}/concept-popup/9.png`, label: '情绪感知导向的未来消费电子风' },
+        { src: `${PHASE03_BASE}/concept-popup/10.png`, label: '边框与金属件对比' },
+        { src: `${PHASE03_BASE}/concept-popup/11.png`, label: '背板处理对比' },
+        { src: `${PHASE03_BASE}/concept-popup/12.png`, label: '配色策略扩展' }
+      ],
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' }
     },
     // Screen 03: 组件展示 - 混合网格 (共8张)
     {
@@ -601,6 +659,7 @@ export const phase03Config = {
       groups: [
         {
           label: 'Series A',
+          labelKey: 'case.phases.phase-03.screens.grouped-carousel.groups.0.label',
           images: [
             { src: `${PHASE03_BASE}/product/groups/01/Frame 1430105703.png`, label: 'A-1' },
             { src: `${PHASE03_BASE}/product/groups/01/Frame 1430105705.png`, label: 'A-2' },
@@ -609,6 +668,7 @@ export const phase03Config = {
         },
         {
           label: 'Series B',
+          labelKey: 'case.phases.phase-03.screens.grouped-carousel.groups.1.label',
           images: [
             { src: `${PHASE03_BASE}/product/groups/02/Frame 1430105695.png`, label: 'B-1' },
             { src: `${PHASE03_BASE}/product/groups/02/Frame 1430105696.png`, label: 'B-2' },
@@ -622,6 +682,7 @@ export const phase03Config = {
         },
         {
           label: 'Series C',
+          labelKey: 'case.phases.phase-03.screens.grouped-carousel.groups.2.label',
           images: [
             { src: `${PHASE03_BASE}/product/groups/03/Frame 1430105704.png`, label: 'C-1' },
             { src: `${PHASE03_BASE}/product/groups/03/Frame 1430105707.png`, label: 'C-2' },
@@ -823,18 +884,21 @@ export const phase03Config = {
       groups: [
         {
           label: '展架 A',
+          labelKey: 'case.phases.phase-03.screens.document-focus.groups.0.label',
           images: [
             { src: `${PHASE03_BASE}/document-focus/focus-01.png`, label: '展架 1' }
           ]
         },
         {
           label: '展架 B',
+          labelKey: 'case.phases.phase-03.screens.document-focus.groups.1.label',
           images: [
             { src: `${PHASE03_BASE}/document-focus/focus-02.png`, label: '展架 2' }
           ]
         },
         {
           label: '展架 C',
+          labelKey: 'case.phases.phase-03.screens.document-focus.groups.2.label',
           images: [
             { src: `${PHASE03_BASE}/document-focus/focus-03.png`, label: '展架 3' }
           ]
@@ -860,7 +924,7 @@ export const phase03Config = {
       paddingTop: 60,
       parallaxIntensity: 1,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
-      // 将18张图片分为3组（每组6张，与 phase-05 结构一致）
+      // 将18张图片分为2组（每组9张）
       groups: [
         {
           label: 'GALLERY A',
@@ -870,23 +934,18 @@ export const phase03Config = {
             { src: `${PHASE03_BASE}/gallery-a/page-03.png`, label: 'Page 3' },
             { src: `${PHASE03_BASE}/gallery-a/page-04.png`, label: 'Page 4' },
             { src: `${PHASE03_BASE}/gallery-a/page-05.png`, label: 'Page 5' },
-            { src: `${PHASE03_BASE}/gallery-a/page-06.png`, label: 'Page 6' }
+            { src: `${PHASE03_BASE}/gallery-a/page-06.png`, label: 'Page 6' },
+            { src: `${PHASE03_BASE}/gallery-a/page-07.png`, label: 'Page 7' },
+            { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' },
+            { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' }
           ]
         },
         {
           label: 'GALLERY B',
           images: [
-            { src: `${PHASE03_BASE}/gallery-a/page-07.png`, label: 'Page 7' },
-            { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' },
-            { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' },
             { src: `${PHASE03_BASE}/gallery-b/poster-01.png`, label: 'Poster 1' },
             { src: `${PHASE03_BASE}/gallery-b/poster-02.png`, label: 'Poster 2' },
-            { src: `${PHASE03_BASE}/gallery-b/poster-03.png`, label: 'Poster 3' }
-          ]
-        },
-        {
-          label: 'GALLERY C',
-          images: [
+            { src: `${PHASE03_BASE}/gallery-b/poster-03.png`, label: 'Poster 3' },
             { src: `${PHASE03_BASE}/gallery-b/poster-04.png`, label: 'Poster 4' },
             { src: `${PHASE03_BASE}/gallery-b/poster-05.png`, label: 'Poster 5' },
             { src: `${PHASE03_BASE}/gallery-b/poster-06.png`, label: 'Poster 6' },
@@ -1374,8 +1433,9 @@ export const phase05Config = {
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
-          label: 'KIYOMI 01',
-          layout: { rows: [{ count: 6, scale: 5.0 }] },  // 2.0 → 3.0 进一步放大
+          label: 'Hero Flavor Poster 核心口味主视觉',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.0.label',
+          layout: { rows: [{ count: 6, scale: 5.0 }], colGap: '0px', mainScale: 1.2 },  // 间距为0 + 图片溢出120%
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 10.png`, label: 'K01-1' },
             { src: `${PHASE05_BASE}/kv/kiyomi/group-01/A4 - 105.png`, label: 'K01-2' },
@@ -1386,7 +1446,8 @@ export const phase05Config = {
           ]
         },
         {
-          label: 'KIYOMI 02',
+          label: 'Flavor System Card 口味系统信息卡',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.1.label',
           layout: { rows: [{ count: 3, scale: 4.5 }] },  // 2.5 → 4.5 大幅放大
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-02/A4 - 20.png`, label: 'K02-1' },
@@ -1395,8 +1456,9 @@ export const phase05Config = {
           ]
         },
         {
-          label: 'KIYOMI 03',
-          layout: { rows: [{ count: 5, scale: 4 }] },  // 2.2 → 3.5 进一步放大
+          label: 'Performance Scene Poster 功能场景海报',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.2.label',
+          layout: { rows: [{ count: 5, scale: 4 }], colGap: '0px', mainScale: 1.2 },
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 5.png`, label: 'K03-1' },
             { src: `${PHASE05_BASE}/kv/kiyomi/group-03/A4 - 84.png`, label: 'K03-2' },
@@ -1406,7 +1468,8 @@ export const phase05Config = {
           ]
         },
         {
-          label: 'KIYOMI 04',
+          label: 'Creative Campaign Visual 创意传播视觉',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.3.label',
           layout: { rows: [{ count: 4, scale: 4.0 }] },  // 2.3 → 4.0 大幅放大
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-04/A4 - 83.png`, label: 'K04-1' },
@@ -1416,8 +1479,9 @@ export const phase05Config = {
           ]
         },
         {
-          label: 'KIYOMI 05',
-          layout: { rows: [{ count: 7, scale: 3 }] },  // 1.8 → 2.8 进一步放大（7张图）
+          label: 'SKU Flavor Card 标准口味识别卡',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.4.label',
+          layout: { rows: [{ count: 7, scale: 3 }], colGap: '0px', mainScale: 1.4 },
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 82.png`, label: 'K05-1' },
             { src: `${PHASE05_BASE}/kv/kiyomi/group-05/A4 - 85.png`, label: 'K05-2' },
@@ -1429,7 +1493,8 @@ export const phase05Config = {
           ]
         },
         {
-          label: 'KIYOMI 06',
+          label: 'Flavor Lineup Poster 全系列展示海报',
+          labelKey: 'case.phases.phase-05.screens.kv-kiyomi.groups.5.label',
           layout: { rows: [{ count: 3, scale: 4.5 }] },  // 2.5 → 4.5 大幅放大
           images: [
             { src: `${PHASE05_BASE}/kv/kiyomi/group-06/A4 - 12.png`, label: 'K06-1' },
@@ -1516,7 +1581,8 @@ export const phase05Config = {
             { src: `${PHASE05_BASE}/kv/motor/A4 - 16.png`, label: 'Motor-2' },
             { src: `${PHASE05_BASE}/kv/motor/A4 - 17.png`, label: 'Motor-3' },
             { src: `${PHASE05_BASE}/kv/motor/A4 - 18.png`, label: 'Motor-4' },
-            { src: `${PHASE05_BASE}/kv/motor/A4 - 95.png`, label: 'Motor-5' }
+            { src: `${PHASE05_BASE}/kv/motor/A4 - 95.png`, label: 'Motor-5' },
+            { src: `${PHASE05_BASE}/kv/motor/A.jpg`, label: 'Motor-6' }
           ]
         }
       ]
@@ -1533,6 +1599,7 @@ export const phase05Config = {
       groups: [
         {
           label: 'M1 SERIES',
+          labelKey: 'case.phases.phase-05.screens.kv-marquee-mix.groups.0.label',
           layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
           images: [
             { src: `${PHASE05_BASE}/kv/m1/A4 - 50.png`, label: 'M1-1' },
@@ -1543,6 +1610,7 @@ export const phase05Config = {
         },
         {
           label: 'R15 SERIES',
+          labelKey: 'case.phases.phase-05.screens.kv-marquee-mix.groups.1.label',
           layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
           images: [
             { src: `${PHASE05_BASE}/kv/r15/A4 - 59.png`, label: 'R15-1' },
@@ -1553,6 +1621,7 @@ export const phase05Config = {
         },
         {
           label: 'E-LIQUID SERIES',
+          labelKey: 'case.phases.phase-05.screens.kv-marquee-mix.groups.2.label',
           layout: { rows: [{ count: 4, scale: 4.0 }] },  // 4张图，放大4倍
           images: [
             { src: `${PHASE05_BASE}/kv/e-liquid/A4 - 7.png`, label: 'Oil-1' },
@@ -1636,6 +1705,7 @@ export const phase05Config = {
       groups: [
         {
           label: 'DISPLAY - HORIZONTAL',
+          labelKey: 'case.phases.phase-05.screens.photo-display.groups.0.label',
           layout: { rows: [{ count: 4, scale: 3.5 }] },  // 4张横图，放大3.5倍
           images: [
             { src: `${PHASE05_BASE}/photo/display-stand/horizontal/img_v3_02pg_4ee36845-3ed4-4742-99b6-139219c18e7g 1.png`, label: 'Display-H1' },
@@ -1646,11 +1716,15 @@ export const phase05Config = {
         },
         {
           label: 'DISPLAY - VERTICAL',
+          labelKey: 'case.phases.phase-05.screens.photo-display.groups.1.label',
           layout: { 
             rows: [
-              { count: 4, scale: 3.5 },  // 上行4张，放大3.5倍
-              { count: 4, scale: 3.5 }   // 下行4张，放大3.5倍
-            ] 
+              { count: 4, scale: 0.9 },  // 上行4张
+              { count: 4, scale: 0.9 }   // 下行4张
+            ],
+            rowGap: '2px',
+            colGap: '2px',
+            mainScale: 0.92
           },
           images: [
             { src: `${PHASE05_BASE}/photo/display-stand/vertical/img_v3_02mu_4331f3f7-2aee-4f67-a9b4-b2cd1de2fa9g 1.png`, label: 'Display-V1' },
@@ -1679,6 +1753,7 @@ export const phase05Config = {
       groups: [
         {
           label: 'STORE - HORIZONTAL',
+          labelKey: 'case.phases.phase-05.screens.photo-store.groups.0.label',
           layout: { 
             rows: [
               { count: 5, scale: 3.2 },  // 上行5张，放大3.2倍
@@ -1701,6 +1776,7 @@ export const phase05Config = {
         },
         {
           label: 'STORE - VERTICAL',
+          labelKey: 'case.phases.phase-05.screens.photo-store.groups.1.label',
           layout: { rows: [{ count: 3, scale: 4.5 }] },  // 3张竖图，放大4.5倍
           images: [
             { src: `${PHASE05_BASE}/photo/store/vertical/img_v3_02pa_1a6cc14c-8b9f-4560-9331-874d4f86d55g 1.png`, label: 'Store-V1' },

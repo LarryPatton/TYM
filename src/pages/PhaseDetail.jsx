@@ -554,7 +554,6 @@ const PhaseDetail = () => {
             screenLabel={screenLabel}
             title={screenData?.title || ''}
             content={screenData?.content || ''}
-            emphasis={screenData?.emphasis || ''}
             images={screenConfig.images || []}
           />
         );
@@ -648,9 +647,6 @@ const PhaseDetail = () => {
             key={screenConfig.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenData?.title || ''}
-            content={screenData?.content || ''}
-            emphasis={screenData?.emphasis || ''}
             images={screenConfig.images || []}
             bgAlt={screenConfig.bgAlt}
           />
@@ -1055,7 +1051,6 @@ const PhaseDetail = () => {
             key={config.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenData?.title || ''}
             content={screenData?.content || ''}
             contentKey={config.contentKey}
             groups={config.groups || []}
@@ -1124,8 +1119,8 @@ const PhaseDetail = () => {
             key={screenConfig.id}
             screenNumber={screenNumber}
             screenLabel={screenLabel}
-            title={screenData?.title || ''}
             content={screenData?.content || ''}
+            contentKey={screenConfig.contentKey}
             emphasis={screenData?.emphasis || ''}
             images={screenConfig.images || []}
             columns={screenConfig.columns || 4}
@@ -1158,6 +1153,7 @@ const PhaseDetail = () => {
             dualMode={screenConfig.dualMode || false} // 双区域模式
             caption={screenData?.content || ''}
             categoryLabel={screenConfig.categoryLabel}
+            structuredContent={screenConfig.structuredContent || null}
           />
         );
 
@@ -1290,6 +1286,7 @@ const PhaseDetail = () => {
             screenLabel={screenLabel}
             title={screenData?.title || ''}
             content={screenData?.content || ''}
+            contentKey={screenConfig.contentKey}
             images={screenConfig.images || []}
             columns={screenConfig.columns || 2}
             bgAlt={screenConfig.bgAlt}

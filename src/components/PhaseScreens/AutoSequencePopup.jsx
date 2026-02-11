@@ -15,7 +15,8 @@ const AutoSequencePopup = ({
   bgColor = '#000',
   dualMode = false,
   caption = '',
-  categoryLabel = '' // 新增: 分类标签
+  categoryLabel = '', // 分类标签
+  structuredContent = null // 新增: 结构化内容（替代 caption）
 }) => {
   // 使用数组存储可见索引，避免 Set 的引用问题
   const [visibleCount, setVisibleCount] = useState(0);
@@ -34,32 +35,21 @@ const AutoSequencePopup = ({
   const parsedContent = useMemo(() => {
     if (!caption) return [];
     
-    // 匹配中文引号、直角引号、英文引号中的内容
-    // 1. 「...」
-    // 2. “...” 或 "..."
-    // 3. ‘...’
     const parts = [];
     let currentIndex = 0;
-    
-    // 正则匹配：匹配「...」或 "..." 或 “...”
-    const regex = /([「"“])([^」"”]+)([」"”])/g;
+    const regex = /([「""])([^」""]+)([」""])/g;
     let match;
     
     while ((match = regex.exec(caption)) !== null) {
-      // 添加普通文本
       if (match.index > currentIndex) {
         const text = caption.slice(currentIndex, match.index);
         [...text].forEach(char => parts.push({ char, highlight: false }));
       }
-      
-      // 添加高亮文本（保留引号）
       const fullMatch = match[0];
       [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
-      
       currentIndex = match.index + match[0].length;
     }
     
-    // 添加剩余文本
     if (currentIndex < caption.length) {
       const text = caption.slice(currentIndex);
       [...text].forEach(char => parts.push({ char, highlight: false }));
@@ -67,6 +57,60 @@ const AutoSequencePopup = ({
     
     return parts;
   }, [caption]);
+
+  // 解析结构化内容为扁平字符数组（用于逐字打字效果）
+  // 每个字符携带结构信息：{ char, role, blockIdx, itemIdx, highlight }
+  const parsedStructured = useMemo(() => {
+    if (!structuredContent || !Array.isArray(structuredContent)) return [];
+
+    const chars = [];
+    const highlightRegex = /([「""])([^」""]+)([」""])/g;
+
+    const pushText = (text, role, blockIdx, itemIdx = -1) => {
+      // 对文本做高亮解析
+      let cursor = 0;
+      let m;
+      highlightRegex.lastIndex = 0;
+      while ((m = highlightRegex.exec(text)) !== null) {
+        if (m.index > cursor) {
+          [...text.slice(cursor, m.index)].forEach(c =>
+            chars.push({ char: c, role, blockIdx, itemIdx, highlight: false })
+          );
+        }
+        [...m[0]].forEach(c =>
+          chars.push({ char: c, role, blockIdx, itemIdx, highlight: true })
+        );
+        cursor = m.index + m[0].length;
+      }
+      if (cursor < text.length) {
+        [...text.slice(cursor)].forEach(c =>
+          chars.push({ char: c, role, blockIdx, itemIdx, highlight: false })
+        );
+      }
+    };
+
+    structuredContent.forEach((block, bIdx) => {
+      if (block.type === 'intro') {
+        pushText(block.text, 'intro', bIdx);
+        // 段落末尾加换行标记
+        chars.push({ char: '\n', role: 'break', blockIdx: bIdx, itemIdx: -1, highlight: false });
+      } else if (block.type === 'section') {
+        pushText(block.title, 'sectionTitle', bIdx);
+        chars.push({ char: '\n', role: 'break', blockIdx: bIdx, itemIdx: -1, highlight: false });
+        if (block.items) {
+          block.items.forEach((item, iIdx) => {
+            pushText(item, 'item', bIdx, iIdx);
+            chars.push({ char: '\n', role: 'break', blockIdx: bIdx, itemIdx: iIdx, highlight: false });
+          });
+        }
+      }
+    });
+
+    return chars;
+  }, [structuredContent]);
+
+  // 结构化逐字计数器（独立于 caption 的 revealedCharCount）
+  const [revealedStructuredCount, setRevealedStructuredCount] = useState(0);
 
   // 重置状态
   useEffect(() => {
@@ -79,6 +123,7 @@ const AutoSequencePopup = ({
     setVisibleCount2(0);
     setTextVisible(false); // 重置文字显示
     setRevealedCharCount(0); // 重置字数
+    setRevealedStructuredCount(0); // 重置结构化字数
     setIsMounted(false);
     
     const mountTimer = setTimeout(() => setIsMounted(true), 100);
@@ -133,6 +178,19 @@ const AutoSequencePopup = ({
               const timer = setTimeout(() => {
                 setRevealedCharCount(prev => Math.max(prev, index + 1));
               }, index * charInterval);
+              animationTimersRef.current.push(timer);
+            });
+          }
+
+          // 结构化内容逐字定时器（间隔更短，避免等太久）
+          const totalStructuredChars = parsedStructured.length;
+          if (totalStructuredChars > 0) {
+            const structuredCharInterval = 15; // 15ms，内容多所以更快
+            
+            parsedStructured.forEach((_, index) => {
+              const timer = setTimeout(() => {
+                setRevealedStructuredCount(prev => Math.max(prev, index + 1));
+              }, index * structuredCharInterval);
               animationTimersRef.current.push(timer);
             });
           }
@@ -248,9 +306,128 @@ const AutoSequencePopup = ({
 
   // 是否有文字需要显示
   const hasCaption = !!caption;
+  const hasStructured = structuredContent && Array.isArray(structuredContent) && structuredContent.length > 0;
+  const hasTextArea = hasCaption || hasStructured;
 
   // 逐字出现的动画效果 - 显著调慢
   const staggerDelay = 0.08; // 从 0.02s 调整为 0.08s，放慢4倍
+
+  // 渲染结构化内容（逐字打字效果）
+  // 把 parsedStructured 按 blockIdx + role 重新分组，然后逐字渲染
+  const renderStructuredContent = () => {
+    if (!hasStructured || parsedStructured.length === 0) return null;
+
+    // 按结构重新分组字符，用于渲染
+    // 构建: { blockIdx -> { role -> { itemIdx -> chars[] } } }
+    const groups = [];
+    let currentGroup = null;
+
+    parsedStructured.forEach((ch, globalIdx) => {
+      if (ch.role === 'break') return; // 跳过换行标记
+
+      const key = `${ch.blockIdx}-${ch.role}-${ch.itemIdx}`;
+      if (!currentGroup || currentGroup.key !== key) {
+        currentGroup = { key, role: ch.role, blockIdx: ch.blockIdx, itemIdx: ch.itemIdx, chars: [] };
+        groups.push(currentGroup);
+      }
+      currentGroup.chars.push({ ...ch, globalIdx });
+    });
+
+    // 渲染单个字符 span
+    const renderChar = (ch, i) => {
+      const isRevealed = ch.globalIdx < revealedStructuredCount;
+      const isHighlight = ch.highlight;
+      return (
+        <span
+          key={i}
+          style={{
+            display: 'inline',
+            color: isHighlight ? '#FF5722' : 'inherit',
+            fontWeight: isHighlight ? 600 : 'inherit',
+            opacity: isRevealed ? 1 : 0,
+            transition: 'opacity 0.25s ease-out',
+            whiteSpace: 'pre-wrap'
+          }}
+        >
+          {ch.char}
+        </span>
+      );
+    };
+
+    // 按组渲染
+    const elements = [];
+    let lastBlockIdx = -1;
+
+    groups.forEach((group, gIdx) => {
+      // 检查该组是否有任何字符已经 revealed（用于整体容器显隐）
+      const firstCharIdx = group.chars[0]?.globalIdx ?? Infinity;
+      const groupStarted = firstCharIdx < revealedStructuredCount;
+
+      if (group.role === 'intro') {
+        elements.push(
+          <p key={`g-${gIdx}`} style={{
+            margin: '0 0 1.2rem 0',
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: 'clamp(0.85rem, 1.6vh, 1.05rem)',
+            lineHeight: 1.6,
+            textAlign: 'left',
+            opacity: groupStarted ? 1 : 0,
+            transform: groupStarted ? 'translateY(0)' : 'translateY(8px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+          }}>
+            {group.chars.map(renderChar)}
+          </p>
+        );
+        lastBlockIdx = group.blockIdx;
+      } else if (group.role === 'sectionTitle') {
+        // 如果是新的 section block，加间距
+        if (group.blockIdx !== lastBlockIdx) {
+          lastBlockIdx = group.blockIdx;
+        }
+        elements.push(
+          <h4 key={`g-${gIdx}`} style={{
+            margin: group.blockIdx > 1 ? '1.2rem 0 0.5rem 0' : '0 0 0.5rem 0',
+            fontSize: 'clamp(0.9rem, 1.8vh, 1.1rem)',
+            fontWeight: 600,
+            color: '#fff',
+            letterSpacing: '0.02em',
+            lineHeight: 1.4,
+            borderLeft: '2px solid rgba(255, 87, 34, 0.8)',
+            paddingLeft: '10px',
+            opacity: groupStarted ? 1 : 0,
+            transform: groupStarted ? 'translateY(0)' : 'translateY(8px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+          }}>
+            {group.chars.map(renderChar)}
+          </h4>
+        );
+      } else if (group.role === 'item') {
+        elements.push(
+          <div key={`g-${gIdx}`} style={{
+            position: 'relative',
+            padding: '3px 0 3px 22px',
+            fontSize: 'clamp(0.75rem, 1.4vh, 0.9rem)',
+            color: 'rgba(255, 255, 255, 0.65)',
+            lineHeight: 1.55,
+            opacity: groupStarted ? 1 : 0,
+            transform: groupStarted ? 'translateX(0)' : 'translateX(-6px)',
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
+          }}>
+            <span style={{
+              position: 'absolute',
+              left: '10px',
+              top: '5px',
+              color: 'rgba(255, 87, 34, 0.5)',
+              fontSize: '0.45rem'
+            }}>●</span>
+            {group.chars.map(renderChar)}
+          </div>
+        );
+      }
+    });
+
+    return <div style={{ width: '100%' }}>{elements}</div>;
+  };
 
   // 单区域模式（桌面端）
   return (
@@ -272,20 +449,21 @@ const AutoSequencePopup = ({
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        {/* 左侧文字区（仅有 caption 时显示） */}
-        {hasCaption && (
+        {/* 左侧文字区 */}
+        {hasTextArea && (
           <div style={{
-            width: '22%', // 调整宽度为22% (接近用户要求的20%，留出一点余量)
+            width: hasStructured ? '26%' : '22%', // 结构化内容需要更多宽度
             height: 'auto',
             minHeight: '40vh',
+            maxHeight: '80vh',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'center', // 内容垂直居中
-            padding: '0 24px 0 48px', // 减少右内边距，保持左侧宽敞
+            padding: hasStructured ? '0 28px 0 40px' : '0 24px 0 48px',
             boxSizing: 'border-box',
             flexShrink: 0,
-            overflow: 'visible',
+            overflow: hasStructured ? 'auto' : 'visible',
             borderLeft: '1px solid rgba(255, 255, 255, 0.15)', // 装饰线
             marginLeft: '4%', // 左侧留白
             opacity: textVisible ? 1 : 0, // 容器整体显隐
@@ -309,52 +487,54 @@ const AutoSequencePopup = ({
               </div>
             )}
             
-            {/* 主标题/内容 */}
-            <p style={{
-              margin: 0,
-              color: '#fff', // 默认白色
-              fontSize: 'clamp(1.2rem, 2.4vh, 2rem)', // 略微调小一点以适应更窄宽度
-              lineHeight: 1.35, // 略微增加行高提升阅读舒适度
-              letterSpacing: '-0.01em',
-              textAlign: 'left', // 左对齐
-              width: '100%',
-              fontWeight: 400 // 保持轻盈
-            }}>
-              {parsedContent.map((item, i) => {
-                const isRevealed = i < revealedCharCount;
-                return (
-                  <span
-                    key={i}
-                    style={{
-                      display: 'inline-block',
-                      color: item.highlight ? '#FF5722' : 'inherit', // 高亮颜色：深橙色
-                      fontWeight: item.highlight ? 600 : 400, // 高亮时加粗
-                      opacity: isRevealed ? 1 : 0,
-                      // 优化动画：起始位置更低，模糊度更高，营造"慢慢浮出来"的感觉
-                      transform: isRevealed ? 'translateY(0) scale(1)' : 'translateY(10px) scale(0.95)',
-                      filter: isRevealed ? 'blur(0)' : 'blur(6px)',
-                      // 这里的 transition 只负责单字的"进入动画"，不再负责延迟 sequence
-                      transition: `
-                        opacity 0.6s ease-out, 
-                        transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                        filter 0.6s ease-out,
-                        color 0.3s ease
-                      `,
-                      whiteSpace: 'pre-wrap' // 保留空格
-                    }}
-                  >
-                    {item.char}
-                  </span>
-                );
-              })}
-            </p>
+            {/* 结构化内容 或 逐字 caption */}
+            {hasStructured ? renderStructuredContent() : (
+              <p style={{
+                margin: 0,
+                color: '#fff', // 默认白色
+                fontSize: 'clamp(1.2rem, 2.4vh, 2rem)', // 略微调小一点以适应更窄宽度
+                lineHeight: 1.35, // 略微增加行高提升阅读舒适度
+                letterSpacing: '-0.01em',
+                textAlign: 'left', // 左对齐
+                width: '100%',
+                fontWeight: 400 // 保持轻盈
+              }}>
+                {parsedContent.map((item, i) => {
+                  const isRevealed = i < revealedCharCount;
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: 'inline-block',
+                        color: item.highlight ? '#FF5722' : 'inherit', // 高亮颜色：深橙色
+                        fontWeight: item.highlight ? 600 : 400, // 高亮时加粗
+                        opacity: isRevealed ? 1 : 0,
+                        // 优化动画：起始位置更低，模糊度更高，营造"慢慢浮出来"的感觉
+                        transform: isRevealed ? 'translateY(0) scale(1)' : 'translateY(10px) scale(0.95)',
+                        filter: isRevealed ? 'blur(0)' : 'blur(6px)',
+                        // 这里的 transition 只负责单字的"进入动画"，不再负责延迟 sequence
+                        transition: `
+                          opacity 0.6s ease-out, 
+                          transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                          filter 0.6s ease-out,
+                          color 0.3s ease
+                        `,
+                        whiteSpace: 'pre-wrap' // 保留空格
+                      }}
+                    >
+                      {item.char}
+                    </span>
+                  );
+                })}
+              </p>
+            )}
           </div>
         )}
 
         {/* 右侧（或居中）图片区 */}
         <div style={{
           position: 'relative',
-          width: hasCaption ? '74%' : '90vw', // 调整宽度填充剩余空间
+          width: hasTextArea ? (hasStructured ? '70%' : '74%') : '90vw',
           height: '80vh',
           display: 'flex',
           alignItems: 'center',

@@ -105,6 +105,7 @@ export const ScrollTextBar = memo(({
       ref={containerRef}
       style={{
         position: 'relative',
+        zIndex: 2,
         background: bgColor,
         padding,
         borderTop: `1px solid ${borderColor}`,

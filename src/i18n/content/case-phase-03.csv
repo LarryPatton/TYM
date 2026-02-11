@@ -2,9 +2,18 @@ key,zh,en
 case.phases.phase-03.title,MOTOR：系列一致性下的版本扩展与体验升级,MOTOR: Version Expansion & Experience Upgrade within Series Consistency
 case.phases.phase-03.desc,"在保持系列识别一致的前提下，建立可扩展的版本迭代框架与体验升级组件。","Establishing an expandable version iteration framework and experience upgrade components while maintaining series recognition consistency."
 case.phases.phase-03.screens.intro.content,"在保持系列识别一致的前提下，建立可扩展的版本迭代框架与体验升级组件。","Establishing an expandable version iteration framework and experience upgrade components while maintaining series recognition consistency."
-case.phases.phase-03.screens.concept-comparison.title,对照是判断差异最直接的方式,Comparison is the most direct way to judge differences
-case.phases.phase-03.screens.concept-comparison.content,"两款产品在视觉结构、比例与核心语言上保持一致，但在细节层面根据产品特性进行调整。","The two products maintain consistency in visual structure, proportion, and core language, while adjusting details according to product characteristics."
-case.phases.phase-03.screens.concept-comparison.emphasis,差异化是被系统允许的变化,Differentiation is change permitted by the system
+case.phases.phase-03.screens.concept-comparison.title,产品差异对比：骨架延续与体验升级,Product Comparison: Framework Continuity & Experience Upgrade
+case.phases.phase-03.screens.concept-comparison.content,"用「产品1 vs 产品2」的对照，把沿用的品牌骨架与新增的体验表达拆开说明，让差异一眼可读。","Using 'Product 1 vs Product 2' comparison to clearly separate inherited brand framework from new experience expressions, making differences instantly readable."
+case.phases.phase-03.screens.concept-comparison.emphasis,不变与变化的平衡艺术,The art of balancing continuity and change
+case.phases.phase-03.screens.concept-comparison.subtitle.unchanged,不变：延续品牌系统的骨架,Unchanged: Continuing the brand system framework
+case.phases.phase-03.screens.concept-comparison.subtitle.changed,变化：通过 CMF 与细节做「合理升级」,Changed: 'Reasonable upgrades' through CMF and details
+case.phases.phase-03.screens.concept-comparison.detail.logo,统一 Logo 位置与露出逻辑,Unified logo positioning and display logic
+case.phases.phase-03.screens.concept-comparison.detail.texture,统一斜纹/纹理语言作为系列识别,Unified diagonal/texture language for series identification
+case.phases.phase-03.screens.concept-comparison.detail.structure,统一整体比例与关键结构边界（在同一系统里迭代）,Unified overall proportions and key structural boundaries (iterating within the same system)
+case.phases.phase-03.screens.concept-comparison.detail.styles,两条风格路线对比：理性功能导向的工业科技风 vs 情绪感知导向的未来消费电子风,Two style route comparison: rational function-oriented industrial tech style vs emotional perception-oriented future consumer electronics style
+case.phases.phase-03.screens.concept-comparison.detail.borders,边框与金属件：黑色磨砂金属边框 vs 银色镜面金属边框,Borders and metal components: black matte metal frame vs silver mirror metal frame
+case.phases.phase-03.screens.concept-comparison.detail.backplate,背板处理：低饱和度金属漆背板 vs 高饱和度金属漆背板,Backplate treatment: low saturation metallic paint vs high saturation metallic paint
+case.phases.phase-03.screens.concept-comparison.detail.colors,配色策略：在同一系统中扩展更丰富、更情绪化的颜色组合,Color strategy: expanding richer and more emotional color combinations within the same system
 case.phases.phase-03.screens.component-showcase.title,核心组件保持一致的设计语言,Core components maintain consistent design language
 case.phases.phase-03.screens.component-showcase.content,"从主体结构到细节配件，设计遵循同一套视觉逻辑与比例原则。","From main structure to detail components, design follows the same visual logic and proportion principles."
 case.phases.phase-03.screens.component-showcase.emphasis,一致性从组件层面开始建立,Consistency starts from the component level
@@ -34,5 +43,12 @@ case.phases.phase-03.screens.gallery-upper.emphasis,规范是一致性的保障,
 case.phases.phase-03.screens.gallery-lower.title,品牌延展与应用示例,Brand extension and application examples
 case.phases.phase-03.screens.gallery-lower.content,"从产品到传播物料，品牌视觉在各类媒介中保持统一。","From products to communication materials, brand visuals maintain consistency across various media."
 case.phases.phase-03.screens.gallery-lower.emphasis,"延展不是复制，是系统的自然生长","Extension is not copying, it's the natural growth of the system"
-case.phases.phase-03.screens.closing.title,Product B 验证了品牌系统的可持续性,Product B validates the sustainability of the brand system
-case.phases.phase-03.screens.closing.content,这一阶段的完成标志着品牌进入可复制扩展的成熟阶段。,The completion of this phase marks the brand entering a mature stage of replicable expansion.
+case.phases.phase-03.screens.closing.title,在「版本扩展与体验升级」目标下保留核心识别要素，建立可替换的风格层与功能层,Retaining core identity elements under the goal of 「version expansion and experience upgrade」, establishing replaceable style and function layers
+case.phases.phase-03.screens.closing.content,并用「组件化拆解」把升级落到信息展示 / 模式差异 / 社群与应用路径。,Implementing upgrades through 「componentized breakdown」 into information display / mode differentiation / community and application paths.
+case.phases.phase-03.screens.closing.summary,在「版本扩展与体验升级」目标下保留核心识别要素，建立可替换的风格层与功能层，并用「组件化拆解」把升级落到信息展示 / 模式差异 / 社群与应用路径。,"Retaining core identity elements under the goal of 「version expansion and experience upgrade」, establishing replaceable style and function layers, implementing upgrades through 「componentized breakdown」 into information display / mode differentiation / community and application paths."
+case.phases.phase-03.screens.grouped-carousel.groups.0.label,皮质方包,Leather Pouch
+case.phases.phase-03.screens.grouped-carousel.groups.1.label,硅胶软壳,Silicone Soft Case
+case.phases.phase-03.screens.grouped-carousel.groups.2.label,软面口袋,Fabric Pocket
+case.phases.phase-03.screens.document-focus.groups.0.label,瓦楞纸展架,Corrugated Display
+case.phases.phase-03.screens.document-focus.groups.1.label,透明亚克力展架,Clear Acrylic Display
+case.phases.phase-03.screens.document-focus.groups.2.label,炫彩亚克力展架,Iridescent Acrylic Display

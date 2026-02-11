@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SECTION_PADDING, MAX_WIDTH_WIDE } from './Common';
 import { useLenisScrollProgress } from '../../hooks/useLenisScroll';
 
@@ -35,14 +36,156 @@ function interpolate(value, inputRange, outputRange) {
 export const FactoryGalleryScreen = ({
   screenNumber,
   screenLabel,
-  title,
   content,
+  contentKey,
   emphasis,
   images = [],
   columns = 4,
   bgAlt = false
 }) => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
+  const captionRef = useRef(null);
+
+  // 文案显示状态（打字机动画）
+  const [textVisible, setTextVisible] = useState(false);
+  const [revealedCharCount, setRevealedCharCount] = useState(0);
+  const textTimersRef = useRef([]);
+  const hasTextTriggeredRef = useRef(false);
+
+  // 获取文案内容（优先使用 contentKey，其次使用 content）
+  const caption = contentKey ? t(contentKey) : (content || '');
+
+  // 解析文案，识别高亮文本（「」内的内容 + 特定类型名词）
+  const parsedContent = useMemo(() => {
+    if (!caption) return [];
+    const highlightKeywords = ['KV', 'CMF', 'SKU', 'VI', 'UI', 'UX'];
+    const parts = [];
+    let currentIndex = 0;
+    const keywordsPattern = highlightKeywords.map(kw => `\\b${kw}\\b`).join('|');
+    const regex = new RegExp(`([「""])([^」""]+)([」""])|(${keywordsPattern})`, 'g');
+    let match;
+    while ((match = regex.exec(caption)) !== null) {
+      if (match.index > currentIndex) {
+        const text = caption.slice(currentIndex, match.index);
+        [...text].forEach(char => parts.push({ char, highlight: false }));
+      }
+      const fullMatch = match[0];
+      [...fullMatch].forEach(char => parts.push({ char, highlight: true }));
+      currentIndex = match.index + match[0].length;
+    }
+    if (currentIndex < caption.length) {
+      const text = caption.slice(currentIndex);
+      [...text].forEach(char => parts.push({ char, highlight: false }));
+    }
+    return parts;
+  }, [caption]);
+
+  // 文案逐字显示的 IntersectionObserver
+  useEffect(() => {
+    if (!caption || parsedContent.length === 0) return;
+    const captionEl = captionRef.current;
+    if (!captionEl) {
+      const retryTimer = setTimeout(() => {
+        const el = captionRef.current;
+        if (el && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      }, 500);
+      return () => clearTimeout(retryTimer);
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTextTriggeredRef.current) {
+          hasTextTriggeredRef.current = true;
+          setTextVisible(true);
+          const charInterval = 30;
+          parsedContent.forEach((_, index) => {
+            const timer = setTimeout(() => {
+              setRevealedCharCount(prev => Math.max(prev, index + 1));
+            }, index * charInterval);
+            textTimersRef.current.push(timer);
+          });
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(captionEl);
+    return () => {
+      observer.unobserve(captionEl);
+      textTimersRef.current.forEach(timer => clearTimeout(timer));
+    };
+  }, [caption, parsedContent.length]);
+
+  // caption 模式判定
+  const hasCaption = !!caption && parsedContent.length > 0;
+
+  const renderCaption = () => {
+    if (!hasCaption) return null;
+    const commaIndex = caption.indexOf('，');
+    const lines = commaIndex > -1
+      ? [caption.slice(0, commaIndex + 1), caption.slice(commaIndex + 1)]
+      : [caption];
+    let charOffset = 0;
+    return (
+      <div ref={captionRef} style={{
+        width: '100%',
+        maxWidth: 'var(--caption-max-width, 1100px)',
+        padding: 'var(--caption-padding, 0 32px 40px)',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        margin: '0 auto var(--space-3xl) auto',
+        opacity: textVisible ? 1 : 0,
+        transition: 'opacity 0.3s ease-out',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        {lines.map((line, lineIdx) => {
+          const lineStart = charOffset;
+          charOffset += line.length;
+          const lineContent = parsedContent.slice(lineStart, charOffset);
+          return (
+            <p key={lineIdx} style={{
+              margin: lineIdx === 0 ? '0 0 8px 0' : 0,
+              color: 'var(--caption-color, #fff)',
+              fontSize: 'var(--caption-font-size)',
+              lineHeight: 'var(--caption-line-height, 1.7)',
+              letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
+              fontWeight: 'var(--caption-font-weight, 300)'
+            }}>
+              {lineContent.map((item, i) => {
+                const globalIndex = lineStart + i;
+                const isRevealed = globalIndex < revealedCharCount;
+                return (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'inline',
+                      color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
+                      fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
+                      opacity: isRevealed ? 1 : 0,
+                      transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
+                      whiteSpace: 'pre-wrap'
+                    }}
+                  >
+                    {item.char}
+                  </span>
+                );
+              })}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
   
   // Lenis 驱动的滚动进度
   const { progress } = useLenisScrollProgress(containerRef, ["start end", "end start"]);
@@ -89,46 +232,8 @@ export const FactoryGalleryScreen = ({
         position: 'relative',
         zIndex: 10
       }}>
-        <div
-          style={{
-            marginBottom: 'var(--space-3xl)',
-            textAlign: 'center'
-          }}
-        >
-          <div style={{
-            fontSize: 'var(--text-xs)',
-            color: 'rgba(255,255,255,0.5)',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: 'var(--space-lg)'
-          }}>
-            {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
-          </div>
-          
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '400',
-            marginBottom: 'var(--space-xl)',
-            lineHeight: 1.2,
-            maxWidth: '900px',
-            margin: '0 auto var(--space-xl)'
-          }}>
-            {title}
-          </h2>
-          
-          {content && (
-            <p style={{
-              color: 'rgba(255,255,255,0.7)',
-              fontSize: 'var(--text-body-lg)',
-              lineHeight: 1.6,
-              maxWidth: '600px',
-              margin: '0 auto'
-            }}>
-              {content}
-            </p>
-          )}
-        </div>
+        {/* caption 模式：打字机动画 + 高亮 + --caption-* token */}
+        {renderCaption()}
       </div>
 
       {/* 瀑布流画廊 */}
@@ -186,29 +291,6 @@ export const FactoryGalleryScreen = ({
                         transition: 'transform 0.3s ease'
                       }} 
                     />
-                    
-                    {/* 标签（hover 通过 CSS :hover 替代） */}
-                    <div
-                      className="factory-label-overlay"
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        padding: 'var(--space-lg) var(--space-md)',
-                        background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
-                        opacity: 0,
-                        transition: 'opacity 0.3s ease'
-                      }}
-                    >
-                      <span style={{
-                        fontSize: 'var(--text-sm)',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontWeight: '500'
-                      }}>
-                        {image.label || `#${image.globalIndex + 1}`}
-                      </span>
-                    </div>
                   </div>
                 );
               })}

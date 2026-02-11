@@ -354,8 +354,6 @@ MobileGridItem.displayName = 'MobileGridItem';
  * 桌面端网格项
  */
 const DesktopGridItem = memo(({ image, isCenter, scale = 1 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
   if (!image) return null;
   
   return (
@@ -367,11 +365,7 @@ const DesktopGridItem = memo(({ image, isCenter, scale = 1 }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-        transition: 'transform 0.4s ease'
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <img
         src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
@@ -388,23 +382,6 @@ const DesktopGridItem = memo(({ image, isCenter, scale = 1 }) => {
             : 'drop-shadow(0 12px 18px rgba(0,0,0,0.3))',
         }}
       />
-      <div style={{
-        position: 'absolute',
-        bottom: '10px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: 'rgba(255,255,255,0.6)',
-        fontSize: '0.75rem',
-        textTransform: 'uppercase',
-        letterSpacing: '1px',
-        background: 'rgba(0,0,0,0.6)', 
-        padding: '2px 8px',
-        borderRadius: '10px',
-        opacity: isHovered ? 1 : 0,
-        transition: 'opacity 0.3s'
-      }}>
-        {image.label}
-      </div>
     </div>
   );
 });

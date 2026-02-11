@@ -76,9 +76,6 @@ const generateGridPositions = (count, startY = 35) => {
 export const ConsistencyMosaicScreen = ({
   screenNumber,
   screenLabel,
-  title,
-  content,
-  emphasis,
   images = [],
   lanyardCount = 5, // 挂绳数量，默认5张
   bgAlt = false
@@ -109,9 +106,6 @@ export const ConsistencyMosaicScreen = ({
   const productY2 = useTransform(scrollYProgress, [0, 1], [80, -50]);
   const productY3 = useTransform(scrollYProgress, [0, 1], [30, -100]);
 
-  // 强调文字动画
-  const emphasisOpacity = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
-  const emphasisScale = useTransform(scrollYProgress, [0.75, 0.9], [0.95, 1]);
 
   // 根据产品数量动态计算区域高度
   const productCount = products.length;
@@ -171,28 +165,6 @@ export const ConsistencyMosaicScreen = ({
           }}>
             {screenNumber && screenLabel ? `${screenNumber} / ${screenLabel}` : (screenNumber || screenLabel)}
           </div>
-          
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '400',
-            marginBottom: 'var(--space-xl)',
-            lineHeight: 1.2,
-            maxWidth: '900px',
-            margin: '0 auto var(--space-xl)'
-          }}>
-            {title}
-          </h2>
-          
-          <p style={{
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: 'var(--text-body-lg)',
-            lineHeight: 1.6,
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            {content}
-          </p>
         </motion.div>
       </div>
 
@@ -296,41 +268,6 @@ export const ConsistencyMosaicScreen = ({
 
       </div>
 
-      {/* 强调信息 - 位于底部 */}
-      {emphasis && (
-        <motion.div
-          style={{
-            position: 'absolute',
-            bottom: '8%',
-            left: 0,
-            right: 0,
-            opacity: emphasisOpacity,
-            scale: emphasisScale,
-            textAlign: 'center',
-            zIndex: 30
-          }}
-        >
-          <div style={{
-            display: 'inline-block',
-            padding: 'var(--space-xl) var(--space-3xl)',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03))',
-            borderRadius: 'var(--radius-xl)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            backdropFilter: 'blur(12px)'
-          }}>
-            <span style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-              fontWeight: '400',
-              color: '#fff',
-              letterSpacing: '2px'
-            }}>
-              {emphasis}
-            </span>
-          </div>
-        </motion.div>
-      )}
     </section>
   );
 };

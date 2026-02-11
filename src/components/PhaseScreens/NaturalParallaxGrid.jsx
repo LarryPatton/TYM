@@ -483,7 +483,6 @@ ParallaxGridGroup.displayName = 'ParallaxGridGroup';
  */
 const GridItem = memo(({ image, aspectRatio = '3 / 4', compactMode = false }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const itemRef = useRef(null);
   
   useEffect(() => {
@@ -515,47 +514,24 @@ const GridItem = memo(({ image, aspectRatio = '3 / 4', compactMode = false }) =>
         justifyContent: 'center',
         overflow: 'hidden',
         borderRadius: 'var(--radius-image, 12px)',
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? (isHovered ? 'scale(1.03)' : 'scale(1)') : 'scale(0.9)',
-        transition: 'opacity 0.5s ease, transform 0.3s ease'
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+      transition: 'opacity 0.5s ease, transform 0.3s ease'
+    }}
+  >
+    <img
+      src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
+      alt={image.label || 'Grid Image'}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+        borderRadius: 'var(--radius-image, 12px)',
+        filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img
-        src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`}
-        alt={image.label || 'Grid Image'}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-          borderRadius: 'var(--radius-image, 12px)',
-          filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'
-        }}
-      />
-      {image.label && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            color: 'rgba(255,255,255,0.8)',
-            fontSize: '0.75rem',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            background: 'rgba(0,0,0,0.7)',
-            padding: '4px 12px',
-            borderRadius: '12px',
-            opacity: isHovered ? 1 : 0,
-            transition: 'opacity 0.3s'
-          }}
-        >
-          {image.label}
-        </div>
-      )}
-    </div>
+    />
+  </div>
   );
 });
 

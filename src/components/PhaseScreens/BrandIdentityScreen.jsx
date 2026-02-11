@@ -57,7 +57,6 @@ export const BrandIdentityContent = ({ style, progress }) => {
       <div style={{ 
         color: brandColor, 
         fontSize: '0.9rem', 
-        textTransform: 'uppercase', 
         letterSpacing: '2px', 
         marginBottom: '12px',
         fontWeight: 'bold'
@@ -65,9 +64,8 @@ export const BrandIdentityContent = ({ style, progress }) => {
         {title}
       </div>
       {items.map((item, i) => (
-        <div key={i} style={{ color: '#fff', fontSize: '1.1rem', opacity: 0.9, display: 'flex', gap: '8px', alignItems: 'baseline' }}>
-          <span>{item.zh}</span>
-          <span style={{ fontSize: '0.7em', opacity: 0.5, textTransform: 'uppercase' }}>{item.en}</span>
+        <div key={i} style={{ color: '#fff', fontSize: '1.1rem', opacity: 0.9 }}>
+          {item}
         </div>
       ))}
     </div>
@@ -95,16 +93,15 @@ export const BrandIdentityContent = ({ style, progress }) => {
           margin: 0,
           color: '#fff'
         }}>
-          BRAND IDENTITY
+          品牌核心架构
         </h2>
         <p style={{ 
           color: brandColor, 
           letterSpacing: '2px', 
           marginTop: '10px',
           fontSize: '0.9rem',
-          textTransform: 'uppercase'
         }}>
-          Once again, who are we?
+          再次追问，我们是谁？
         </p>
       </div>
 
@@ -182,13 +179,9 @@ export const BrandIdentityContent = ({ style, progress }) => {
           }}
         >
           <TextGroup 
-            title="Core Values" 
+            title="核心价值" 
             align="flex-end"
-            items={[
-              { zh: '自由', en: 'Freedom' },
-              { zh: '热爱', en: 'Passion' },
-              { zh: '真诚', en: 'Truthful' }
-            ]} 
+            items={['自由', '热爱', '真诚']} 
           />
         </motion.div>
 
@@ -205,13 +198,9 @@ export const BrandIdentityContent = ({ style, progress }) => {
           }}
         >
           <TextGroup 
-            title="Tonality" 
+            title="品牌调性" 
             align="flex-start"
-            items={[
-              { zh: '友好', en: 'Friendly' },
-              { zh: '好玩', en: 'Playful' },
-              { zh: '大胆', en: 'Bold' }
-            ]} 
+            items={['友好', '好玩', '大胆']} 
           />
         </motion.div>
 
@@ -233,17 +222,16 @@ export const BrandIdentityContent = ({ style, progress }) => {
           <div style={{ 
             color: brandColor, 
             fontSize: '0.9rem', 
-            textTransform: 'uppercase', 
             letterSpacing: '2px', 
             marginBottom: '12px',
             fontWeight: 'bold'
           }}>
-            Brand Personality
+            品牌人格
           </div>
           <div style={{ display: 'flex', gap: '40px' }}>
-            {['情人 / Lover', '探险家 / Explorer', '创造者 / Creator'].map((item, i) => (
+            {['情人', '探险家', '创造者'].map((item, i) => (
               <div key={i} style={{ color: '#fff', fontSize: '1.1rem', opacity: 0.9 }}>
-                {item.split(' / ')[0]} <span style={{ fontSize: '0.7em', opacity: 0.5, textTransform: 'uppercase' }}>{item.split(' / ')[1]}</span>
+                {item}
               </div>
             ))}
           </div>

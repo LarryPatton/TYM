@@ -234,50 +234,47 @@ const DesktopPopupSequence = ({
           </motion.div>
         )}
 
-        {/* 顶部 caption 文字区 */}
+        {/* 顶部 caption 文字区 — 与 ScrollTextBar 同款样式 */}
         {hasCaption && (
           <div style={{
-            width: '90vw',
-            maxWidth: '1200px',
-            padding: '0 24px',
-            marginTop: '70px',
-            marginBottom: '16px',
+            width: '100%',
+            padding: '40px 24px',
             flexShrink: 0,
             zIndex: 10
           }}>
-            <p style={{
-              margin: 0,
-              color: '#fff',
-              fontSize: 'clamp(0.95rem, 1.6vh, 1.25rem)',
-              lineHeight: 1.5,
-              letterSpacing: '0.01em',
+            <div style={{
+              maxWidth: '900px',
+              margin: '0 auto',
               textAlign: 'center'
             }}>
-              {parsedContent.map((item, i) => {
-                const isRevealed = i < revealedCharCount;
-                return (
-                  <span
-                    key={i}
-                    style={{
-                      display: 'inline-block',
-                      color: item.highlight ? '#FF5722' : 'inherit',
-                      fontWeight: item.highlight ? 600 : 400,
-                      opacity: isRevealed ? 1 : 0,
-                      transform: isRevealed ? 'translateY(0)' : 'translateY(8px)',
-                      filter: isRevealed ? 'blur(0)' : 'blur(4px)',
-                      transition: `
-                        opacity 0.5s ease-out,
-                        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        filter 0.5s ease-out
-                      `,
-                      whiteSpace: 'pre-wrap'
-                    }}
-                  >
-                    {item.char}
-                  </span>
-                );
-              })}
-            </p>
+              <p style={{
+                margin: 0,
+                color: 'var(--caption-color, #fff)',
+                fontSize: 'var(--caption-font-size, clamp(1.1rem, 2.2vw, 1.5rem))',
+                fontWeight: 'var(--caption-font-weight, 300)',
+                letterSpacing: 'var(--caption-letter-spacing, 0.04em)',
+                lineHeight: 'var(--caption-line-height, 1.7)'
+              }}>
+                {parsedContent.map((item, i) => {
+                  const isRevealed = i < revealedCharCount;
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: 'inline',
+                        color: item.highlight ? 'var(--caption-color-highlight, #FF5722)' : 'inherit',
+                        fontWeight: item.highlight ? 'var(--caption-font-weight-highlight, 600)' : 'var(--caption-font-weight, 300)',
+                        opacity: isRevealed ? 1 : 0,
+                        transition: 'var(--caption-fade-transition, opacity 0.4s ease-out, color 0.3s ease)',
+                        whiteSpace: 'pre-wrap'
+                      }}
+                    >
+                      {item.char}
+                    </span>
+                  );
+                })}
+              </p>
+            </div>
           </div>
         )}
 

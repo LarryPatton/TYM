@@ -174,21 +174,6 @@ const BoundariesScreen = ({
                     onLoad={() => handleImageLoad(index)}
                     onError={() => handleImageError(index, imageSrc)}
                   />
-                  {/* 底部标签 */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: '20px',
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                    color: 'rgba(255,255,255,0.9)',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    letterSpacing: '0.5px'
-                  }}>
-                    {image.label}
-                  </div>
                 </div>
               </motion.div>
             );

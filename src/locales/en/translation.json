@@ -365,8 +365,9 @@
             "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
           },
           "phase-closing": {
-            "title": "Phase Closing",
-            "content": "Phase one complete. Brand visual foundation established."
+            "title": "Establishing executable specifications for logo / typography / color / layout / graphic grammar around 「VI Assets & Rules」",
+            "content": "Supporting scalable delivery across multiple products",
+            "summary": "Establishing executable specifications for logo / typography / color / layout / graphic grammar around 「VI Assets & Rules」, supporting scalable delivery across multiple products, markets, and touchpoints with 「Unified Standards」."
           }
         }
       },
@@ -389,11 +390,10 @@
           },
           "cmf-main": {
             "title": "CMF Main Exploration",
-            "content": "Product main CMF color material finish exploration."
+            "content": "Using a 'Color Matrix + Texture Comparison' CMF concept map to clarify the character and hierarchy of different color SKUs at a glance, helping the team quickly converge on direction and advance sampling and mass-production."
           },
           "cmf-color": {
-            "title": "CMF Color Sequence",
-            "content": "Product color sequence systematic showcase."
+            "content": "Using modular follow-ups of 'Sample Photos + Process/Color Issue Checklist + Adjustment Conclusions' to push CMF from concept to mass-producible finish, tracking progress, controlling quality and accelerating iteration."
           },
           "cmf": {
             "title": "CMF is the key intermediary connecting brand long-term planning with product implementation",
@@ -401,12 +401,10 @@
             "emphasis": "Aesthetics is not the goal, but the result under constraints."
           },
           "factory-keycaps": {
-            "title": "Factory Keycap Manufacturing",
-            "content": "Keycap manufacturing process showcase."
+            "content": "Using a full-process follow-up of 'Accessory CMF Sample Photography + Plating/Spray Color Calibration + Assembly & Durability Verification' to push accessories from exploratory concepts to mass-producible stable versions, ensuring consistency with the main device series and meeting delivery standards."
           },
           "factory-backplate": {
-            "title": "Factory Backplate Manufacturing",
-            "content": "Backplate manufacturing process showcase."
+            "content": "Using modular follow-ups of 'Factory Backplate Manufacturing Process Documentation + Key Process Inspection Points + Color & Texture Calibration' to translate design intent onto the production floor with stable reproducibility, ensuring consistency and controllability across every production batch."
           },
           "manufacturing": {
             "title": "Design decisions must be continuously validated in real manufacturing conditions",
@@ -414,32 +412,36 @@
             "emphasis": "Design is not completed in drawings."
           },
           "priority": {
-            "title": "Different markets require different priority judgments",
-            "content": "The first batch of solutions is not 'the best looking', but 'the most suitable for market entry'.",
-            "emphasis": "Design is a selection mechanism."
+            "content": "Using a modular system of 'Super Symbol (graphic / stripe / layout skeleton) reuse on packaging + flavor color differentiation' to make multi-flavor SKUs instantly recognizable and batch-scalable, while simultaneously reducing packaging iteration and new product launch costs.",
+            "emphasis": "Design is a selection mechanism.",
+            "groups": [
+              {
+                "label": "Pod Packaging"
+              },
+              {
+                "label": "Device Packaging"
+              }
+            ]
           },
           "packaging": {
             "title": "Packaging is the user's first interface with the brand",
             "content": "It not only carries information, but also affects users' expectations of product value.",
             "emphasis": "The first touchpoint determines the first judgment."
           },
-          "consistency": {
-            "title": "Consistency is the prerequisite for a brand to be remembered",
-            "content": "Regardless of how usage scenarios change, recognition should remain stable.",
-            "emphasis": "Recognition is not decoration, but a system result."
+          "consistency-transition": {
+            "content": "Using a peripheral modular design of 'Lanyard Pattern System + Accessory Combination Rules + Material & Craft Implementation' to extend Product 1's brand identity into daily wear and social scenarios, forming an accessory system that is mass-producible, cross-sellable, and continuously expandable."
           },
           "component-assembly": {
-            "title": "Component Assembly Display",
-            "content": "Product component assembly process showcase."
+            "content": "Using a modular 'One-Page Product Info Wall (structure / specs / selling points / compatibility / usage) + Iconized Modules' approach to package Product 1's core value and sales scripts in one go, supporting channel training, client communication, and rapid reuse in retail displays."
           },
           "product-final": {
             "title": "Product Final Shot",
             "content": "Product final rendering showcase."
           },
           "closing": {
-            "title": "This product validates the feasibility of the entire design system",
-            "content": "It provides a reusable reference model for subsequent products and design decisions.",
-            "emphasis": "This is not a case, but a sample."
+            "title": "Running through the chain 「from strategy to production line」: defining audience and scenarios",
+            "content": "Ensuring consistent expression and sustainable expansion across all touchpoints through 「CMF × Packaging × Material Synergy」.",
+            "summary": "Running through the chain 「from strategy to production line」: defining audience and scenarios, solidifying product language and key specifications, ensuring consistent expression and sustainable expansion across all touchpoints through 「CMF × Packaging × Material Synergy」."
           }
         }
       },
@@ -451,9 +453,22 @@
             "content": "Establishing an expandable version iteration framework and experience upgrade components while maintaining series recognition consistency."
           },
           "concept-comparison": {
-            "title": "Comparison is the most direct way to judge differences",
-            "content": "The two products maintain consistency in visual structure, proportion, and core language, while adjusting details according to product characteristics.",
-            "emphasis": "Differentiation is change permitted by the system"
+            "title": "Product Comparison: Framework Continuity & Experience Upgrade",
+            "content": "Using 'Product 1 vs Product 2' comparison to clearly separate inherited brand framework from new experience expressions, making differences instantly readable.",
+            "emphasis": "The art of balancing continuity and change",
+            "subtitle": {
+              "unchanged": "Unchanged: Continuing the brand system framework",
+              "changed": "Changed: 'Reasonable upgrades' through CMF and details"
+            },
+            "detail": {
+              "logo": "Unified logo positioning and display logic",
+              "texture": "Unified diagonal/texture language for series identification",
+              "structure": "Unified overall proportions and key structural boundaries (iterating within the same system)",
+              "styles": "Two style route comparison: rational function-oriented industrial tech style vs emotional perception-oriented future consumer electronics style",
+              "borders": "Borders and metal components: black matte metal frame vs silver mirror metal frame",
+              "backplate": "Backplate treatment: low saturation metallic paint vs high saturation metallic paint",
+              "colors": "Color strategy: expanding richer and more emotional color combinations within the same system"
+            }
           },
           "component-showcase": {
             "title": "Core components maintain consistent design language",
@@ -474,7 +489,18 @@
           },
           "grouped-carousel": {
             "title": "Product Group Display",
-            "content": "Using a modular exploration of「accessory case CMF divergence + texture material library + pendant matching」to transform protection and portability needs into a mass-producible, co-brandable, campaign-ready accessory system, extending daily product use and brand expression."
+            "content": "Using a modular exploration of「accessory case CMF divergence + texture material library + pendant matching」to transform protection and portability needs into a mass-producible, co-brandable, campaign-ready accessory system, extending daily product use and brand expression.",
+            "groups": [
+              {
+                "label": "Leather Pouch"
+              },
+              {
+                "label": "Silicone Soft Case"
+              },
+              {
+                "label": "Fabric Pocket"
+              }
+            ]
           },
           "cards-marquee": {
             "title": "Cards Marquee",
@@ -498,7 +524,18 @@
           },
           "document-focus": {
             "title": "Document Focus",
-            "content": "Using a terminal design of「display rack structure + information layering + flavor display logic」to create a replicable retail standard for product display, ensuring consistent brand presentation, clear information, and smooth customer guidance across different stores and channels."
+            "content": "Using a terminal design of「display rack structure + information layering + flavor display logic」to create a replicable retail standard for product display, ensuring consistent brand presentation, clear information, and smooth customer guidance across different stores and channels.",
+            "groups": [
+              {
+                "label": "Corrugated Display"
+              },
+              {
+                "label": "Clear Acrylic Display"
+              },
+              {
+                "label": "Iridescent Acrylic Display"
+              }
+            ]
           },
           "gallery-upper": {
             "title": "Systematic documentation of design specifications",
@@ -511,8 +548,9 @@
             "emphasis": "Extension is not copying, it's the natural growth of the system"
           },
           "closing": {
-            "title": "Product B validates the sustainability of the brand system",
-            "content": "The completion of this phase marks the brand entering a mature stage of replicable expansion."
+            "title": "Retaining core identity elements under the goal of 「version expansion and experience upgrade」",
+            "content": "Implementing upgrades through 「componentized breakdown」 into information display / mode differentiation / community and application paths.",
+            "summary": "Retaining core identity elements under the goal of 「version expansion and experience upgrade」, establishing replaceable style and function layers, implementing upgrades through 「componentized breakdown」 into information display / mode differentiation / community and application paths."
           }
         }
       },
@@ -571,8 +609,9 @@
             "content": "Using a design strategy of「packaging structure information hierarchy + key selling point identification」to present product core selling points and usage information according to visual priority, ensuring efficient information communication on retail shelves and e-commerce detail pages."
           },
           "closing": {
-            "title": "As the system matures, design begins to truly integrate into the brand's daily operations",
-            "content": "The completion of this phase also provides a stable foundation for subsequent brand development."
+            "title": "Using 「KV Kit System」 to establish layout rules and information hierarchy",
+            "content": "Supporting high-frequency deployment and channel collaboration through 「cross-market rapid adaptation」.",
+            "summary": "Using 「KV Kit System」 to establish layout rules and information hierarchy, separating variable fields and asset modules, supporting high-frequency deployment and channel collaboration through 「cross-market rapid adaptation」."
           }
         }
       },
@@ -585,7 +624,27 @@
           },
           "kv-kiyomi": {
             "title": "KIYOMI Key Visual",
-            "content": "Using a「poster layout system」to modularize key visuals, slogans, products, and scenes, enabling rapid production of high-recognition promotional materials for「offline touchpoints」."
+            "content": "Using a「poster layout system」to modularize key visuals, slogans, products, and scenes, enabling rapid production of high-recognition promotional materials for「offline touchpoints」.",
+            "groups": [
+              {
+                "label": "Hero Flavor Poster"
+              },
+              {
+                "label": "Flavor System Card"
+              },
+              {
+                "label": "Performance Scene Poster"
+              },
+              {
+                "label": "Creative Campaign Visual"
+              },
+              {
+                "label": "SKU Flavor Card"
+              },
+              {
+                "label": "Flavor Lineup Poster"
+              }
+            ]
           },
           "kv-nicotine-drops": {
             "title": "Nicotine Drops Key Visual",
@@ -595,7 +654,18 @@
             "title": "Mixed Products Key Visual"
           },
           "kv-marquee-mix": {
-            "title": "M1·R15·E-Liquid Key Visual"
+            "title": "M1·R15·E-Liquid Key Visual",
+            "groups": [
+              {
+                "label": "M1 Series"
+              },
+              {
+                "label": "R15 Series"
+              },
+              {
+                "label": "E-Liquid Series"
+              }
+            ]
           },
           "photo-cube": {
             "title": "CUBE Product Photography",
@@ -607,11 +677,27 @@
           },
           "photo-display": {
             "title": "Display Stand Photography",
-            "content": "Through modular retail materials of「display cabinet/shelf display」+「terminal selling point packaging」+「wobbler decoration」, systematically implementing sales information for different products at terminals, enhancing display attractiveness and conversion."
+            "content": "Through modular retail materials of「display cabinet/shelf display」+「terminal selling point packaging」+「wobbler decoration」, systematically implementing sales information for different products at terminals, enhancing display attractiveness and conversion.",
+            "groups": [
+              {
+                "label": "Brand Experience Installation"
+              },
+              {
+                "label": "Retail Terminal Display System"
+              }
+            ]
           },
           "photo-store": {
             "title": "Store Photography",
-            "content": "Through modular review of「cross-country store real-scene validation」, visualizing the actual implementation of materials in different terminals and display environments, helping teams iterate quickly and supporting channel replication."
+            "content": "Through modular review of「cross-country store real-scene validation」, visualizing the actual implementation of materials in different terminals and display environments, helping teams iterate quickly and supporting channel replication.",
+            "groups": [
+              {
+                "label": "Retail Implementation"
+              },
+              {
+                "label": "Brand Real-World Scene"
+              }
+            ]
           },
           "photo-packaging": {
             "title": "Packaging Photography",
@@ -626,8 +712,9 @@
             "content": "Through modular mockup system of「event scene rendering」+「material kit reuse」, rapidly implementing visuals needed for promotions, displays, and channel communication, improving presentation quality and reuse efficiency."
           },
           "closing": {
-            "title": "Successful retail implementation marks brand system maturity",
-            "content": "The system is validated across multi-dimensional scenarios, laying the foundation for continuous brand development."
+            "title": "Using 「retail spaces and terminal materials」 as carriers to unify information layering",
+            "content": "Establishing replicable offline execution standards through 「photography and cross-scenario validation」.",
+            "summary": "Using 「retail spaces and terminal materials」 as carriers to unify information layering, display logic, and selling point presentation, establishing replicable offline execution standards through 「photography and cross-scenario validation」."
           }
         }
       },
@@ -697,6 +784,11 @@
           },
           "folder-20": {
             "content": "Using 'membership benefits + point tasks + reward drops' modular benefits wall to visually package community retention and repurchase mechanisms into a one-screen benefits narrative — helping channels directly explain 'what you get by joining.'"
+          },
+          "closing": {
+            "title": "Building a 「narrative module library」 to break down selling points / parameters / scenarios / audiences / trends into standard components with defined combination rules",
+            "content": "Shifting content production from writing to 「modular assembly」",
+            "summary": "Building a 「narrative module library」 to break down selling points / parameters / scenarios / audiences / trends into standard components with defined combination rules, shifting content production from writing to 「modular assembly」, improving communication efficiency and reusability."
           }
         }
       }
@@ -758,9 +850,8 @@
         "subtitle": "Imagery & Narrative Expression",
         "desc": "Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state.",
         "media": [
-          "Illustration",
-          "Digital Painting",
-          "Photography"
+          "Landscape Photography",
+          "Product Photography"
         ],
         "keywords": [
           "Narrative",

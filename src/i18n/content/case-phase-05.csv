@@ -22,5 +22,19 @@ case.phases.phase-05.screens.photo-expo.title,展会实拍,Exhibition Photograph
 case.phases.phase-05.screens.photo-expo.content,"用「展会空间视觉」+「互动装置」+「物料系统」的模块化落地，把品牌体验在海外展会现场快速搭建并统一呈现，支持获客、引导与渠道洽谈。","Through modular implementation of「exhibition space visuals」+「interactive installations」+「material systems」, rapidly building and uniformly presenting brand experiences at overseas exhibitions, supporting customer acquisition, guidance, and channel negotiations."
 case.phases.phase-05.screens.mockups.title,效果图展示,Mockups Showcase
 case.phases.phase-05.screens.mockups.content,"用「活动场景渲染」+「物料套件复用」的模块化效果图体系，把促销、展陈、渠道沟通所需的视觉快速落地，提升方案呈现质量与复用效率。","Through modular mockup system of「event scene rendering」+「material kit reuse」, rapidly implementing visuals needed for promotions, displays, and channel communication, improving presentation quality and reuse efficiency."
-case.phases.phase-05.screens.closing.title,零售空间的成功落地标志着品牌系统的成熟,Successful retail implementation marks brand system maturity
-case.phases.phase-05.screens.closing.content,"系统在多维度场景中得到验证，为品牌的持续发展奠定基础。","The system is validated across multi-dimensional scenarios, laying the foundation for continuous brand development."
+case.phases.phase-05.screens.closing.title,以「零售空间与终端物料」为载体统一信息分层、陈列逻辑与卖点呈现,Using 「retail spaces and terminal materials」 as carriers to unify information layering, display logic, and selling point presentation
+case.phases.phase-05.screens.closing.content,并通过「实拍与跨场景验证」沉淀可复制的线下执行标准。,Establishing replicable offline execution standards through 「photography and cross-scenario validation」.
+case.phases.phase-05.screens.closing.summary,以「零售空间与终端物料」为载体统一信息分层、陈列逻辑与卖点呈现，并通过「实拍与跨场景验证」沉淀可复制的线下执行标准。,"Using 「retail spaces and terminal materials」 as carriers to unify information layering, display logic, and selling point presentation, establishing replicable offline execution standards through 「photography and cross-scenario validation」."
+case.phases.phase-05.screens.kv-kiyomi.groups.0.label,核心口味主视觉,Hero Flavor Poster
+case.phases.phase-05.screens.kv-kiyomi.groups.1.label,口味系统信息卡,Flavor System Card
+case.phases.phase-05.screens.kv-kiyomi.groups.2.label,功能场景海报,Performance Scene Poster
+case.phases.phase-05.screens.kv-kiyomi.groups.3.label,创意传播视觉,Creative Campaign Visual
+case.phases.phase-05.screens.kv-kiyomi.groups.4.label,标准口味识别卡,SKU Flavor Card
+case.phases.phase-05.screens.kv-kiyomi.groups.5.label,全系列展示海报,Flavor Lineup Poster
+case.phases.phase-05.screens.kv-marquee-mix.groups.0.label,M1 系列,M1 Series
+case.phases.phase-05.screens.kv-marquee-mix.groups.1.label,R15 系列,R15 Series
+case.phases.phase-05.screens.kv-marquee-mix.groups.2.label,烟油系列,E-Liquid Series
+case.phases.phase-05.screens.photo-display.groups.0.label,品牌体验装置,Brand Experience Installation
+case.phases.phase-05.screens.photo-display.groups.1.label,零售终端陈列系统,Retail Terminal Display System
+case.phases.phase-05.screens.photo-store.groups.0.label,零售落地执行,Retail Implementation
+case.phases.phase-05.screens.photo-store.groups.1.label,品牌真实场景,Brand Real-World Scene

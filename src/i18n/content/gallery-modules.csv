@@ -30,9 +30,8 @@ gallery.modules.narrative-imagery.title,叙事图像,Narrative & Imagery
 gallery.modules.narrative-imagery.titleShort,叙事图像,Narrative & Imagery
 gallery.modules.narrative-imagery.subtitle,图像与叙事表达,Imagery & Narrative Expression
 gallery.modules.narrative-imagery.desc,"以图像作为叙事载体，探索隐喻、情绪与观看路径，关注画面如何在非语言状态下传递信息。","Using images as narrative carriers, exploring metaphor, emotion, and viewing paths, focusing on how images convey information in a non-verbal state."
-gallery.modules.narrative-imagery.media[0],插画,Illustration
-gallery.modules.narrative-imagery.media[1],板绘,Digital Painting
-gallery.modules.narrative-imagery.media[2],摄影,Photography
+gallery.modules.narrative-imagery.media[0],风景摄影,Landscape Photography
+gallery.modules.narrative-imagery.media[1],产品摄影,Product Photography
 gallery.modules.narrative-imagery.keywords[0],Narrative,Narrative
 gallery.modules.narrative-imagery.keywords[1],Imagery,Imagery
 gallery.modules.narrative-imagery.keywords[2],Symbol,Symbol

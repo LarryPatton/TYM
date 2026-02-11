@@ -9,32 +9,35 @@ case.phases.phase-02.screens.boundaries.title,"设计并不是从创意开始，
 case.phases.phase-02.screens.boundaries.content,"用「定位要点卡片」的模块化表达，把产品 A 的品类机会、人群场景（礼赠/女性生活方式/自有流量）与价值主张（更高客单、新客拓展）结构化呈现，方便团队对齐策略与对外讲解。","Using modular 'Positioning Key-Point Cards' to structurally present Product A's category opportunities, audience scenarios (gifting / women's lifestyle / owned traffic) and value propositions (higher AOV, new customer acquisition), enabling team alignment and external communication."
 case.phases.phase-02.screens.boundaries.emphasis,"先限定问题，才有解法。","Define the problem first, then find the solution."
 case.phases.phase-02.screens.cmf-main.title,CMF 主体探索,CMF Main Exploration
-case.phases.phase-02.screens.cmf-main.content,产品主体 CMF 色彩材质工艺探索。,Product main CMF color material finish exploration.
-case.phases.phase-02.screens.cmf-color.title,CMF 色彩序列,CMF Color Sequence
-case.phases.phase-02.screens.cmf-color.content,产品色彩序列系统化展示。,Product color sequence systematic showcase.
+case.phases.phase-02.screens.cmf-main.content,"用「系列配色矩阵 + 材质肌理对照」的 CMF 概念图，把不同配色 SKU 的气质与层级关系一屏讲清，方便团队快速收敛方向并推进打样与量产落地。","Using a 'Color Matrix + Texture Comparison' CMF concept map to clarify the character and hierarchy of different color SKUs at a glance, helping the team quickly converge on direction and advance sampling and mass-production."
+case.phases.phase-02.screens.cmf-color.title,,
+case.phases.phase-02.screens.cmf-color.content,"用「打样实拍记录 + 工艺/颜色问题清单 + 调整结论」的模块化跟进，把 CMF 从概念推进到可量产的成品效果，全程盯进度、控质量并加速迭代收敛。","Using modular follow-ups of 'Sample Photos + Process/Color Issue Checklist + Adjustment Conclusions' to push CMF from concept to mass-producible finish, tracking progress, controlling quality and accelerating iteration."
 case.phases.phase-02.screens.cmf.title,CMF 是连接品牌长期规划与产品落地的关键中介,CMF is the key intermediary connecting brand long-term planning with product implementation
 case.phases.phase-02.screens.cmf.content,"它既要服务品牌表达，也必须服从产品功能与制造现实。","It must serve brand expression while also conforming to product function and manufacturing reality."
 case.phases.phase-02.screens.cmf.emphasis,"美学不是目的，是约束下的结果。","Aesthetics is not the goal, but the result under constraints."
-case.phases.phase-02.screens.factory-keycaps.title,工厂按键制造,Factory Keycap Manufacturing
-case.phases.phase-02.screens.factory-keycaps.content,按键制造过程展示。,Keycap manufacturing process showcase.
-case.phases.phase-02.screens.factory-backplate.title,工厂背板制造,Factory Backplate Manufacturing
-case.phases.phase-02.screens.factory-backplate.content,背板制造过程展示。,Backplate manufacturing process showcase.
+case.phases.phase-02.screens.factory-keycaps.title,,
+case.phases.phase-02.screens.factory-keycaps.content,"用「配件 CMF 打样实拍 + 电镀/喷涂色差校准 + 装配与耐用性验证」的全流程跟进，把配件从方案发散推进到可量产的稳定版本，确保与主机系列一致并满足交付标准。","Using a full-process follow-up of 'Accessory CMF Sample Photography + Plating/Spray Color Calibration + Assembly & Durability Verification' to push accessories from exploratory concepts to mass-producible stable versions, ensuring consistency with the main device series and meeting delivery standards."
+case.phases.phase-02.screens.factory-backplate.title,,
+case.phases.phase-02.screens.factory-backplate.content,"用「工厂背板制造过程记录 + 关键工序验收点 + 色差与纹理校准」的模块化跟进，把设计意图落到生产现场并稳定复现，确保每一批次成品的一致性与可控性。","Using modular follow-ups of 'Factory Backplate Manufacturing Process Documentation + Key Process Inspection Points + Color & Texture Calibration' to translate design intent onto the production floor with stable reproducibility, ensuring consistency and controllability across every production batch."
 case.phases.phase-02.screens.manufacturing.title,设计决策必须在真实制造条件中被持续校验,Design decisions must be continuously validated in real manufacturing conditions
 case.phases.phase-02.screens.manufacturing.content,"从物料、配件到工厂样品，设计始终处于反馈回路中。","From materials, components to factory samples, design is always in the feedback loop."
 case.phases.phase-02.screens.manufacturing.emphasis,设计不是在图里完成的。,Design is not completed in drawings.
-case.phases.phase-02.screens.priority.title,"不同市场，需要不同的优先级判断","Different markets require different priority judgments"
-case.phases.phase-02.screens.priority.content,"首批方案并非「最好看」，而是「最适合进入市场」。","The first batch of solutions is not 'the best looking', but 'the most suitable for market entry'."
+case.phases.phase-02.screens.priority.title,,
+case.phases.phase-02.screens.priority.content,"用「超级符号（图形/斜纹/版式骨架）在包装上的重复利用 + 口味色彩区分」的模块化系统，把多口味 SKU 做到一眼能认、批量可扩展，并同步降低包装迭代与上新成本。","Using a modular system of 'Super Symbol (graphic / stripe / layout skeleton) reuse on packaging + flavor color differentiation' to make multi-flavor SKUs instantly recognizable and batch-scalable, while simultaneously reducing packaging iteration and new product launch costs."
 case.phases.phase-02.screens.priority.emphasis,设计是一种选择机制。,Design is a selection mechanism.
 case.phases.phase-02.screens.packaging.title,包装是用户接触品牌的第一个界面,Packaging is the user's first interface with the brand
 case.phases.phase-02.screens.packaging.content,"它不仅承载信息，也影响用户对产品价值的预期。","It not only carries information, but also affects users' expectations of product value."
 case.phases.phase-02.screens.packaging.emphasis,"第一触点，决定第一判断。","The first touchpoint determines the first judgment."
-case.phases.phase-02.screens.consistency.title,"一致性，是品牌被记住的前提","Consistency is the prerequisite for a brand to be remembered"
-case.phases.phase-02.screens.consistency.content,"无论使用场景如何变化，识别应保持稳定。","Regardless of how usage scenarios change, recognition should remain stable."
-case.phases.phase-02.screens.consistency.emphasis,"识别感不是装饰，是系统结果。","Recognition is not decoration, but a system result."
-case.phases.phase-02.screens.component-assembly.title,组件拼装展示,Component Assembly Display
-case.phases.phase-02.screens.component-assembly.content,产品组件拼装过程展示。,Product component assembly process showcase.
+case.phases.phase-02.screens.consistency-transition.content,"用「挂绳图案系统 + 配饰组合规则 + 材质工艺落地」的周边模块化设计，把产品1的品牌识别延展到日常佩戴与社交场景，形成可量产、可搭售、可持续上新的配件体系。","Using a peripheral modular design of 'Lanyard Pattern System + Accessory Combination Rules + Material & Craft Implementation' to extend Product 1's brand identity into daily wear and social scenarios, forming an accessory system that is mass-producible, cross-sellable, and continuously expandable."
+case.phases.phase-02.screens.consistency.title,,
+case.phases.phase-02.screens.consistency.content,,
+case.phases.phase-02.screens.consistency.emphasis,,
+case.phases.phase-02.screens.component-assembly.title,,
+case.phases.phase-02.screens.component-assembly.content,"用「一页纸产品信息墙（结构/参数/卖点/兼容性/使用方式）+ 图标化模块」的模块化资料，把产品1的核心价值与销售话术一次性打包，支持渠道培训、客户沟通与终端陈列快速复用。","Using a modular 'One-Page Product Info Wall (structure / specs / selling points / compatibility / usage) + Iconized Modules' approach to package Product 1's core value and sales scripts in one go, supporting channel training, client communication, and rapid reuse in retail displays."
 case.phases.phase-02.screens.product-final.title,产品终图,Product Final Shot
 case.phases.phase-02.screens.product-final.content,产品最终效果图展示。,Product final rendering showcase.
-case.phases.phase-02.screens.closing.title,这个产品验证了整套设计系统的可行性,This product validates the feasibility of the entire design system
-case.phases.phase-02.screens.closing.content,它为后续产品与设计决策提供了可复用的参考模型。,It provides a reusable reference model for subsequent products and design decisions.
-case.phases.phase-02.screens.closing.emphasis,"这不是一个案例，而是一个样本。","This is not a case, but a sample."
+case.phases.phase-02.screens.closing.title,把「从策略到产线」的链路跑通：明确人群与场景，固化产品语言与关键规格,Running through the chain 「from strategy to production line」: defining audience and scenarios, solidifying product language and key specifications
+case.phases.phase-02.screens.closing.content,并通过「CMF×包装×物料联动」确保各触点一致表达与可持续扩展。,Ensuring consistent expression and sustainable expansion across all touchpoints through 「CMF × Packaging × Material Synergy」.
+case.phases.phase-02.screens.closing.summary,把「从策略到产线」的链路跑通：明确人群与场景，固化产品语言与关键规格，并通过「CMF×包装×物料联动」确保各触点一致表达与可持续扩展。,"Running through the chain 「from strategy to production line」: defining audience and scenarios, solidifying product language and key specifications, ensuring consistent expression and sustainable expansion across all touchpoints through 「CMF × Packaging × Material Synergy」."
+case.phases.phase-02.screens.priority.groups.0.label,烟弹包装,Pod Packaging
+case.phases.phase-02.screens.priority.groups.1.label,设备包装,Device Packaging
