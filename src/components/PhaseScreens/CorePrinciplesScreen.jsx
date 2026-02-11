@@ -239,11 +239,8 @@ export const CorePrinciplesScreen = () => {
                     <animate attributeName="r" from="20" to="35" dur="3s" repeatCount="indefinite" />
                     <animate attributeName="opacity" from="0.5" to="0" dur="3s" repeatCount="indefinite" />
                   </circle>
-                  <text x={centerX} y={centerY + 60} fill="#fff" fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
+                  <text x={centerX} y={centerY + 65} fill="#fff" fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
                     {t('case.phases.phase-01.screens.core-principles.nodes.system.label')}
-                  </text>
-                  <text x={centerX} y={centerY + 80} fill={brandColorLight} fontSize="12" textAnchor="middle" style={{ opacity: 0.8 }}>
-                    {t('case.phases.phase-01.screens.core-principles.nodes.system.sub')}
                   </text>
                 </motion.g>
 
@@ -251,11 +248,8 @@ export const CorePrinciplesScreen = () => {
                 <motion.g style={{ opacity: opacityTop }}>
                   <circle cx={topX} cy={topY} r={40} fill={brandColor} fillOpacity="0.05" />
                   <circle cx={topX} cy={topY} r={6} fill={brandColor} />
-                  <text x={topX} y={topY - 30} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
+                  <text x={topX} y={topY - 20} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
                     {t('case.phases.phase-01.screens.core-principles.nodes.clarity.label')}
-                  </text>
-                  <text x={topX} y={topY - 10} fill={brandColorLight} fontSize="14" textAnchor="middle">
-                    {t('case.phases.phase-01.screens.core-principles.nodes.clarity.sub')}
                   </text>
                 </motion.g>
 
@@ -263,11 +257,8 @@ export const CorePrinciplesScreen = () => {
                 <motion.g style={{ opacity: opacityLeft }}>
                   <circle cx={leftX} cy={leftY} r={40} fill={brandColor} fillOpacity="0.05" />
                   <circle cx={leftX} cy={leftY} r={6} fill={brandColor} />
-                  <text x={leftX} y={leftY + 40} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
+                  <text x={leftX} y={leftY + 45} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
                     {t('case.phases.phase-01.screens.core-principles.nodes.restraint.label')}
-                  </text>
-                  <text x={leftX} y={leftY + 60} fill={brandColorLight} fontSize="14" textAnchor="middle">
-                    {t('case.phases.phase-01.screens.core-principles.nodes.restraint.sub')}
                   </text>
                 </motion.g>
 
@@ -275,11 +266,8 @@ export const CorePrinciplesScreen = () => {
                 <motion.g style={{ opacity: opacityRight }}>
                   <circle cx={rightX} cy={rightY} r={40} fill={brandColor} fillOpacity="0.05" />
                   <circle cx={rightX} cy={rightY} r={6} fill={brandColor} />
-                  <text x={rightX} y={rightY + 40} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
+                  <text x={rightX} y={rightY + 45} fill="#fff" fontSize="18" fontWeight="bold" textAnchor="middle" letterSpacing="2px">
                     {t('case.phases.phase-01.screens.core-principles.nodes.scalability.label')}
-                  </text>
-                  <text x={rightX} y={rightY + 60} fill={brandColorLight} fontSize="14" textAnchor="middle">
-                    {t('case.phases.phase-01.screens.core-principles.nodes.scalability.sub')}
                   </text>
                 </motion.g>
               </svg>

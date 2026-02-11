@@ -294,14 +294,15 @@ export const NaturalParallaxGrid = memo(({
         </div>
       )}
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 48px' }}>
+      <div style={{ margin: '0 auto' }}>
         {groupsData.map((group, groupIndex) => (
           <StickyGroup
             key={`group-${groupIndex}`}
             group={group}
             groupIndex={groupIndex}
             totalGroups={groupsData.length}
-            columns={columns}
+            columns={group.columns || columns}
+            maxWidth={group.maxWidth || '1400px'}
             gap={gap}
             rowGap={customRowGap}
             paddingTop={paddingTop}
@@ -375,9 +376,9 @@ MobileGridItem.displayName = 'MobileGridItem';
 /**
  * StickyGroup - 带 sticky 效果的分组容器
  */
-const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, gap, rowGap, paddingTop, parallaxOffset, compactMode, aspectRatio }) => {
-  const stickyScrollHeight = totalGroups > 1 ? 280 : 100;
-  const groupSpacing = totalGroups > 1 ? '50vh' : '0';
+const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, maxWidth, gap, rowGap, paddingTop, parallaxOffset, compactMode, aspectRatio }) => {
+  const stickyScrollHeight = totalGroups > 1 ? 320 : 100;
+  const groupSpacing = totalGroups > 1 ? '1vh' : '0';
   
   return (
     <div
@@ -398,6 +399,7 @@ const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, gap, rowGap
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden',
           background: '#000',
           padding: totalGroups > 1 ? 0 : '60px 0'
         }}
@@ -405,12 +407,14 @@ const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, gap, rowGap
         <ParallaxGridGroup
           images={group.images}
           columns={columns}
+          maxWidth={maxWidth}
           gap={gap}
           rowGap={rowGap}
           paddingTop={paddingTop}
           parallaxOffset={parallaxOffset}
           compactMode={compactMode}
           aspectRatio={aspectRatio}
+          isSticky={totalGroups > 1}
         />
       </div>
     </div>
@@ -422,7 +426,7 @@ StickyGroup.displayName = 'StickyGroup';
 /**
  * ParallaxGridGroup - 单个分组的视差网格
  */
-const ParallaxGridGroup = memo(({ images, columns, gap, rowGap: customRowGap, paddingTop, parallaxOffset, compactMode, aspectRatio }) => {
+const ParallaxGridGroup = memo(({ images, columns, maxWidth, gap, rowGap: customRowGap, paddingTop, parallaxOffset, compactMode, aspectRatio, isSticky }) => {
   // 将图片分配到各列
   const columnsData = useMemo(() => {
     const cols = Array.from({ length: columns }, () => []);
@@ -446,8 +450,18 @@ const ParallaxGridGroup = memo(({ images, columns, gap, rowGap: customRowGap, pa
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
         columnGap: colGap,
         rowGap: rowGapValue,
+        maxWidth: maxWidth || '1400px',
         width: gridWidth,
-        margin: '0 auto'
+        margin: '0 auto',
+        ...(isSticky ? {
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          bottom: 0,
+          padding: '0 48px',
+          alignItems: 'center'
+        } : {})
       }}
     >
       {columnsData.map((colImages, colIndex) => {

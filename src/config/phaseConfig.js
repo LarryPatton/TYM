@@ -919,7 +919,7 @@ export const phase03Config = {
       categoryLabel: '社媒/社交媒体素材制作',
       hideContent: true, // 文案已移至独立的 scroll-text-bar 显示
       maxWidth: '1400px',
-      columns: 3,
+      columns: 5,
       gap: '20px',
       paddingTop: 60,
       parallaxIntensity: 1,
@@ -928,6 +928,7 @@ export const phase03Config = {
       groups: [
         {
           label: 'GALLERY A',
+          columns: 4,
           images: [
             { src: `${PHASE03_BASE}/gallery-a/page-01.png`, label: 'Page 1' },
             { src: `${PHASE03_BASE}/gallery-a/page-02.png`, label: 'Page 2' },
@@ -936,12 +937,12 @@ export const phase03Config = {
             { src: `${PHASE03_BASE}/gallery-a/page-05.png`, label: 'Page 5' },
             { src: `${PHASE03_BASE}/gallery-a/page-06.png`, label: 'Page 6' },
             { src: `${PHASE03_BASE}/gallery-a/page-07.png`, label: 'Page 7' },
-            { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' },
-            { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' }
+            { src: `${PHASE03_BASE}/gallery-a/page-08.png`, label: 'Page 8' }
           ]
         },
         {
           label: 'GALLERY B',
+          columns: 5,
           images: [
             { src: `${PHASE03_BASE}/gallery-b/poster-01.png`, label: 'Poster 1' },
             { src: `${PHASE03_BASE}/gallery-b/poster-02.png`, label: 'Poster 2' },
@@ -951,7 +952,8 @@ export const phase03Config = {
             { src: `${PHASE03_BASE}/gallery-b/poster-06.png`, label: 'Poster 6' },
             { src: `${PHASE03_BASE}/gallery-b/poster-07.png`, label: 'Poster 7' },
             { src: `${PHASE03_BASE}/gallery-b/poster-08.png`, label: 'Poster 8' },
-            { src: `${PHASE03_BASE}/gallery-b/poster-09.png`, label: 'Poster 9' }
+            { src: `${PHASE03_BASE}/gallery-b/poster-09.png`, label: 'Poster 9' },
+            { src: `${PHASE03_BASE}/gallery-a/page-09.png`, label: 'Page 9' }
           ]
         }
       ]

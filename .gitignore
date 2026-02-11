@@ -25,3 +25,7 @@ dist-ssr
 
 # Vercel
 .vercel
+
+# 不推送的页面和目录
+src/pages/ResumeDemo/
+add/

@@ -34,6 +34,7 @@ import ColorRevealDemo from './pages/demos/ColorRevealDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
 import AboutLayoutPreview from './pages/AboutLayoutPreview';
+import ResumeDemo from './pages/ResumeDemo';
 
 // Gallery Pages
 import GalleryHome from './pages/GalleryHome';
@@ -92,6 +93,7 @@ function App() {
 
             <Route path="about" element={<About />} />
             <Route path="about-layouts" element={<AboutLayoutPreview />} />
+            <Route path="resume-demo" element={<ResumeDemo />} />
             
           </Route>
             </Routes>
