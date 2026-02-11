@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import { ThemeProvider } from './hooks/useTheme';
@@ -34,7 +35,11 @@ import ColorRevealDemo from './pages/demos/ColorRevealDemo';
 import ScrollToTop from './components/ScrollToTop';
 import WorkPreview from './pages/WorkPreview';
 import AboutLayoutPreview from './pages/AboutLayoutPreview';
-import ResumeDemo from './pages/ResumeDemo';
+
+// 仅本地开发加载的页面（不推送到远程）
+const ResumeDemo = import.meta.env.DEV
+  ? React.lazy(() => import('./pages/ResumeDemo'))
+  : null;
 
 // Gallery Pages
 import GalleryHome from './pages/GalleryHome';
@@ -93,7 +98,15 @@ function App() {
 
             <Route path="about" element={<About />} />
             <Route path="about-layouts" element={<AboutLayoutPreview />} />
-            <Route path="resume-demo" element={<ResumeDemo />} />
+
+            {/* 仅本地开发可用 */}
+            {ResumeDemo && (
+              <Route path="resume-demo" element={
+                <React.Suspense fallback={<div style={{padding:'60px',textAlign:'center'}}>加载中...</div>}>
+                  <ResumeDemo />
+                </React.Suspense>
+              } />
+            )}
             
           </Route>
             </Routes>
