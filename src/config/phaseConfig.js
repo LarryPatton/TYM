@@ -42,15 +42,38 @@ export const phase01Config = {
     },
     {
       id: 'logo-structure',
-      type: 'logo-structure',
+      type: 'popup-sequence',
       categoryLabel: 'Logo / 结构',
-      imageHint: 'Logo 结构示意 / 网格 / 比例 / 核心构成',
+      contentKey: 'case.phases.phase-01.screens.logo-structure.content',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: '/images/phase-01/logo-structure.png', label: 'Logo-Structure' }
+      ]
     },
     {
       id: 'logo-focus-lens',
-      type: 'logo-focus-lens',
+      type: 'two-row-static',
       categoryLabel: 'Logo / 聚焦',
-      imageHint: 'Logo 变体 Focus Lens 展示'
+      sticky: true,
+      stickyHeight: 200,
+      sequentialPopup: true,
+      showItemCount: false,
+      scrollBehavior: { sticky: true, length: 'normal', intensity: 'medium' },
+      layout: {
+        rows: [
+          { count: 2, scale: 1.6, aspectRatio: 0.67 },  // 上行：2张，略大
+          { count: 3, scale: 1.4, aspectRatio: 0.67 }   // 下行：3张，稍小
+        ]
+      },
+      images: [
+        // 上行（2张）
+        { src: '/images/phase-01/logo-variants/Group675.png', label: 'Wireframe' },
+        { src: '/images/phase-01/logo-variants/Group671.png', label: 'Sketch' },
+        // 下行（3张）
+        { src: '/images/phase-01/logo-variants/Group672.png', label: 'Grid' },
+        { src: '/images/phase-01/logo-variants/Group673.png', label: 'Solid' },
+        { src: '/images/phase-01/logo-variants/Group674.png', label: 'Final' }
+      ]
     },
     {
       id: 'logo-variations',

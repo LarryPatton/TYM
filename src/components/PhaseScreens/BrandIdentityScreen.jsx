@@ -5,6 +5,7 @@ import { SECTION_PADDING } from './Common';
 // ============================================
 // 品牌架构图内容组件 (BrandIdentityContent)
 // 风格：倒三角形几何布局，与第二屏正三角形呼应
+// 响应式：基于 vh/vw 确保在任何窗口尺寸下一屏显示完整
 // ============================================
 export const BrandIdentityContent = ({ style, progress }) => {
   // ============================================
@@ -19,17 +20,14 @@ export const BrandIdentityContent = ({ style, progress }) => {
   // ============================================
   
   /**
-   * SVG 视口配置
-   * - 视口尺寸: 1200 x 900 (与 CorePrinciples 保持一致)
-   * - centerX, centerY: 中心点坐标
-   * - radius: 倒三角形半径 (节点到中心的距离)
-   * 
-   * 可调参数:
-   * - radius: 350 - 调整三角形大小
+   * SVG 视口配置 (viewBox 内部坐标不变，容器尺寸响应式)
+   * - viewBox: 0 0 1200 900
+   * - 容器: min(90vw, 1200px) x min(65vh, 900px)
+   * - 通过 preserveAspectRatio 让 SVG 等比缩放填充容器
    */
-  const centerX = 600;                    // 中心 X 坐标
-  const centerY = 450;                    // 中心 Y 坐标
-  const radius = 350;                     // 半径 (拉开间距)
+  const centerX = 600;
+  const centerY = 450;
+  const radius = 350;
 
   /**
    * 倒三角形顶点坐标计算
@@ -51,25 +49,7 @@ export const BrandIdentityContent = ({ style, progress }) => {
   const bottomX = centerX;
   const bottomY = centerY + radius;
 
-  // 列表项组件
-  const TextGroup = ({ title, items, align = 'left' }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: align, gap: '8px' }}>
-      <div style={{ 
-        color: brandColor, 
-        fontSize: '0.9rem', 
-        letterSpacing: '2px', 
-        marginBottom: '12px',
-        fontWeight: 'bold'
-      }}>
-        {title}
-      </div>
-      {items.map((item, i) => (
-        <div key={i} style={{ color: '#fff', fontSize: '1.1rem', opacity: 0.9 }}>
-          {item}
-        </div>
-      ))}
-    </div>
-  );
+  // TextGroup 不再需要 —— 文字节点已移入 SVG 内部随 viewBox 等比缩放
 
   return (
     <motion.div
@@ -83,11 +63,16 @@ export const BrandIdentityContent = ({ style, progress }) => {
         ...style
       }}
     >
-      {/* 顶部标题 */}
-      <div style={{ position: 'absolute', top: '10%', textAlign: 'center', zIndex: 10 }}>
+      {/* 顶部标题 - 响应式字号 */}
+      <div style={{ 
+        position: 'absolute', 
+        top: 'clamp(3vh, 8%, 10vh)', 
+        textAlign: 'center', 
+        zIndex: 10 
+      }}>
         <h2 style={{
           fontFamily: 'var(--font-serif)',
-          fontSize: '2.5rem',
+          fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)',
           fontWeight: '300',
           letterSpacing: '4px',
           margin: 0,
@@ -98,16 +83,27 @@ export const BrandIdentityContent = ({ style, progress }) => {
         <p style={{ 
           color: brandColor, 
           letterSpacing: '2px', 
-          marginTop: '10px',
-          fontSize: '0.9rem',
+          marginTop: 'clamp(4px, 1vh, 10px)',
+          fontSize: 'clamp(0.7rem, 1.2vw, 0.9rem)',
         }}>
           再次追问，我们是谁？
         </p>
       </div>
 
-      {/* 主视觉区域 */}
-      <div style={{ position: 'relative', width: '1200px', height: '900px' }}>
-        <svg width="100%" height="100%" viewBox="0 0 1200 900" style={{ overflow: 'visible' }}>
+      {/* 主视觉区域 - 响应式容器 */}
+      <div style={{ 
+        position: 'relative', 
+        width: 'min(90vw, 1200px)', 
+        height: 'min(65vh, 900px)',
+        maxHeight: '70vh'
+      }}>
+        <svg 
+          width="100%" 
+          height="100%" 
+          viewBox="0 0 1200 900" 
+          preserveAspectRatio="xMidYMid meet"
+          style={{ overflow: 'visible' }}
+        >
           <defs>
             <filter id="glow-identity" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -143,100 +139,63 @@ export const BrandIdentityContent = ({ style, progress }) => {
               <circle cx={node.x} cy={node.y} r="12" fill="none" stroke={brandColor} strokeWidth="1" opacity="0.5" />
             </motion.g>
           ))}
-        </svg>
 
-        {/* 中心 ZMR */}
-        <motion.div 
-          style={{ 
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            x: '-50%',
-            y: '-50%',
-            fontSize: '5rem', 
-            fontWeight: '700', 
-            letterSpacing: '0.15em', 
-            color: '#fff', 
-            textShadow: `0 0 30px ${brandColorGlow}`,
-            zIndex: 10,
-            opacity: progress.step1,
-            scale: progress.step1
-          }}
-        >
-          ZMR
-        </motion.div>
+          {/* === 文字节点移入 SVG 内部，随 viewBox 等比缩放 === */}
 
-        {/* 左上：Core Values */}
-        <motion.div 
-          style={{ 
-            position: 'absolute',
-            left: `${(topLeftX / 1200) * 100}%`,
-            top: `${(topLeftY / 900) * 100}%`,
-            x: '-100%', // 向左偏移
-            y: '-50%',
-            paddingRight: '40px',
-            opacity: progress.step2
-          }}
-        >
-          <TextGroup 
-            title="核心价值" 
-            align="flex-end"
-            items={['自由', '热爱', '真诚']} 
-          />
-        </motion.div>
+          {/* 中心 ZMR */}
+          <motion.g style={{ opacity: progress.step1 }}>
+            <text
+              x={centerX}
+              y={centerY}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill="#fff"
+              fontSize="72"
+              fontWeight="700"
+              letterSpacing="0.15em"
+              style={{ filter: `drop-shadow(0 0 30px ${brandColorGlow})` }}
+            >
+              ZMR
+            </text>
+          </motion.g>
 
-        {/* 右上：Tonality */}
-        <motion.div 
-          style={{ 
-            position: 'absolute',
-            left: `${(topRightX / 1200) * 100}%`,
-            top: `${(topRightY / 900) * 100}%`,
-            x: '0%', // 向右偏移
-            y: '-50%',
-            paddingLeft: '40px',
-            opacity: progress.step3
-          }}
-        >
-          <TextGroup 
-            title="品牌调性" 
-            align="flex-start"
-            items={['友好', '好玩', '大胆']} 
-          />
-        </motion.div>
-
-        {/* 正下：Personality */}
-        <motion.div 
-          style={{ 
-            position: 'absolute',
-            left: '50%',
-            top: `${(bottomY / 900) * 100}%`,
-            x: '-50%',
-            y: '0%', // 向下偏移
-            paddingTop: '40px',
-            opacity: progress.step4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
-          <div style={{ 
-            color: brandColor, 
-            fontSize: '0.9rem', 
-            letterSpacing: '2px', 
-            marginBottom: '12px',
-            fontWeight: 'bold'
-          }}>
-            品牌人格
-          </div>
-          <div style={{ display: 'flex', gap: '40px' }}>
-            {['情人', '探险家', '创造者'].map((item, i) => (
-              <div key={i} style={{ color: '#fff', fontSize: '1.1rem', opacity: 0.9 }}>
+          {/* 左上：Core Values */}
+          <motion.g style={{ opacity: progress.step2 }}>
+            <text x={topLeftX - 50} y={topLeftY - 60} textAnchor="end" fill={brandColor} fontSize="14" fontWeight="bold" letterSpacing="2">
+              核心价值
+            </text>
+            {['自由', '热爱', '真诚'].map((item, i) => (
+              <text key={i} x={topLeftX - 50} y={topLeftY - 30 + i * 28} textAnchor="end" fill="#fff" fontSize="17" opacity="0.9">
                 {item}
-              </div>
+              </text>
             ))}
-          </div>
-        </motion.div>
+          </motion.g>
 
+          {/* 右上：Tonality */}
+          <motion.g style={{ opacity: progress.step3 }}>
+            <text x={topRightX + 50} y={topRightY - 60} textAnchor="start" fill={brandColor} fontSize="14" fontWeight="bold" letterSpacing="2">
+              品牌调性
+            </text>
+            {['友好', '好玩', '大胆'].map((item, i) => (
+              <text key={i} x={topRightX + 50} y={topRightY - 30 + i * 28} textAnchor="start" fill="#fff" fontSize="17" opacity="0.9">
+                {item}
+              </text>
+            ))}
+          </motion.g>
+
+          {/* 正下：Personality */}
+          <motion.g style={{ opacity: progress.step4 }}>
+            <text x={bottomX} y={bottomY + 40} textAnchor="middle" fill={brandColor} fontSize="14" fontWeight="bold" letterSpacing="2">
+              品牌人格
+            </text>
+            {['情人', '探险家', '创造者'].map((item, i) => (
+              <text key={i} x={bottomX + (i - 1) * 100} y={bottomY + 70} textAnchor="middle" fill="#fff" fontSize="17" opacity="0.9">
+                {item}
+              </text>
+            ))}
+          </motion.g>
+
+        </svg>
       </div>
     </motion.div>
   );
