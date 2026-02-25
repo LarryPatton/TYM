@@ -297,11 +297,11 @@ const MouseFollowerBlob = ({ mouseX, mouseY, isDark }) => {
   const x = useTransform(mouseX, (v) => `${v}%`);
   const y = useTransform(mouseY, (v) => `${v}%`);
   
-  // 使用与背景视觉效果一致的颜色
-  // 暗色模式：#050605 (用户校准)
-  // 亮色模式：#e8e8e8
-  const bgColor = isDark ? 'rgb(5, 6, 5)' : 'rgb(232, 232, 232)';
-  const rgbValues = isDark ? '5,6,5' : '232,232,232';
+  // 使用与背景视觉效果一致的颜色（与 --color-bg / --frosted-bg 保持一致）
+  // 暗色模式：#0a0a0a（与 --color-bg dark 一致）
+  // 亮色模式：#ffffff（与 --color-bg light 一致）
+  const bgColor = isDark ? 'rgb(10, 10, 10)' : 'rgb(255, 255, 255)';
+  const rgbValues = isDark ? '10,10,10' : '255,255,255';
   
   return (
     <motion.div
