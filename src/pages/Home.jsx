@@ -475,6 +475,19 @@ const Home = () => {
   // ==================== 桌面端：保持原有布局 ====================
   return (
     <>
+      {/* 全局唯一磨砂背景 - fixed 覆盖全屏，Hero 和 CTA 共用，避免双实例 */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: -1,
+        pointerEvents: 'none',
+      }}>
+        <FrostedDotsBackground speed={2} />
+      </div>
+
       {/* 加载屏幕 */}
       <LoadingScreen 
         isVisible={!canEnter}
@@ -516,28 +529,11 @@ const Home = () => {
           padding: isMobile 
             ? 'var(--space-2xl) var(--space-page-x) var(--space-3xl)'
             : 'clamp(60px, 8vh, 100px) clamp(40px, 8vw, 120px) clamp(100px, 12vh, 140px)',
-          background: 'transparent', // 让光斑背景显示
+          background: 'transparent',
           position: 'relative',
           boxSizing: 'border-box',
-          // 移除 overflow: hidden，允许背景向上延伸
         }}
       >
-        {/* Hero 区域光斑背景 - 使用 fixed 定位覆盖导航栏 */}
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '100vh',
-            zIndex: -1, // 在内容之下
-            pointerEvents: 'none',
-          }}
-        >
-          <FrostedDotsBackground speed={2} />
-        </motion.div>
 
         {/* 居中排版的文字区域 - 打字机效果 */}
         <TypewriterHero 
@@ -686,25 +682,13 @@ const Home = () => {
           height: '200vh', // Sticky 滚动高度
         }}
       >
-        {/* 背景层 - sticky 固定，从顶部开始覆盖整个视口 */}
+        {/* 内容层 - sticky，全局背景已由顶层 fixed FrostedDotsBackground 提供 */}
         <div
           style={{
             position: 'sticky',
             top: '0',
             height: '100vh',
-            pointerEvents: 'none',
-          }}
-        >
-          <FrostedDotsBackground speed={2} />
-        </div>
-        
-        {/* 内容层 - 也是 sticky，叠加在背景上，内容在导航栏下方 */}
-        <div
-          style={{
-            position: 'sticky',
-            top: '0',
-            height: '100vh',
-            marginTop: '-100vh', // 抵消背景层高度，让内容叠加在背景上
+            marginTop: '0',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
