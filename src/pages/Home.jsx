@@ -129,22 +129,6 @@ const Home = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   useTitle(t('home.pageTitle'));
-  
-  // 🔧 检测大屏幕，用于性能降级
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-  
-  useEffect(() => {
-    const checkScreenSize = () => {
-      // 视口宽度 > 2560px 或 高分辨率屏幕时启用降级
-      const isLarge = window.innerWidth > 2560 || 
-                      (window.innerWidth > 1920 && window.devicePixelRatio > 1.5);
-      setIsLargeScreen(isLarge);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
 
   const { scrollY } = useScroll();
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 100], [1, 0]);
@@ -528,8 +512,8 @@ const Home = () => {
               {/* 导航圆点 - 移动端隐藏 */}
               <HomeDotNavigation sections={homeSections} isMobile={isMobile} />
 
-              {/* 桌面端 Hero 区域鼠标拖尾特效 - 大屏幕禁用以优化性能 */}
-              {!isMobile && !isLargeScreen && <HeroTrailEffect isMobile={isMobile} />}
+              {/* 桌面端 Hero 区域鼠标拖尾特效 */}
+              {!isMobile && <HeroTrailEffect isMobile={isMobile} />}
 
       {/* 1. Hero Section - 全屏沉浸式 */}
       <motion.section 
