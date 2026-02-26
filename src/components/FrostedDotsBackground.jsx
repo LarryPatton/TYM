@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
 
@@ -6,74 +6,105 @@ import { useTheme } from '../hooks/useTheme';
  * 磨砂 + 柔和渐变光斑动态背景组件
  * 带有精细颗粒质感的磨砂效果
  * 支持鼠标交互扰动（全局监听）
+ * 🔧 v2: 添加大屏幕性能优化
  */
 const FrostedDotsBackground = ({ className = '', style = {}, speed = 1.5 }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const containerRef = useRef(null);
   
+  // 🔧 检测是否为大屏幕（需要性能降级）
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  
+  useEffect(() => {
+    const checkScreenSize = () => {
+      // 视口宽度 > 2560px 或 设备像素比 > 1.5 时启用降级模式
+      const isLarge = window.innerWidth > 2560 || 
+                      (window.innerWidth > 1920 && window.devicePixelRatio > 1.5);
+      setIsLargeScreen(isLarge);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+  
+  // 🔧 根据屏幕尺寸调整 blur 半径
+  const blurRadius = isLargeScreen ? 60 : 120;
+  
   // 鼠标位置 - 低 stiffness 产生拖尾效果
   const mouseX = useSpring(50, { stiffness: 60, damping: 20 });
   const mouseY = useSpring(50, { stiffness: 60, damping: 20 });
 
-  // 光斑配置 - 尺寸再+15%，移动速度加快
-  const blobs = useMemo(() => [
-    {
-      id: 1,
-      size: 'clamp(457px, 77vw, 1217px)',
-      colorVar: '--frosted-blob-1',
-      baseX: 15,
-      baseY: 20,
-      animateX: [15, 30, 18, 15],
-      animateY: [20, 35, 22, 20],
-      baseDuration: 8, // 加快
-      sensitivity: 0.5,
-    },
-    {
-      id: 2,
-      size: 'clamp(384px, 61vw, 913px)',
-      colorVar: '--frosted-blob-2',
-      baseX: 65,
-      baseY: 15,
-      animateX: [65, 78, 55, 65],
-      animateY: [15, 30, 18, 15],
-      baseDuration: 9, // 加快
-      sensitivity: 0.4,
-    },
-    {
-      id: 3,
-      size: 'clamp(529px, 84vw, 1369px)',
-      colorVar: '--frosted-blob-3',
-      baseX: 45,
-      baseY: 50,
-      animateX: [45, 28, 52, 45],
-      animateY: [50, 65, 52, 50],
-      baseDuration: 8.5, // 加快
-      sensitivity: 0.6,
-    },
-    {
-      id: 4,
-      size: 'clamp(305px, 53vw, 760px)',
-      colorVar: '--frosted-blob-4',
-      baseX: 80,
-      baseY: 60,
-      animateX: [80, 70, 88, 80],
-      animateY: [60, 72, 58, 60],
-      baseDuration: 7, // 加快
-      sensitivity: 0.35,
-    },
-    {
-      id: 5,
-      size: 'clamp(423px, 69vw, 1065px)',
-      colorVar: '--frosted-blob-5',
-      baseX: 10,
-      baseY: 70,
-      animateX: [10, 25, 12, 10],
-      animateY: [70, 80, 58, 70],
-      baseDuration: 10, // 加快
-      sensitivity: 0.45,
-    },
-  ], []);
+  // 🔧 光斑配置 - 大屏幕时减少数量和尺寸
+  const blobs = useMemo(() => {
+    const baseBlobs = [
+      {
+        id: 1,
+        size: isLargeScreen ? 'clamp(350px, 50vw, 800px)' : 'clamp(457px, 77vw, 1217px)',
+        colorVar: '--frosted-blob-1',
+        baseX: 15,
+        baseY: 20,
+        animateX: [15, 30, 18, 15],
+        animateY: [20, 35, 22, 20],
+        baseDuration: 8,
+        sensitivity: 0.5,
+      },
+      {
+        id: 2,
+        size: isLargeScreen ? 'clamp(300px, 40vw, 600px)' : 'clamp(384px, 61vw, 913px)',
+        colorVar: '--frosted-blob-2',
+        baseX: 65,
+        baseY: 15,
+        animateX: [65, 78, 55, 65],
+        animateY: [15, 30, 18, 15],
+        baseDuration: 9,
+        sensitivity: 0.4,
+      },
+      {
+        id: 3,
+        size: isLargeScreen ? 'clamp(400px, 55vw, 900px)' : 'clamp(529px, 84vw, 1369px)',
+        colorVar: '--frosted-blob-3',
+        baseX: 45,
+        baseY: 50,
+        animateX: [45, 28, 52, 45],
+        animateY: [50, 65, 52, 50],
+        baseDuration: 8.5,
+        sensitivity: 0.6,
+      },
+    ];
+    
+    // 🔧 大屏幕只使用 3 个光斑，小屏幕使用全部 5 个
+    if (isLargeScreen) {
+      return baseBlobs;
+    }
+    
+    return [
+      ...baseBlobs,
+      {
+        id: 4,
+        size: 'clamp(305px, 53vw, 760px)',
+        colorVar: '--frosted-blob-4',
+        baseX: 80,
+        baseY: 60,
+        animateX: [80, 70, 88, 80],
+        animateY: [60, 72, 58, 60],
+        baseDuration: 7,
+        sensitivity: 0.35,
+      },
+      {
+        id: 5,
+        size: 'clamp(423px, 69vw, 1065px)',
+        colorVar: '--frosted-blob-5',
+        baseX: 10,
+        baseY: 70,
+        animateX: [10, 25, 12, 10],
+        animateY: [70, 80, 58, 70],
+        baseDuration: 10,
+        sensitivity: 0.45,
+      },
+    ];
+  }, [isLargeScreen]);
 
   // 全局鼠标监听 - 解决 pointerEvents: none 的问题
   useEffect(() => {
@@ -132,8 +163,8 @@ const FrostedDotsBackground = ({ className = '', style = {}, speed = 1.5 }) => {
         style={{
           position: 'absolute',
           inset: '-10%', // 扩大范围防止边缘截断
-          filter: 'blur(120px)',
-          WebkitFilter: 'blur(120px)',
+          filter: `blur(${blurRadius}px)`,
+          WebkitFilter: `blur(${blurRadius}px)`,
           pointerEvents: 'none',
         }}
       >
