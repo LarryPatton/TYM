@@ -608,8 +608,35 @@
             "title": "Mist Flow Product Series",
             "content": "Using a design strategy of「packaging structure information hierarchy + key selling point identification」to present product core selling points and usage information according to visual priority, ensuring efficient information communication on retail shelves and e-commerce detail pages."
           },
+          "offline-badges": {
+            "title": "Badge Series",
+            "content": "Using a unified brand identity language in the badge design system, extending core brand symbols to offline peripheral materials, strengthening brand touchpoints and user engagement through badge forms."
+          },
+          "offline-display-stands": {
+            "title": "Display Stand Series",
+            "content": "Using a unified visual language and modular display system in the stand design, extending brand image to retail terminals for efficient shelf expression and scenario-based brand touchpoints."
+          },
+          "offline-items": {
+            "title": "Branded Items Series",
+            "content": "Using a brand symbol extension design approach to permeate visual language into offline branded items, establishing multi-dimensional brand experience and user recognition through physical touchpoints."
+          },
+          "offline-stickers": {
+            "title": "Sticker Series",
+            "content": "Using a low-cost high-frequency touchpoint sticker strategy to embed brand visuals in daily scenarios in a lightweight form, reinforcing brand exposure and user-driven communication."
+          },
+          "offline-signs-irregular": {
+            "title": "Irregular Stand Signs",
+            "content": "Using irregular die-cut shapes and brand visual reinforcement in stand sign design to break through display noise, achieving visual capture and brand memory implantation at retail terminals."
+          },
+          "offline-door-posters": {
+            "title": "Door Poster Series",
+            "content": "Using high-touchpoint scenario door poster design to establish first visual impressions before customers enter, achieving high-frequency brand exposure and store entry guidance at low cost."
+          },
+          "offline-signs-regular": {
+            "title": "Regular Stand Signs",
+            "content": "Using standardized layout and series visual language in stand sign design to achieve cohesive product display and consistent brand expression within unified size specifications."
+          },
           "closing": {
-            "title": "Using 「KV Kit System」 to establish layout rules and information hierarchy",
             "content": "Supporting high-frequency deployment and channel collaboration through 「cross-market rapid adaptation」.",
             "summary": "Using 「KV Kit System」 to establish layout rules and information hierarchy, separating variable fields and asset modules, supporting high-frequency deployment and channel collaboration through 「cross-market rapid adaptation」."
           }

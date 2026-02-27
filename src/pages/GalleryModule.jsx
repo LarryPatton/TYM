@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useTitle } from '../hooks/useTitle';
@@ -11,6 +11,7 @@ import { narrativeImageryWorks, getAllMediaTypes as getAllMediaTypes3, filterWor
 import { enrichWorks } from '../utils/workAdapter';
 import ImageViewer from '../components/ImageViewer';
 import FrostedDotsBackground from '../components/FrostedDotsBackground';
+import GallerySkeleton from '../components/GallerySkeleton';
 
 const GalleryModule = () => {
   const { t } = useTranslation();
@@ -22,7 +23,13 @@ const GalleryModule = () => {
   // 筛选状态
   const [selectedMedia, setSelectedMedia] = useState('all'); // 默认选中"全部"（单选模式，使用key而非文本）
   const [aspectType, setAspectType] = useState('portrait'); // 默认长图
-  
+
+  // 图片加载完成状态（用于淡入动画）
+  const [loadedImages, setLoadedImages] = useState({});
+  const handleImageLoad = useCallback((id) => {
+    setLoadedImages(prev => ({ ...prev, [id]: true }));
+  }, []);
+
   // 图片查看器状态
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
@@ -543,36 +550,48 @@ const GalleryModule = () => {
 
       {/* Works Section */}
       <section style={{ ...styles.worksSection, position: 'relative', zIndex: 1 }}>
-        {/* Works Grid */}
-        <motion.div 
-          key={`${selectedMedia}-${aspectType}-${loading}`}
+        {/* 骨架屏：manifest 加载期间显示 */}
+        {loading && (
+          <GallerySkeleton
+            aspectType={aspectType}
+            count={isMobile ? 9 : 12}
+          />
+        )}
+
+        {/* Works Grid：加载完成后显示 */}
+        {!loading && (
+        <motion.div
+          key={`${selectedMedia}-${aspectType}`}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           style={styles.worksGrid}
         >
-          {filteredWorks.map((work, index) => (
-              <motion.div 
+            {filteredWorks.map((work, index) => (
+              <motion.div
                 key={work.id}
                 variants={itemVariants}
                 whileHover={isMobile ? {} : { y: -5 }}
                 style={{ ...styles.workCard, cursor: 'pointer' }}
                 onClick={() => openImageViewer(index)}
               >
-                  <img 
-                    src={work.image} 
-                    alt={work.title}
-                    loading="lazy"
-                    style={{ 
-                      width: '100%',
-                      aspectRatio: config.aspectRatio,
-                      objectFit: 'cover',
-                      borderRadius: isMobile ? '4px' : '8px',
-                      marginBottom: isMobile ? '4px' : '12px',
-                      backgroundColor: isDark ? '#1a1a1a' : '#f0f0f0',
-                      display: 'block',
-                    }}
-                  />
+                <img
+                  src={work.image}
+                  alt={work.title}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(work.id)}
+                  style={{
+                    width: '100%',
+                    aspectRatio: config.aspectRatio,
+                    objectFit: 'cover',
+                    borderRadius: isMobile ? '4px' : '8px',
+                    marginBottom: isMobile ? '4px' : '12px',
+                    backgroundColor: isDark ? '#1a1a1a' : '#f0f0f0',
+                    display: 'block',
+                    opacity: loadedImages[work.id] ? 1 : 0,
+                    transition: 'opacity 0.4s ease',
+                  }}
+                />
                 {/* 标题：移动端使用更小字号 */}
                 <h3 style={{
                   ...styles.workTitle,
@@ -586,6 +605,7 @@ const GalleryModule = () => {
               </motion.div>
             ))}
           </motion.div>
+        )}
       </section>
 
       {/* Floating Aspect Ratio Toggle */}

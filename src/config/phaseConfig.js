@@ -1007,10 +1007,10 @@ export const phase04Config = {
   next: 'phase-05',
   // 左上角胶囊导航配置
   processFlow: {
-    screens: ['packaging-bag-series', 'kv-marquee', 'products-oil', 'products-nano', 'products-kiyomi', 'products-spark', 'products-addone', 'products-mingcang', 'products-mistflow'],
-    labels: ['包装', 'KV', '烟油', 'Nano', 'Kiyomi', 'Spark', 'Addone', 'Mingcang', 'Mist Flow']
+    screens: ['packaging-bag-series', 'kv-marquee', 'products-oil', 'products-nano', 'products-kiyomi', 'products-spark', 'products-addone', 'products-mingcang', 'products-mistflow', 'offline-badges'],
+    labels: ['包装', 'KV', '烟油', 'Nano', 'Kiyomi', 'Spark', 'Addone', 'Mingcang', 'Mist Flow', '线下物料']
   },
-  totalScreens: 12, // 添加 scroll-text-bar 后：12屏
+  totalScreens: 25, // 添加全部线下物料模块后：25屏
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
   screens: [
     // Screen 01: Intro - 建立语境 (with reveal + flashlight effects)
@@ -1403,7 +1403,197 @@ export const phase04Config = {
       ]
     },
     
-    // Screen 11: Closing - 收束与导航
+    // Screen 11a: 文字过渡条 - 线下物料·徽章文案
+    {
+      id: 'scroll-text-intro-badges',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-badges.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 11b: 线下物料 - 徽章系列（5列3行网格，与 packaging-bag-series 同组件）
+    {
+      id: 'offline-badges',
+      type: 'square-grid',
+      categoryLabel: '物料 / 徽章',
+      columns: 5,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 1.png`, label: 'Badge-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 2.png`, label: 'Badge-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 3.png`, label: 'Badge-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 4.png`, label: 'Badge-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 5.png`, label: 'Badge-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 6.png`, label: 'Badge-6' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 7.png`, label: 'Badge-7' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 8.png`, label: 'Badge-8' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 9.png`, label: 'Badge-9' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 10.png`, label: 'Badge-10' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 11.png`, label: 'Badge-11' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 12.png`, label: 'Badge-12' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 13.png`, label: 'Badge-13' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 14.png`, label: 'Badge-14' },
+        { src: `${PHASE04_BASE}/3-offline-materials/1-badges/img_v3_02lr_90dec6e4-fdd5-49f4-a674-9065210c57fg 15.png`, label: 'Badge-15' }
+      ]
+    },
+
+    // Screen 12a: 文字过渡条 - 线下物料·展架文案
+    {
+      id: 'scroll-text-intro-display-stands',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-display-stands.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 12b: 线下物料 - 展架系列（5列2行网格）
+    {
+      id: 'offline-display-stands',
+      type: 'square-grid',
+      categoryLabel: '物料 / 展架',
+      columns: 5,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/33.png`, label: 'Stand-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/34.png`, label: 'Stand-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/35.png`, label: 'Stand-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/36.png`, label: 'Stand-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/37.png`, label: 'Stand-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/4088175.png`, label: 'Stand-6' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/4088176.png`, label: 'Stand-7' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/4088177.png`, label: 'Stand-8' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/4088178.png`, label: 'Stand-9' },
+        { src: `${PHASE04_BASE}/3-offline-materials/2-display-stands/4088179.png`, label: 'Stand-10' }
+      ]
+    },
+
+    // Screen 13a: 文字过渡条 - 线下物料·物品文案
+    {
+      id: 'scroll-text-intro-items',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-items.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 13b: 线下物料 - 周边物品系列（5列2行网格）
+    {
+      id: 'offline-items',
+      type: 'square-grid',
+      categoryLabel: '物料 / 物品',
+      columns: 5,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/44.png`, label: 'Item-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/45.png`, label: 'Item-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/46.png`, label: 'Item-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/48.png`, label: 'Item-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/49.png`, label: 'Item-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/4088180.png`, label: 'Item-6' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/4088181.png`, label: 'Item-7' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/4088182.png`, label: 'Item-8' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/4088183.png`, label: 'Item-9' },
+        { src: `${PHASE04_BASE}/3-offline-materials/3-items/4088184.png`, label: 'Item-10' }
+      ]
+    },
+
+    // Screen 14a: 文字过渡条 - 线下物料·贴纸文案
+    {
+      id: 'scroll-text-intro-stickers',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-stickers.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 14b: 线下物料 - 贴纸系列（5列2行网格）
+    {
+      id: 'offline-stickers',
+      type: 'square-grid',
+      categoryLabel: '物料 / 贴纸',
+      columns: 5,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/1 30328.png`, label: 'Sticker-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/1 30329.png`, label: 'Sticker-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/2 4.png`, label: 'Sticker-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/2 7.png`, label: 'Sticker-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8678.png`, label: 'Sticker-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8679.png`, label: 'Sticker-6' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8680.png`, label: 'Sticker-7' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8681.png`, label: 'Sticker-8' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8682.png`, label: 'Sticker-9' },
+        { src: `${PHASE04_BASE}/3-offline-materials/4-stickers/3 8683.png`, label: 'Sticker-10' }
+      ]
+    },
+
+    // Screen 15a: 文字过渡条 - 立牌（不规则）文案
+    {
+      id: 'scroll-text-intro-signs-irregular',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-signs-irregular.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 15b: 线下物料 - 立牌（不规则）3列2行
+    {
+      id: 'offline-signs-irregular',
+      type: 'square-grid',
+      categoryLabel: '物料 / 立牌（不规则）',
+      columns: 3,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 141.png`, label: 'Sign-Irr-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 142.png`, label: 'Sign-Irr-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 143.png`, label: 'Sign-Irr-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 157.png`, label: 'Sign-Irr-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 158.png`, label: 'Sign-Irr-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/5-signs-irregular/image 159.png`, label: 'Sign-Irr-6' }
+      ]
+    },
+
+    // Screen 16a: 文字过渡条 - 门帖文案
+    {
+      id: 'scroll-text-intro-door-posters',
+      type: 'scroll-text-bar',
+      contentKey: 'case.phases.phase-04.screens.offline-door-posters.content',
+      padding: '40px 24px 40px 24px'
+    },
+
+    // Screen 16b: 线下物料 - 门帖 3列2行
+    {
+      id: 'offline-door-posters',
+      type: 'square-grid',
+      categoryLabel: '物料 / 门帖',
+      columns: 3,
+      noBorder: true,
+      scrollBehavior: { sticky: false, length: 'normal', intensity: 'medium' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 160.png`, label: 'Door-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 161.png`, label: 'Door-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 162.png`, label: 'Door-3' },
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 163.png`, label: 'Door-4' },
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 164.png`, label: 'Door-5' },
+        { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 165.png`, label: 'Door-6' }
+      ]
+    },
+
+    // Screen 17: 线下物料 - 立牌（规则）popup-sequence，单次弹出一张
+    {
+      id: 'offline-signs-regular',
+      type: 'popup-sequence',
+      categoryLabel: '物料 / 立牌（规则）',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_1eaf34e7-8979-4f54-9b66-c6c12d1abb1g 1.png`, label: '规则立牌-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_4e8d9c17-4619-4eb6-a301-19e71af5aaeg 1.png`, label: '规则立牌-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_b17d8636-523d-4f16-adcb-044c724d4d7g 1.png`, label: '规则立牌-3' }
+      ]
+    },
+
+    // Screen 18: Closing - 收束与导航
     {
       id: 'closing',
       type: 'phase-closing',

@@ -848,7 +848,17 @@ const HoverUnderlineTitle = ({ text, colors }) => (
  * Contact Section 组件
  * 重构版：简洁透明风格，左右高度均衡
  */
-const ContactSection = ({ t, colors, isDark, formStatus, handleSubmit, setFormStatus, setWechatModalOpen }) => (
+const ContactSection = ({ t, colors, isDark, formStatus, handleSubmit, setFormStatus, setWechatModalOpen }) => {
+  const [emailCopied, setEmailCopied] = React.useState(false);
+
+  const handleEmailCopy = () => {
+    navigator.clipboard.writeText('tian_yangmin@163.com').then(() => {
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    });
+  };
+
+  return (
   <motion.div 
     key="contact" 
     variants={contentVariants} 
@@ -893,10 +903,10 @@ const ContactSection = ({ t, colors, isDark, formStatus, handleSubmit, setFormSt
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {/* 邮箱 */}
         <ContactRow 
-          href="mailto:tian_yangmin@163.com"
+          onClick={handleEmailCopy}
           icon={<EmailIcon color={colors.text} />}
           label={t('about.emailLabel')}
-          value="tian_yangmin@163.com"
+          value={emailCopied ? '已复制 ✓' : 'tian_yangmin@163.com'}
           colors={colors}
           isDark={isDark}
         />
@@ -924,19 +934,20 @@ const ContactSection = ({ t, colors, isDark, formStatus, handleSubmit, setFormSt
       setFormStatus={setFormStatus}
     />
   </motion.div>
-);
+  );
+};
 
 /**
  * 简洁联系方式行组件
  * 无卡片背景，图标+文字，明显的悬停效果
  */
-const ContactRow = ({ href, onClick, icon, label, value, colors, isButton, isDark }) => {
-  const Component = isButton ? motion.button : motion.a;
+const ContactRow = ({ href, onClick, icon, label, value, colors, isButton, isDark, copied }) => {
+  const Component = isButton || onClick ? motion.button : motion.a;
   const [isHovered, setIsHovered] = React.useState(false);
   
   return (
     <Component 
-      href={!isButton ? href : undefined}
+      href={(!isButton && !onClick) ? href : undefined}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

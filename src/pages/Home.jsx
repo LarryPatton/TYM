@@ -135,6 +135,7 @@ const Home = () => {
   
   // 微信弹窗状态
   const [wechatModalOpen, setWechatModalOpen] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   // ===== 百叶窗过渡统一配置 =====
   const BLINDS_CONFIG = {
@@ -761,25 +762,29 @@ const Home = () => {
               zIndex: 1,
             }}
           >
-            <a href="mailto:hello@example.com">
-              <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: isDark ? '0 10px 40px -10px rgba(255,255,255,0.3)' : '0 10px 40px -10px rgba(0,0,0,0.2)' }}
-                whileTap={{ scale: 0.98 }}
-                style={{ 
-                  padding: '20px 60px', 
-                  background: themeColors.ctaButtonBg, 
-                  color: themeColors.ctaButtonText, 
-                  border: 'none', 
-                  borderRadius: '100px', 
-                  fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-                  cursor: 'pointer', 
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {t('home.emailMe')}
-              </motion.button>
-            </a>
+            <motion.button 
+              onClick={() => {
+                navigator.clipboard.writeText('tian_yangmin@163.com').then(() => {
+                  setEmailCopied(true);
+                  setTimeout(() => setEmailCopied(false), 2000);
+                });
+              }}
+              whileHover={{ scale: 1.05, boxShadow: isDark ? '0 10px 40px -10px rgba(255,255,255,0.3)' : '0 10px 40px -10px rgba(0,0,0,0.2)' }}
+              whileTap={{ scale: 0.98 }}
+              style={{ 
+                padding: '20px 60px', 
+                background: themeColors.ctaButtonBg, 
+                color: themeColors.ctaButtonText, 
+                border: 'none', 
+                borderRadius: '100px', 
+                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                cursor: 'pointer', 
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              {emailCopied ? '已复制 ✓' : t('home.emailMe')}
+            </motion.button>
             <motion.button 
               onClick={() => setWechatModalOpen(true)}
               whileHover={{ scale: 1.05, borderColor: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)' }}

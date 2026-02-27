@@ -199,7 +199,7 @@ const ProcessAnchor = ({ screens, labels, phaseId, allScreens, visible = true })
                 fontVariantNumeric: 'tabular-nums',
                 transition: 'color 0.3s ease'
               }}>
-                0{index + 1}
+                {String(index + 1).padStart(2, '0')}
               </span>
               
               {/* Label */}

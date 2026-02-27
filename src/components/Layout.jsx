@@ -807,21 +807,6 @@ const Layout = () => {
             >
               微信
             </span>
-            <span style={{ color: 'var(--color-border)' }}>·</span>
-            <a 
-              href="/resume.pdf" 
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ 
-                color: 'var(--color-text-secondary)', 
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--color-text-main)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--color-text-secondary)'}
-            >
-              简历 PDF（2026-02）
-            </a>
           </div>
           
           {/* 第三行：版权信息 */}

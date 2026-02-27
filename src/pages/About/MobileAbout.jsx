@@ -571,7 +571,10 @@ const SkillsScreen = ({ t, colors, isDark, skillsOverview }) => {
 /**
  * 联系屏幕组件
  */
-const ContactScreen = ({ t, colors, isDark, formStatus, handleSubmit, setFormStatus, setWechatModalOpen }) => (
+const ContactScreen = ({ t, colors, isDark, formStatus, handleSubmit, setFormStatus, setWechatModalOpen }) => {
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  return (
   <div style={{ width: '100%', maxWidth: '340px' }}>
     <h2 style={{ 
       fontSize: '0.7rem', 
@@ -604,24 +607,35 @@ const ContactScreen = ({ t, colors, isDark, formStatus, handleSubmit, setFormSta
     </p>
     
     {/* 邮箱链接 */}
-    <a href="mailto:tian_yangmin@163.com" style={{ 
-      padding: '12px', 
-      background: colors.bgAlt, 
-      borderRadius: '10px', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      gap: '10px', 
-      textDecoration: 'none', 
-      color: colors.text, 
-      marginBottom: '10px'
-    }}>
+    <motion.button
+      onClick={() => {
+        navigator.clipboard.writeText('tian_yangmin@163.com').then(() => {
+          setEmailCopied(true);
+          setTimeout(() => setEmailCopied(false), 2000);
+        });
+      }}
+      whileTap={{ scale: 0.98 }}
+      style={{ 
+        padding: '12px', 
+        background: colors.bgAlt, 
+        borderRadius: '10px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        gap: '10px', 
+        border: 'none',
+        color: colors.text, 
+        marginBottom: '10px',
+        width: '100%',
+        cursor: 'pointer',
+      }}
+    >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={colors.textMuted} strokeWidth="1.5">
         <rect x="2" y="4" width="20" height="16" rx="2"/>
         <path d="M22 6L12 13 2 6"/>
       </svg>
-      <span style={{ fontSize: '0.9rem' }}>tian_yangmin@163.com</span>
-    </a>
+      <span style={{ fontSize: '0.9rem' }}>{emailCopied ? '已复制 ✓' : 'tian_yangmin@163.com'}</span>
+    </motion.button>
 
     {/* 微信二维码按钮 */}
     <motion.button 
@@ -660,7 +674,8 @@ const ContactScreen = ({ t, colors, isDark, formStatus, handleSubmit, setFormSta
       setFormStatus={setFormStatus} 
     />
   </div>
-);
+  );
+};
 
 /**
  * 联系表单组件
