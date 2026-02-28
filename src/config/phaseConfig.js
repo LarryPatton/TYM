@@ -1623,8 +1623,20 @@ export const phase05Config = {
   next: 'phase-06',
   // 顶部胶囊导航配置
   processFlow: {
-    screens: ['kv-kiyomi', 'kv-nicotine-drops', 'kv-mixed', 'photo-cube', 'photo-display', 'mockups'],
-    labels: ['KV/KIYOMI', 'KV/尼古丁', 'KV/混合', '实拍', '展架', '效果图']
+    screens: ['kv-kiyomi', 'kv-nicotine-drops', 'kv-mixed-grid', 'photo-cube', 'photo-display', 'mockups'],
+    labels: ['KV/KIYOMI', 'KV/尼古丁', 'KV/混合', '实拍', '展架', '效果图'],
+    allScreens: [
+      'kv-kiyomi',
+      'kv-nicotine-drops',
+      'kv-mixed-grid', 'kv-marquee-mix',
+      'scroll-text-intro-cube', 'photo-cube',
+      'scroll-text-intro-motor', 'photo-motor',
+      'photo-display',
+      'photo-store',
+      'photo-packaging',
+      'scroll-text-intro-expo', 'photo-expo',
+      'mockups'
+    ]
   },
   totalScreens: 15, // 15 - 3 + 1 + 2 = 15 (合并 Screen 04/05/06, 新增 motor/expo 文字条)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
