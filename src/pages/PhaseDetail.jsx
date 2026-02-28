@@ -424,32 +424,6 @@ const PhaseDetail = () => {
       );
     }
 
-    // 特殊处理 Validation 屏幕 (Phase 01) - 使用 Sticky 布局
-    if (screenConfig.id === 'validation' && phase.id === 'phase-01') {
-      return (
-        <ValidationStickyScreen
-          key={screenConfig.id}
-          screenNumber={screenNumber}
-          screenLabel={screenLabel}
-          title={screenData?.title || ''}
-          content={screenData?.content || ''}
-        />
-      );
-    }
-
-    // 特殊处理 Typography 屏幕 (Phase 01) - 使用 Sticky 布局
-    if (screenConfig.id === 'typography' && phase.id === 'phase-01') {
-      return (
-        <TypographyStickyScreen
-          key={screenConfig.id}
-          screenNumber={screenNumber}
-          screenLabel={screenLabel}
-          title={screenData?.title || ''}
-          content={screenData?.content || ''}
-        />
-      );
-    }
-
     // 特殊处理 Summary 屏幕 (Phase 01) - 使用 Text Highlight 布局
     if (screenConfig.id === 'summary' && phase.id === 'phase-01') {
       return (

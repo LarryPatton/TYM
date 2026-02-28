@@ -15,8 +15,13 @@ export const phase01Config = {
   next: 'phase-02',
   // 顶部胶囊导航配置
   processFlow: {
-    screens: ['core-principles', 'logo-structure', 'color-reveal', 'typography', 'validation'],
-    labels: ['理念', 'Logo', '色彩', '字体', '验证']
+    screens: ['core-principles', 'logo-structure', 'color-reveal', 'typography', 'validation', 'summary'],
+    labels: ['理念', 'Logo', '色彩', '字体', '验证', '总览'],
+    allScreens: [
+      'core-principles', 'stability-message', 'logo-structure', 'logo-focus-lens',
+      'logo-variations', 'color-reveal', 'logo-exploration', 'typography',
+      'validation', 'summary', 'phase-closing'
+    ]
   },
   totalScreens: 11, // 更新总屏幕数 (10 -> 11)
   bgColor: '#0a0a0a', // 统一背景色 - 深黑
@@ -78,7 +83,7 @@ export const phase01Config = {
     {
       id: 'logo-variations',
       type: 'logo-marquee',
-      categoryLabel: 'Logo / 变体',
+      categoryLabel: 'Logo / 文字标',
       imageHint: 'Logo 变体展示',
     },
     {
@@ -88,40 +93,39 @@ export const phase01Config = {
     },
     {
       id: 'logo-exploration',
-      type: 'gallery',
-      categoryLabel: 'Logo / 探索',
-      columns: 2,
+      type: 'popup-sequence',
+      categoryLabel: '色彩 / 主辅色探索',
+      contentKey: 'case.phases.phase-01.screens.logo-exploration.content',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
-        { 
-          src: '/images/phase-01/logo-explore-01.png',
-          hint: 'Logo 变体 A', 
-          label: 'Variation A' 
-        },
-        { 
-          src: '/images/phase-01/logo-explore-02.png',
-          hint: 'Logo 变体 B', 
-          label: 'Variation B' 
-        }
-      ],
-      bgAlt: true
+        { src: '/images/phase-01/logo-explore-01.png', label: 'Exploration A' },
+        { src: '/images/phase-01/logo-explore-02.png', label: 'Exploration B' }
+      ]
     },
     {
       id: 'typography',
-      type: 'content',
-      categoryLabel: '字体系统',
-      imageHint: '字体层级示例 / 标题正文 / 版式示意',
-      reverse: false
+      type: 'popup-sequence',
+      categoryLabel: '字体 / 探索',
+      contentKey: 'case.phases.phase-01.screens.typography.content',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: '/images/phase-01/type-specimen-01.png', label: 'Type Specimen 01' },
+        { src: '/images/phase-01/type-specimen-02.png', label: 'Type Specimen 02' }
+      ]
     },
     {
       id: 'validation',
-      type: 'gallery',
+      type: 'popup-sequence',
       categoryLabel: '应用验证',
-      columns: 2,
+      contentKey: 'case.phases.phase-01.screens.validation.content',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
       images: [
-        { hint: '最小应用场景 1: 包装 seme质', label: '包装验证' },
-        { hint: '最小应用场景 2: 页面/物料', label: '物料验证' }
-      ],
-      bgAlt: true
+        { src: '/images/phase-01/validation-packaging.png', label: '包装验证' },
+        { src: '/images/phase-01/validation-material-01.png', label: '物料验证 01' },
+        { src: '/images/phase-01/validation-material-02.png', label: '物料验证 02' },
+        { src: '/images/phase-01/validation-preview-01.png', label: '预览验证 01' },
+        { src: '/images/phase-01/validation-preview-02.png', label: '预览验证 02' }
+      ]
     },
     {
       id: 'summary',
@@ -1554,7 +1558,20 @@ export const phase04Config = {
       ]
     },
 
-    // Screen 16a: 文字过渡条 - 门帖文案
+    // Screen 16: 线下物料 - 立牌（规则）popup-sequence，单次弹出一张
+    {
+      id: 'offline-signs-regular',
+      type: 'popup-sequence',
+      categoryLabel: '物料 / 立牌（规则）',
+      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
+      images: [
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_1eaf34e7-8979-4f54-9b66-c6c12d1abb1g 1.png`, label: '规则立牌-1' },
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_4e8d9c17-4619-4eb6-a301-19e71af5aaeg 1.png`, label: '规则立牌-2' },
+        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_b17d8636-523d-4f16-adcb-044c724d4d7g 1.png`, label: '规则立牌-3' }
+      ]
+    },
+
+    // Screen 17a: 文字过渡条 - 门帖文案
     {
       id: 'scroll-text-intro-door-posters',
       type: 'scroll-text-bar',
@@ -1562,7 +1579,7 @@ export const phase04Config = {
       padding: '40px 24px 40px 24px'
     },
 
-    // Screen 16b: 线下物料 - 门帖 3列2行
+    // Screen 17b: 线下物料 - 门帖 3列2行
     {
       id: 'offline-door-posters',
       type: 'square-grid',
@@ -1577,19 +1594,6 @@ export const phase04Config = {
         { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 163.png`, label: 'Door-4' },
         { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 164.png`, label: 'Door-5' },
         { src: `${PHASE04_BASE}/3-offline-materials/6-door-posters/image 165.png`, label: 'Door-6' }
-      ]
-    },
-
-    // Screen 17: 线下物料 - 立牌（规则）popup-sequence，单次弹出一张
-    {
-      id: 'offline-signs-regular',
-      type: 'popup-sequence',
-      categoryLabel: '物料 / 立牌（规则）',
-      scrollBehavior: { sticky: true, length: 'long', intensity: 'high' },
-      images: [
-        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_1eaf34e7-8979-4f54-9b66-c6c12d1abb1g 1.png`, label: '规则立牌-1' },
-        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_4e8d9c17-4619-4eb6-a301-19e71af5aaeg 1.png`, label: '规则立牌-2' },
-        { src: `${PHASE04_BASE}/3-offline-materials/7-signs-regular/img_v3_02tg_b17d8636-523d-4f16-adcb-044c724d4d7g 1.png`, label: '规则立牌-3' }
       ]
     },
 

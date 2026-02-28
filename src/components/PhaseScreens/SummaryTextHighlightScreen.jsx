@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SECTION_PADDING, MAX_WIDTH_WIDE, itemVariants } from './Common';
 import ScrollIndicator from '../ScrollIndicator';
@@ -7,11 +7,57 @@ import ScrollIndicator from '../ScrollIndicator';
 // 屏幕: 阶段总结 Grid Reveal 展示 (SummaryTextHighlightScreen)
 // 方案 B: 网格板块渐显
 // ============================================
+// ============================================
+// 辅助组件: 「」关键词橙色高亮渲染
+// ============================================
+const HighlightText = ({ text = '', fontSize, fontWeight = 300, opacity = 1 }) => {
+  const parsed = useMemo(() => {
+    const result = [];
+    const regex = /「([^」]+)」/g;
+    let currentIndex = 0;
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      const plain = text.slice(currentIndex, match.index);
+      if (plain) result.push({ text: plain, highlight: false });
+      result.push({ text: match[0], highlight: true });
+      currentIndex = match.index + match[0].length;
+    }
+    if (currentIndex < text.length) {
+      result.push({ text: text.slice(currentIndex), highlight: false });
+    }
+    return result;
+  }, [text]);
+
+  return (
+    <p style={{
+      margin: 0,
+      fontSize: fontSize || 'clamp(1.1rem, 2.2vw, 1.5rem)',
+      fontWeight,
+      letterSpacing: '0.03em',
+      lineHeight: 1.7,
+      color: `rgba(255,255,255,${opacity})`,
+    }}>
+      {parsed.map((segment, i) => (
+        <span
+          key={i}
+          style={{
+            color: segment.highlight ? '#FF5722' : `rgba(255,255,255,${opacity})`,
+            fontWeight: segment.highlight ? 500 : fontWeight,
+          }}
+        >
+          {segment.text}
+        </span>
+      ))}
+    </p>
+  );
+};
+
 export const SummaryTextHighlightScreen = ({
   title,
   content
 }) => {
   const containerRef = useRef(null);
+  const [revealedCharCount, setRevealedCharCount] = React.useState(0);
   
   // ============================================
   // 【滚动监听配置】
@@ -20,6 +66,36 @@ export const SummaryTextHighlightScreen = ({
     target: containerRef,
     offset: ["start start", "end end"]    // 滚动范围: 元素顶部对齐视口顶部 → 元素底部对齐视口底部
   });
+
+  // 合并文案 & 解析「」高亮
+  const fullText = `${title}${content ? '，' + content : ''}`;
+  const parsedCaption = useMemo(() => {
+    const result = [];
+    const regex = /「([^」]+)」/g;
+    let currentIndex = 0;
+    let match;
+    while ((match = regex.exec(fullText)) !== null) {
+      const plain = fullText.slice(currentIndex, match.index);
+      if (plain) for (const char of plain) result.push({ char, highlight: false });
+      for (const char of match[0]) result.push({ char, highlight: true });
+      currentIndex = match.index + match[0].length;
+    }
+    if (currentIndex < fullText.length) {
+      for (const char of fullText.slice(currentIndex)) result.push({ char, highlight: false });
+    }
+    return result;
+  }, [fullText]);
+
+  const totalChars = parsedCaption.length;
+
+  // 滚动前 20% 逐字揭示文案
+  React.useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (v) => {
+      const progress = Math.min(v / 0.2, 1);
+      setRevealedCharCount(Math.floor(progress * totalChars));
+    });
+    return unsubscribe;
+  }, [scrollYProgress, totalChars]);
 
   // ============================================
   // 【目录数据配置】
@@ -118,54 +194,60 @@ export const SummaryTextHighlightScreen = ({
         flexDirection: 'column', 
         alignItems: 'center', 
         justifyContent: 'center',
-        padding: '0 50px'
+        padding: '0 24px'
       }}>
         
-        {/* 顶部标题 */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          style={{ textAlign: 'center', marginBottom: '60px', width: '100%', maxWidth: MAX_WIDTH_WIDE }}
-        >
-          <div style={{
-            fontSize: '0.85rem',
-            color: 'rgba(255,255,255,0.5)',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: '16px'
-          }}>
-            Phase Summary
+        {/* 顶部文案区 — 滚动逐字打字 + 「」橙色高亮，完全对齐 PopupSequence caption */}
+        <div style={{
+          width: '100%',
+          padding: '0 24px 40px',
+          flexShrink: 0,
+        }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+            <p style={{
+              margin: 0,
+              color: '#fff',
+              fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
+              fontWeight: 300,
+              letterSpacing: '0.04em',
+              lineHeight: 1.7,
+            }}>
+              {parsedCaption.map((item, i) => {
+                const isRevealed = i < revealedCharCount;
+                return (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'inline',
+                      color: item.highlight ? '#FF5722' : '#fff',
+                      fontWeight: item.highlight ? 600 : 300,
+                      opacity: isRevealed ? 1 : 0,
+                      transition: 'opacity 0.4s ease-out, color 0.3s ease',
+                      whiteSpace: 'pre-wrap',
+                    }}
+                  >
+                    {item.char}
+                  </span>
+                );
+              })}
+            </p>
           </div>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '2.5rem',
-            fontWeight: '400',
-            margin: 0,
-            color: '#fff'
-          }}>
-            {title}
-          </h2>
-          <p style={{
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: '1.1rem',
-            marginTop: '16px',
-            maxWidth: '600px',
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}>
-            {content}
-          </p>
-        </motion.div>
+        </div>
 
         {/* 网格布局 */}
+        <div style={{ 
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
         <div style={{ 
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
           gap: '60px',
           width: '100%',
-          maxWidth: '1200px',
-          textAlign: 'left'
+          maxWidth: '1100px',
+          textAlign: 'left',
+          transform: 'translateX(8%)',
         }}>
           {columns.map((col, colIndex) => (
             <div key={col.id} style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
@@ -203,10 +285,10 @@ export const SummaryTextHighlightScreen = ({
                     style={{ opacity, color }}
                   >
                     <h3 style={{ 
-                      fontSize: '1.2rem', 
+                      fontSize: '1.35rem', 
                       fontWeight: 'bold', 
                       marginBottom: '20px',
-                      color: 'inherit', // 继承 motion 的 color
+                      color: 'inherit',
                       fontFamily: 'var(--font-serif)'
                     }}>
                       {group.section}
@@ -217,11 +299,11 @@ export const SummaryTextHighlightScreen = ({
                       margin: 0,
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '8px'
+                      gap: '10px'
                     }}>
                       {group.items.map((item, i) => (
                         <li key={i} style={{ 
-                          fontSize: '0.95rem', 
+                          fontSize: '1.05rem', 
                           opacity: 0.8,
                           fontFamily: 'var(--font-sans)'
                         }}>
@@ -234,6 +316,7 @@ export const SummaryTextHighlightScreen = ({
               })}
             </div>
           ))}
+        </div>
         </div>
 
         {/* 底部提示 */}

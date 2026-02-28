@@ -327,26 +327,6 @@ const IntroSection = ({ t, colors, isDark }) => (
           line4={t('about.introLine4')}
           colors={colors}
         />
-        <div style={{ marginTop: 'clamp(20px, 2.5vw, 32px)', display: 'flex', gap: '12px' }}>
-          <motion.a 
-            href="/resume.pdf" 
-            target="_blank" 
-            whileHover={{ scale: 1.03 }} 
-            whileTap={{ scale: 0.98 }}
-            style={{ 
-              padding: 'clamp(10px, 1.2vw, 13px) clamp(20px, 2.5vw, 28px)', 
-              background: colors.accent, 
-              color: isDark ? '#000' : '#fff', 
-              borderRadius: '100px', 
-              fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', 
-              fontWeight: '600', 
-              textDecoration: 'none',
-              boxShadow: isDark ? '0 4px 20px rgba(255,255,255,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
-            }}
-          >
-            {t('about.downloadResume')}
-          </motion.a>
-        </div>
       </div>
     </motion.div>
   </motion.div>

@@ -237,7 +237,7 @@
       "principles": "Design Principles",
       "logo-structure": "Logo Structure",
       "logo-focus-lens": "Logo Focus",
-      "logo-variations": "Logo Variations",
+      "logo-variations": "Wordmark",
       "color": "Color System",
       "typography": "Typography",
       "validation": "Validation",
@@ -337,7 +337,7 @@
             "content": "Diving into「key details」of the logo, showcasing the「refined considerations」and「craftsmanship」in design."
           },
           "logo-variations": {
-            "title": "Logo Variations Exploration",
+            "title": "Wordmark Design Details",
             "content": "From「wireframe」to「final form」, documenting the「design exploration」and「decision-making process」."
           },
           "color": {
@@ -349,20 +349,20 @@
             "content": "Brand color system reveal showcase."
           },
           "logo-exploration": {
-            "title": "Logo Exploration",
-            "content": "Logo variations exploration showcase."
+            "title": "Primary & Secondary Color Exploration",
+            "content": "Using visual deduction of「primary and secondary color relationships」to systematically explore the pairing boundaries and recognition intensity of brand colors in the early stages of color system development."
           },
           "typography": {
             "title": "Typography supports information expression, not style reinforcement",
-            "content": "Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities."
+            "content": "Using「weight hierarchy + layout rules」to establish clear「information priority」, maintaining「stable reading experience」across different content densities."
           },
           "validation": {
             "title": "After the system is established, validate through minimum applications",
-            "content": "These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
+            "content": "Using a「minimum viable application」strategy, to confirm the VI system's executability and stability under「real-world conditions」."
           },
           "summary": {
-            "title": "The outcome of this phase is not a 'complete' brand",
-            "content": "But a visual foundation that can support subsequent product design and continue to grow through change."
+            "title": "The outcome of this phase is not a 「complete」 brand",
+            "content": "But a visual foundation that supports「subsequent product design」and continues to grow through「change」."
           },
           "phase-closing": {
             "title": "Establishing executable specifications for logo / typography / color / layout / graphic grammar around 「VI Assets & Rules」",

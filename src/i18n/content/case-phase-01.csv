@@ -28,20 +28,20 @@ case.phases.phase-01.screens.logo-structure.title,标志结构解析,Logo Struct
 case.phases.phase-01.screens.logo-structure.content,"通过清晰的「结构分解」，展示标志设计的「内在逻辑」与「比例关系」。","Through clear「structural decomposition」, revealing the「internal logic」and「proportional relationships」of the logo design."
 case.phases.phase-01.screens.logo-focus-lens.title,标志细节聚焦,Logo Detail Focus
 case.phases.phase-01.screens.logo-focus-lens.content,"深入标志的「关键细节」，展示设计中的「精细考量」与「工艺表达」。","Diving into「key details」of the logo, showcasing the「refined considerations」and「craftsmanship」in design."
-case.phases.phase-01.screens.logo-variations.title,标志变体探索,Logo Variations Exploration
+case.phases.phase-01.screens.logo-variations.title,文字标设计细节,Wordmark Design Details
 case.phases.phase-01.screens.logo-variations.content,"从「线稿」到「成品」的演变过程，记录「设计探索」与「决策路径」。","From「wireframe」to「final form」, documenting the「design exploration」and「decision-making process」."
 case.phases.phase-01.screens.color.title,色彩体系以长期使用为前提建立,The color system is established with long-term use as the premise
 case.phases.phase-01.screens.color.content,"通过有限且明确的色彩范围，确保品牌在不同产品与场景中的统一感知，并避免因短期趋势造成视觉消耗。","Through a limited and clear color range, ensure unified brand perception across different products and scenarios, avoiding visual fatigue caused by short-term trends."
 case.phases.phase-01.screens.color-reveal.title,色彩揭示,Color Reveal
 case.phases.phase-01.screens.color-reveal.content,品牌色彩体系揭示展示。,Brand color system reveal showcase.
-case.phases.phase-01.screens.logo-exploration.title,Logo 探索,Logo Exploration
-case.phases.phase-01.screens.logo-exploration.content,Logo 变体探索展示。,Logo variations exploration showcase.
+case.phases.phase-01.screens.logo-exploration.title,主辅色探索,Primary & Secondary Color Exploration
+case.phases.phase-01.screens.logo-exploration.content,"用「主辅色关系对比」的视觉推演，在色彩体系建立初期系统探索品牌色的搭配边界与识别强度。","Using visual deduction of「primary and secondary color relationships」to systematically explore the pairing boundaries and recognition intensity of brand colors in the early stages of color system development."
 case.phases.phase-01.screens.typography.title,"字体与版式用于支撑信息表达，而非强化风格","Typography supports information expression, not style reinforcement"
-case.phases.phase-01.screens.typography.content,清晰的层级关系，使品牌在不同内容密度下都能保持稳定阅读体验。,Clear hierarchical relationships ensure the brand maintains a stable reading experience across different content densities.
+case.phases.phase-01.screens.typography.content,"用「字重层级 + 版式规则」建立清晰的「信息优先级」，使品牌在不同内容密度下保持「稳定阅读体验」。","Using「weight hierarchy + layout rules」to establish clear「information priority」, maintaining「stable reading experience」across different content densities."
 case.phases.phase-01.screens.validation.title,"在系统建立完成后，通过最小应用进行验证","After the system is established, validate through minimum applications"
-case.phases.phase-01.screens.validation.content,"这些应用并非最终形态，而是用于确认系统在真实使用场景中的可行性。","These applications are not the final form, but are used to confirm the system's feasibility in real usage scenarios."
-case.phases.phase-01.screens.summary.title,"这一阶段的成果，并不是一个「完成态」的品牌",The outcome of this phase is not a 'complete' brand
-case.phases.phase-01.screens.summary.content,而是一个能够支撑后续产品设计、并在变化中持续生长的视觉基础。,But a visual foundation that can support subsequent product design and continue to grow through change.
+case.phases.phase-01.screens.validation.content,"用「最小化应用验证」的策略，确认 VI 系统在「真实使用条件」下的可执行性与稳定性。","Using a「minimum viable application」strategy, to confirm the VI system's executability and stability under「real-world conditions」."
+case.phases.phase-01.screens.summary.title,"这一阶段的成果，并不是一个「完成态」的品牌","The outcome of this phase is not a 「complete」 brand"
+case.phases.phase-01.screens.summary.content,"而是一个能够支撑「后续产品设计」、并在「变化中持续生长」的视觉基础。","But a visual foundation that supports「subsequent product design」and continues to grow through「change」."
 case.phases.phase-01.screens.phase-closing.title,围绕「VI 资产与规则」沉淀标志 / 字体 / 色彩 / 版式 / 图形语法等可执行规范,Establishing executable specifications for logo / typography / color / layout / graphic grammar around 「VI Assets & Rules」
 case.phases.phase-01.screens.phase-closing.content,并以「统一标准」支撑多产品、多市场、多触点的规模化交付。,Supporting scalable delivery across multiple products, markets, and touchpoints with 「Unified Standards」.
 case.phases.phase-01.screens.phase-closing.summary,围绕「VI 资产与规则」沉淀标志 / 字体 / 色彩 / 版式 / 图形语法等可执行规范，并以「统一标准」支撑多产品、多市场、多触点的规模化交付。,"Establishing executable specifications for logo / typography / color / layout / graphic grammar around 「VI Assets & Rules」, supporting scalable delivery across multiple products, markets, and touchpoints with 「Unified Standards」."
