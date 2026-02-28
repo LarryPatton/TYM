@@ -29,7 +29,10 @@ export const NaturalParallaxGrid = memo(({
   paddingTop = 60,
   bgColor = '#000',
   parallaxIntensity = 0.3,
-  compactMode = false
+  compactMode = false,
+  groupScrollHeight = 320,
+  disableSticky = false,
+  maxWidth = '1800px'
 }) => {
   const containerRef = useRef(null);
   const captionRef = useRef(null);
@@ -302,12 +305,14 @@ export const NaturalParallaxGrid = memo(({
             groupIndex={groupIndex}
             totalGroups={groupsData.length}
             columns={group.columns || columns}
-            maxWidth={group.maxWidth || '1400px'}
+            maxWidth={group.maxWidth || maxWidth || '1400px'}
             gap={gap}
             rowGap={customRowGap}
             paddingTop={paddingTop}
             parallaxOffset={parallaxOffset}
             compactMode={compactMode}
+            groupScrollHeight={groupScrollHeight}
+            disableSticky={disableSticky}
           />
         ))}
       </div>
@@ -376,32 +381,33 @@ MobileGridItem.displayName = 'MobileGridItem';
 /**
  * StickyGroup - 带 sticky 效果的分组容器
  */
-const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, maxWidth, gap, rowGap, paddingTop, parallaxOffset, compactMode, aspectRatio }) => {
-  const stickyScrollHeight = totalGroups > 1 ? 320 : 100;
-  const groupSpacing = totalGroups > 1 ? '1vh' : '0';
+const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, maxWidth, gap, rowGap, paddingTop, parallaxOffset, compactMode, aspectRatio, groupScrollHeight = 320, disableSticky = false }) => {
+  const useSticky = totalGroups > 1 && !disableSticky;
+  const stickyScrollHeight = useSticky ? groupScrollHeight : 100;
+  const groupSpacing = useSticky ? '1vh' : '0';
   
   return (
     <div
       style={{
-        height: totalGroups > 1 ? `${stickyScrollHeight}vh` : 'auto',
-        minHeight: totalGroups > 1 ? undefined : '100vh',
+        height: useSticky ? `${stickyScrollHeight}vh` : 'auto',
+        minHeight: useSticky ? undefined : undefined,
         position: 'relative',
         marginBottom: groupIndex < totalGroups - 1 ? groupSpacing : '0'
       }}
     >
       <div
         style={{
-          position: totalGroups > 1 ? 'sticky' : 'relative',
-          top: totalGroups > 1 ? 0 : undefined,
-          height: totalGroups > 1 ? '100vh' : 'auto',
-          minHeight: totalGroups > 1 ? undefined : '100vh',
+          position: useSticky ? 'sticky' : 'relative',
+          top: useSticky ? 0 : undefined,
+          height: useSticky ? '100vh' : 'auto',
+          minHeight: useSticky ? undefined : undefined,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          overflow: 'hidden',
+          overflow: useSticky ? 'hidden' : 'visible',
           background: '#000',
-          padding: totalGroups > 1 ? 0 : '60px 0'
+          padding: useSticky ? 0 : '32px 16px'
         }}
       >
         <ParallaxGridGroup
@@ -414,7 +420,7 @@ const StickyGroup = memo(({ group, groupIndex, totalGroups, columns, maxWidth, g
           parallaxOffset={parallaxOffset}
           compactMode={compactMode}
           aspectRatio={aspectRatio}
-          isSticky={totalGroups > 1}
+          isSticky={useSticky}
         />
       </div>
     </div>

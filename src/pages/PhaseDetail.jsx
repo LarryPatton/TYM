@@ -861,6 +861,8 @@ const PhaseDetail = () => {
             bgColor={config.bgColor || '#000'}
             parallaxIntensity={config.parallaxIntensity || 0.3}
             compactMode={config.compactMode || false}
+            groupScrollHeight={config.groupScrollHeight || 320}
+            disableSticky={config.disableSticky || false}
           />
         );
 

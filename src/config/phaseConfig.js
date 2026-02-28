@@ -1776,11 +1776,13 @@ export const phase05Config = {
       id: 'kv-mixed-grid',
       type: 'natural-parallax-grid',
       categoryLabel: 'KV / 混合系列',
-      maxWidth: '1400px',
-      columns: 3,
-      gap: '24px',
-      paddingTop: 60,
-      parallaxIntensity: 1,
+      maxWidth: '100%',
+      columns: 6,
+      gap: '8px',
+      paddingTop: 0,
+      parallaxIntensity: 0,
+      groupScrollHeight: 120,
+      disableSticky: true,
       scrollBehavior: { sticky: false, length: 'long', intensity: 'medium' },
       groups: [
         {
