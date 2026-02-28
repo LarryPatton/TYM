@@ -151,10 +151,10 @@ const Home = () => {
     // 统一字体样式
     textStyle: {
       fontSize: 'clamp(3rem, 10vw, 8rem)',
-      fontWeight: '400',
-      letterSpacing: '-0.02em',
+      fontWeight: '300',
+      letterSpacing: '0.02em',
       textTransform: 'uppercase',
-      fontFamily: 'var(--font-sans)',
+      fontFamily: 'var(--font-serif)',
     },
   };
 
@@ -664,10 +664,6 @@ const Home = () => {
         >
           <div style={{
             ...BLINDS_CONFIG.textStyle,
-            fontFamily: 'var(--font-serif)',        // 🎯 使用优雅的衬线字体
-            fontWeight: '300',                      // 更轻的字重，符合衬线字体特点
-            letterSpacing: '0.02em',               // 稍微增加字母间距
-            fontStyle: 'normal',                    // 确保非斜体
             color: BLINDS_CONFIG.colors.textColor,
           }}>
             {t('home.sectionContact')}

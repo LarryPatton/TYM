@@ -217,7 +217,7 @@ const ServiceSection = ({
                 margin: '0 0 25px 0', 
                 fontWeight: '400',
                 color: colors.text,
-                fontFamily: 'var(--font-sans)',
+                fontFamily: 'var(--font-serif)',
                 lineHeight: 1.1,
               }}>
                 {currentService?.title}
